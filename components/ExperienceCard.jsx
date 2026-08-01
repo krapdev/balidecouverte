@@ -10,19 +10,19 @@ export default function ExperienceCard({ experience }) {
 
   return (
     <article
-      className={`group flex h-full flex-col overflow-hidden rounded border bg-page transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-[3px] hover:shadow-[0_16px_34px_-24px_rgba(15,36,24,.5)] ${
+      className={`group flex h-full flex-col overflow-hidden rounded-[18px_18px_3px_3px] border bg-surface transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_22px_44px_-28px_rgba(15,45,50,.5)] ${
         on
           ? "border-accent"
           : "border-rule hover:border-[color-mix(in_srgb,var(--accent)_55%,var(--rule))]"
       }`}
     >
-      <div className="relative aspect-[16/10] bg-immersive-deep">
+      <div className="relative aspect-[16/11] bg-immersive-deep">
         <Scene
           kind={experience.scene}
           uid={experience.id}
           className="h-full w-full"
         />
-        <span className="label absolute left-3 top-3 rounded-sm bg-lava px-2.5 py-1.5 text-pasir">
+        <span className="label absolute left-4 top-4 rounded-full bg-[color-mix(in_srgb,var(--immersive-deep)_72%,transparent)] px-3 py-1.5 text-pasir backdrop-blur-sm">
           {experience.tag}
         </span>
       </div>

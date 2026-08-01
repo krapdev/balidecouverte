@@ -47,7 +47,7 @@ export default function TripBuilder() {
   return (
     <section
       id="sur-mesure"
-      className="border-y border-rule bg-surface py-[clamp(3.5rem,10vw,6.5rem)]"
+      className="border-y border-rule bg-surface band"
     >
       <div className="shell">
         <SectionHead eyebrow="Sur-Mesure" title="Construisez votre demande.">

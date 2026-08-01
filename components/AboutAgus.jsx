@@ -1,5 +1,5 @@
 import { Leaf, Languages, Handshake } from "lucide-react";
-import { PortraitAgus } from "./Scene";
+import { PortraitAgus, Canang, Jepun } from "./Scene";
 import SectionHead from "./SectionHead";
 import Reveal from "./Reveal";
 
@@ -25,7 +25,7 @@ export default function AboutAgus() {
   return (
     <section
       id="esprit"
-      className="border-y border-rule bg-surface py-[clamp(3.5rem,10vw,6.5rem)]"
+      className="border-y border-rule bg-surface band"
     >
       <div className="shell">
         <SectionHead eyebrow="L'Esprit" title="Un Balinais, pas une agence.">
@@ -36,19 +36,21 @@ export default function AboutAgus() {
 
         <div className="grid items-start gap-[clamp(2rem,6vw,3.5rem)] md:grid-cols-[0.85fr_1.15fr]">
           <Reveal as="figure" className="m-0">
-            <div className="overflow-hidden rounded-[3px] bg-immersive shadow-[0_18px_46px_-22px_rgba(15,36,24,0.55)]">
-              <PortraitAgus className="aspect-[46/56] w-full" />
+            <div className="arch bg-immersive shadow-[0_24px_60px_-30px_rgba(15,45,50,0.55)]">
+              <PortraitAgus className="aspect-[46/58] w-full" />
             </div>
             <figcaption className="mt-3.5 border-t border-rule pt-3">
               <span className="flex items-baseline justify-between gap-4 text-faint">
                 <span className="label">Agus Yudiarta</span>
                 <span className="label">08°27&apos;S 115°26&apos;E</span>
               </span>
-              <span className="mt-2 block text-sm leading-relaxed text-soft">
-                Le damier noir et blanc, en bas de l&apos;image, est le{" "}
-                <em>poleng</em> : on le noue autour des arbres et des statues
-                pour dire l&apos;équilibre des contraires. Il revient tout au long
-                de ce site.
+              <span className="mt-2 flex items-start gap-3 text-sm leading-relaxed text-soft">
+                <Jepun size={22} tone="var(--eyebrow)" className="mt-1 shrink-0" />
+                <span>
+                  La fleur glissée derrière l&apos;oreille est un <em>jepun</em>,
+                  le frangipanier. On la porte au temple, on la dépose sur les
+                  offrandes — elle revient tout au long de ce site.
+                </span>
               </span>
             </figcaption>
           </Reveal>
@@ -78,10 +80,22 @@ export default function AboutAgus() {
                 familles qui vous accueillent, et vous gardez mon numéro pendant
                 tout le séjour.
               </p>
-              <p className="mt-4 font-display text-lg italic">— Agus</p>
+              <p className="mt-4 font-display text-xl">— Agus</p>
             </Reveal>
 
-            <Reveal delay={0.15}>
+            <Reveal delay={0.13}>
+              <div className="flex items-start gap-4 border-y border-rule py-5">
+                <Canang size={52} className="mt-0.5 shrink-0" />
+                <p className="text-sm leading-relaxed text-soft">
+                  Chaque matin, avant de prendre la route, je dépose un{" "}
+                  <em>canang sari</em> sur le tableau de bord : quelques fleurs
+                  dans un panier de feuille de palme tressée. C&apos;est trois
+                  minutes, et c&apos;est le vrai début de la journée.
+                </p>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.18}>
               <ul className="grid list-none gap-px overflow-hidden rounded border border-rule bg-rule p-0 sm:grid-cols-3">
                 {PILLARS.map(({ icon: Icon, title, text }) => (
                   <li

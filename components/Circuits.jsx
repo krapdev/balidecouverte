@@ -10,7 +10,7 @@ export default function Circuits() {
   return (
     <section
       id="circuits"
-      className="bg-immersive py-[clamp(3.5rem,10vw,6.5rem)] text-on-immersive"
+      className="bg-immersive band text-on-immersive"
     >
       <div className="shell">
         <SectionHead

@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { Star } from "lucide-react";
-import Scene from "./Scene";
+import Scene, { JepunBranch } from "./Scene";
 import { DESTINATIONS } from "@/lib/data";
 
 const rise = {
@@ -26,6 +26,8 @@ export default function Hero() {
           className="absolute inset-0 bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--immersive-deep)_55%,transparent)_0%,color-mix(in_srgb,var(--immersive-deep)_12%,transparent)_30%,color-mix(in_srgb,var(--immersive-deep)_78%,transparent)_62%,var(--immersive-deep)_100%)]"
           aria-hidden="true"
         />
+
+        <JepunBranch className="pointer-events-none absolute -top-4 right-0 z-[1] w-[min(52vw,440px)] opacity-95" />
 
         <motion.div
           className="shell relative z-10 flex min-h-[min(88vh,780px)] flex-col items-start justify-end gap-6 pb-[clamp(3rem,9vw,5.5rem)] pt-[clamp(3.5rem,12vw,7rem)]"

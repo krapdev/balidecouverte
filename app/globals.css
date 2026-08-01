@@ -3,76 +3,71 @@
 /* ============================================================
    BALI DÉCOUVERTE — Design tokens
    ------------------------------------------------------------
-   La palette vient du nawa sanga, la boussole des couleurs
-   balinaise : chaque direction a sa couleur, et on les retrouve
-   sur les offrandes, les ombrelles et les étoffes des temples.
-     nord  → bleu-noir, Wisnu     : la mer
-     ouest → jaune, Mahadewa      : le soleil, le curcuma
-     sud   → rouge, Brahma        : la brique des temples
-   Le vert des jeunes rizières et le sable volcanique complètent.
+   Registre : spa balinais haut de gamme — pierre calcaire, bambou
+   sec, teck sombre — sans perdre l'esprit d'excursion.
+   Les couleurs gardent leur origine dans le nawa sanga, la boussole
+   chromatique de l'île, mais désaturées : on cherche le calme, pas
+   l'affiche.
+     nord  → bleu de la mer (Wisnu)
+     ouest → miel et soleil (Mahadewa)
+     sud   → argile des temples (Brahma)
    ============================================================ */
 :root {
   /* Palette de marque */
-  --laut: #0b4f63; /* bleu profond de la mer */
-  --laut-deep: #063342;
-  --laut-mid: #12707f;
-  --padi: #8ba626; /* vert des jeunes rizières */
-  --padi-deep: #4a6b1f;
-  --kunyit: #f0a91c; /* curcuma, soleil */
-  --kunyit-pale: #fbe3b4;
-  --bata: #c34a2c; /* brique de temple */
-  --bata-ink: #a33a1f;
-  --pasir: #faf1e2; /* sable clair */
-  --lontar: #f2e6d0;
-  --lava: #14232a; /* sable volcanique */
+  --laut: #0f4d59; /* mer profonde, calme */
+  --laut-deep: #08333c;
+  --laut-soft: #2e7b83;
+  --padi: #7d9152; /* sauge des rizières */
+  --padi-deep: #4f6438;
+  --kunyit: #dfa441; /* miel, soleil de fin de journée */
+  --bata: #b8654a; /* argile */
+  --pasir: #f7f2e8; /* pierre calcaire */
+  --bambou: #e6d9c2; /* bambou sec, chanvre */
+  --teck: #322b22; /* teck sombre */
 
   /* Rôles sémantiques */
-  --page: #faf1e2;
-  --surface: #fdf7ec;
-  --surface-alt: #f2e6d0;
-  --rule: #e3d2b4;
-  --text: #14232a;
-  --text-soft: #4a5f66;
-  --text-faint: #8a9aa0;
-  --immersive: #0b4f63;
-  --immersive-deep: #063342;
-  --on-immersive: #faf1e2;
-  --on-immersive-soft: #a7c7cf;
-  --accent: #f0a91c;
-  --accent-hi: #ffc247;
-  --accent-ink: #14232a; /* du noir sur le jaune, jamais du blanc */
-  --tint: #fbe3b4;
-  --tint-ink: #a33a1f;
-  /* Le jaune est illisible en petit sur le sable : les eyebrows et les
-     accents typographiques passent par la brique. */
-  --eyebrow: #a33a1f;
+  --page: #f7f2e8;
+  --surface: #fdfaf3;
+  --surface-alt: #efe6d5;
+  --rule: #ddd0b8;
+  --text: #322b22;
+  --text-soft: #6b6152;
+  --text-faint: #9c9382;
+  --immersive: #0f4d59;
+  --immersive-deep: #08333c;
+  --on-immersive: #f7f2e8;
+  --on-immersive-soft: #a8c4c6;
+  --accent: #dfa441;
+  --accent-hi: #edb862;
+  --accent-ink: #2a241c; /* du teck sur le miel, jamais du blanc */
+  --eyebrow: #97482f; /* l'argile : le miel disparaît en petit corps */
+  --tint: #f3e3c8;
+  --tint-ink: #97482f;
   --whatsapp: #1f8a4c;
   --whatsapp-hi: #25b45f;
 
-  --radius: 2px;
+  --radius: 3px;
 }
 
 /* Le site suit la préférence système. Pas de sélecteur : la marque vit
    dans un seul monde chromatique, simplement décliné pour la nuit. */
 @media (prefers-color-scheme: dark) {
   :root {
-    --page: #0b2730;
-    --surface: #103440;
-    --surface-alt: #16404e;
-    --rule: #1f4a58;
-    --text: #f0e6d3;
-    --text-soft: #a3bcc3;
-    --text-faint: #6f8b93;
-    --immersive: #061d25;
-    --immersive-deep: #03141a;
-    --on-immersive: #faf1e2;
-    --on-immersive-soft: #a7c7cf;
-    --accent: #f5b731;
-    --accent-hi: #ffc85a;
-    --accent-ink: #0b2730;
-    --tint: #3a2f14;
-    --tint-ink: #f0a91c;
-    --eyebrow: #e0865c;
+    --page: #10262b;
+    --surface: #16323a;
+    --surface-alt: #1c3d45;
+    --rule: #294c54;
+    --text: #f0e8da;
+    --text-soft: #a9c0c2;
+    --text-faint: #75898c;
+    --immersive: #08262c;
+    --immersive-deep: #041a1f;
+    --accent: #e8b358;
+    --accent-hi: #f4c579;
+    --accent-ink: #10262b;
+    --eyebrow: #d98d6a;
+    --tint: #3a2f18;
+    --tint-ink: #e8b358;
     --whatsapp: #2aa85c;
     --whatsapp-hi: #35c46e;
   }
@@ -81,13 +76,14 @@
 @theme inline {
   --color-laut: var(--laut);
   --color-laut-deep: var(--laut-deep);
-  --color-laut-mid: var(--laut-mid);
+  --color-laut-soft: var(--laut-soft);
   --color-padi: var(--padi);
   --color-padi-deep: var(--padi-deep);
   --color-kunyit: var(--kunyit);
   --color-bata: var(--bata);
   --color-pasir: var(--pasir);
-  --color-lava: var(--lava);
+  --color-bambou: var(--bambou);
+  --color-teck: var(--teck);
   --color-tint: var(--tint);
   --color-tint-ink: var(--tint-ink);
 
@@ -108,9 +104,8 @@
   --color-whatsapp: var(--whatsapp);
   --color-whatsapp-hi: var(--whatsapp-hi);
 
-  --font-display: var(--font-display), "Helvetica Neue", sans-serif;
-  --font-sans: var(--font-body), Georgia, serif;
-  --font-util: var(--font-util), ui-monospace, Menlo, monospace;
+  --font-display: var(--font-display), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
@@ -121,11 +116,10 @@
   body {
     background: var(--page);
     color: var(--text);
-    /* Un serif pour le texte courant, un grotesque pour les titres :
-       l'inverse de l'habitude, et c'est ce qui donne le ton. */
-    font-family: var(--font-body), Georgia, serif;
+    font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
     font-size: 1.0625rem;
-    line-height: 1.7;
+    font-weight: 350;
+    line-height: 1.8;
     -webkit-font-smoothing: antialiased;
     /* `clip` et non `hidden` : `hidden` ferait du body un conteneur de
        défilement, ce qui empêche l'IntersectionObserver des animations
@@ -135,17 +129,13 @@
   h1,
   h2,
   h3 {
-    font-family: var(--font-display), "Helvetica Neue", sans-serif;
-    font-weight: 700;
+    /* Marcellus : des capitales romaines gravées. La pierre taillée
+       plutôt que le serif de magazine. */
+    font-family: var(--font-display), "Iowan Old Style", Georgia, serif;
+    font-weight: 400;
     text-wrap: balance;
-    line-height: 1.02;
-    letter-spacing: -0.035em;
-  }
-  h1 {
-    font-variation-settings: "wdth" 88, "opsz" 48;
-  }
-  h2 {
-    font-variation-settings: "wdth" 92, "opsz" 32;
+    line-height: 1.14;
+    letter-spacing: -0.005em;
   }
   :focus-visible {
     outline: 2px solid var(--accent);
@@ -154,36 +144,30 @@
 }
 
 @layer components {
-  /* Étiquette utilitaire : coordonnées, durées, eyebrows */
+  /* Étiquettes : capitales très espacées — le calme d'une carte de spa */
   .label {
-    font-family: var(--font-util), ui-monospace, Menlo, monospace;
+    font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
     font-size: 0.6875rem;
-    letter-spacing: 0.12em;
+    font-weight: 500;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     font-variant-numeric: tabular-nums;
-    line-height: 1.4;
+    line-height: 1.5;
   }
   .shell {
     max-width: 1180px;
     margin-inline: auto;
     padding-inline: clamp(1.25rem, 5vw, 3rem);
   }
+  /* Respiration généreuse entre les sections */
+  .band {
+    padding-block: clamp(4.5rem, 12vw, 8rem);
+  }
 
-  /* Poleng — le damier noir et blanc noué autour des arbres et des
-     statues, qui dit l'équilibre des contraires (rwa bhineda).
-     Il sert ici de couture entre les grandes sections. */
-  .poleng {
-    height: 22px;
-    background-color: #f7f2e6;
-    background-image: linear-gradient(
-        45deg,
-        #14232a 25%,
-        transparent 25% 75%,
-        #14232a 75%
-      ),
-      linear-gradient(45deg, #14232a 25%, transparent 25% 75%, #14232a 75%);
-    background-size: 22px 22px;
-    background-position: 0 0, 11px 11px;
+  /* Ouverture en arc : celle des alcôves et des portes de pavillon */
+  .arch {
+    border-radius: 50% 50% var(--radius) var(--radius) / 32% 32% 1% 1%;
+    overflow: hidden;
   }
 
   .btn {
@@ -193,23 +177,25 @@
     gap: 0.55em;
     border: 1px solid transparent;
     border-radius: var(--radius);
-    padding: 0.8em 1.35em;
-    font-family: var(--font-display), "Helvetica Neue", sans-serif;
+    padding: 0.85em 1.5em;
+    font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
     font-size: 0.875rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
+    font-weight: 500;
+    letter-spacing: 0.02em;
     line-height: 1.2;
     cursor: pointer;
     text-decoration: none;
-    transition: background-color 0.16s ease, color 0.16s ease,
-      border-color 0.16s ease, transform 0.16s ease;
+    transition: background-color 0.2s ease, color 0.2s ease,
+      border-color 0.2s ease, transform 0.2s ease;
   }
   .btn:active {
     transform: translateY(1px);
   }
   .btn-lg {
-    padding: 1em 1.7em;
-    font-size: 1rem;
+    padding: 1.15em 2em;
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.13em;
   }
   .btn-accent {
     background: var(--accent);
@@ -219,11 +205,11 @@
     background: var(--accent-hi);
   }
   .btn-outline {
-    border-color: color-mix(in srgb, currentColor 45%, transparent);
+    border-color: color-mix(in srgb, currentColor 35%, transparent);
     background: transparent;
   }
   .btn-outline:hover {
-    background: color-mix(in srgb, currentColor 12%, transparent);
+    background: color-mix(in srgb, currentColor 10%, transparent);
     border-color: currentColor;
   }
   .btn-wa {
@@ -235,20 +221,20 @@
   }
 
   .field-input {
-    font-family: var(--font-body), Georgia, serif;
+    font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
     font-size: 0.9375rem;
     color: var(--text);
     background: var(--surface);
     border: 1px solid var(--rule);
     border-radius: var(--radius);
-    padding: 0.65rem 0.8rem;
+    padding: 0.7rem 0.85rem;
     width: 100%;
     appearance: none;
   }
   select.field-input {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%238a9aa0' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%239c9382' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
     background-repeat: no-repeat;
-    background-position: right 0.75rem center;
+    background-position: right 0.8rem center;
     padding-right: 2.2rem;
   }
 }

@@ -5,7 +5,7 @@ import Reveal from "./Reveal";
 
 export default function Experiences() {
   return (
-    <section id="experiences" className="py-[clamp(3.5rem,10vw,6.5rem)]">
+    <section id="experiences" className="band">
       <div className="shell">
         <SectionHead eyebrow="Expériences" title="Coups de cœur d'Agus">
           Ajoutez celles qui vous parlent : elles alimentent votre demande de

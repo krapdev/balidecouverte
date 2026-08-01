@@ -1,4 +1,5 @@
 import { WHATSAPP_DISPLAY, WHATSAPP_NUMBER } from "@/lib/data";
+import { Canang } from "./Scene";
 
 const LINKS = [
   { href: "#esprit", label: "L'Esprit" },
@@ -12,6 +13,7 @@ export default function Footer() {
     <footer className="bg-immersive-deep pb-28 pt-[clamp(2.5rem,7vw,4rem)] text-on-immersive lg:pb-16">
       <div className="shell grid gap-8 md:grid-cols-[1.2fr_1fr_1fr]">
         <div>
+          <p className="label mb-3 text-accent">Om Swastiastu</p>
           <h3 className="mb-2 text-[1.375rem]">Bali Découverte</h3>
           <p className="text-sm text-on-immersive-soft">
             Voyages privés sur-mesure à Bali, conçus et guidés en français par
@@ -51,6 +53,7 @@ export default function Footer() {
           <p className="text-sm text-on-immersive-soft">
             Réponse sous 24 h · GMT+8
           </p>
+          <Canang size={54} className="mt-4 opacity-90" />
         </div>
       </div>
 
