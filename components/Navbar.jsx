@@ -1,0 +1,122 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { Menu, X, MessageCircle } from "lucide-react";
+import { WHATSAPP_NUMBER } from "@/lib/data";
+
+const LINKS = [
+  { href: "#esprit", label: "L'Esprit" },
+  { href: "#experiences", label: "Expériences" },
+  { href: "#circuits", label: "Circuits" },
+  { href: "#sur-mesure", label: "Sur-Mesure" },
+];
+
+function Logo() {
+  return (
+    <svg
+      viewBox="0 0 40 40"
+      fill="none"
+      className="h-9 w-9 shrink-0"
+      aria-hidden="true"
+    >
+      <circle
+        cx="20"
+        cy="20"
+        r="19"
+        stroke="currentColor"
+        strokeWidth="1"
+        opacity=".35"
+      />
+      <path d="M20 31c0-6.2 3.6-11.4 9-13.4-1 6.6-4.5 11.4-9 13.4Z" fill="#d96b43" />
+      <path d="M20 31c0-6.2-3.6-11.4-9-13.4 1 6.6 4.5 11.4 9 13.4Z" fill="currentColor" />
+      <path d="M20 31V15" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+      <path d="M13 10h14" stroke="#d96b43" strokeWidth="1.4" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export default function Navbar() {
+  const [open, setOpen] = useState(false);
+
+  // Le menu plein écran ne doit pas laisser la page défiler derrière lui.
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
+  return (
+    <header className="sticky top-0 z-50 border-b border-rule bg-[color-mix(in_srgb,var(--page)_88%,transparent)] backdrop-blur-lg backdrop-saturate-150">
+      <div className="shell flex h-[68px] items-center gap-6">
+        <a href="#top" className="mr-auto flex items-center gap-3 no-underline">
+          <Logo />
+          <span className="leading-tight">
+            <span className="block font-display text-lg font-semibold tracking-tight">
+              Bali Découverte
+            </span>
+            <span className="label block text-faint">Guide francophone</span>
+          </span>
+        </a>
+
+        <nav className="hidden gap-7 lg:flex" aria-label="Navigation principale">
+          {LINKS.map((l) => (
+            <a
+              key={l.href}
+              href={l.href}
+              className="border-b border-transparent pb-0.5 text-sm text-soft no-underline transition-colors hover:border-accent hover:text-ink"
+            >
+              {l.label}
+            </a>
+          ))}
+        </nav>
+
+        <a
+          className="btn btn-accent hidden lg:inline-flex"
+          href={`https://wa.me/${WHATSAPP_NUMBER}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <MessageCircle size={16} />
+          Contact WhatsApp
+        </a>
+
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          className="grid h-10 w-10 place-items-center rounded border border-rule text-soft lg:hidden"
+          aria-expanded={open}
+          aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
+        >
+          {open ? <X size={18} /> : <Menu size={18} />}
+        </button>
+      </div>
+
+      {open && (
+        <div className="fixed inset-x-0 top-[68px] bottom-0 z-40 border-t border-rule bg-page lg:hidden">
+          <nav className="shell flex flex-col gap-1 py-6" aria-label="Navigation mobile">
+            {LINKS.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="border-b border-rule py-4 font-display text-2xl no-underline"
+              >
+                {l.label}
+              </a>
+            ))}
+            <a
+              className="btn btn-accent btn-lg mt-6"
+              href={`https://wa.me/${WHATSAPP_NUMBER}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <MessageCircle size={18} />
+              Contact WhatsApp direct
+            </a>
+          </nav>
+        </div>
+      )}
+    </header>
+  );
+}

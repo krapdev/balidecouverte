@@ -1,0 +1,245 @@
+"use client";
+
+import { useMemo } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { X, Minus, Plus, MessageSquare, Send } from "lucide-react";
+import { useTrip } from "@/lib/trip-store";
+import { buildMessage, whatsappUrl } from "@/lib/whatsapp";
+import { DURATIONS, STYLES, WHATSAPP_DISPLAY, monthOptions } from "@/lib/data";
+import SectionHead from "./SectionHead";
+
+function Counter({ label, field, value, onStep }) {
+  return (
+    <div className="flex flex-col gap-1.5">
+      <span className="label text-soft">{label}</span>
+      <div className="flex items-center gap-2">
+        <button
+          type="button"
+          onClick={() => onStep(field, -1)}
+          className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded border border-rule bg-surface text-soft transition-colors hover:border-accent hover:text-accent"
+          aria-label={`Retirer un ${label.toLowerCase().replace(/s$/, "")}`}
+        >
+          <Minus size={15} />
+        </button>
+        <output className="min-w-[2.4ch] text-center font-util text-sm tabular-nums">
+          {value}
+        </output>
+        <button
+          type="button"
+          onClick={() => onStep(field, 1)}
+          className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded border border-rule bg-surface text-soft transition-colors hover:border-accent hover:text-accent"
+          aria-label={`Ajouter un ${label.toLowerCase().replace(/s$/, "")}`}
+        >
+          <Plus size={15} />
+        </button>
+        <span className="ml-0.5 text-sm text-soft">{label.toLowerCase()}</span>
+      </div>
+    </div>
+  );
+}
+
+export default function TripBuilder() {
+  const trip = useTrip();
+  const months = useMemo(() => monthOptions(), []);
+  const message = buildMessage(trip);
+  const href = whatsappUrl(message);
+
+  return (
+    <section
+      id="sur-mesure"
+      className="border-y border-rule bg-surface py-[clamp(3.5rem,10vw,6.5rem)]"
+    >
+      <div className="shell">
+        <SectionHead eyebrow="Sur-Mesure" title="Construisez votre demande.">
+          Quatre questions, et votre message part sur le WhatsApp d&apos;Agus, déjà
+          rédigé. Il répond sous 24 h, en français.
+        </SectionHead>
+
+        <div className="grid items-start gap-[clamp(1.75rem,4vw,2.5rem)] lg:grid-cols-[1.05fr_0.95fr]">
+          {/* ---------- Colonne gauche : les choix ---------- */}
+          <div className="rounded border border-rule bg-page p-[clamp(1.25rem,3.5vw,1.85rem)]">
+            <p className="label mb-4 font-sans font-bold tracking-[0.06em] text-faint">
+              1 — Vos expériences{" "}
+              <span className="text-accent">({trip.count})</span>
+            </p>
+
+            <div className="mb-6 flex flex-col">
+              {trip.count === 0 ? (
+                <p className="border-y border-dashed border-rule py-4 text-sm text-faint">
+                  Aucune expérience pour l&apos;instant — remontez au catalogue, ou
+                  envoyez votre demande telle quelle : Agus vous proposera un
+                  itinéraire complet.
+                </p>
+              ) : (
+                <AnimatePresence initial={false}>
+                  {trip.selected.map((e, i) => (
+                    <motion.div
+                      key={e.id}
+                      layout
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.22 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3.5 border-b border-rule py-3 first:border-t-0">
+                        <span className="font-util text-[0.6875rem] tabular-nums text-accent">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <span>
+                          <span className="block text-sm font-semibold leading-snug">
+                            {e.title}
+                          </span>
+                          <span className="label text-faint">
+                            {e.place} · {e.duration}
+                          </span>
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => trip.removeExperience(e.id)}
+                          className="grid place-items-center rounded-sm p-1 text-faint transition-colors hover:text-accent"
+                          aria-label={`Retirer ${e.title}`}
+                        >
+                          <X size={16} />
+                        </button>
+                      </div>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              )}
+            </div>
+
+            <p className="label mb-4 font-sans font-bold tracking-[0.06em] text-faint">
+              2 — Votre voyage
+            </p>
+
+            <div className="grid gap-4.5 sm:grid-cols-2">
+              <div className="flex flex-col gap-1.5">
+                <label className="label text-soft" htmlFor="month">
+                  Mois de départ
+                </label>
+                <select
+                  id="month"
+                  className="field-input"
+                  value={trip.month}
+                  onChange={(e) => trip.setField("month", e.target.value)}
+                >
+                  {months.map((m) => (
+                    <option key={m}>{m}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label className="label text-soft" htmlFor="duration">
+                  Durée estimée
+                </label>
+                <select
+                  id="duration"
+                  className="field-input"
+                  value={trip.duration}
+                  onChange={(e) => trip.setField("duration", e.target.value)}
+                >
+                  {DURATIONS.map((d) => (
+                    <option key={d}>{d}</option>
+                  ))}
+                </select>
+              </div>
+
+              <Counter
+                label="Adultes"
+                field="adults"
+                value={trip.adults}
+                onStep={trip.stepTraveller}
+              />
+              <Counter
+                label="Enfants"
+                field="children"
+                value={trip.children}
+                onStep={trip.stepTraveller}
+              />
+
+              <fieldset className="m-0 border-0 p-0 sm:col-span-2">
+                <legend className="label mb-1.5 text-soft">
+                  Style recherché
+                </legend>
+                <div className="flex flex-wrap gap-2">
+                  {STYLES.map((s) => {
+                    const on = trip.styles.includes(s);
+                    return (
+                      <button
+                        key={s}
+                        type="button"
+                        aria-pressed={on}
+                        onClick={() => trip.toggleStyle(s)}
+                        className={`rounded-full border px-4 py-2 text-sm transition-colors ${
+                          on
+                            ? "border-accent bg-clay font-semibold text-terracotta-deep dark:text-accent"
+                            : "border-rule bg-surface hover:border-faint"
+                        }`}
+                      >
+                        {s}
+                      </button>
+                    );
+                  })}
+                </div>
+              </fieldset>
+
+              <div className="flex flex-col gap-1.5 sm:col-span-2">
+                <label className="label text-soft" htmlFor="name">
+                  Votre prénom{" "}
+                  <span className="font-sans normal-case tracking-normal text-faint">
+                    (facultatif)
+                  </span>
+                </label>
+                <input
+                  id="name"
+                  type="text"
+                  className="field-input"
+                  placeholder="Ex. Camille"
+                  autoComplete="given-name"
+                  value={trip.name}
+                  onChange={(e) => trip.setField("name", e.target.value.trimStart())}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* ---------- Colonne droite : le message ---------- */}
+          <div className="flex flex-col gap-4 lg:sticky lg:top-[92px]">
+            <p className="label font-sans font-bold tracking-[0.06em] text-faint">
+              3 — Votre message, prêt à envoyer
+            </p>
+
+            {/* Fond réglé comme une page de carnet */}
+            <div className="rounded border border-rule bg-surface bg-[linear-gradient(to_bottom,transparent_27px,color-mix(in_srgb,var(--rule)_45%,transparent)_27px,transparent_28px)] bg-[length:100%_28px] px-5 pb-6 pt-5">
+              <div className="mb-3.5 flex items-center gap-2.5 text-faint">
+                <MessageSquare size={15} strokeWidth={1.7} />
+                <span className="label">
+                  Aperçu — WhatsApp · {WHATSAPP_DISPLAY}
+                </span>
+              </div>
+              <pre className="m-0 max-h-[340px] overflow-y-auto whitespace-pre-wrap break-words font-util text-sm leading-[28px]">
+                {message}
+              </pre>
+            </div>
+
+            <a
+              className="btn btn-wa btn-lg w-full"
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Send size={18} />
+              Envoyer ma demande à Agus
+            </a>
+            <p className="text-center text-[0.6875rem] text-faint">
+              Ouvre WhatsApp avec le message pré-rempli. Vous relisez avant
+              d&apos;envoyer — aucun engagement.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

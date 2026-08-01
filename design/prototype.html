@@ -1,0 +1,1135 @@
+<title>Bali Découverte — Maquette de design</title>
+
+<style>
+  /* ============================================================
+     BALI DÉCOUVERTE — Design tokens
+     Métaphore : carnet de route. Rail d'itinéraire, panneaux
+     jungle immersifs alternant avec surfaces sable de lecture.
+     ============================================================ */
+  :root {
+    /* Palette client */
+    --jungle:      #1c3a27;
+    --canopy:      #0f2418;
+    --sand:        #f4efe6;
+    --terracotta:  #d96b43;
+    --ink:         #1a1a1a;
+
+    /* Dérivés — neutres biaisés vert, jamais de gris pur */
+    --lichen:      #8a9b7a;
+    --moss:        #2f5540;
+    --sand-deep:   #e8dfd0;
+    --sand-line:   #d9cdb8;
+    --clay-soft:   #f0d9cc;
+    --terracotta-deep: #b8532f;
+
+    /* Rôles */
+    --page:        var(--sand);
+    --surface:     #fbf8f2;
+    --surface-alt: var(--sand-deep);
+    --rule:        var(--sand-line);
+    --text:        var(--ink);
+    --text-soft:   #5a6558;
+    --text-faint:  #8a9184;
+    --immersive:   var(--jungle);
+    --immersive-2: var(--canopy);
+    --on-immersive:      #f4efe6;
+    --on-immersive-soft: #b7c4b1;
+    --accent:      var(--terracotta);
+    --accent-ink:  #ffffff;
+    --whatsapp:    #1f8a4c;
+    --whatsapp-hi: #25b45f;
+
+    /* Typographie */
+    --display: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", "URW Palladio L", Georgia, serif;
+    --body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --util: ui-monospace, "SF Mono", "Cascadia Mono", "Roboto Mono", Menlo, Consolas, monospace;
+
+    /* Échelle de type */
+    --t-xs:   0.6875rem;
+    --t-sm:   0.8125rem;
+    --t-base: 1rem;
+    --t-lg:   1.125rem;
+    --t-xl:   1.375rem;
+    --t-2xl:  1.75rem;
+    --t-3xl:  2.375rem;
+    --t-4xl:  clamp(2.5rem, 8.5vw, 4.75rem);
+
+    --shell: 1180px;
+    --pad: clamp(1.25rem, 5vw, 3rem);
+    --radius: 4px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --page:        #101d16;
+      --surface:     #16281d;
+      --surface-alt: #1c3225;
+      --rule:        #2b4634;
+      --text:        #eae3d6;
+      --text-soft:   #a8b6a4;
+      --text-faint:  #7d8b79;
+      --immersive:   #0d1a12;
+      --immersive-2: #081109;
+      --on-immersive:      #f4efe6;
+      --on-immersive-soft: #a2b39c;
+      --accent:      #e07f57;
+      --accent-ink:  #17110d;
+      --clay-soft:   #2e2019;
+      --sand-line:   #2b4634;
+      --whatsapp:    #2aa85c;
+      --whatsapp-hi: #35c46e;
+    }
+  }
+  :root[data-theme="dark"] {
+    --page:        #101d16;
+    --surface:     #16281d;
+    --surface-alt: #1c3225;
+    --rule:        #2b4634;
+    --text:        #eae3d6;
+    --text-soft:   #a8b6a4;
+    --text-faint:  #7d8b79;
+    --immersive:   #0d1a12;
+    --immersive-2: #081109;
+    --on-immersive:      #f4efe6;
+    --on-immersive-soft: #a2b39c;
+    --accent:      #e07f57;
+    --accent-ink:  #17110d;
+    --clay-soft:   #2e2019;
+    --sand-line:   #2b4634;
+    --whatsapp:    #2aa85c;
+    --whatsapp-hi: #35c46e;
+  }
+  :root[data-theme="light"] {
+    --page:        #f4efe6;
+    --surface:     #fbf8f2;
+    --surface-alt: #e8dfd0;
+    --rule:        #d9cdb8;
+    --text:        #1a1a1a;
+    --text-soft:   #5a6558;
+    --text-faint:  #8a9184;
+    --immersive:   #1c3a27;
+    --immersive-2: #0f2418;
+    --on-immersive:      #f4efe6;
+    --on-immersive-soft: #b7c4b1;
+    --accent:      #d96b43;
+    --accent-ink:  #ffffff;
+    --clay-soft:   #f0d9cc;
+    --sand-line:   #d9cdb8;
+    --whatsapp:    #1f8a4c;
+    --whatsapp-hi: #25b45f;
+  }
+
+  /* ---------- Base ---------- */
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--page);
+    color: var(--text);
+    font-family: var(--body);
+    font-size: var(--t-base);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    /* `clip` et non `hidden` : `hidden` ferait du body un conteneur de
+       défilement et l'IntersectionObserver des révélations ne se
+       déclencherait jamais. */
+    overflow-x: clip;
+  }
+  h1, h2, h3 { font-family: var(--display); font-weight: 600; text-wrap: balance; margin: 0; line-height: 1.1; letter-spacing: -0.015em; }
+  p { margin: 0; }
+  img, svg { max-width: 100%; display: block; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+  button { font: inherit; color: inherit; }
+
+  .shell { max-width: var(--shell); margin-inline: auto; padding-inline: var(--pad); }
+
+  /* Étiquette utilitaire — coordonnées, durées, eyebrows */
+  .label {
+    font-family: var(--util);
+    font-size: var(--t-xs);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- Boutons ---------- */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.55em;
+    border: 1px solid transparent; border-radius: var(--radius);
+    padding: 0.85em 1.4em;
+    font-size: var(--t-sm); font-weight: 600; letter-spacing: 0.01em;
+    cursor: pointer; text-decoration: none;
+    transition: background-color .18s ease, color .18s ease, border-color .18s ease, transform .18s ease;
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn-accent { background: var(--accent); color: var(--accent-ink); }
+  .btn-accent:hover { background: var(--terracotta-deep); }
+  .btn-outline { border-color: currentColor; background: transparent; }
+  .btn-outline:hover { background: color-mix(in srgb, currentColor 10%, transparent); }
+  .btn-wa { background: var(--whatsapp); color: #fff; }
+  .btn-wa:hover { background: var(--whatsapp-hi); }
+  .btn-lg { padding: 1.05em 1.8em; font-size: var(--t-base); }
+
+  /* ============================================================
+     NAVBAR
+     ============================================================ */
+  .nav {
+    position: sticky; top: 0; z-index: 60;
+    background: color-mix(in srgb, var(--page) 88%, transparent);
+    backdrop-filter: blur(14px) saturate(1.2);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-in { display: flex; align-items: center; gap: 1.5rem; height: 68px; }
+  .brand { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; margin-right: auto; }
+  .brand-mark { width: 34px; height: 34px; flex: none; }
+  .brand-name { font-family: var(--display); font-size: var(--t-lg); font-weight: 600; letter-spacing: -0.01em; line-height: 1.05; }
+  .brand-sub { font-family: var(--util); font-size: 0.625rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-faint); }
+  .nav-links { display: none; gap: 1.6rem; }
+  .nav-links a {
+    text-decoration: none; font-size: var(--t-sm); color: var(--text-soft);
+    padding-bottom: 2px; border-bottom: 1px solid transparent; transition: color .18s, border-color .18s;
+  }
+  .nav-links a:hover { color: var(--text); border-color: var(--accent); }
+  .nav-wa { display: none; }
+  .theme-toggle {
+    background: none; border: 1px solid var(--rule); border-radius: var(--radius);
+    width: 38px; height: 38px; display: grid; place-items: center; cursor: pointer; color: var(--text-soft);
+  }
+  .theme-toggle:hover { color: var(--text); border-color: var(--text-faint); }
+  @media (min-width: 900px) {
+    .nav-links { display: flex; }
+    .nav-wa { display: inline-flex; }
+  }
+
+  /* ============================================================
+     HERO — panneau immersif jungle
+     ============================================================ */
+  .hero { position: relative; background: var(--immersive-2); color: var(--on-immersive); overflow: hidden; }
+  .hero-scene { position: absolute; inset: 0; }
+  .hero-scene svg { width: 100%; height: 100%; object-fit: cover; }
+  .hero-veil {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to bottom, color-mix(in srgb, var(--immersive-2) 80%, transparent) 0%, color-mix(in srgb, var(--immersive-2) 30%, transparent) 38%, color-mix(in srgb, var(--immersive-2) 92%, transparent) 100%);
+  }
+  .hero-in {
+    position: relative; z-index: 2;
+    padding-block: clamp(3.5rem, 12vw, 7rem) clamp(3rem, 9vw, 5.5rem);
+    display: flex; flex-direction: column; gap: 1.6rem; align-items: flex-start;
+    min-height: min(88vh, 780px); justify-content: flex-end;
+  }
+  .hero-eyebrow { color: var(--on-immersive-soft); display: flex; align-items: center; gap: 0.7rem; }
+  .hero-eyebrow::before { content: ""; width: 34px; height: 1px; background: var(--accent); }
+  .hero h1 { font-size: var(--t-4xl); max-width: 15ch; letter-spacing: -0.03em; }
+  .hero h1 em { font-style: italic; color: var(--accent); }
+  .hero-sub { font-size: var(--t-lg); color: var(--on-immersive-soft); max-width: 46ch; line-height: 1.55; }
+  .hero-cta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.4rem; }
+  .hero-trust {
+    display: flex; align-items: center; gap: 0.85rem; flex-wrap: wrap;
+    margin-top: 1rem; padding-top: 1.4rem; border-top: 1px solid color-mix(in srgb, var(--on-immersive) 18%, transparent);
+    width: 100%;
+  }
+  .stars { display: inline-flex; gap: 2px; color: var(--accent); }
+  .hero-trust-text { font-size: var(--t-sm); color: var(--on-immersive-soft); }
+  .hero-trust-text b { color: var(--on-immersive); font-weight: 600; }
+
+  /* Bandeau défilant — le fil d'itinéraire */
+  .ticker {
+    background: var(--immersive); color: var(--on-immersive-soft);
+    border-block: 1px solid color-mix(in srgb, var(--on-immersive) 12%, transparent);
+    overflow: hidden; padding-block: 0.75rem;
+  }
+  .ticker-track { display: flex; gap: 3rem; width: max-content; animation: drift 42s linear infinite; }
+  .ticker-track span { display: inline-flex; align-items: center; gap: 0.75rem; white-space: nowrap; }
+  .ticker-track span::after { content: "◦"; color: var(--accent); }
+  @keyframes drift { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) {
+    .ticker-track { animation: none; }
+  }
+
+  /* ============================================================
+     SECTIONS — rythme commun
+     ============================================================ */
+  .band { padding-block: clamp(3.5rem, 10vw, 6.5rem); }
+  .band-surface { background: var(--surface); border-block: 1px solid var(--rule); }
+  .band-immersive { background: var(--immersive); color: var(--on-immersive); }
+
+  .sec-head { display: flex; flex-direction: column; gap: 0.9rem; margin-bottom: clamp(2rem, 5vw, 3.25rem); max-width: 62ch; }
+  .sec-eyebrow { color: var(--accent); display: flex; align-items: center; gap: 0.7rem; }
+  .sec-eyebrow::before { content: ""; width: 26px; height: 1px; background: currentColor; }
+  .sec-head h2 { font-size: clamp(1.9rem, 5.2vw, var(--t-3xl)); }
+  .sec-head p { color: var(--text-soft); font-size: var(--t-lg); line-height: 1.6; }
+  .band-immersive .sec-head p { color: var(--on-immersive-soft); }
+
+  /* ============================================================
+     AGUS — portrait + piliers
+     ============================================================ */
+  .agus-grid { display: grid; gap: clamp(2rem, 6vw, 3.5rem); align-items: start; }
+  @media (min-width: 880px) { .agus-grid { grid-template-columns: 0.85fr 1.15fr; } }
+
+  .portrait-frame { position: relative; }
+  .portrait {
+    border-radius: 3px; overflow: hidden; background: var(--immersive);
+    box-shadow: 0 18px 46px -22px rgba(15, 36, 24, 0.55);
+  }
+  .portrait-cap {
+    display: flex; justify-content: space-between; gap: 1rem; align-items: baseline;
+    margin-top: 0.85rem; color: var(--text-faint); border-top: 1px solid var(--rule); padding-top: 0.7rem;
+  }
+  .agus-body { display: flex; flex-direction: column; gap: 1.5rem; }
+  .agus-quote {
+    text-wrap: pretty;
+    font-family: var(--display); font-size: clamp(1.25rem, 3.6vw, 1.6rem); line-height: 1.4;
+    border-left: 2px solid var(--accent); padding-left: 1.15rem; font-style: italic;
+  }
+  .agus-body > p { color: var(--text-soft); max-width: 62ch; }
+  .agus-sign { font-family: var(--display); font-size: var(--t-lg); font-style: italic; color: var(--text); }
+
+  .pillars { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: var(--radius); overflow: hidden; }
+  @media (min-width: 620px) { .pillars { grid-template-columns: repeat(3, 1fr); } }
+  .pillar { background: var(--page); padding: 1.4rem 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; }
+  .pillar-icon { color: var(--accent); }
+  .pillar h3 { font-size: var(--t-base); font-family: var(--body); font-weight: 700; letter-spacing: 0; }
+  .pillar p { font-size: var(--t-sm); color: var(--text-soft); line-height: 1.55; }
+
+  /* ============================================================
+     EXPÉRIENCES — cartes scènes
+     ============================================================ */
+  .exp-grid { display: grid; gap: 1.5rem; }
+  @media (min-width: 720px) { .exp-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .exp-card {
+    position: relative; display: flex; flex-direction: column;
+    background: var(--page); border: 1px solid var(--rule); border-radius: var(--radius);
+    overflow: hidden; transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+  }
+  .exp-card:hover { border-color: color-mix(in srgb, var(--accent) 55%, var(--rule)); transform: translateY(-3px); box-shadow: 0 16px 34px -24px rgba(15,36,24,.5); }
+  .exp-card[data-selected="true"] { border-color: var(--accent); }
+  .exp-scene { position: relative; aspect-ratio: 16 / 10; background: var(--immersive-2); }
+  .exp-scene svg { width: 100%; height: 100%; }
+  .exp-badge {
+    position: absolute; top: 0.75rem; left: 0.75rem;
+    background: color-mix(in srgb, var(--canopy) 78%, transparent); color: #f4efe6;
+    backdrop-filter: blur(6px); padding: 0.35rem 0.6rem; border-radius: 2px;
+  }
+  .exp-body { padding: 1.15rem 1.15rem 1.25rem; display: flex; flex-direction: column; gap: 0.7rem; flex: 1; }
+  .exp-meta { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; color: var(--text-faint); }
+  .exp-meta span { display: inline-flex; align-items: center; gap: 0.35rem; }
+  .exp-card h3 { font-size: var(--t-xl); }
+  .exp-card p { font-size: var(--t-sm); color: var(--text-soft); line-height: 1.6; flex: 1; }
+  .exp-foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-top: 0.85rem; border-top: 1px solid var(--rule); }
+  .exp-price { font-family: var(--util); font-size: var(--t-sm); color: var(--text); font-variant-numeric: tabular-nums; }
+  .exp-price small { color: var(--text-faint); font-size: var(--t-xs); }
+  .add-btn { white-space: nowrap; }
+  .exp-card[data-selected="true"] .add-btn { background: var(--moss); color: #f4efe6; border-color: var(--moss); }
+  @media (prefers-color-scheme: dark) { .exp-card[data-selected="true"] .add-btn { background: var(--lichen); color: #10201a; border-color: var(--lichen); } }
+  :root[data-theme="dark"] .exp-card[data-selected="true"] .add-btn { background: var(--lichen); color: #10201a; border-color: var(--lichen); }
+
+  /* ============================================================
+     CIRCUITS — rail d'itinéraire
+     ============================================================ */
+  .route { display: grid; gap: 0; position: relative; }
+  .route-step {
+    display: grid; grid-template-columns: auto 1fr; gap: 1.15rem;
+    padding-bottom: 2.25rem; position: relative;
+  }
+  .route-rail { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+  .route-dot {
+    width: 30px; height: 30px; border-radius: 50%; flex: none;
+    border: 1px solid color-mix(in srgb, var(--on-immersive) 35%, transparent);
+    display: grid; place-items: center;
+    font-family: var(--util); font-size: var(--t-xs); color: var(--on-immersive);
+    background: var(--immersive-2);
+  }
+  .route-step:last-child .route-line { display: none; }
+  .route-line { width: 1px; flex: 1; background: linear-gradient(to bottom, color-mix(in srgb, var(--on-immersive) 30%, transparent), color-mix(in srgb, var(--on-immersive) 8%, transparent)); }
+  .route-body { padding-bottom: 0.4rem; }
+  .route-body h3 { font-size: var(--t-xl); margin-bottom: 0.35rem; }
+  .route-body .label { color: var(--accent); display: block; margin-bottom: 0.5rem; }
+  .route-body p { color: var(--on-immersive-soft); font-size: var(--t-sm); max-width: 58ch; line-height: 1.6; }
+
+  /* ============================================================
+     CONFIGURATEUR
+     ============================================================ */
+  .builder { display: grid; gap: clamp(1.75rem, 4vw, 2.5rem); align-items: start; }
+  @media (min-width: 960px) { .builder { grid-template-columns: 1.05fr 0.95fr; } }
+
+  .panel {
+    background: var(--page); border: 1px solid var(--rule); border-radius: var(--radius);
+    padding: clamp(1.25rem, 3.5vw, 1.85rem);
+  }
+  .panel-title { font-family: var(--body); font-size: var(--t-sm); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 1.15rem; }
+
+  .cart { display: flex; flex-direction: column; gap: 0; margin-bottom: 1.5rem; }
+  .cart-empty { color: var(--text-faint); font-size: var(--t-sm); padding: 1.1rem 0; border-top: 1px dashed var(--rule); border-bottom: 1px dashed var(--rule); }
+  .cart-item {
+    display: grid; grid-template-columns: auto 1fr auto; gap: 0.85rem; align-items: center;
+    padding: 0.8rem 0; border-bottom: 1px solid var(--rule);
+  }
+  .cart-item:first-child { border-top: 1px solid var(--rule); }
+  .cart-num { font-family: var(--util); font-size: var(--t-xs); color: var(--accent); }
+  .cart-name { font-size: var(--t-sm); font-weight: 600; line-height: 1.35; }
+  .cart-loc { font-family: var(--util); font-size: var(--t-xs); color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.1em; }
+  .cart-remove { background: none; border: none; cursor: pointer; color: var(--text-faint); padding: 4px; display: grid; place-items: center; border-radius: 2px; }
+  .cart-remove:hover { color: var(--accent); }
+
+  .fields { display: grid; gap: 1.15rem; }
+  @media (min-width: 560px) { .fields { grid-template-columns: 1fr 1fr; } }
+  .field { display: flex; flex-direction: column; gap: 0.4rem; }
+  .field-wide { grid-column: 1 / -1; }
+  .field label { font-size: var(--t-xs); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-soft); }
+  .field select, .field input {
+    font: inherit; font-size: var(--t-sm); color: var(--text);
+    background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius);
+    padding: 0.7rem 0.8rem; width: 100%;
+    appearance: none;
+  }
+  .field select {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%238a9184' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+    background-repeat: no-repeat; background-position: right 0.75rem center; padding-right: 2.2rem;
+  }
+  .counter { display: flex; align-items: center; gap: 0.5rem; }
+  .counter button {
+    width: 34px; height: 34px; flex: none; border: 1px solid var(--rule); background: var(--surface);
+    border-radius: var(--radius); cursor: pointer; display: grid; place-items: center; color: var(--text-soft);
+  }
+  .counter button:hover { border-color: var(--accent); color: var(--accent); }
+  .counter output { font-family: var(--util); font-size: var(--t-sm); min-width: 2.4ch; text-align: center; font-variant-numeric: tabular-nums; }
+  .counter .counter-label { font-size: var(--t-sm); color: var(--text-soft); margin-left: 0.1rem; }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag {
+    border: 1px solid var(--rule); background: var(--surface); border-radius: 100px;
+    padding: 0.45rem 0.95rem; font-size: var(--t-sm); cursor: pointer;
+    transition: background-color .16s, border-color .16s, color .16s;
+  }
+  .tag:hover { border-color: var(--text-faint); }
+  .tag[aria-pressed="true"] { background: var(--clay-soft); border-color: var(--accent); color: var(--terracotta-deep); font-weight: 600; }
+  :root[data-theme="dark"] .tag[aria-pressed="true"] { color: var(--accent); }
+  @media (prefers-color-scheme: dark) { .tag[aria-pressed="true"] { color: var(--accent); } }
+
+  /* Aperçu du message — papier carnet */
+  .preview-wrap { position: sticky; top: 92px; display: flex; flex-direction: column; gap: 1rem; }
+  .preview {
+    background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius);
+    padding: 1.25rem 1.25rem 1.4rem;
+    background-image: linear-gradient(to bottom, transparent 27px, color-mix(in srgb, var(--rule) 45%, transparent) 27px, transparent 28px);
+    background-size: 100% 28px;
+  }
+  .preview-head { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.9rem; color: var(--text-faint); }
+  .preview-body {
+    font-family: var(--util); font-size: var(--t-sm); line-height: 28px;
+    white-space: pre-wrap; word-break: break-word; margin: 0; color: var(--text);
+    max-height: 340px; overflow-y: auto;
+  }
+  .send-note { font-size: var(--t-xs); color: var(--text-faint); text-align: center; }
+  .btn-send { width: 100%; }
+
+  /* ============================================================
+     PIED DE PAGE + BARRE MOBILE
+     ============================================================ */
+  .footer { background: var(--immersive-2); color: var(--on-immersive); padding-block: clamp(2.5rem, 7vw, 4rem) 6.5rem; }
+  .footer-in { display: grid; gap: 2rem; }
+  @media (min-width: 760px) { .footer-in { grid-template-columns: 1.2fr 1fr 1fr; } }
+  .footer h3 { font-size: var(--t-xl); margin-bottom: 0.5rem; }
+  .footer p, .footer a { color: var(--on-immersive-soft); font-size: var(--t-sm); text-decoration: none; }
+  .footer a:hover { color: var(--on-immersive); }
+  .footer-col { display: flex; flex-direction: column; gap: 0.5rem; }
+  .footer-col .label { color: var(--accent); margin-bottom: 0.3rem; }
+  .footer-base { margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid color-mix(in srgb, var(--on-immersive) 15%, transparent); font-size: var(--t-xs); color: var(--on-immersive-soft); display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: space-between; }
+  @media (min-width: 760px) { .footer-base { margin-top: 3rem; } }
+
+  .mobile-bar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 70;
+    background: color-mix(in srgb, var(--page) 94%, transparent);
+    backdrop-filter: blur(14px);
+    border-top: 1px solid var(--rule);
+    padding: 0.7rem var(--pad) calc(0.7rem + env(safe-area-inset-bottom, 0px));
+    display: flex; align-items: center; gap: 0.85rem;
+    transform: translateY(120%); transition: transform .28s cubic-bezier(.4,0,.2,1);
+  }
+  .mobile-bar[data-visible="true"] { transform: translateY(0); }
+  .mobile-count { font-family: var(--util); font-size: var(--t-xs); color: var(--text-soft); line-height: 1.3; }
+  .mobile-count b { display: block; font-family: var(--body); font-size: var(--t-base); color: var(--text); font-weight: 700; }
+  .mobile-bar .btn { margin-left: auto; }
+  @media (min-width: 960px) { .mobile-bar { display: none; } }
+
+  /* Révélation au scroll */
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.7,.3,1); }
+  .reveal[data-in="true"] { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    * { scroll-behavior: auto !important; }
+  }
+  html { scroll-behavior: smooth; }
+</style>
+
+<!-- ============================ NAVBAR ============================ -->
+<header class="nav">
+  <div class="shell nav-in">
+    <a class="brand" href="#top">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1" opacity=".35"/>
+        <path d="M20 31c0-6.2 3.6-11.4 9-13.4-1 6.6-4.5 11.4-9 13.4Z" fill="#d96b43"/>
+        <path d="M20 31c0-6.2-3.6-11.4-9-13.4 1 6.6 4.5 11.4 9 13.4Z" fill="currentColor"/>
+        <path d="M20 31V15" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        <path d="M13 10h14" stroke="#d96b43" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+      <span>
+        <span class="brand-name">Bali Découverte</span><br>
+        <span class="brand-sub">Guide francophone</span>
+      </span>
+    </a>
+    <nav class="nav-links" aria-label="Navigation principale">
+      <a href="#esprit">L'Esprit</a>
+      <a href="#experiences">Expériences</a>
+      <a href="#circuits">Circuits</a>
+      <a href="#sur-mesure">Sur-Mesure</a>
+    </nav>
+    <a class="btn btn-accent nav-wa" href="https://wa.me/628123688936" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1s-.5-.2-.7.1-.8 1-.9 1.2-.3.2-.6.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.6-2c-.2-.4 0-.5.1-.7l.5-.6.3-.5v-.5l-.9-2.2c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.5 3.5 0 0 0-1.1 2.6A6.1 6.1 0 0 0 7.3 12a13.9 13.9 0 0 0 5.3 4.7c2.5 1 2.5.7 3 .6a3.2 3.2 0 0 0 2.1-1.4 2.6 2.6 0 0 0 .2-1.5Z"/><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .9.9-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg>
+      Contact WhatsApp
+    </a>
+    <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- ============================ HERO ============================ -->
+<section class="hero" id="top">
+  <div class="hero-scene" id="heroScene" aria-hidden="true"></div>
+  <div class="hero-veil" aria-hidden="true"></div>
+  <div class="shell hero-in">
+    <p class="label hero-eyebrow">Sidemen · Munduk · Est de Bali</p>
+    <h1>Bali loin des foules. Votre guide privé <em>francophone</em> local.</h1>
+    <p class="hero-sub">Circuits 100 % sur-mesure, authenticité garantie et 0 intermédiaire. Vous échangez directement avec Agus, guide balinais indépendant.</p>
+    <div class="hero-cta">
+      <a class="btn btn-accent btn-lg" href="#sur-mesure">Créer mon voyage sur-mesure</a>
+      <a class="btn btn-outline btn-lg" href="#experiences" style="color: var(--on-immersive)">Voir les expériences</a>
+    </div>
+    <div class="hero-trust">
+      <span class="stars" aria-hidden="true">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1Z"/></svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1Z"/></svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1Z"/></svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1Z"/></svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1Z"/></svg>
+      </span>
+      <p class="hero-trust-text"><b>4,9 / 5</b> — plus de 200 voyageurs francophones accompagnés depuis 2016.</p>
+    </div>
+  </div>
+</section>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track" id="ticker"></div>
+</div>
+
+<!-- ============================ AGUS ============================ -->
+<section class="band band-surface" id="esprit">
+  <div class="shell">
+    <div class="sec-head reveal">
+      <p class="label sec-eyebrow">L'Esprit</p>
+      <h2>Un Balinais, pas une agence.</h2>
+      <p>Derrière Bali Découverte, il n'y a ni plateforme, ni centrale de réservation. Il y a Agus, né dans la vallée de Sidemen, qui parle français et connaît les gens chez qui vous déjeunerez.</p>
+    </div>
+
+    <div class="agus-grid">
+      <figure class="portrait-frame reveal" style="margin: 0">
+        <div class="portrait" id="portrait"></div>
+        <figcaption class="portrait-cap">
+          <span class="label">Agus Yudiarta</span>
+          <span class="label">08°27'S 115°26'E</span>
+        </figcaption>
+      </figure>
+
+      <div class="agus-body">
+        <blockquote class="agus-quote reveal">« Je ne vends pas un circuit. Je vous emmène là où j'emmènerais un ami : chez ma tante à Sidemen, dans la cascade où j'ai appris à nager. »</blockquote>
+        <p class="reveal">J'ai appris le français en accompagnant des voyageurs pendant dix ans, avant de devenir indépendant. Aujourd'hui je conduis moi-même, je traduis moi-même, et je construis chaque itinéraire avec vous — au rythme de votre famille, pas de celui d'un autocar.</p>
+        <p class="reveal">Passer en direct change tout : le prix que vous payez va aux familles qui vous accueillent, et vous gardez mon numéro pendant tout le séjour.</p>
+        <p class="agus-sign reveal">— Agus</p>
+
+        <div class="pillars reveal">
+          <div class="pillar">
+            <svg class="pillar-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+            <h3>100 % hors des sentiers battus</h3>
+            <p>Villages de l'est, canyons oubliés, plantations de Munduk. Jamais un site où l'on fait la queue.</p>
+          </div>
+          <div class="pillar">
+            <svg class="pillar-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+            <h3>Chauffeur &amp; guide francophone</h3>
+            <p>Une seule personne du premier au dernier jour. Pas de traduction approximative, pas de relais.</p>
+          </div>
+          <div class="pillar">
+            <svg class="pillar-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 17a3 3 0 1 0 6 0c0-1.5-.7-2.3-1.9-3.4"/><path d="M13 7a3 3 0 1 0-6 0c0 1.5.7 2.3 1.9 3.4"/><path d="M2 12h4"/><path d="M18 12h4"/></svg>
+            <h3>Tarifs en direct</h3>
+            <p>Aucune commission d'agence. Le devis que vous recevez est celui d'Agus, ligne par ligne.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ EXPÉRIENCES ============================ -->
+<section class="band" id="experiences">
+  <div class="shell">
+    <div class="sec-head reveal">
+      <p class="label sec-eyebrow">Expériences</p>
+      <h2>Coups de cœur d'Agus</h2>
+      <p>Ajoutez celles qui vous parlent : elles alimentent votre demande de devis, en bas de page. Rien n'est réservé ni payé ici.</p>
+    </div>
+    <div class="exp-grid" id="expGrid"></div>
+  </div>
+</section>
+
+<!-- ============================ CIRCUITS ============================ -->
+<section class="band band-immersive" id="circuits">
+  <div class="shell">
+    <div class="sec-head reveal">
+      <p class="label sec-eyebrow">Circuits</p>
+      <h2>Une trame de 12 jours, à déformer.</h2>
+      <p>Voici comment s'enchaîne un itinéraire type dans l'est et le nord. Chaque étape se rallonge, se raccourcit ou se remplace — c'est le point de départ de votre conversation avec Agus.</p>
+    </div>
+    <div class="route" id="route"></div>
+  </div>
+</section>
+
+<!-- ============================ CONFIGURATEUR ============================ -->
+<section class="band band-surface" id="sur-mesure">
+  <div class="shell">
+    <div class="sec-head reveal">
+      <p class="label sec-eyebrow">Sur-Mesure</p>
+      <h2>Construisez votre demande.</h2>
+      <p>Quatre questions, et votre message part sur le WhatsApp d'Agus, déjà rédigé. Il répond sous 24 h, en français.</p>
+    </div>
+
+    <div class="builder">
+      <div class="panel">
+        <p class="panel-title">1 — Vos expériences <span id="cartCount" style="color: var(--accent)">(0)</span></p>
+        <div class="cart" id="cart"></div>
+
+        <p class="panel-title">2 — Votre voyage</p>
+        <div class="fields">
+          <div class="field">
+            <label for="fMonth">Mois de départ</label>
+            <select id="fMonth"></select>
+          </div>
+          <div class="field">
+            <label for="fDuration">Durée estimée</label>
+            <select id="fDuration">
+              <option>5 à 7 jours</option>
+              <option selected>10 à 14 jours</option>
+              <option>15 à 21 jours</option>
+              <option>Plus de 3 semaines</option>
+              <option>Je ne sais pas encore</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Adultes</label>
+            <div class="counter" data-counter="adults">
+              <button type="button" data-step="-1" aria-label="Retirer un adulte">–</button>
+              <output id="outAdults">2</output>
+              <button type="button" data-step="1" aria-label="Ajouter un adulte">+</button>
+              <span class="counter-label">adultes</span>
+            </div>
+          </div>
+          <div class="field">
+            <label>Enfants</label>
+            <div class="counter" data-counter="children">
+              <button type="button" data-step="-1" aria-label="Retirer un enfant">–</button>
+              <output id="outChildren">0</output>
+              <button type="button" data-step="1" aria-label="Ajouter un enfant">+</button>
+              <span class="counter-label">enfants</span>
+            </div>
+          </div>
+          <div class="field field-wide">
+            <label>Style recherché</label>
+            <div class="tags" id="tags"></div>
+          </div>
+          <div class="field field-wide">
+            <label for="fName">Votre prénom <span style="text-transform:none;letter-spacing:0;font-weight:400;color:var(--text-faint)">(facultatif)</span></label>
+            <input id="fName" type="text" placeholder="Ex. Camille" autocomplete="given-name">
+          </div>
+        </div>
+      </div>
+
+      <div class="preview-wrap">
+        <div class="panel" style="padding: 0; border: none; background: transparent">
+          <p class="panel-title">3 — Votre message, prêt à envoyer</p>
+          <div class="preview">
+            <div class="preview-head">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg>
+              <span class="label">Aperçu — WhatsApp · +62 812 3688 936</span>
+            </div>
+            <pre class="preview-body" id="previewBody"></pre>
+          </div>
+        </div>
+        <a class="btn btn-wa btn-lg btn-send" id="sendBtn" href="#" target="_blank" rel="noopener">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1s-.5-.2-.7.1-.8 1-.9 1.2-.3.2-.6.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.6-2c-.2-.4 0-.5.1-.7l.5-.6.3-.5v-.5l-.9-2.2c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.5 3.5 0 0 0-1.1 2.6A6.1 6.1 0 0 0 7.3 12a13.9 13.9 0 0 0 5.3 4.7c2.5 1 2.5.7 3 .6a3.2 3.2 0 0 0 2.1-1.4 2.6 2.6 0 0 0 .2-1.5Z"/><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .9.9-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg>
+          Envoyer ma demande à Agus
+        </a>
+        <p class="send-note">Ouvre WhatsApp avec le message pré-rempli. Vous relisez avant d'envoyer — aucun engagement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="footer">
+  <div class="shell footer-in">
+    <div class="footer-col">
+      <h3>Bali Découverte</h3>
+      <p>Voyages privés sur-mesure à Bali, conçus et guidés en français par Agus Yudiarta, guide indépendant basé à Sidemen, Karangasem.</p>
+    </div>
+    <div class="footer-col">
+      <p class="label">Explorer</p>
+      <a href="#esprit">L'Esprit</a>
+      <a href="#experiences">Expériences</a>
+      <a href="#circuits">Circuits</a>
+      <a href="#sur-mesure">Sur-Mesure</a>
+    </div>
+    <div class="footer-col">
+      <p class="label">Contact direct</p>
+      <a href="https://wa.me/628123688936" target="_blank" rel="noopener">WhatsApp · +62 812 3688 936</a>
+      <a href="mailto:contact@balidecouverte.com">contact@balidecouverte.com</a>
+      <p>Réponse sous 24 h · GMT+8</p>
+    </div>
+  </div>
+  <div class="shell footer-base">
+    <span>© 2026 Bali Découverte — Maquette de design</span>
+    <span class="label">Sidemen · Bali · Indonésie</span>
+  </div>
+</footer>
+
+<!-- ============================ BARRE MOBILE ============================ -->
+<div class="mobile-bar" id="mobileBar">
+  <div class="mobile-count">
+    <b id="mobileNum">0 expérience</b>
+    dans votre circuit
+  </div>
+  <a class="btn btn-accent" href="#sur-mesure">Ma demande</a>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ============================================================
+     DONNÉES — mock data
+     ============================================================ */
+  var PHONE = "628123688936";
+
+  var EXPERIENCES = [
+    {
+      id: "cuisine-sidemen",
+      title: "Immersion culinaire à Sidemen",
+      place: "Sidemen, Karangasem",
+      coords: "08°27'S 115°26'E",
+      duration: "1 journée",
+      price: "à partir de 45 €",
+      priceNote: "/ pers.",
+      scene: "terraces",
+      tag: "Culture",
+      text: "Marché du matin avec la famille, préparation du bumbu Bali au mortier de pierre, puis déjeuner assis par terre chez l'habitant, au milieu des rizières."
+    },
+    {
+      id: "purification",
+      title: "Purification secrète",
+      place: "Source de Tirta Sudamala",
+      coords: "08°25'S 115°28'E",
+      duration: "Demi-journée",
+      price: "à partir de 38 €",
+      priceNote: "/ pers.",
+      scene: "spring",
+      tag: "Culture",
+      text: "Melukat privé aux sources sacrées que les groupes ignorent, guidé par un pemangku (prêtre) du village. Sarong, offrandes et explications en français inclus."
+    },
+    {
+      id: "cascades",
+      title: "Randonnée des cascades oubliées",
+      place: "Canyon de Gembleng",
+      coords: "08°24'S 115°25'E",
+      duration: "5 à 6 h",
+      price: "à partir de 52 €",
+      priceNote: "/ pers.",
+      scene: "canyon",
+      tag: "Aventure",
+      text: "Descente dans un canyon fermé au tourisme de masse, passages dans l'eau, baignade sous une chute de 20 m. Niveau modéré, faisable dès 10 ans."
+    },
+    {
+      id: "munduk",
+      title: "Nuit sous les étoiles à Munduk",
+      place: "Munduk, Buleleng",
+      coords: "08°16'S 115°04'E",
+      duration: "2 jours / 1 nuit",
+      price: "à partir de 95 €",
+      priceNote: "/ pers.",
+      scene: "plantation",
+      tag: "Nature",
+      text: "Écolodge en bois au cœur des plantations de café et de clous de girofle. Torréfaction au feu de bois le soir, lever de soleil sur les lacs jumeaux."
+    }
+  ];
+
+  var ROUTE = [
+    { d: "Jours 1–2", t: "Arrivée & décompression à Sanur", p: "Récupération à l'aéroport par Agus, première nuit côté est pour caler le décalage horaire. Balade au marché de nuit, sans programme imposé." },
+    { d: "Jours 3–5", t: "Vallée de Sidemen", p: "Le cœur du séjour : rizières, cuisine chez l'habitant, tissage songket, purification à la source. C'est ici qu'on ralentit." },
+    { d: "Jours 6–7", t: "Est sauvage — Amed & Tulamben", p: "Villages de pêcheurs, snorkeling sur l'épave, lever de soleil sur l'Agung. Nuits en warung les pieds dans le sable noir." },
+    { d: "Jours 8–10", t: "Nord — Munduk & les lacs", p: "Route des plantations, cascades en série, nuit en écolodge. Températures fraîches, brume du matin sur les lacs jumeaux." },
+    { d: "Jours 11–12", t: "Retour par l'ouest & départ", p: "Dernière journée libre selon vos envies : temple d'eau, plage tranquille ou marché d'artisanat. Dépose à l'aéroport." }
+  ];
+
+  var STYLES = ["Nature", "Culture", "Aventure", "Détente", "Famille", "Gastronomie"];
+
+  /* ============================================================
+     SCÈNES SVG — illustrations duotone maison
+     Remplaçables par de vraies photos (voir README).
+     ============================================================ */
+  function scene(kind, w, h) {
+    w = w || 800; h = h || 500;
+    var s = '<svg viewBox="0 0 ' + w + ' ' + h + '" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img">';
+    var defs = '<defs>' +
+      '<linearGradient id="sky-' + kind + '" x1="0" y1="0" x2="0" y2="1">' +
+        (kind === "plantation"
+          ? '<stop offset="0" stop-color="#0a1a14"/><stop offset="1" stop-color="#183227"/>'
+          : '<stop offset="0" stop-color="#d9d0bd"/><stop offset="0.55" stop-color="#a9b096"/><stop offset="1" stop-color="#5e7b5f"/>') +
+      '</linearGradient>' +
+      '<linearGradient id="mist-' + kind + '" x1="0" y1="0" x2="0" y2="1">' +
+        '<stop offset="0" stop-color="#f4efe6" stop-opacity="0.30"/><stop offset="1" stop-color="#f4efe6" stop-opacity="0"/>' +
+      '</linearGradient>' +
+    '</defs>';
+    s += defs;
+    s += '<rect width="' + w + '" height="' + h + '" fill="url(#sky-' + kind + ')"/>';
+
+    // Crêtes en couches — langage visuel commun à toutes les scènes
+    var ridges = [
+      { y: 0.44, amp: 0.075, fill: "#3c5a45", op: 0.75 },
+      { y: 0.56, amp: 0.06,  fill: "#2b4a36", op: 0.9  },
+      { y: 0.70, amp: 0.05,  fill: "#1c3a27", op: 1    }
+    ];
+    for (var r = 0; r < ridges.length; r++) {
+      var g = ridges[r], base = h * g.y, a = h * g.amp, d = "M0 " + base;
+      for (var x = 0; x <= w; x += w / 8) {
+        d += " Q " + (x + w / 16) + " " + (base - a * (r % 2 ? 0.6 : 1) * (1 + Math.sin((x / w) * 6 + r))) +
+             " " + (x + w / 8) + " " + base;
+      }
+      d += " L" + w + " " + h + " L0 " + h + " Z";
+      s += '<path d="' + d + '" fill="' + g.fill + '" opacity="' + g.op + '"/>';
+    }
+    s += '<rect y="' + (h * 0.30) + '" width="' + w + '" height="' + (h * 0.30) + '" fill="url(#mist-' + kind + ')"/>';
+
+    if (kind === "terraces") {
+      // Courbes de niveau des rizières
+      for (var i = 0; i < 9; i++) {
+        var ty = h * 0.68 + i * (h * 0.038);
+        s += '<path d="M' + (-40 + i * 14) + ' ' + ty + ' Q ' + (w * 0.45) + ' ' + (ty - h * 0.075 + i * 3) + ' ' + (w + 40) + ' ' + (ty + h * 0.02) + '" ' +
+             'fill="none" stroke="#8a9b7a" stroke-width="' + (1.6 - i * 0.08) + '" opacity="' + (0.55 - i * 0.045) + '"/>';
+      }
+      s += '<path d="M' + (w * 0.72) + ' ' + (h * 0.62) + ' l16 -34 l16 34 z" fill="#0f2418" opacity=".55"/>';
+    }
+
+    if (kind === "canyon") {
+      // Parois resserrées + ruban d'eau
+      s += '<path d="M0 ' + (h * 0.18) + ' L' + (w * 0.34) + ' ' + (h * 0.30) + ' L' + (w * 0.28) + ' ' + h + ' L0 ' + h + ' Z" fill="#12291c"/>';
+      s += '<path d="M' + w + ' ' + (h * 0.14) + ' L' + (w * 0.63) + ' ' + (h * 0.32) + ' L' + (w * 0.70) + ' ' + h + ' L' + w + ' ' + h + ' Z" fill="#12291c"/>';
+      s += '<path d="M' + (w * 0.47) + ' ' + (h * 0.30) + ' c 10 90, -14 150, 4 ' + (h * 0.5) + ' l 22 0 c 16 -110, -6 -170, 2 -' + (h * 0.2) + ' z" fill="#f4efe6" opacity=".62"/>';
+      s += '<ellipse cx="' + (w * 0.49) + '" cy="' + (h * 0.93) + '" rx="' + (w * 0.2) + '" ry="' + (h * 0.05) + '" fill="#f4efe6" opacity=".22"/>';
+    }
+
+    if (kind === "spring") {
+      // Candi bentar (portail fendu) + jets d'eau
+      var cx = w * 0.5, gy = h * 0.72;
+      [-1, 1].forEach(function (side) {
+        s += '<path d="M' + (cx + side * 118) + ' ' + gy +
+             ' L' + (cx + side * 104) + ' ' + (gy - h * 0.10) +
+             ' L' + (cx + side * 92) + ' ' + (gy - h * 0.13) +
+             ' L' + (cx + side * 84) + ' ' + (gy - h * 0.26) +
+             ' L' + (cx + side * 70) + ' ' + (gy - h * 0.30) +
+             ' L' + (cx + side * 64) + ' ' + (gy - h * 0.44) +
+             ' L' + (cx + side * 26) + ' ' + (gy - h * 0.42) +
+             ' L' + (cx + side * 30) + ' ' + gy + ' Z" fill="#0f2418"/>';
+      });
+      for (var j = 0; j < 5; j++) {
+        var jx = cx - 64 + j * 32;
+        s += '<path d="M' + jx + ' ' + (gy + 6) + ' q 4 26 0 46" stroke="#f4efe6" stroke-width="3" opacity=".6" fill="none" stroke-linecap="round"/>';
+      }
+      for (var k = 0; k < 3; k++) {
+        s += '<ellipse cx="' + cx + '" cy="' + (h * 0.92) + '" rx="' + (70 + k * 62) + '" ry="' + (9 + k * 5) + '" fill="none" stroke="#f4efe6" stroke-width="1.2" opacity="' + (0.3 - k * 0.08) + '"/>';
+      }
+    }
+
+    if (kind === "plantation") {
+      // Ciel étoilé + rangées de caféiers
+      for (var st = 0; st < 40; st++) {
+        var sx = (st * 97) % w, sy = ((st * 53) % Math.round(h * 0.42));
+        s += '<circle cx="' + sx + '" cy="' + sy + '" r="' + (st % 5 === 0 ? 1.7 : 1) + '" fill="#f4efe6" opacity="' + (st % 3 === 0 ? 0.75 : 0.4) + '"/>';
+      }
+      s += '<circle cx="' + (w * 0.78) + '" cy="' + (h * 0.16) + '" r="24" fill="#f4efe6" opacity=".85"/>';
+      s += '<circle cx="' + (w * 0.755) + '" cy="' + (h * 0.145) + '" r="22" fill="#0e2018" opacity=".9"/>';
+      for (var c = 0; c < 22; c++) {
+        var bx = 18 + c * (w / 21), by = h * 0.80 + (c % 3) * 16;
+        s += '<path d="M' + bx + ' ' + by + ' q 12 -22 0 -40 q -12 18 0 40" fill="#16301f"/>';
+      }
+      s += '<rect y="' + (h * 0.86) + '" width="' + w + '" height="' + (h * 0.14) + '" fill="#0b1a12"/>';
+    }
+
+    return s + '</svg>';
+  }
+
+  function portraitScene() {
+    // Portrait stylisé — silhouette d'Agus devant la vallée
+    return '<svg viewBox="0 0 460 560" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Portrait illustré d\'Agus Yudiarta">' +
+      '<defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c9c4ad"/><stop offset="1" stop-color="#5d7a5e"/></linearGradient>' +
+      '<clipPath id="head-clip"><circle cx="230" cy="318" r="76"/></clipPath></defs>' +
+      '<rect width="460" height="560" fill="url(#pg)"/>' +
+      '<path d="M0 250 Q115 190 230 250 T460 240 L460 560 L0 560 Z" fill="#2b4a36"/>' +
+      '<path d="M0 330 Q140 285 260 340 T460 330 L460 560 L0 560 Z" fill="#1c3a27"/>' +
+      '<circle cx="352" cy="96" r="46" fill="#f4efe6" opacity=".55"/>' +
+      // épaules + tête
+      '<path d="M96 560 c0-118 46-176 134-176 s134 58 134 176 z" fill="#0f2418"/>' +
+      '<circle cx="230" cy="318" r="76" fill="#0f2418"/>' +
+      // udeng (coiffe traditionnelle) : bandeau découpé sur le crâne + nœud
+      '<g clip-path="url(#head-clip)">' +
+        '<rect x="150" y="240" width="160" height="46" fill="#d96b43"/>' +
+        '<path d="M150 286 q80 22 160 0 v-14 q-80 20 -160 0z" fill="#c25c37"/>' +
+      '</g>' +
+      '<path d="M272 254 l44 -20 l-10 36 z" fill="#d96b43"/>' +
+      // lumière rasante sur l\'épaule et la joue — chaleur de fin de journée
+      '<path d="M96 560 c0-118 46-176 134-176" fill="none" stroke="#e2c9a8" stroke-width="2.5" opacity=".55"/>' +
+      '<path d="M160 296 a76 76 0 0 0 14 84" fill="none" stroke="#e2c9a8" stroke-width="2.5" opacity=".45"/>' +
+    '</svg>';
+  }
+
+  /* ============================================================
+     ÉTAT — équivalent du store partagé (Context / Zustand)
+     ============================================================ */
+  var state = {
+    selected: [],
+    month: "",
+    duration: "10 à 14 jours",
+    adults: 2,
+    children: 0,
+    styles: ["Nature", "Culture"],
+    name: ""
+  };
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  /* ---------- Rendu : bandeau ---------- */
+  var TICKER = ["Sidemen", "Munduk", "Amed", "Tirta Gangga", "Nusa Penida", "Jatiluwih", "Pemuteran", "Sembalun", "Tulamben", "Banyuwedang"];
+  (function () {
+    var html = TICKER.concat(TICKER).map(function (n) { return '<span class="label">' + n + "</span>"; }).join("");
+    $("ticker").innerHTML = html;
+  })();
+
+  /* ---------- Rendu : hero + portrait ---------- */
+  $("heroScene").innerHTML = scene("terraces", 1600, 900);
+  $("portrait").innerHTML = portraitScene();
+
+  /* ---------- Rendu : expériences ---------- */
+  function renderExperiences() {
+    $("expGrid").innerHTML = EXPERIENCES.map(function (e, i) {
+      var on = state.selected.indexOf(e.id) !== -1;
+      return '' +
+      '<article class="exp-card reveal" data-selected="' + on + '" data-id="' + e.id + '">' +
+        '<div class="exp-scene">' + scene(e.scene) +
+          '<span class="label exp-badge">' + e.tag + '</span>' +
+        '</div>' +
+        '<div class="exp-body">' +
+          '<div class="label exp-meta">' +
+            '<span>' + e.place + '</span>' +
+            '<span>' + e.duration + '</span>' +
+          '</div>' +
+          '<h3>' + e.title + '</h3>' +
+          '<p>' + e.text + '</p>' +
+          '<div class="exp-foot">' +
+            '<span class="exp-price">' + e.price + ' <small>' + e.priceNote + '</small></span>' +
+            '<button class="btn ' + (on ? "btn-outline" : "btn-accent") + ' add-btn" data-add="' + e.id + '">' +
+              (on ? "✓ Dans mon circuit" : "+ Ajouter à mon circuit") +
+            '</button>' +
+          '</div>' +
+        '</div>' +
+      '</article>';
+    }).join("");
+    observeReveals();
+  }
+
+  /* ---------- Rendu : circuits ---------- */
+  $("route").innerHTML = ROUTE.map(function (r, i) {
+    return '' +
+    '<div class="route-step reveal">' +
+      '<div class="route-rail">' +
+        '<span class="route-dot">' + String(i + 1).padStart(2, "0") + '</span>' +
+        '<span class="route-line"></span>' +
+      '</div>' +
+      '<div class="route-body">' +
+        '<span class="label">' + r.d + '</span>' +
+        '<h3>' + r.t + '</h3>' +
+        '<p>' + r.p + '</p>' +
+      '</div>' +
+    '</div>';
+  }).join("");
+
+  /* ---------- Rendu : mois ---------- */
+  (function () {
+    var MOIS = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
+    var now = new Date(), opts = "";
+    for (var i = 1; i <= 18; i++) {
+      var d = new Date(now.getFullYear(), now.getMonth() + i, 1);
+      var v = MOIS[d.getMonth()] + " " + d.getFullYear();
+      opts += '<option' + (i === 11 ? " selected" : "") + ">" + v + "</option>";
+    }
+    $("fMonth").innerHTML = opts;
+    state.month = $("fMonth").value;
+  })();
+
+  /* ---------- Rendu : tags de style ---------- */
+  $("tags").innerHTML = STYLES.map(function (s) {
+    return '<button type="button" class="tag" data-tag="' + s + '" aria-pressed="' + (state.styles.indexOf(s) !== -1) + '">' + s + '</button>';
+  }).join("");
+
+  /* ---------- Rendu : panier + message ---------- */
+  function renderCart() {
+    var items = state.selected.map(function (id) {
+      return EXPERIENCES.filter(function (e) { return e.id === id; })[0];
+    });
+
+    $("cart").innerHTML = items.length === 0
+      ? '<p class="cart-empty">Aucune expérience pour l\'instant — remontez au catalogue, ou envoyez votre demande telle quelle : Agus vous proposera un itinéraire complet.</p>'
+      : items.map(function (e, i) {
+          return '' +
+          '<div class="cart-item">' +
+            '<span class="cart-num">' + String(i + 1).padStart(2, "0") + '</span>' +
+            '<span>' +
+              '<span class="cart-name">' + e.title + '</span><br>' +
+              '<span class="cart-loc">' + e.place + ' · ' + e.duration + '</span>' +
+            '</span>' +
+            '<button class="cart-remove" data-remove="' + e.id + '" aria-label="Retirer ' + e.title + '">' +
+              '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>' +
+            '</button>' +
+          '</div>';
+        }).join("");
+
+    $("cartCount").textContent = "(" + items.length + ")";
+    $("mobileNum").textContent = items.length + " expérience" + (items.length > 1 ? "s" : "");
+    $("mobileBar").dataset.visible = items.length > 0 ? "true" : "false";
+  }
+
+  /* ---------- Logique WhatsApp ---------- */
+  function buildMessage() {
+    var items = state.selected.map(function (id) {
+      return EXPERIENCES.filter(function (e) { return e.id === id; })[0];
+    });
+
+    var voyageurs = state.adults + " adulte" + (state.adults > 1 ? "s" : "");
+    if (state.children > 0) voyageurs += ", " + state.children + " enfant" + (state.children > 1 ? "s" : "");
+
+    var lines = [];
+    lines.push("Bonjour Agus 🌿");
+    lines.push("");
+    lines.push(state.name
+      ? "Je m'appelle " + state.name + " et je souhaite organiser un voyage sur-mesure à Bali avec vous."
+      : "Je souhaite organiser un voyage sur-mesure à Bali avec vous.");
+    lines.push("");
+    lines.push("📅 Période : " + state.month);
+    lines.push("⏳ Durée : " + state.duration);
+    lines.push("👥 Voyageurs : " + voyageurs);
+    lines.push("🎯 Style : " + (state.styles.length ? state.styles.join(", ") : "à définir ensemble"));
+    lines.push("");
+
+    if (items.length) {
+      lines.push("Les expériences qui m'intéressent :");
+      items.forEach(function (e, i) {
+        lines.push((i + 1) + ". " + e.title + " (" + e.place + ")");
+      });
+    } else {
+      lines.push("Je n'ai pas encore choisi d'expérience — je suis ouvert(e) à vos suggestions.");
+    }
+
+    lines.push("");
+    lines.push("Pouvez-vous me proposer un itinéraire et un devis ? Merci beaucoup !");
+
+    return lines.join("\n");
+  }
+
+  function renderMessage() {
+    var msg = buildMessage();
+    $("previewBody").textContent = msg;
+    $("sendBtn").href = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(msg);
+  }
+
+  function render() {
+    renderExperiences();
+    renderCart();
+    renderMessage();
+  }
+
+  /* ============================================================
+     ÉVÉNEMENTS
+     ============================================================ */
+  document.addEventListener("click", function (ev) {
+    var addBtn = ev.target.closest("[data-add]");
+    if (addBtn) {
+      var id = addBtn.dataset.add, at = state.selected.indexOf(id);
+      if (at === -1) state.selected.push(id); else state.selected.splice(at, 1);
+      render();
+      return;
+    }
+    var rm = ev.target.closest("[data-remove]");
+    if (rm) {
+      state.selected.splice(state.selected.indexOf(rm.dataset.remove), 1);
+      render();
+      return;
+    }
+    var tag = ev.target.closest("[data-tag]");
+    if (tag) {
+      var t = tag.dataset.tag, ti = state.styles.indexOf(t);
+      if (ti === -1) state.styles.push(t); else state.styles.splice(ti, 1);
+      tag.setAttribute("aria-pressed", String(ti === -1));
+      renderMessage();
+      return;
+    }
+    var step = ev.target.closest(".counter [data-step]");
+    if (step) {
+      var key = step.closest(".counter").dataset.counter;
+      var min = key === "adults" ? 1 : 0;
+      state[key] = Math.max(min, Math.min(20, state[key] + Number(step.dataset.step)));
+      $(key === "adults" ? "outAdults" : "outChildren").textContent = state[key];
+      renderMessage();
+    }
+  });
+
+  $("fMonth").addEventListener("change", function (e) { state.month = e.target.value; renderMessage(); });
+  $("fDuration").addEventListener("change", function (e) { state.duration = e.target.value; renderMessage(); });
+  $("fName").addEventListener("input", function (e) { state.name = e.target.value.trim(); renderMessage(); });
+
+  /* ---------- Thème ---------- */
+  $("themeToggle").addEventListener("click", function () {
+    var root = document.documentElement;
+    var isDark = root.dataset.theme
+      ? root.dataset.theme === "dark"
+      : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    root.dataset.theme = isDark ? "light" : "dark";
+  });
+
+  /* ---------- Révélation au scroll ---------- */
+  var io;
+  function observeReveals() {
+    if (!("IntersectionObserver" in window)) {
+      document.querySelectorAll(".reveal").forEach(function (el) { el.dataset.in = "true"; });
+      return;
+    }
+    if (!io) {
+      io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { en.target.dataset.in = "true"; io.unobserve(en.target); }
+        });
+      }, { rootMargin: "0px 0px -8% 0px", threshold: 0.06 });
+    }
+    document.querySelectorAll(".reveal:not([data-in])").forEach(function (el) { io.observe(el); });
+  }
+
+  render();
+  observeReveals();
+})();
+</script>

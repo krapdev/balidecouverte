@@ -1,0 +1,214 @@
+@import "tailwindcss";
+
+/* ============================================================
+   BALI DÉCOUVERTE — Design tokens
+   Palette client : jungle / sable / terracotta / encre.
+   Neutres dérivés, biaisés vert — jamais de gris pur.
+   ============================================================ */
+:root {
+  /* Palette de marque */
+  --jungle: #1c3a27;
+  --canopy: #0f2418;
+  --sand: #f4efe6;
+  --terracotta: #d96b43;
+  --ink: #1a1a1a;
+
+  /* Dérivés */
+  --lichen: #8a9b7a;
+  --moss: #2f5540;
+  --terracotta-deep: #b8532f;
+  --clay-soft: #f0d9cc;
+
+  /* Rôles sémantiques */
+  --page: #f4efe6;
+  --surface: #fbf8f2;
+  --surface-alt: #e8dfd0;
+  --rule: #d9cdb8;
+  --text: #1a1a1a;
+  --text-soft: #5a6558;
+  --text-faint: #8a9184;
+  --immersive: #1c3a27;
+  --immersive-deep: #0f2418;
+  --on-immersive: #f4efe6;
+  --on-immersive-soft: #b7c4b1;
+  --accent: #d96b43;
+  --accent-ink: #ffffff;
+  --whatsapp: #1f8a4c;
+  --whatsapp-hi: #25b45f;
+}
+
+/* Le site suit la préférence système. Pas de sélecteur : la marque vit
+   dans un seul monde chromatique, simplement décliné pour la nuit. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page: #101d16;
+    --surface: #16281d;
+    --surface-alt: #1c3225;
+    --rule: #2b4634;
+    --text: #eae3d6;
+    --text-soft: #a8b6a4;
+    --text-faint: #7d8b79;
+    --immersive: #0d1a12;
+    --immersive-deep: #081109;
+    --accent: #e07f57;
+    --accent-ink: #17110d;
+    --clay-soft: #2e2019;
+    --whatsapp: #2aa85c;
+    --whatsapp-hi: #35c46e;
+  }
+}
+
+@theme inline {
+  --color-jungle: var(--jungle);
+  --color-canopy: var(--canopy);
+  --color-sand: var(--sand);
+  --color-terracotta: var(--terracotta);
+  --color-terracotta-deep: var(--terracotta-deep);
+  --color-lichen: var(--lichen);
+  --color-moss: var(--moss);
+  --color-clay: var(--clay-soft);
+
+  --color-page: var(--page);
+  --color-surface: var(--surface);
+  --color-surface-alt: var(--surface-alt);
+  --color-rule: var(--rule);
+  --color-ink: var(--text);
+  --color-soft: var(--text-soft);
+  --color-faint: var(--text-faint);
+  --color-immersive: var(--immersive);
+  --color-immersive-deep: var(--immersive-deep);
+  --color-on-immersive: var(--on-immersive);
+  --color-on-immersive-soft: var(--on-immersive-soft);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-whatsapp: var(--whatsapp);
+  --color-whatsapp-hi: var(--whatsapp-hi);
+
+  --font-display: var(--font-display), "Iowan Old Style", Palatino, Georgia,
+    serif;
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-util: var(--font-util), ui-monospace, Menlo, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    background: var(--page);
+    color: var(--text);
+    font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    /* `clip` et non `hidden` : `hidden` ferait du body un conteneur de
+       défilement, ce qui empêche l'IntersectionObserver des animations
+       d'apparition de se déclencher. */
+    overflow-x: clip;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display), "Iowan Old Style", Palatino, Georgia,
+      serif;
+    text-wrap: balance;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* Étiquette utilitaire : coordonnées, durées, eyebrows */
+  .label {
+    font-family: var(--font-util), ui-monospace, Menlo, monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.4;
+  }
+  .shell {
+    max-width: 1180px;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 5vw, 3rem);
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55em;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 0.85em 1.4em;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.18s ease, color 0.18s ease,
+      border-color 0.18s ease, transform 0.18s ease;
+  }
+  .btn:active {
+    transform: translateY(1px);
+  }
+  .btn-lg {
+    padding: 1.05em 1.8em;
+    font-size: 1rem;
+  }
+  .btn-accent {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+  .btn-accent:hover {
+    background: var(--terracotta-deep);
+  }
+  .btn-outline {
+    border-color: currentColor;
+    background: transparent;
+  }
+  .btn-outline:hover {
+    background: color-mix(in srgb, currentColor 10%, transparent);
+  }
+  .btn-wa {
+    background: var(--whatsapp);
+    color: #fff;
+  }
+  .btn-wa:hover {
+    background: var(--whatsapp-hi);
+  }
+  .field-input {
+    font: inherit;
+    font-size: 0.8125rem;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 0.7rem 0.8rem;
+    width: 100%;
+    appearance: none;
+  }
+  select.field-input {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%238a9184' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    padding-right: 2.2rem;
+  }
+}
+
+/* Bandeau des étapes sous le hero */
+@keyframes drift {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
