@@ -16,11 +16,13 @@ export default function Home() {
       <main className="flex-1">
         <Hero />
         <AboutAgus />
+        <div className="horizon" aria-hidden="true" />
         <Experiences />
-        <div className="shell text-eyebrow">
+        <div className="shell text-accent">
           <Divider />
         </div>
         <Circuits />
+        <div className="horizon" aria-hidden="true" />
         <TripBuilder />
       </main>
       <Footer />

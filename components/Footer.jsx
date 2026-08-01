@@ -10,12 +10,12 @@ const LINKS = [
 
 export default function Footer() {
   return (
-    <footer className="bg-immersive-deep pb-28 pt-[clamp(2.5rem,7vw,4rem)] text-on-immersive lg:pb-16">
+    <footer className="ground-1 pb-28 pt-[clamp(2.5rem,7vw,4rem)] lg:pb-16">
       <div className="shell grid gap-8 md:grid-cols-[1.2fr_1fr_1fr]">
         <div>
           <p className="label mb-3 text-accent">Om Swastiastu</p>
           <h3 className="mb-2 text-[1.375rem]">Bali Découverte</h3>
-          <p className="text-sm text-on-immersive-soft">
+          <p className="text-sm text-soft">
             Voyages privés sur-mesure à Bali, conçus et guidés en français par
             Agus Yudiarta, guide indépendant basé à Sidemen, Karangasem.
           </p>
@@ -27,7 +27,7 @@ export default function Footer() {
             <a
               key={l.href}
               href={l.href}
-              className="text-sm text-on-immersive-soft no-underline transition-colors hover:text-on-immersive"
+              className="text-sm text-soft no-underline transition-colors hover:text-ink"
             >
               {l.label}
             </a>
@@ -40,24 +40,24 @@ export default function Footer() {
             href={`https://wa.me/${WHATSAPP_NUMBER}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm text-on-immersive-soft no-underline transition-colors hover:text-on-immersive"
+            className="text-sm text-soft no-underline transition-colors hover:text-ink"
           >
             WhatsApp · {WHATSAPP_DISPLAY}
           </a>
           <a
             href="mailto:contact@balidecouverte.com"
-            className="text-sm text-on-immersive-soft no-underline transition-colors hover:text-on-immersive"
+            className="text-sm text-soft no-underline transition-colors hover:text-ink"
           >
             contact@balidecouverte.com
           </a>
-          <p className="text-sm text-on-immersive-soft">
+          <p className="text-sm text-soft">
             Réponse sous 24 h · GMT+8
           </p>
           <Canang size={54} className="mt-4 opacity-90" />
         </div>
       </div>
 
-      <div className="shell mt-10 flex flex-wrap justify-between gap-3 border-t border-[color-mix(in_srgb,var(--on-immersive)_15%,transparent)] pt-5 text-[0.6875rem] text-on-immersive-soft">
+      <div className="shell mt-10 flex flex-wrap justify-between gap-3 border-t border-[color-mix(in_srgb,var(--text)_15%,transparent)] pt-5 text-[0.6875rem] text-soft">
         <span>© {new Date().getFullYear()} Bali Découverte — Prototype</span>
         <span className="label">Sidemen · Bali · Indonésie</span>
       </div>

@@ -11,21 +11,23 @@
  * dans Hero.jsx et ExperienceCard.jsx — les proportions sont déjà posées.
  */
 
+/* Toutes les scènes sont nocturnes ou à l'aube. La lumière n'est jamais
+   un aplat : c'est un halo, un reflet, une braise. */
 const C = {
-  sky: "#cfdfd9",
-  skyWarm: "#f3e5cd",
-  sun: "#dfa441",
-  sunPale: "#eec97f",
-  sea: "#0f4d59",
-  seaDeep: "#08333c",
-  seaMid: "#2e7b83",
-  padi: "#7d9152",
-  padiMid: "#647a44",
-  padiDeep: "#4f6438",
-  brick: "#a05a41",
-  brickDeep: "#7d4230",
-  teck: "#322b22",
-  stone: "#f7f2e8",
+  cielHaut: "#061520",
+  cielBas: "#1d3f4a",
+  aubeChaude: "#8a5a3a",
+  lueur: "#e8a33f",
+  lueurPale: "#f6d79b",
+  mer: "#0d3944",
+  merProfonde: "#061e26",
+  merClaire: "#14606d",
+  padi: "#2f4a33",
+  padiClair: "#456b40",
+  brique: "#6b3a2c",
+  briqueSombre: "#4a2820",
+  nuitDense: "#04101a",
+  clair: "#f2ece0",
 };
 
 /** Bande à bord ondulé — la brique de base de tous les paysages. */
@@ -95,12 +97,12 @@ export function JepunBranch({ className = "", flip = false }) {
       style={flip ? { transform: "scaleX(-1)" } : undefined}
       aria-hidden="true"
     >
-      <g stroke={C.teck} fill="none" strokeLinecap="round">
+      <g stroke={C.nuitDense} fill="none" strokeLinecap="round">
         <path d="M280 4 C 226 22, 178 54, 150 96" strokeWidth="7" />
         <path d="M186 62 C 150 74, 120 104, 100 146" strokeWidth="5" />
         <path d="M212 34 C 178 34, 120 44, 66 74" strokeWidth="4" />
       </g>
-      <g fill={C.padiDeep}>
+      <g fill={C.padi}>
         {leaves.map((l, i) => (
           <ellipse
             key={i}
@@ -115,9 +117,9 @@ export function JepunBranch({ className = "", flip = false }) {
       {flowers.map((f, i) => (
         <g key={i} transform={`translate(${f.x} ${f.y}) rotate(${f.r}) scale(${f.s})`}>
           {[0, 72, 144, 216, 288].map((a) => (
-            <path key={a} transform={`rotate(${a})`} d={petal} fill={C.stone} />
+            <path key={a} transform={`rotate(${a})`} d={petal} fill={C.clair} />
           ))}
-          <circle r="7" fill={C.sun} />
+          <circle r="7" fill={C.lueur} />
         </g>
       ))}
     </svg>
@@ -147,9 +149,9 @@ export function Canang({ size = 44, className = "" }) {
         />
       ))}
       {/* Les fleurs : blanche, rouge, jaune — les directions */}
-      <circle cx="18" cy="20" r="7" fill={C.stone} />
+      <circle cx="18" cy="20" r="7" fill={C.clair} />
       <circle cx="30" cy="16" r="8" fill="#b8654a" />
-      <circle cx="43" cy="20" r="7" fill={C.sun} />
+      <circle cx="43" cy="20" r="7" fill={C.lueur} />
       <path
         d="M30 16 c 8 -10 16 -12 22 -10 c -6 4 -10 10 -12 16 z"
         fill={C.padi}
@@ -159,41 +161,42 @@ export function Canang({ size = 44, className = "" }) {
 }
 
 /** Tedung — l'ombrelle à étages plantée devant les sanctuaires. */
-function Tedung({ x, y, s = 1, tone = C.sun }) {
+function Tedung({ x, y, s = 1, tone = C.lueur }) {
   return (
     <g transform={`translate(${x} ${y}) scale(${s})`}>
-      <path d="M-3 0 L3 0 L2 -74 L-2 -74 Z" fill={C.teck} />
+      <path d="M-3 0 L3 0 L2 -74 L-2 -74 Z" fill={C.nuitDense} />
       <path d="M-46 -74 C -30 -102, 30 -102, 46 -74 Z" fill={tone} />
       <path
         d="M-46 -74 q 11 10 15 0 q 11 10 16 0 q 11 10 15 0"
         fill={tone}
         opacity=".75"
       />
-      <circle cy="-102" r="4" fill={C.teck} />
+      <circle cy="-102" r="4" fill={C.nuitDense} />
     </g>
   );
 }
 
 /* ================= Paysages ================= */
 
-/** Sidemen : les terrasses irriguées par le subak, sous l'Agung. */
-function Terraces({ w, h }) {
+/** Sidemen avant le jour : l'Agung en ombre, la lueur qui monte derrière. */
+function Terraces({ w, h, ns }) {
   return (
     <>
-      <circle cx={w * 0.76} cy={h * 0.32} r={h * 0.15} fill={C.sun} opacity=".9" />
+      {/* Le halo précède l'astre : c'est lui qui donne l'heure */}
+      <ellipse cx={w * 0.74} cy={h * 0.6} rx={w * 0.42} ry={h * 0.34} fill={`url(#halo-${ns})`} />
+      <circle cx={w * 0.74} cy={h * 0.56} r={h * 0.09} fill={C.lueurPale} />
       {/* Le Gunung Agung : arêtes adoucies, jamais une pyramide */}
       <path
-        d={`M${w * 0.06} ${h * 0.63}
-            Q ${w * 0.26} ${h * 0.44} ${w * 0.36} ${h * 0.24}
-            Q ${w * 0.4} ${h * 0.19} ${w * 0.45} ${h * 0.25}
-            Q ${w * 0.56} ${h * 0.45} ${w * 0.72} ${h * 0.63} Z`}
-        fill={C.sea}
-        opacity=".45"
+        d={`M${w * 0.06} ${h * 0.66}
+            Q ${w * 0.26} ${h * 0.46} ${w * 0.36} ${h * 0.26}
+            Q ${w * 0.4} ${h * 0.21} ${w * 0.45} ${h * 0.27}
+            Q ${w * 0.56} ${h * 0.47} ${w * 0.72} ${h * 0.66} Z`}
+        fill={C.merProfonde}
       />
-      <path d={band(h * 0.6, h * 0.05, w, h, 0.4)} fill={C.seaMid} opacity=".5" />
-      <path d={band(h * 0.68, h * 0.045, w, h, 2.1)} fill={C.padiDeep} />
-      <path d={band(h * 0.78, h * 0.04, w, h, 3.3)} fill={C.padiMid} />
-      <path d={band(h * 0.88, h * 0.03, w, h, 1.2)} fill={C.padi} />
+      <path d={band(h * 0.68, h * 0.045, w, h, 2.1)} fill={C.mer} />
+      <path d={band(h * 0.78, h * 0.04, w, h, 3.3)} fill={C.padi} />
+      <path d={band(h * 0.88, h * 0.03, w, h, 1.2)} fill={C.nuitDense} />
+      {/* L'eau des terrasses attrape la lueur : le subak en miroir */}
       {Array.from({ length: 4 }, (_, i) => (
         <path
           key={i}
@@ -201,23 +204,24 @@ function Terraces({ w, h }) {
             h * (0.86 + i * 0.028)
           } ${w} ${h * (0.92 + i * 0.028)}`}
           fill="none"
-          stroke={C.stone}
+          stroke={C.lueur}
           strokeWidth="1.5"
-          opacity="0.28"
+          opacity={0.3 - i * 0.05}
         />
       ))}
     </>
   );
 }
 
-/** La source sacrée : candi bentar de brique et ombrelles de temple. */
-function Spring({ w, h }) {
+/** La source sacrée à l'aube : le melukat se fait avant le jour. */
+function Spring({ w, h, ns }) {
   const cx = w * 0.5;
   const gy = h * 0.68;
   return (
     <>
-      <circle cx={cx} cy={h * 0.3} r={h * 0.19} fill={C.sunPale} opacity=".8" />
-      <path d={band(h * 0.58, h * 0.035, w, h, 1.9)} fill={C.padiDeep} />
+      <ellipse cx={cx} cy={h * 0.5} rx={w * 0.34} ry={h * 0.34} fill={`url(#halo-${ns})`} />
+      <circle cx={cx} cy={h * 0.42} r={h * 0.12} fill={C.lueurPale} opacity=".9" />
+      <path d={band(h * 0.58, h * 0.035, w, h, 1.9)} fill={C.merProfonde} />
       {[-1, 1].map((side) => (
         <g key={side}>
           <path
@@ -229,15 +233,7 @@ function Spring({ w, h }) {
                 L${cx + side * 62} ${gy - h * 0.48}
                 L${cx + side * 24} ${gy - h * 0.46}
                 L${cx + side * 30} ${gy} Z`}
-            fill={C.brick}
-          />
-          <path
-            d={`M${cx + side * 62} ${gy - h * 0.48} L${cx + side * 24} ${
-              gy - h * 0.46
-            } L${cx + side * 26} ${gy - h * 0.4} L${cx + side * 64} ${
-              gy - h * 0.42
-            } Z`}
-            fill={C.brickDeep}
+            fill={C.brique}
           />
           {/* Les assises de brique : c'est ce qui rend le gradin lisible */}
           {[0.09, 0.19, 0.31, 0.42].map((t) => (
@@ -246,23 +242,25 @@ function Spring({ w, h }) {
               d={`M${cx + side * (126 - t * 150)} ${gy - h * t} L${
                 cx + side * (30 - t * 12)
               } ${gy - h * t}`}
-              stroke={C.brickDeep}
+              stroke={C.briqueSombre}
               strokeWidth={Math.max(1.5, h * 0.008)}
-              opacity=".55"
+              opacity=".7"
             />
           ))}
         </g>
       ))}
-      <Tedung x={cx - 168} y={gy} s={h / 620} />
-      <Tedung x={cx + 168} y={gy} s={h / 620} tone={C.stone} />
-      <rect y={gy} width={w} height={h - gy} fill={C.sea} />
+      <Tedung x={cx - 168} y={gy} s={h / 620} tone={C.lueur} />
+      <Tedung x={cx + 168} y={gy} s={h / 620} tone={C.clair} />
+      {/* Le bassin, et la lueur qui s'y couche */}
+      <rect y={gy} width={w} height={h - gy} fill={C.merProfonde} />
+      <rect y={gy} width={w} height={h - gy} fill={`url(#mist-${ns})`} opacity=".5" />
       {Array.from({ length: 5 }, (_, j) => (
         <path
           key={j}
           d={`M${cx - 56 + j * 28} ${gy - 4} q 3 20 0 36`}
-          stroke={C.stone}
+          stroke={C.lueurPale}
           strokeWidth="3.5"
-          opacity=".8"
+          opacity=".7"
           fill="none"
           strokeLinecap="round"
         />
@@ -275,49 +273,52 @@ function Spring({ w, h }) {
           rx={64 + k * 70}
           ry={7 + k * 4}
           fill="none"
-          stroke={C.stone}
+          stroke={C.lueur}
           strokeWidth="1.5"
-          opacity={0.36 - k * 0.09}
+          opacity={0.4 - k * 0.1}
         />
       ))}
     </>
   );
 }
 
-/** Le canyon des cascades oubliées. */
-function Canyon({ w, h }) {
+/** Le canyon : la lumière ne tombe au fond qu'une heure par jour. */
+function Canyon({ w, h, ns }) {
   return (
     <>
-      <circle cx={w * 0.5} cy={h * 0.13} r={h * 0.09} fill={C.sunPale} opacity=".7" />
-      <path d={band(h * 0.4, h * 0.04, w, h, 2.6)} fill={C.padiDeep} />
+      <ellipse cx={w * 0.5} cy={h * 0.3} rx={w * 0.2} ry={h * 0.3} fill={`url(#halo-${ns})`} />
+      <path d={band(h * 0.42, h * 0.04, w, h, 2.6)} fill={C.padi} />
+      {/* La chute, seule chose claire du cadre */}
       <path
-        d={`M${w * 0.44} ${h * 0.3} L${w * 0.42} ${h * 0.86} L${w * 0.58} ${
+        d={`M${w * 0.44} ${h * 0.28} L${w * 0.42} ${h * 0.86} L${w * 0.58} ${
           h * 0.86
-        } L${w * 0.56} ${h * 0.3} Z`}
-        fill={C.stone}
-        opacity=".92"
+        } L${w * 0.56} ${h * 0.28} Z`}
+        fill={C.lueurPale}
+        opacity=".82"
       />
       <path
-        d={`M0 ${h * 0.1} L${w * 0.36} ${h * 0.26} L${w * 0.3} ${h} L0 ${h} Z`}
-        fill={C.teck}
+        d={`M0 ${h * 0.08} L${w * 0.36} ${h * 0.26} L${w * 0.3} ${h} L0 ${h} Z`}
+        fill={C.nuitDense}
       />
       <path
-        d={`M${w} ${h * 0.06} L${w * 0.64} ${h * 0.28} L${w * 0.7} ${h} L${w} ${h} Z`}
-        fill={C.teck}
+        d={`M${w} ${h * 0.04} L${w * 0.64} ${h * 0.28} L${w * 0.7} ${h} L${w} ${h} Z`}
+        fill={C.nuitDense}
       />
       <path
-        d={`M0 ${h * 0.1} L${w * 0.36} ${h * 0.26} L${w * 0.34} ${h * 0.34} L0 ${
-          h * 0.2
+        d={`M0 ${h * 0.08} L${w * 0.36} ${h * 0.26} L${w * 0.34} ${h * 0.34} L0 ${
+          h * 0.18
         } Z`}
-        fill={C.padi}
+        fill={C.padiClair}
+        opacity=".8"
       />
       <path
-        d={`M${w} ${h * 0.06} L${w * 0.64} ${h * 0.28} L${w * 0.66} ${
+        d={`M${w} ${h * 0.04} L${w * 0.64} ${h * 0.28} L${w * 0.66} ${
           h * 0.36
-        } L${w} ${h * 0.16} Z`}
-        fill={C.padi}
+        } L${w} ${h * 0.14} Z`}
+        fill={C.padiClair}
+        opacity=".8"
       />
-      <rect y={h * 0.84} width={w} height={h * 0.16} fill={C.sea} />
+      <rect y={h * 0.84} width={w} height={h * 0.16} fill={C.mer} />
       {Array.from({ length: 3 }, (_, k) => (
         <ellipse
           key={k}
@@ -326,50 +327,54 @@ function Canyon({ w, h }) {
           rx={50 + k * 66}
           ry={6 + k * 4}
           fill="none"
-          stroke={C.seaMid}
+          stroke={C.merClaire}
           strokeWidth="2"
-          opacity={0.7 - k * 0.2}
+          opacity={0.85 - k * 0.24}
         />
       ))}
     </>
   );
 }
 
-/** Munduk : la nuit dans les plantations de café. */
-function Plantation({ w, h }) {
+/** Munduk : les lampes-tempête entre les caféiers, la lune au-dessus. */
+function Plantation({ w, h, ns }) {
   return (
     <>
-      {Array.from({ length: 46 }, (_, s) => (
+      {Array.from({ length: 52 }, (_, s) => (
         <circle
           key={s}
           cx={(s * 97) % w}
-          cy={(s * 53) % Math.round(h * 0.5)}
+          cy={(s * 53) % Math.round(h * 0.55)}
           r={s % 5 === 0 ? 1.8 : 1}
-          fill={C.stone}
-          opacity={s % 3 === 0 ? 0.8 : 0.35}
+          fill={C.clair}
+          opacity={s % 3 === 0 ? 0.85 : 0.35}
         />
       ))}
-      <circle cx={w * 0.78} cy={h * 0.2} r={h * 0.095} fill={C.sunPale} />
-      <circle cx={w * 0.74} cy={h * 0.175} r={h * 0.088} fill={C.seaDeep} />
-      <path d={band(h * 0.58, h * 0.05, w, h, 0.9)} fill={C.sea} />
-      <path d={band(h * 0.72, h * 0.04, w, h, 2.4)} fill={C.seaDeep} />
+      <ellipse cx={w * 0.76} cy={h * 0.2} rx={w * 0.16} ry={h * 0.24} fill={`url(#halo-${ns})`} opacity=".7" />
+      <circle cx={w * 0.78} cy={h * 0.2} r={h * 0.095} fill={C.lueurPale} />
+      <circle cx={w * 0.74} cy={h * 0.175} r={h * 0.088} fill={C.cielHaut} />
+      <path d={band(h * 0.6, h * 0.05, w, h, 0.9)} fill={C.merProfonde} />
+      <path d={band(h * 0.74, h * 0.04, w, h, 2.4)} fill={C.nuitDense} />
       {Array.from({ length: 20 }, (_, c) => (
         <path
           key={c}
-          d={`M${20 + c * (w / 19)} ${h * 0.86 + (c % 3) * 14} q 13 -24 0 -44 q -13 20 0 44`}
-          fill={C.teck}
+          d={`M${20 + c * (w / 19)} ${h * 0.88 + (c % 3) * 12} q 13 -24 0 -44 q -13 20 0 44`}
+          fill={C.nuitDense}
         />
       ))}
-      <rect y={h * 0.9} width={w} height={h * 0.1} fill={C.teck} />
-      {/* Lampes-tempête le long du sentier */}
-      {[0.22, 0.42, 0.62].map((p, i) => (
-        <circle
-          key={i}
-          cx={w * p}
-          cy={h * (0.88 + i * 0.01)}
-          r="3.5"
-          fill={C.sun}
-        />
+      <rect y={h * 0.92} width={w} height={h * 0.08} fill={C.nuitDense} />
+      {/* Les lampes-tempête : chacune éclaire son morceau de sentier */}
+      {[0.2, 0.44, 0.66].map((p, i) => (
+        <g key={i}>
+          <circle
+            cx={w * p}
+            cy={h * (0.86 + i * 0.02)}
+            r={h * 0.07}
+            fill={`url(#halo-${ns})`}
+            opacity=".85"
+          />
+          <circle cx={w * p} cy={h * (0.86 + i * 0.02)} r="4" fill={C.lueurPale} />
+        </g>
       ))}
     </>
   );
@@ -381,8 +386,6 @@ const MOTIFS = {
   spring: Spring,
   plantation: Plantation,
 };
-
-const NIGHT = new Set(["plantation"]);
 
 export default function Scene({
   kind = "terraces",
@@ -396,7 +399,6 @@ export default function Scene({
   // un identifiant par instance, sinon deux scènes se marchent dessus.
   const ns = uid ?? kind;
   const Motif = MOTIFS[kind] ?? Terraces;
-  const night = NIGHT.has(kind);
 
   return (
     <svg
@@ -409,40 +411,32 @@ export default function Scene({
     >
       <defs>
         <linearGradient id={`sky-${ns}`} x1="0" y1="0" x2="0" y2="1">
-          {night ? (
-            <>
-              <stop offset="0" stopColor="#041a1f" />
-              <stop offset="1" stopColor="#0f4d59" />
-            </>
-          ) : (
-            <>
-              <stop offset="0" stopColor={C.sky} />
-              <stop offset="0.6" stopColor={C.skyWarm} />
-              <stop offset="1" stopColor="#f0dcb8" />
-            </>
-          )}
+          <stop offset="0" stopColor={C.cielHaut} />
+          <stop offset="0.52" stopColor={C.cielBas} />
+          <stop offset="0.82" stopColor={C.aubeChaude} />
+          <stop offset="1" stopColor={C.lueur} />
         </linearGradient>
-        {/* Brume de vallée — la douceur du matin, pas le grain d'affiche */}
+        {/* Le halo de l'astre — la lumière déborde toujours de sa source */}
+        <radialGradient id={`halo-${ns}`}>
+          <stop offset="0" stopColor={C.lueurPale} stopOpacity="0.85" />
+          <stop offset="0.35" stopColor={C.lueur} stopOpacity="0.42" />
+          <stop offset="1" stopColor={C.lueur} stopOpacity="0" />
+        </radialGradient>
+        {/* La brume qui monte de la vallée avant le jour */}
         <linearGradient id={`mist-${ns}`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor={C.stone} stopOpacity="0.34" />
-          <stop offset="1" stopColor={C.stone} stopOpacity="0" />
+          <stop offset="0" stopColor={C.lueurPale} stopOpacity="0.22" />
+          <stop offset="1" stopColor={C.lueurPale} stopOpacity="0" />
         </linearGradient>
       </defs>
 
       <rect width={w} height={h} fill={`url(#sky-${ns})`} />
-      <Motif w={w} h={h} />
-      <rect
-        y={h * 0.42}
-        width={w}
-        height={h * 0.34}
-        fill={`url(#mist-${ns})`}
-        opacity={night ? 0.35 : 1}
-      />
+      <Motif w={w} h={h} ns={ns} />
+      <rect y={h * 0.44} width={w} height={h * 0.36} fill={`url(#mist-${ns})`} />
     </svg>
   );
 }
 
-/** Portrait illustré d'Agus — le jepun derrière l'oreille, comme au temple. */
+/** Agus avant le lever du jour, le jepun derrière l'oreille. */
 export function PortraitAgus({ className = "" }) {
   return (
     <svg
@@ -454,36 +448,52 @@ export function PortraitAgus({ className = "" }) {
     >
       <defs>
         <linearGradient id="portrait-sky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor={C.sky} />
-          <stop offset="0.72" stopColor={C.skyWarm} />
+          <stop offset="0" stopColor={C.cielHaut} />
+          <stop offset="0.55" stopColor={C.cielBas} />
+          <stop offset="0.86" stopColor={C.aubeChaude} />
         </linearGradient>
+        <radialGradient id="portrait-halo">
+          <stop offset="0" stopColor={C.lueurPale} stopOpacity="0.9" />
+          <stop offset="0.4" stopColor={C.lueur} stopOpacity="0.4" />
+          <stop offset="1" stopColor={C.lueur} stopOpacity="0" />
+        </radialGradient>
         <clipPath id="portrait-head">
           <circle cx="230" cy="318" r="76" />
         </clipPath>
       </defs>
 
       <rect width="460" height="560" fill="url(#portrait-sky)" />
-      <circle cx="356" cy="126" r="64" fill={C.sun} opacity=".85" />
-      <path
-        d="M0 276 Q120 234 246 276 T460 262 L460 560 L0 560 Z"
-        fill={C.sea}
-        opacity=".5"
-      />
-      <path
-        d="M0 336 Q140 296 262 346 T460 334 L460 560 L0 560 Z"
-        fill={C.padiDeep}
-      />
-      <path d="M0 398 Q150 362 268 406 T460 394 L460 560 L0 560 Z" fill={C.padi} />
+      {/* Le jour se lève derrière lui : la silhouette est à contre-jour */}
+      <ellipse cx="300" cy="300" rx="280" ry="220" fill="url(#portrait-halo)" />
+      <circle cx="316" cy="248" r="58" fill={C.lueurPale} opacity=".95" />
+      <path d="M0 300 Q120 262 246 302 T460 288 L460 560 L0 560 Z" fill={C.merProfonde} />
+      <path d="M0 360 Q140 322 262 370 T460 358 L460 560 L0 560 Z" fill={C.padi} />
+      <path d="M0 420 Q150 386 268 428 T460 416 L460 560 L0 560 Z" fill={C.nuitDense} />
 
-      {/* Silhouette */}
-      <path d="M96 560 c0-118 46-176 134-176 s134 58 134 176 z" fill={C.teck} />
-      <circle cx="230" cy="318" r="76" fill={C.teck} />
+      <path d="M96 560 c0-118 46-176 134-176 s134 58 134 176 z" fill={C.nuitDense} />
+      <circle cx="230" cy="318" r="76" fill={C.nuitDense} />
 
       {/* Udeng — le bandeau cérémoniel, découpé sur le crâne */}
       <g clipPath="url(#portrait-head)">
-        <rect x="150" y="242" width="160" height="44" fill={C.brick} />
-        <path d="M150 286 q80 22 160 0 v-14 q-80 20 -160 0z" fill={C.brickDeep} />
+        <rect x="150" y="242" width="160" height="44" fill={C.brique} />
+        <path d="M150 286 q80 22 160 0 v-14 q-80 20 -160 0z" fill={C.briqueSombre} />
       </g>
+
+      {/* Le liseré de lumière sur l'épaule et la joue */}
+      <path
+        d="M96 560 c0-118 46-176 134-176"
+        fill="none"
+        stroke={C.lueur}
+        strokeWidth="2.5"
+        opacity=".6"
+      />
+      <path
+        d="M292 282 a76 76 0 0 1 -6 90"
+        fill="none"
+        stroke={C.lueur}
+        strokeWidth="2.5"
+        opacity=".5"
+      />
 
       {/* Le jepun glissé derrière l'oreille */}
       <g transform="translate(306 330) scale(0.62)">
@@ -492,10 +502,10 @@ export function PortraitAgus({ className = "" }) {
             key={a}
             transform={`rotate(${a})`}
             d="M0 2 C 13 -6, 27 -22, 19 -36 C 13 -46, -5 -47, -12 -35 C -19 -22, -9 -7, 0 2 Z"
-            fill={C.stone}
+            fill={C.clair}
           />
         ))}
-        <circle r="6" fill={C.sun} />
+        <circle r="6" fill={C.lueur} />
       </g>
     </svg>
   );

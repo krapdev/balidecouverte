@@ -24,66 +24,83 @@ npm run build   # build de production
 
 ## Direction artistique
 
-Registre : **spa balinais haut de gamme** — pierre calcaire, bambou sec, teck
-sombre — sans perdre l'esprit d'excursion dans la nature.
+**Le site est nocturne.** Bali spirituelle se vit avant le jour : le *melukat* à
+l'aube, les cérémonies de nuit, la brume de Munduk à cinq heures. C'est aussi ce
+qui sort la page du registre « magazine de voyage », où tout est éclairé à midi.
 
-**Palette.** Les couleurs gardent leur origine dans le *nawa sanga*, la boussole
-chromatique de l'île — celle des offrandes, des ombrelles et des étoffes de
-temple — mais désaturées : on cherche le calme, pas l'affiche.
+**La page suit la montée du jour.** On entre dans la nuit profonde, chaque
+section se réchauffe d'un cran, et le configurateur — le moment du départ —
+arrive à l'aube. Ce n'est pas un dégradé décoratif : c'est la structure de la
+page.
 
-| Jeton | Couleur | Origine | Rôle |
-| --- | --- | --- | --- |
-| `--laut` | `#0f4d59` | Bleu de la mer — Wisnu, le nord | Panneaux immersifs |
-| `--kunyit` | `#dfa441` | Miel et soleil — Mahadewa, l'ouest | **Toutes les actions** |
-| `--padi` | `#7d9152` | Sauge des rizières | Illustrations |
-| `--bata` | `#b8654a` | Argile des temples — Brahma, le sud | Eyebrows, accents rares |
-| `--pasir` | `#f7f2e8` | Pierre calcaire | Surface de lecture |
-| `--bambou` | `#e6d9c2` | Bambou sec, chanvre | Aplats secondaires |
-| `--teck` | `#322b22` | Teck sombre | Texte |
+| Palier | Couleur | Section |
+| --- | --- | --- |
+| `--nuit` | `#061520` | Hero, pied de page |
+| `--nuit-2` | `#0a1e28` | L'Esprit |
+| `--nuit-3` | `#0e2630` | Expériences |
+| `--aube-1` | `#123037` | Circuits |
+| `--aube-2` | `#17383a` | Sur-mesure — le départ |
 
-Le miel est réservé aux actions : dès qu'il sert à décorer, il cesse d'être un
-repère. Il est aussi illisible en petit corps sur la pierre — les eyebrows
-passent donc par l'argile (`--eyebrow`), et les boutons miel portent du teck,
-jamais du blanc.
+Monde chromatique unique et assumé : **pas de thème clair, pas de sélecteur**.
+Une aube n'a pas de variante diurne.
 
-**Typographie** — *Marcellus* pour les titres : des capitales romaines gravées,
-la pierre taillée plutôt que le serif de magazine, et une seule graisse, ce qui
-force la sobriété. *Jost* pour le texte courant, les étiquettes et les boutons —
-géométrique, calme, tabulaire. Deux familles, pas trois : le registre spa vit de
-retenue. Les étiquettes sont en capitales très espacées (`0.22em`), les grands
-boutons aussi.
+**La lumière est une matière, jamais un aplat.** Halo de l'astre qui déborde de
+sa source, brume qui monte de la vallée, eau des terrasses qui attrape la lueur,
+liseré de contre-jour sur l'épaule d'Agus, lampes-tempête entre les caféiers, et
+un fil de lumière en guise d'horizon entre deux sections. Chaque étape du rail
+d'itinéraire est une lampe qui vacille lentement.
 
-**Ornements balinais.** Le vocabulaire vient de ce qu'on voit vraiment sur
-l'île, jamais d'un décor générique :
+| Jeton | Couleur | Rôle |
+| --- | --- | --- |
+| `--lueur` | `#e8a33f` | La lueur de l'horizon — **toutes les actions** |
+| `--laut` | `#12707f` | La mer |
+| `--padi` | `#7d9152` | Les rizières |
+| `--bata` | `#b8654a` | La brique de temple |
+| `--sable` | `#f2ece0` | Le texte |
 
-- le **jepun** (frangipanier) — glissé derrière l'oreille d'Agus, posé sur les
-  offrandes, et repris comme séparateur de sections ;
-- une **branche de jepun** qui déborde en haut du hero, comme par-dessus un mur
-  de cour de temple ;
-- le **canang sari**, l'offrande de fleurs déposée chaque matin, illustrée dans
-  « L'Esprit » et au pied de page ;
-- le **tedung**, l'ombrelle à étages, planté devant la source sacrée ;
-- le **candi bentar**, le portail fendu en brique, avec ses assises marquées.
+**Typographie** — *Eczar* pour les titres : dessinée pour accompagner le
+devanagari, elle porte une énergie de manuscrit qui renvoie à la racine hindoue
+de Bali, loin de la capitale romaine des brochures d'hôtel. *Mulish* pour le
+texte courant : humaniste, douce, très lisible sur fond sombre, et son italique
+porte les moments de rêverie qu'Eczar ne sait pas tenir.
 
-Le motif est toujours expliqué au lecteur : il veut dire quelque chose, ce n'est
-pas de la décoration. Le vocabulaire suit — *subak*, *melukat*, *bumbu*,
-*songket*, *warung*, et le *Om Swastiastu* qui ouvre le pied de page.
+**Tri Hita Karana.** Les trois causes du bien-être — l'harmonie avec le divin
+(*Parahyangan*), avec les hommes (*Pawongan*), avec la nature (*Palemahan*) —
+remplacent les trois puces d'argumentaire. Elles recouvrent presque exactement
+ce qu'Agus a à dire, avec une assise que trois arguments marketing n'ont pas.
 
-> Deux directions ont été essayées et abandonnées, elles restent dans
+**Ornements balinais**, toujours expliqués au lecteur plutôt que décoratifs :
+le **jepun** (frangipanier) derrière l'oreille d'Agus, posé sur les offrandes et
+repris comme séparateur ; une **branche de jepun** qui déborde en haut du hero ;
+le **canang sari**, l'offrande de fleurs du matin ; le **tedung**, l'ombrelle à
+étages ; le **candi bentar**, le portail fendu en brique avec ses assises. Le
+vocabulaire suit — *subak*, *melukat*, *bumbu*, *songket*, *warung*, et le
+*Om Swastiastu* qui ouvre le pied de page.
+
+**La grille est cassée**, mais jamais au point de faire collision : la seconde
+colonne d'expériences descend d'un cran, la colonne de texte d'Agus est poussée
+sous son portrait, et les trois harmonies se répondent en escalier.
+
+**Le garde-fou.** Le risque du registre onirique, c'est le site de retraite
+bien-être. L'antidote est la tension, pas l'adoucissement : imagerie nocturne
+d'un côté, faits durs de l'autre — coordonnées GPS, durées, « faisable dès
+10 ans », prix à la ligne, itinéraire jour par jour. C'est ce contraste qui fait
+l'aventure haut de gamme.
+
+### Contraste
+
+Le texte du hero était devenu illisible (1,67:1 pour un titre) après le passage
+à un fond clair. Un audit automatique parcourt maintenant chaque section et
+compare la couleur déclarée au premier fond opaque au-dessus, avec le seuil WCAG
+correspondant à la taille et à la graisse. Toutes les combinaisons passent. À
+refaire après toute modification de palette.
+
+> Trois directions ont été essayées et abandonnées, elles restent dans
 > l'historique git : le **poleng** (le damier noir et blanc des temples) comme
 > couture entre les sections — il lisait comme un drapeau de course automobile ;
-> et le **penjor** (le bambou cérémoniel) dans les paysages — à cette échelle il
-> lisait comme un lampadaire.
-
-**Layout** — des panneaux immersifs bleu mer (hero, circuits, pied de page)
-alternent avec des surfaces pierre de lecture, avec beaucoup d'air entre les
-sections. Le portrait et les cartes s'ouvrent en **arc**, celui des alcôves et
-des portes de pavillon. La section Circuits est un rail d'itinéraire numéroté —
-la numérotation encode une vraie séquence de jours, pas une décoration. L'aperçu
-du message WhatsApp est posé sur un fond réglé comme une page de carnet.
-
-Thèmes clair et sombre suivent la préférence système, sans sélecteur : la marque
-vit dans un seul monde chromatique, simplement décliné pour la nuit.
+> le **penjor** (le bambou cérémoniel) dans les paysages — à cette échelle il
+> lisait comme un lampadaire ; et une direction **spa diurne** en pierre
+> calcaire — élégante, mais trop proche de la brochure d'hôtel.
 
 ## Architecture
 
@@ -130,11 +147,10 @@ Le numéro se change dans `lib/data.js` (`WHATSAPP_NUMBER`).
 
 ## Illustrations
 
-Les visuels sont des scènes SVG dessinées à la main dans `components/Scene.jsx`
-— rizières de Sidemen sous un Gunung Agung aux arêtes adoucies, source sacrée et
-son *candi bentar* de brique flanqué de ses *tedung*, canyon des cascades,
-plantation de café la nuit. Couches douces et brume de vallée plutôt qu'aplats
-d'affiche. Le même fichier abrite les ornements réutilisables : `Jepun`,
+Les visuels sont des scènes SVG dessinées à la main dans `components/Scene.jsx`,
+toutes nocturnes ou à l'aube — rizières de Sidemen sous un Gunung Agung en ombre,
+source sacrée au moment du *melukat*, canyon où la lumière ne tombe qu'une heure
+par jour, plantation de café éclairée à la lampe-tempête. Le même fichier abrite les ornements réutilisables : `Jepun`,
 `JepunBranch`, `Canang`, `Divider`. Aucune dépendance externe, aucun chargement,
 un rendu identique partout.
 

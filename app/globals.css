@@ -3,89 +3,64 @@
 /* ============================================================
    BALI DÉCOUVERTE — Design tokens
    ------------------------------------------------------------
-   Registre : spa balinais haut de gamme — pierre calcaire, bambou
-   sec, teck sombre — sans perdre l'esprit d'excursion.
-   Les couleurs gardent leur origine dans le nawa sanga, la boussole
-   chromatique de l'île, mais désaturées : on cherche le calme, pas
-   l'affiche.
-     nord  → bleu de la mer (Wisnu)
-     ouest → miel et soleil (Mahadewa)
-     sud   → argile des temples (Brahma)
+   Le site est nocturne. Bali spirituelle se vit avant le jour :
+   le melukat à l'aube, les cérémonies de nuit, la brume de Munduk
+   à cinq heures. La page suit cette montée — on entre dans la nuit
+   profonde, chaque section se réchauffe d'un cran, et le
+   configurateur, le moment du départ, arrive à l'aube.
+
+   Monde chromatique unique et assumé : pas de thème clair. Une
+   aube n'a pas de variante diurne.
    ============================================================ */
 :root {
+  /* Les paliers de la nuit vers l'aube */
+  --nuit: #061520;
+  --nuit-2: #0a1e28;
+  --nuit-3: #0e2630;
+  --aube-1: #123037;
+  --aube-2: #17383a;
+
   /* Palette de marque */
-  --laut: #0f4d59; /* mer profonde, calme */
-  --laut-deep: #08333c;
-  --laut-soft: #2e7b83;
-  --padi: #7d9152; /* sauge des rizières */
-  --padi-deep: #4f6438;
-  --kunyit: #dfa441; /* miel, soleil de fin de journée */
-  --bata: #b8654a; /* argile */
-  --pasir: #f7f2e8; /* pierre calcaire */
-  --bambou: #e6d9c2; /* bambou sec, chanvre */
-  --teck: #322b22; /* teck sombre */
+  --lueur: #e8a33f; /* la lueur chaude de l'horizon */
+  --lueur-pale: #f6d79b;
+  --laut: #12707f; /* la mer */
+  --padi: #7d9152; /* rizières */
+  --bata: #b8654a; /* brique de temple */
+  --sable: #f2ece0;
 
   /* Rôles sémantiques */
-  --page: #f7f2e8;
-  --surface: #fdfaf3;
-  --surface-alt: #efe6d5;
-  --rule: #ddd0b8;
-  --text: #322b22;
-  --text-soft: #6b6152;
-  --text-faint: #9c9382;
-  --immersive: #0f4d59;
-  --immersive-deep: #08333c;
-  --on-immersive: #f7f2e8;
-  --on-immersive-soft: #a8c4c6;
-  --accent: #dfa441;
-  --accent-hi: #edb862;
-  --accent-ink: #2a241c; /* du teck sur le miel, jamais du blanc */
-  --eyebrow: #97482f; /* l'argile : le miel disparaît en petit corps */
-  --tint: #f3e3c8;
-  --tint-ink: #97482f;
-  --whatsapp: #1f8a4c;
-  --whatsapp-hi: #25b45f;
+  --page: var(--nuit-2);
+  --surface: #102a34;
+  --surface-alt: #163540;
+  --rule: #1d3d47;
+  --text: #f2ece0;
+  --text-soft: #b9c8c9;
+  --text-faint: #94a9ac; /* remonté : à 11 px sur le palier de l'aube, le
+                            ton précédent tombait à 3,96 pour 4,5 requis */
+  --accent: #e8a33f;
+  --accent-hi: #f6bd63;
+  --accent-ink: #0d1e17;
+  --eyebrow: #e8a33f;
+  --tint: #2c2a1c;
+  --whatsapp: #22c05e;
+  --whatsapp-hi: #35d573;
+  --whatsapp-ink: #06231a;
 
   --radius: 3px;
 }
 
-/* Le site suit la préférence système. Pas de sélecteur : la marque vit
-   dans un seul monde chromatique, simplement décliné pour la nuit. */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --page: #10262b;
-    --surface: #16323a;
-    --surface-alt: #1c3d45;
-    --rule: #294c54;
-    --text: #f0e8da;
-    --text-soft: #a9c0c2;
-    --text-faint: #75898c;
-    --immersive: #08262c;
-    --immersive-deep: #041a1f;
-    --accent: #e8b358;
-    --accent-hi: #f4c579;
-    --accent-ink: #10262b;
-    --eyebrow: #d98d6a;
-    --tint: #3a2f18;
-    --tint-ink: #e8b358;
-    --whatsapp: #2aa85c;
-    --whatsapp-hi: #35c46e;
-  }
-}
-
 @theme inline {
+  --color-nuit: var(--nuit);
+  --color-nuit-2: var(--nuit-2);
+  --color-nuit-3: var(--nuit-3);
+  --color-aube-1: var(--aube-1);
+  --color-aube-2: var(--aube-2);
+  --color-lueur: var(--lueur);
+  --color-lueur-pale: var(--lueur-pale);
   --color-laut: var(--laut);
-  --color-laut-deep: var(--laut-deep);
-  --color-laut-soft: var(--laut-soft);
   --color-padi: var(--padi);
-  --color-padi-deep: var(--padi-deep);
-  --color-kunyit: var(--kunyit);
   --color-bata: var(--bata);
-  --color-pasir: var(--pasir);
-  --color-bambou: var(--bambou);
-  --color-teck: var(--teck);
-  --color-tint: var(--tint);
-  --color-tint-ink: var(--tint-ink);
+  --color-sable: var(--sable);
 
   --color-page: var(--page);
   --color-surface: var(--surface);
@@ -94,13 +69,10 @@
   --color-ink: var(--text);
   --color-soft: var(--text-soft);
   --color-faint: var(--text-faint);
-  --color-immersive: var(--immersive);
-  --color-immersive-deep: var(--immersive-deep);
-  --color-on-immersive: var(--on-immersive);
-  --color-on-immersive-soft: var(--on-immersive-soft);
   --color-accent: var(--accent);
-  --color-eyebrow: var(--eyebrow);
   --color-accent-ink: var(--accent-ink);
+  --color-eyebrow: var(--eyebrow);
+  --color-tint: var(--tint);
   --color-whatsapp: var(--whatsapp);
   --color-whatsapp-hi: var(--whatsapp-hi);
 
@@ -112,6 +84,7 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 5rem;
+    background: var(--nuit);
   }
   body {
     background: var(--page);
@@ -129,13 +102,18 @@
   h1,
   h2,
   h3 {
-    /* Marcellus : des capitales romaines gravées. La pierre taillée
-       plutôt que le serif de magazine. */
+    /* Eczar, dessinée pour accompagner le devanagari : elle porte une
+       énergie de manuscrit qui renvoie à la racine hindoue de Bali,
+       loin de la capitale romaine des brochures d'hôtel. */
     font-family: var(--font-display), "Iowan Old Style", Georgia, serif;
-    font-weight: 400;
+    font-weight: 500;
     text-wrap: balance;
-    line-height: 1.14;
-    letter-spacing: -0.005em;
+    line-height: 1.16;
+    letter-spacing: -0.012em;
+  }
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-ink);
   }
   :focus-visible {
     outline: 2px solid var(--accent);
@@ -144,12 +122,11 @@
 }
 
 @layer components {
-  /* Étiquettes : capitales très espacées — le calme d'une carte de spa */
   .label {
     font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
     font-size: 0.6875rem;
-    font-weight: 500;
-    letter-spacing: 0.22em;
+    font-weight: 600;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     font-variant-numeric: tabular-nums;
     line-height: 1.5;
@@ -159,12 +136,41 @@
     margin-inline: auto;
     padding-inline: clamp(1.25rem, 5vw, 3rem);
   }
-  /* Respiration généreuse entre les sections */
   .band {
     padding-block: clamp(4.5rem, 12vw, 8rem);
   }
 
-  /* Ouverture en arc : celle des alcôves et des portes de pavillon */
+  /* Les paliers de la montée du jour, dans l'ordre de la page */
+  .ground-1 { background: var(--nuit); }
+  .ground-2 { background: var(--nuit-2); }
+  .ground-3 { background: var(--nuit-3); }
+  .ground-4 { background: var(--aube-1); }
+  .ground-5 { background: var(--aube-2); }
+
+  /* La lumière comme matière : un halo chaud, jamais un aplat.
+     Sert aussi à décoller le texte de son fond. */
+  .glow {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(var(--glow-blur, 90px));
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--accent) 62%, transparent) 0%,
+      transparent 70%
+    );
+  }
+  /* Le fil de lumière qui coud deux sections, comme un horizon */
+  .horizon {
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      color-mix(in srgb, var(--accent) 55%, transparent),
+      transparent
+    );
+  }
+
   .arch {
     border-radius: 50% 50% var(--radius) var(--radius) / 32% 32% 1% 1%;
     overflow: hidden;
@@ -180,13 +186,13 @@
     padding: 0.85em 1.5em;
     font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
     font-size: 0.875rem;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 0.02em;
     line-height: 1.2;
     cursor: pointer;
     text-decoration: none;
     transition: background-color 0.2s ease, color 0.2s ease,
-      border-color 0.2s ease, transform 0.2s ease;
+      border-color 0.2s ease, box-shadow 0.3s ease, transform 0.2s ease;
   }
   .btn:active {
     transform: translateY(1px);
@@ -203,9 +209,10 @@
   }
   .btn-accent:hover {
     background: var(--accent-hi);
+    box-shadow: 0 0 34px -6px color-mix(in srgb, var(--accent) 70%, transparent);
   }
   .btn-outline {
-    border-color: color-mix(in srgb, currentColor 35%, transparent);
+    border-color: color-mix(in srgb, currentColor 38%, transparent);
     background: transparent;
   }
   .btn-outline:hover {
@@ -214,35 +221,55 @@
   }
   .btn-wa {
     background: var(--whatsapp);
-    color: #fff;
+    color: var(--whatsapp-ink);
   }
   .btn-wa:hover {
     background: var(--whatsapp-hi);
+    box-shadow: 0 0 34px -6px color-mix(in srgb, var(--whatsapp) 70%, transparent);
   }
 
   .field-input {
     font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
     font-size: 0.9375rem;
     color: var(--text);
-    background: var(--surface);
+    background: color-mix(in srgb, var(--nuit) 60%, transparent);
     border: 1px solid var(--rule);
     border-radius: var(--radius);
     padding: 0.7rem 0.85rem;
     width: 100%;
     appearance: none;
   }
+  .field-input:hover {
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--rule));
+  }
   select.field-input {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%239c9382' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%237f9497' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
     background-repeat: no-repeat;
     background-position: right 0.8rem center;
     padding-right: 2.2rem;
   }
+  .field-input option {
+    background: var(--surface);
+    color: var(--text);
+  }
 }
 
-/* Bandeau des étapes sous le hero */
 @keyframes drift {
   to {
     transform: translateX(-50%);
+  }
+}
+
+/* Une flamme ne brûle pas régulièrement */
+@keyframes flicker {
+  0%,
+  100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.12);
   }
 }
 

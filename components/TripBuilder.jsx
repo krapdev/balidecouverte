@@ -21,7 +21,7 @@ function Counter({ label, field, value, onStep }) {
         >
           <Minus size={15} />
         </button>
-        <output className="min-w-[2.4ch] text-center font-util text-sm tabular-nums">
+        <output className="min-w-[2.4ch] text-center font-sans text-sm tabular-nums">
           {value}
         </output>
         <button
@@ -47,7 +47,7 @@ export default function TripBuilder() {
   return (
     <section
       id="sur-mesure"
-      className="border-y border-rule bg-surface band"
+      className="ground-5 band"
     >
       <div className="shell">
         <SectionHead eyebrow="Sur-Mesure" title="Construisez votre demande.">
@@ -57,7 +57,7 @@ export default function TripBuilder() {
 
         <div className="grid items-start gap-[clamp(1.75rem,4vw,2.5rem)] lg:grid-cols-[1.05fr_0.95fr]">
           {/* ---------- Colonne gauche : les choix ---------- */}
-          <div className="rounded border border-rule bg-page p-[clamp(1.25rem,3.5vw,1.85rem)]">
+          <div className="rounded border border-rule bg-surface p-[clamp(1.25rem,3.5vw,1.85rem)]">
             <p className="label mb-4 font-sans font-bold tracking-[0.06em] text-faint">
               1 — Vos expériences{" "}
               <span className="text-eyebrow">({trip.count})</span>
@@ -83,7 +83,7 @@ export default function TripBuilder() {
                       className="overflow-hidden"
                     >
                       <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3.5 border-b border-rule py-3 first:border-t-0">
-                        <span className="font-util text-[0.6875rem] tabular-nums text-eyebrow">
+                        <span className="font-sans text-[0.6875rem] tabular-nums text-eyebrow">
                           {String(i + 1).padStart(2, "0")}
                         </span>
                         <span>
@@ -212,14 +212,14 @@ export default function TripBuilder() {
             </p>
 
             {/* Fond réglé comme une page de carnet */}
-            <div className="rounded border border-rule bg-surface bg-[linear-gradient(to_bottom,transparent_27px,color-mix(in_srgb,var(--rule)_45%,transparent)_27px,transparent_28px)] bg-[length:100%_28px] px-5 pb-6 pt-5">
+            <div className="rounded border border-rule bg-surface bg-[linear-gradient(to_bottom,transparent_27px,color-mix(in_srgb,var(--rule)_60%,transparent)_27px,transparent_28px)] bg-[length:100%_28px] px-5 pb-6 pt-5">
               <div className="mb-3.5 flex items-center gap-2.5 text-faint">
                 <MessageSquare size={15} strokeWidth={1.7} />
                 <span className="label">
                   Aperçu — WhatsApp · {WHATSAPP_DISPLAY}
                 </span>
               </div>
-              <pre className="m-0 max-h-[340px] overflow-y-auto whitespace-pre-wrap break-words font-util text-sm leading-[28px]">
+              <pre className="m-0 max-h-[340px] overflow-y-auto whitespace-pre-wrap break-words font-sans text-sm leading-[28px]">
                 {message}
               </pre>
             </div>

@@ -1,18 +1,17 @@
-import { Marcellus, Jost } from "next/font/google";
+import { Eczar, Mulish } from "next/font/google";
 import "./globals.css";
 
-/* Marcellus : des capitales romaines gravées — la pierre taillée des
-   temples plutôt que le serif de magazine. Une seule graisse, ce qui
-   force la sobriété.
-   Jost : géométrique, calme, tabulaire — texte courant, étiquettes et
-   boutons. Deux familles, pas trois : le registre spa vit de retenue. */
-const display = Marcellus({
+/* Eczar : dessinée pour accompagner le devanagari, elle porte une énergie
+   de manuscrit qui renvoie à la racine hindoue de Bali — loin de la
+   capitale romaine des brochures d'hôtel.
+   Mulish : humaniste, douce, très lisible sur fond sombre. Son italique
+   sert les moments de rêverie, qu'Eczar ne sait pas porter. */
+const display = Eczar({
   subsets: ["latin"],
-  weight: ["400"],
   display: "swap",
   variable: "--font-display",
 });
-const body = Jost({
+const body = Mulish({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-body",
@@ -31,11 +30,11 @@ export const metadata = {
   },
 };
 
+/* Monde nocturne assumé : la barre du navigateur suit, quel que soit
+   le réglage système du visiteur. */
 export const viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f7f2e8" },
-    { media: "(prefers-color-scheme: dark)", color: "#10262b" },
-  ],
+  themeColor: "#061520",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({ children }) {

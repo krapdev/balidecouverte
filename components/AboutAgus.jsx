@@ -1,23 +1,34 @@
-import { Leaf, Languages, Handshake } from "lucide-react";
+import { Leaf, Flame, Handshake } from "lucide-react";
 import { PortraitAgus, Canang, Jepun } from "./Scene";
 import SectionHead from "./SectionHead";
 import Reveal from "./Reveal";
 
-const PILLARS = [
+/**
+ * Tri Hita Karana — les trois causes du bien-être, la philosophie qui
+ * organise la vie balinaise. Elle recouvre presque exactement ce qu'Agus
+ * a à dire, et lui donne une assise que trois puces marketing n'ont pas.
+ */
+const HARMONIES = [
   {
-    icon: Leaf,
-    title: "100 % hors des sentiers battus",
-    text: "Villages de l'est, canyons oubliés, plantations de Munduk. Jamais un site où l'on fait la queue.",
+    nom: "Parahyangan",
+    gloss: "l'harmonie avec le divin",
+    icon: Flame,
+    title: "Les portes s'ouvrent",
+    text: "Agus est balinais et hindou. Il vous emmène aux cérémonies de son village et aux sources que les groupes ne voient jamais — parce qu'on l'y attend.",
   },
   {
-    icon: Languages,
-    title: "Chauffeur & guide francophone",
-    text: "Une seule personne du premier au dernier jour. Pas de traduction approximative, pas de relais.",
-  },
-  {
+    nom: "Pawongan",
+    gloss: "l'harmonie avec les hommes",
     icon: Handshake,
-    title: "Tarifs en direct",
-    text: "Aucune commission d'agence. Le devis que vous recevez est celui d'Agus, ligne par ligne.",
+    title: "En direct, sans agence",
+    text: "Une seule personne du premier au dernier jour, en français. Aucune commission : ce que vous payez va aux familles qui vous accueillent.",
+  },
+  {
+    nom: "Palemahan",
+    gloss: "l'harmonie avec la nature",
+    icon: Leaf,
+    title: "Hors des sentiers battus",
+    text: "Villages de l'est, canyons oubliés, plantations de Munduk. Des groupes de quatre, des écolodges, jamais un site où l'on fait la queue.",
   },
 ];
 
@@ -25,7 +36,7 @@ export default function AboutAgus() {
   return (
     <section
       id="esprit"
-      className="border-y border-rule bg-surface band"
+      className="ground-2 band"
     >
       <div className="shell">
         <SectionHead eyebrow="L'Esprit" title="Un Balinais, pas une agence.">
@@ -34,9 +45,9 @@ export default function AboutAgus() {
           français et connaît les gens chez qui vous déjeunerez.
         </SectionHead>
 
-        <div className="grid items-start gap-[clamp(2rem,6vw,3.5rem)] md:grid-cols-[0.85fr_1.15fr]">
+        <div className="grid items-start gap-[clamp(2rem,6vw,3.5rem)] md:grid-cols-[0.9fr_1.1fr]">
           <Reveal as="figure" className="m-0">
-            <div className="arch bg-immersive shadow-[0_24px_60px_-30px_rgba(15,45,50,0.55)]">
+            <div className="arch bg-nuit shadow-[0_30px_70px_-30px_rgba(0,0,0,0.7)]">
               <PortraitAgus className="aspect-[46/58] w-full" />
             </div>
             <figcaption className="mt-3.5 border-t border-rule pt-3">
@@ -55,7 +66,7 @@ export default function AboutAgus() {
             </figcaption>
           </Reveal>
 
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-6 md:mt-16">
             <Reveal>
               <blockquote className="border-l-3 border-accent pl-5 text-[clamp(1.25rem,3.6vw,1.6rem)] italic leading-snug text-pretty">
                 « Je ne vends pas un circuit. Je vous emmène là où j&apos;emmènerais
@@ -96,16 +107,22 @@ export default function AboutAgus() {
             </Reveal>
 
             <Reveal delay={0.18}>
-              <ul className="grid list-none gap-px overflow-hidden rounded border border-rule bg-rule p-0 sm:grid-cols-3">
-                {PILLARS.map(({ icon: Icon, title, text }) => (
+              <p className="label mb-5 text-accent">
+                Tri Hita Karana — les trois harmonies
+              </p>
+              <ul className="grid list-none gap-8 p-0 sm:grid-cols-3">
+                {HARMONIES.map(({ icon: Icon, nom, gloss, title, text }, i) => (
                   <li
-                    key={title}
-                    className="flex flex-col gap-2.5 bg-page px-5 py-6"
+                    key={nom}
+                    className="flex flex-col gap-2.5 border-t border-rule pt-5"
+                    /* Décalage : les trois harmonies ne sont pas alignées
+                       au cordeau, elles se répondent. */
+                    style={{ marginTop: `${i * 18}px` }}
                   >
-                    <Icon size={22} className="text-eyebrow" strokeWidth={1.6} />
-                    <h3 className="font-sans text-base font-bold tracking-normal">
-                      {title}
-                    </h3>
+                    <Icon size={20} className="text-accent" strokeWidth={1.5} />
+                    <h3 className="text-xl leading-tight">{nom}</h3>
+                    <p className="label -mt-1 text-faint">{gloss}</p>
+                    <p className="mt-1 font-semibold">{title}</p>
                     <p className="text-sm leading-relaxed text-soft">{text}</p>
                   </li>
                 ))}

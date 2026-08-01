@@ -10,19 +10,19 @@ export default function ExperienceCard({ experience }) {
 
   return (
     <article
-      className={`group flex h-full flex-col overflow-hidden rounded-[18px_18px_3px_3px] border bg-surface transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_22px_44px_-28px_rgba(15,45,50,.5)] ${
+      className={`group flex h-full flex-col overflow-hidden rounded-[18px_18px_3px_3px] border bg-surface transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_0_44px_-14px_color-mix(in_srgb,var(--accent)_55%,transparent)] ${
         on
           ? "border-accent"
           : "border-rule hover:border-[color-mix(in_srgb,var(--accent)_55%,var(--rule))]"
       }`}
     >
-      <div className="relative aspect-[16/11] bg-immersive-deep">
+      <div className="relative aspect-[16/11] bg-nuit">
         <Scene
           kind={experience.scene}
           uid={experience.id}
           className="h-full w-full"
         />
-        <span className="label absolute left-4 top-4 rounded-full bg-[color-mix(in_srgb,var(--immersive-deep)_72%,transparent)] px-3 py-1.5 text-pasir backdrop-blur-sm">
+        <span className="label absolute left-4 top-4 rounded-full bg-[color-mix(in_srgb,var(--nuit)_78%,transparent)] px-3 py-1.5 text-sable backdrop-blur-sm">
           {experience.tag}
         </span>
       </div>
@@ -45,7 +45,7 @@ export default function ExperienceCard({ experience }) {
         </p>
 
         <div className="flex items-center justify-between gap-4 border-t border-rule pt-3.5">
-          <span className="font-util text-sm tabular-nums">
+          <span className="font-sans text-sm tabular-nums">
             {experience.price}{" "}
             <small className="text-[0.6875rem] text-faint">
               {experience.priceNote}
@@ -57,7 +57,7 @@ export default function ExperienceCard({ experience }) {
             aria-pressed={on}
             className={`btn whitespace-nowrap ${
               on
-                ? "border-laut bg-laut text-pasir"
+                ? "border-accent bg-transparent text-accent"
                 : "btn-accent"
             }`}
           >

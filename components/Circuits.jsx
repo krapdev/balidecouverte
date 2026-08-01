@@ -10,13 +10,12 @@ export default function Circuits() {
   return (
     <section
       id="circuits"
-      className="bg-immersive band text-on-immersive"
+      className="ground-4 band"
     >
       <div className="shell">
         <SectionHead
           eyebrow="Circuits"
           title="Une trame de 12 jours, à déformer."
-          onImmersive
         >
           Voici comment s&apos;enchaîne un itinéraire type dans l&apos;est et le
           nord. Chaque étape se rallonge, se raccourcit ou se remplace — c&apos;est
@@ -32,18 +31,28 @@ export default function Circuits() {
               className="grid grid-cols-[auto_1fr] gap-5 pb-9"
             >
               <div className="flex flex-col items-center gap-2">
-                <span className="grid h-[30px] w-[30px] shrink-0 place-items-center rounded-full border border-[color-mix(in_srgb,var(--on-immersive)_35%,transparent)] bg-immersive-deep font-util text-[0.6875rem] tabular-nums">
-                  {String(i + 1).padStart(2, "0")}
+                {/* Une lampe par étape : le halo dit l'avancée de la nuit */}
+                <span className="relative grid h-[34px] w-[34px] shrink-0 place-items-center rounded-full border border-[color-mix(in_srgb,var(--accent)_45%,transparent)] bg-nuit text-[0.6875rem] font-semibold tabular-nums text-accent">
+                  <span
+                    className="absolute inset-0 rounded-full opacity-70 blur-md motion-safe:animate-[flicker_4s_ease-in-out_infinite]"
+                    style={{
+                      background:
+                        "radial-gradient(circle, color-mix(in srgb, var(--accent) 70%, transparent), transparent 70%)",
+                      animationDelay: `${i * 0.7}s`,
+                    }}
+                    aria-hidden="true"
+                  />
+                  <span className="relative">{String(i + 1).padStart(2, "0")}</span>
                 </span>
                 {i < ROUTE.length - 1 && (
-                  <span className="w-px flex-1 bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--on-immersive)_30%,transparent),color-mix(in_srgb,var(--on-immersive)_8%,transparent))]" />
+                  <span className="w-px flex-1 bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--accent)_40%,transparent),color-mix(in_srgb,var(--accent)_5%,transparent))]" />
                 )}
               </div>
 
               <div className="pb-1">
                 <span className="label mb-2 block text-accent">{step.days}</span>
                 <h3 className="mb-1.5 text-[1.375rem]">{step.title}</h3>
-                <p className="max-w-[58ch] text-sm leading-relaxed text-on-immersive-soft">
+                <p className="max-w-[58ch] text-sm leading-relaxed text-soft">
                   {step.text}
                 </p>
               </div>
