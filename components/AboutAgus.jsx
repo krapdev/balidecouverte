@@ -39,15 +39,23 @@ export default function AboutAgus() {
             <div className="overflow-hidden rounded-[3px] bg-immersive shadow-[0_18px_46px_-22px_rgba(15,36,24,0.55)]">
               <PortraitAgus className="aspect-[46/56] w-full" />
             </div>
-            <figcaption className="mt-3.5 flex items-baseline justify-between gap-4 border-t border-rule pt-3 text-faint">
-              <span className="label">Agus Yudiarta</span>
-              <span className="label">08°27&apos;S 115°26&apos;E</span>
+            <figcaption className="mt-3.5 border-t border-rule pt-3">
+              <span className="flex items-baseline justify-between gap-4 text-faint">
+                <span className="label">Agus Yudiarta</span>
+                <span className="label">08°27&apos;S 115°26&apos;E</span>
+              </span>
+              <span className="mt-2 block text-sm leading-relaxed text-soft">
+                Le damier noir et blanc, en bas de l&apos;image, est le{" "}
+                <em>poleng</em> : on le noue autour des arbres et des statues
+                pour dire l&apos;équilibre des contraires. Il revient tout au long
+                de ce site.
+              </span>
             </figcaption>
           </Reveal>
 
           <div className="flex flex-col gap-6">
             <Reveal>
-              <blockquote className="border-l-2 border-accent pl-5 font-display text-[clamp(1.25rem,3.6vw,1.6rem)] italic leading-snug text-pretty">
+              <blockquote className="border-l-3 border-accent pl-5 text-[clamp(1.25rem,3.6vw,1.6rem)] italic leading-snug text-pretty">
                 « Je ne vends pas un circuit. Je vous emmène là où j&apos;emmènerais
                 un ami : chez ma tante à Sidemen, dans la cascade où j&apos;ai appris
                 à nager. »
@@ -80,7 +88,7 @@ export default function AboutAgus() {
                     key={title}
                     className="flex flex-col gap-2.5 bg-page px-5 py-6"
                   >
-                    <Icon size={22} className="text-accent" strokeWidth={1.6} />
+                    <Icon size={22} className="text-eyebrow" strokeWidth={1.6} />
                     <h3 className="font-sans text-base font-bold tracking-normal">
                       {title}
                     </h3>

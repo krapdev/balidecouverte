@@ -16,7 +16,7 @@ function Counter({ label, field, value, onStep }) {
         <button
           type="button"
           onClick={() => onStep(field, -1)}
-          className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded border border-rule bg-surface text-soft transition-colors hover:border-accent hover:text-accent"
+          className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded border border-rule bg-surface text-soft transition-colors hover:border-eyebrow hover:text-eyebrow"
           aria-label={`Retirer un ${label.toLowerCase().replace(/s$/, "")}`}
         >
           <Minus size={15} />
@@ -27,7 +27,7 @@ function Counter({ label, field, value, onStep }) {
         <button
           type="button"
           onClick={() => onStep(field, 1)}
-          className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded border border-rule bg-surface text-soft transition-colors hover:border-accent hover:text-accent"
+          className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded border border-rule bg-surface text-soft transition-colors hover:border-eyebrow hover:text-eyebrow"
           aria-label={`Ajouter un ${label.toLowerCase().replace(/s$/, "")}`}
         >
           <Plus size={15} />
@@ -60,7 +60,7 @@ export default function TripBuilder() {
           <div className="rounded border border-rule bg-page p-[clamp(1.25rem,3.5vw,1.85rem)]">
             <p className="label mb-4 font-sans font-bold tracking-[0.06em] text-faint">
               1 — Vos expériences{" "}
-              <span className="text-accent">({trip.count})</span>
+              <span className="text-eyebrow">({trip.count})</span>
             </p>
 
             <div className="mb-6 flex flex-col">
@@ -83,7 +83,7 @@ export default function TripBuilder() {
                       className="overflow-hidden"
                     >
                       <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3.5 border-b border-rule py-3 first:border-t-0">
-                        <span className="font-util text-[0.6875rem] tabular-nums text-accent">
+                        <span className="font-util text-[0.6875rem] tabular-nums text-eyebrow">
                           {String(i + 1).padStart(2, "0")}
                         </span>
                         <span>
@@ -97,7 +97,7 @@ export default function TripBuilder() {
                         <button
                           type="button"
                           onClick={() => trip.removeExperience(e.id)}
-                          className="grid place-items-center rounded-sm p-1 text-faint transition-colors hover:text-accent"
+                          className="grid place-items-center rounded-sm p-1 text-faint transition-colors hover:text-eyebrow"
                           aria-label={`Retirer ${e.title}`}
                         >
                           <X size={16} />
@@ -174,7 +174,7 @@ export default function TripBuilder() {
                         onClick={() => trip.toggleStyle(s)}
                         className={`rounded-full border px-4 py-2 text-sm transition-colors ${
                           on
-                            ? "border-accent bg-clay font-semibold text-terracotta-deep dark:text-accent"
+                            ? "border-accent bg-tint font-semibold text-tint-ink"
                             : "border-rule bg-surface hover:border-faint"
                         }`}
                       >

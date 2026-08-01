@@ -7,6 +7,7 @@ import Circuits from "@/components/Circuits";
 import TripBuilder from "@/components/TripBuilder";
 import MobileBar from "@/components/MobileBar";
 import Footer from "@/components/Footer";
+import { Poleng } from "@/components/Scene";
 
 export default function Home() {
   return (
@@ -16,9 +17,11 @@ export default function Home() {
         <Hero />
         <AboutAgus />
         <Experiences />
+        <Poleng />
         <Circuits />
         <TripBuilder />
       </main>
+      <Poleng />
       <Footer />
       <MobileBar />
     </TripProvider>

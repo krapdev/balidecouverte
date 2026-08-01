@@ -23,7 +23,7 @@ export default function Hero() {
           <Scene kind="terraces" w={1600} h={900} uid="hero" className="h-full w-full object-cover" />
         </div>
         <div
-          className="absolute inset-0 bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--immersive-deep)_80%,transparent)_0%,color-mix(in_srgb,var(--immersive-deep)_30%,transparent)_38%,color-mix(in_srgb,var(--immersive-deep)_92%,transparent)_100%)]"
+          className="absolute inset-0 bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--immersive-deep)_55%,transparent)_0%,color-mix(in_srgb,var(--immersive-deep)_12%,transparent)_30%,color-mix(in_srgb,var(--immersive-deep)_78%,transparent)_62%,var(--immersive-deep)_100%)]"
           aria-hidden="true"
         />
 

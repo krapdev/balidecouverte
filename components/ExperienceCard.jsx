@@ -22,7 +22,7 @@ export default function ExperienceCard({ experience }) {
           uid={experience.id}
           className="h-full w-full"
         />
-        <span className="label absolute left-3 top-3 rounded-sm bg-[color-mix(in_srgb,var(--canopy)_78%,transparent)] px-2.5 py-1.5 text-sand backdrop-blur-sm">
+        <span className="label absolute left-3 top-3 rounded-sm bg-lava px-2.5 py-1.5 text-pasir">
           {experience.tag}
         </span>
       </div>
@@ -57,7 +57,7 @@ export default function ExperienceCard({ experience }) {
             aria-pressed={on}
             className={`btn whitespace-nowrap ${
               on
-                ? "border-moss bg-moss text-sand dark:border-lichen dark:bg-lichen dark:text-canopy"
+                ? "border-laut bg-laut text-pasir"
                 : "btn-accent"
             }`}
           >

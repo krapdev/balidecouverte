@@ -1,22 +1,26 @@
-import { Fraunces, Karla, IBM_Plex_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Newsreader, Space_Mono } from "next/font/google";
 import "./globals.css";
 
-/* Fraunces : serif « molle », taillée main — l'artisanat, pas le luxe froid.
-   Karla : grotesque humaniste, un peu bancale, qui n'assèche pas le français.
-   IBM Plex Mono : coordonnées, durées, aperçu du message. */
-const display = Fraunces({
+/* Grotesque pour les titres, serif pour le texte courant : l'inverse de
+   l'habitude, et c'est ce qui sort le site du registre « agence ».
+   Bricolage Grotesque a des lettres volontairement irrégulières et un axe
+   de chasse — les titres sont resserrés à la main.
+   Newsreader tient les longs paragraphes en français sans les durcir.
+   Space Mono, pour les coordonnées et les durées, apporte le grain. */
+const display = Bricolage_Grotesque({
   subsets: ["latin"],
+  axes: ["opsz", "wdth"],
   display: "swap",
   variable: "--font-display",
 });
-const body = Karla({
+const body = Newsreader({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-body",
 });
-const util = IBM_Plex_Mono({
+const util = Space_Mono({
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["400", "700"],
   display: "swap",
   variable: "--font-util",
 });
@@ -36,8 +40,8 @@ export const metadata = {
 
 export const viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f4efe6" },
-    { media: "(prefers-color-scheme: dark)", color: "#101d16" },
+    { media: "(prefers-color-scheme: light)", color: "#faf1e2" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b2730" },
   ],
 };
 
