@@ -556,6 +556,94 @@ function Kelimutu({ w, h, ns }) {
   );
 }
 
+/** Wayang kulit — l'écran éclairé, la lampe, et l'ombre du puppet. */
+function Wayang({ w, h, ns }) {
+  return (
+    <>
+      {/* La nuit du pavillon, et l'écran de coton tendu */}
+      <rect width={w} height={h} fill={C.rocheSombre} />
+      <ellipse cx={w * 0.5} cy={h * 0.5} rx={w * 0.42} ry={h * 0.42} fill={`url(#halo-${ns})`} />
+      <rect
+        x={w * 0.12}
+        y={h * 0.14}
+        width={w * 0.76}
+        height={h * 0.62}
+        rx="6"
+        fill={C.soleilPale}
+      />
+      <rect
+        x={w * 0.12}
+        y={h * 0.14}
+        width={w * 0.76}
+        height={h * 0.62}
+        rx="6"
+        fill="none"
+        stroke={C.brique}
+        strokeWidth="6"
+      />
+      {/* La marionnette découpée, bras articulé tendu vers le haut */}
+      <g fill={C.rocheSombre} transform={`translate(${w * 0.46} ${h * 0.7})`}>
+        <path d="M0 0 c -10 -22, -6 -46, 6 -62 c 10 -14, 26 -18, 34 -10 c -14 4, -22 16, -24 30 c -2 16, 2 30, 6 42 z" />
+        <path d="M40 -72 c 10 -8, 14 -22, 8 -32 c -8 -12, -26 -10, -30 2 c -4 12, 6 24, 22 30 z" />
+        <path d="M44 -104 l 16 -20 l 6 8 l -14 18 z" />
+        <path d="M18 -50 c 18 -6, 34 -22, 40 -42 l 7 4 c -6 24, -24 42, -45 48 z" />
+      </g>
+      {/* La lampe à huile qui projette tout ça */}
+      <circle cx={w * 0.5} cy={h * 0.86} r={h * 0.06} fill={`url(#halo-${ns})`} />
+      <path
+        d={`M${w * 0.47} ${h * 0.9} l${w * 0.06} 0 l${-w * 0.01} ${h * 0.05} l${-w * 0.04} 0 z`}
+        fill={C.brique}
+      />
+      <circle cx={w * 0.5} cy={h * 0.87} r="5" fill={C.soleil} />
+    </>
+  );
+}
+
+/** Lovina à 5 h 45 : le bateau à balancier et les dauphins. */
+function Dauphins({ w, h, ns }) {
+  return (
+    <>
+      <ellipse cx={w * 0.3} cy={h * 0.5} rx={w * 0.36} ry={h * 0.34} fill={`url(#halo-${ns})`} />
+      <circle cx={w * 0.3} cy={h * 0.5} r={h * 0.1} fill={C.soleil} />
+      {/* La mer, et la traînée de lumière du soleil levant */}
+      <rect y={h * 0.56} width={w} height={h * 0.44} fill={C.lagon} />
+      <path
+        d={`M${w * 0.3} ${h * 0.56} L${w * 0.2} ${h} L${w * 0.42} ${h} Z`}
+        fill={C.soleilPale}
+        opacity=".5"
+      />
+      {Array.from({ length: 5 }, (_, i) => (
+        <path
+          key={i}
+          d={`M0 ${h * (0.64 + i * 0.07)} Q ${w * 0.5} ${h * (0.61 + i * 0.07)} ${w} ${h * (0.65 + i * 0.07)}`}
+          fill="none"
+          stroke={C.lagonPale}
+          strokeWidth="2"
+          opacity={0.5 - i * 0.07}
+        />
+      ))}
+      {/* Deux dauphins qui sortent, et le jukung avec son balancier */}
+      {[
+        { x: 0.6, y: 0.7, s: 1 },
+        { x: 0.74, y: 0.79, s: 0.7 },
+      ].map((d, i) => (
+        <path
+          key={i}
+          transform={`translate(${w * d.x} ${h * d.y}) scale(${d.s})`}
+          d="M0 0 c 10 -16, 30 -26, 48 -22 c -12 -6, -8 -16, 2 -18 c -14 -4, -28 2, -36 12 c -8 10, -12 20, -14 28 z"
+          fill={C.rocheSombre}
+        />
+      ))}
+      <g transform={`translate(${w * 0.2} ${h * 0.82})`}>
+        <path d="M-40 0 L40 0 L30 12 L-30 12 Z" fill={C.rocheSombre} />
+        <path d="M-2 0 L-2 -44 L26 -8 Z" fill={C.clair} />
+        <path d="M-46 6 L46 6" stroke={C.rocheSombre} strokeWidth="3" />
+        <path d="M-30 0 L-46 6 M30 0 L46 6" stroke={C.rocheSombre} strokeWidth="2.5" />
+      </g>
+    </>
+  );
+}
+
 const MOTIFS = {
   terraces: Terraces,
   canyon: Canyon,
@@ -565,6 +653,8 @@ const MOTIFS = {
   rinjani: Rinjani,
   komodo: Komodo,
   kelimutu: Kelimutu,
+  wayang: Wayang,
+  dauphins: Dauphins,
 };
 
 export default function Scene({

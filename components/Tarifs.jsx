@@ -1,5 +1,5 @@
-import { Check, X, Info } from "lucide-react";
-import { TARIFS } from "@/lib/data";
+import { Check, X, Bed, Ship, Route, Compass, Car } from "lucide-react";
+import { TARIFS, AGUS, CIRCUIT } from "@/lib/data";
 import SectionHead from "./SectionHead";
 import Reveal from "./Reveal";
 
@@ -103,13 +103,42 @@ export default function Tarifs() {
         </div>
 
         <Reveal delay={0.16}>
-          <div className="mt-10 flex flex-col gap-3 rounded border border-rule bg-tint p-5">
-            {TARIFS.notes.map((n) => (
-              <p key={n} className="flex gap-3 text-sm leading-relaxed">
-                <Info size={16} className="mt-1 shrink-0 text-tint-ink" />
-                {n}
+          <div className="mt-10 grid gap-x-8 gap-y-5 rounded border border-rule bg-tint p-6 sm:grid-cols-2">
+            <div className="sm:col-span-2">
+              <p className="label mb-2 text-tint-ink">Bon à savoir</p>
+            </div>
+
+            <p className="flex gap-3 text-sm leading-relaxed">
+              <Bed size={16} className="mt-1 shrink-0 text-tint-ink" />
+              {TARIFS.supplement}
+            </p>
+            <p className="flex gap-3 text-sm leading-relaxed">
+              <Ship size={16} className="mt-1 shrink-0 text-tint-ink" />
+              {TARIFS.nusaPenida}
+            </p>
+            <p className="flex gap-3 text-sm leading-relaxed">
+              <Route size={16} className="mt-1 shrink-0 text-tint-ink" />
+              {TARIFS.circuits} Le circuit de {CIRCUIT.jours} jours revient à{" "}
+              {CIRCUIT.prix} pour deux personnes.
+            </p>
+            <p className="flex gap-3 text-sm leading-relaxed">
+              <Compass size={16} className="mt-1 shrink-0 text-tint-ink" />
+              {TARIFS.ailleurs}
+            </p>
+
+            <div className="sm:col-span-2">
+              <p className="label mb-2.5 mt-2 text-tint-ink">
+                Le véhicule, selon le nombre
               </p>
-            ))}
+              <ul className="m-0 flex list-none flex-col gap-1.5 p-0">
+                {AGUS.vehicules.map((v) => (
+                  <li key={v} className="flex gap-3 text-sm leading-relaxed">
+                    <Car size={16} className="mt-1 shrink-0 text-tint-ink" />
+                    {v}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </Reveal>
       </div>

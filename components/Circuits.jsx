@@ -1,4 +1,4 @@
-import { ROUTE } from "@/lib/data";
+import { ROUTE, CIRCUIT } from "@/lib/data";
 import SectionHead from "./SectionHead";
 import Reveal from "./Reveal";
 
@@ -15,11 +15,11 @@ export default function Circuits() {
       <div className="shell">
         <SectionHead
           eyebrow="Circuits"
-          title="Une trame de 12 jours, à déformer."
+          title="Quinze jours, sept étapes, quatorze nuits."
         >
-          Voici comment s&apos;enchaîne un itinéraire type dans l&apos;est et le
-          nord. Chaque étape se rallonge, se raccourcit ou se remplace — c&apos;est
-          le point de départ de votre conversation avec Agus.
+          Un circuit qu&apos;Agus a réellement construit, résumé à ses étapes.
+          Chacune se rallonge, se raccourcit ou se remplace : c&apos;est un point
+          de départ, pas un catalogue.
         </SectionHead>
 
         <ol className="m-0 list-none p-0">
@@ -41,7 +41,9 @@ export default function Circuits() {
               </div>
 
               <div className="pb-1">
-                <span className="label mb-2 block text-accent">{step.days}</span>
+                <span className="label mb-2 block text-eyebrow">
+                  {step.days}
+                </span>
                 <h3 className="mb-1.5 text-[1.375rem]">{step.title}</h3>
                 <p className="max-w-[58ch] text-sm leading-relaxed text-soft">
                   {step.text}
@@ -50,6 +52,30 @@ export default function Circuits() {
             </Reveal>
           ))}
         </ol>
+
+        <Reveal delay={0.1}>
+          <div className="mt-4 flex flex-col gap-4 border-t border-rule pt-8 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="font-display text-[1.75rem] tabular-nums">
+                {CIRCUIT.prix}
+                <span className="ml-2 font-sans text-base text-soft">
+                  pour deux, soit {CIRCUIT.prixParPersonne} par personne
+                </span>
+              </p>
+              <p className="mt-1 max-w-[52ch] text-sm text-soft">
+                {CIRCUIT.formule} {CIRCUIT.horsForfait} {CIRCUIT.saison
+                  .charAt(0)
+                  .toUpperCase() + CIRCUIT.saison.slice(1)}.
+              </p>
+              <p className="mt-2 max-w-[52ch] text-sm text-soft">
+                {CIRCUIT.degressif}
+              </p>
+            </div>
+            <a className="btn btn-accent shrink-0" href="#sur-mesure">
+              Partir de ce circuit
+            </a>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

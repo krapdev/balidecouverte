@@ -10,31 +10,47 @@ compte, sans intermédiaire.
 ## Statut du contenu — à lire avant de reprendre le projet
 
 Le site existant est **https://www.balidecouverte.fr/**. Il renvoie 403 à toute
-récupération automatisée, donc les faits ci-dessous ont été relevés via l'index
-de recherche : **fiables sur les chiffres, partiels sur les formulations**.
+récupération automatisée : le contenu ci-dessous a été fourni par copier-coller.
 
 `lib/data.js` sépare explicitement deux natures de données :
 
 | Bloc | Nature |
 | --- | --- |
-| `CONTACT`, `AGUS`, `TARIFS` | **Faits relevés sur le site réel.** À ne corriger que sur indication d'Agus. |
-| `EXPERIENCES`, `ROUTE`, `ISLANDS` | **Exemples de démonstration.** Le vrai catalogue est une série d'excursions à la journée numérotées et de circuits packagés à prix fixe. |
+| `CONTACT`, `AGUS`, `TARIFS`, `CIRCUIT` | **Contenu réel du site.** À ne corriger que sur indication d'Agus. |
+| `EXPERIENCES`, `ROUTE` | **Extraits du circuit réel de 15 jours**, résumés. |
+| `ISLANDS` | Réel dans les destinations, **résumé rédigé** pour les descriptions. |
 
-Reste à reprendre depuis le site actuel, une fois le contenu récupéré :
+### Le parti pris éditorial
 
-- la liste complète des **excursions à la journée numérotées** (n° 12 Nusa
-  Penida, n° 13 le nord et les dauphins, Besakih, Tamblingan…) ;
-- les **cinq circuits packagés** et leurs prix : Bali 15 j (2 420 € pour 2),
-  Bali+Lombok 16 j (3 180 € pour 2), Bali+Java, Bali+Komodo/Rinca 14 j,
-  Flores+Komodo/Rinca 14 j ;
-- le **livre d'or** — des témoignages réels, à substituer à toute note globale ;
-- **mentions légales, CGV, politique de confidentialité, conditions
-  d'annulation** : absentes du site actuel, et obligatoires pour une clientèle
+La page d'origine du circuit déroule les quatorze journées activité par
+activité. C'est complet, mais ça se lit comme un devis. Ici on garde **les sept
+étapes et une phrase par étape**, plus **quatre moments sur la quarantaine** que
+compte le circuit. L'objectif est d'ouvrir l'appétit et de rappeler que tout se
+réécrit — le détail complet reste chez Agus, et c'est justement le prétexte à la
+conversation.
+
+### Les points de tarification à ne pas perdre
+
+- Le tarif journée est **par jour et par véhicule**, jamais par personne.
+  Afficher « à partir de X € / pers. » contredirait le modèle d'Agus.
+- **15 € par nuit** de supplément si le voyageur loge dans l'est, le
+  nord-centre, le nord ou le nord-ouest : Agus dort et mange sur place. C'est
+  annoncé d'avance, pas noyé dans un devis — c'est un argument de confiance.
+- Trois véhicules selon le nombre : Avanza (4 pers.), APV (5 pers.), minibus
+  (11 pers.), chauffeur-guide compris dans le compte.
+- Nusa Penida est un forfait à part : 230 € pour deux, novembre à mars.
+- Circuit de 15 jours : 2 420 € pour deux, soit 1 210 € par personne, en basse
+  saison. Dégressif à trois ou quatre.
+
+### Reste à reprendre
+
+- La liste complète des **excursions à la journée numérotées**.
+- Les quatre autres **circuits packagés** : Bali+Lombok, Bali+Java,
+  Bali+Komodo/Rinca, Flores+Komodo/Rinca.
+- Le **livre d'or** — des témoignages réels, à substituer à toute note globale.
+- **Mentions légales, CGV, politique de confidentialité, conditions
+  d'annulation** : absentes du site actuel, obligatoires pour une clientèle
   française.
-
-Le tarif affiché est **par jour et par véhicule**, jamais par personne. Toute
-tentation d'afficher un prix « à partir de X € / pers. » contredit le modèle
-commercial d'Agus.
 
 ## Deux livrables
 

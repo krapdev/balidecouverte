@@ -7,9 +7,11 @@ export default function Experiences() {
   return (
     <section id="experiences" className="ground-sable band">
       <div className="shell">
-        <SectionHead eyebrow="Expériences" title="Coups de cœur d'Agus">
-          Ajoutez celles qui vous parlent : elles alimentent votre demande de
-          devis, en bas de page. Rien n&apos;est réservé ni payé ici.
+        <SectionHead eyebrow="Expériences" title="Quatre moments, sur une quarantaine">
+          Voici ce qu&apos;on retient d&apos;un circuit de quinze jours. Il y en a
+          bien d&apos;autres — marché aux oiseaux, rafting dans les gorges
+          d&apos;Ayung, saline de quatre cents hectares, cochon grillé chez Mère
+          Oka. Ajoutez ceux qui vous parlent, ils alimentent votre demande.
         </SectionHead>
 
         <div className="grid gap-x-8 gap-y-10 sm:grid-cols-2">

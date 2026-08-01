@@ -72,7 +72,7 @@ export default function Footer() {
             {CONTACT.adresse}
           </address>
           <p className="text-sm text-on-immersive-soft">
-            Réponse sous 24 h · GMT+8
+            Téléphone et WhatsApp : {WHATSAPP_DISPLAY} · Réponse sous 24 h · GMT+8
           </p>
           <Canang size={54} className="mt-4 opacity-90" />
         </div>
