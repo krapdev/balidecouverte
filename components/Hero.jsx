@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { Star } from "lucide-react";
+import { BadgeCheck } from "lucide-react";
 import Scene, { JepunBranch } from "./Scene";
 import { DESTINATIONS } from "@/lib/data";
 
@@ -81,14 +81,15 @@ export default function Hero() {
             variants={rise}
             className="mt-4 flex w-full flex-wrap items-center gap-3 border-t border-[color-mix(in_srgb,var(--on-immersive)_22%,transparent)] pt-5"
           >
-            <span className="flex gap-0.5 text-soleil" aria-hidden="true">
-              {Array.from({ length: 5 }, (_, i) => (
-                <Star key={i} size={15} fill="currentColor" strokeWidth={0} />
-              ))}
-            </span>
+            {/* Une note inventée ne vaut rien : on affiche ce qui est
+                vérifiable — le diplôme et vingt ans de métier. */}
+            <BadgeCheck size={18} className="shrink-0 text-soleil" strokeWidth={1.8} />
             <p className="text-sm text-on-immersive-soft">
-              <b className="font-semibold text-on-immersive">4,9 / 5</b> — plus
-              de 200 voyageurs francophones accompagnés depuis 2016.
+              <b className="font-semibold text-on-immersive">
+                Guide diplômé francophone
+              </b>{" "}
+              — professionnel depuis octobre 2005, membre du syndicat des guides
+              de Bali.
             </p>
           </motion.div>
         </motion.div>

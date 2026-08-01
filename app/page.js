@@ -7,6 +7,7 @@ import Circuits from "@/components/Circuits";
 import TripBuilder from "@/components/TripBuilder";
 import MobileBar from "@/components/MobileBar";
 import Islands from "@/components/Islands";
+import Tarifs from "@/components/Tarifs";
 import Footer from "@/components/Footer";
 import { Divider } from "@/components/Scene";
 
@@ -24,6 +25,7 @@ export default function Home() {
         </div>
         <Circuits />
         <Islands />
+        <Tarifs />
         <TripBuilder />
       </main>
       <Footer />

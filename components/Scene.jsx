@@ -514,6 +514,48 @@ function Komodo({ w, h, ns }) {
   );
 }
 
+/** Kelimutu, Flores : les trois lacs de cratère, chacun de sa couleur. */
+function Kelimutu({ w, h, ns }) {
+  const lacs = [
+    { cx: 0.24, cy: 0.72, rx: 0.13, ry: 0.06, fill: C.lagon },
+    { cx: 0.52, cy: 0.66, rx: 0.15, ry: 0.07, fill: C.jade },
+    { cx: 0.8, cy: 0.74, rx: 0.12, ry: 0.055, fill: C.brique },
+  ];
+  return (
+    <>
+      <ellipse cx={w * 0.5} cy={h * 0.26} rx={w * 0.36} ry={h * 0.28} fill={`url(#halo-${ns})`} />
+      <circle cx={w * 0.5} cy={h * 0.22} r={h * 0.07} fill={C.soleilPale} />
+      {/* Les crêtes du massif, en trois plans */}
+      <path d={band(h * 0.46, h * 0.05, w, h, 1.1)} fill={C.jadeSombre} />
+      <path
+        d={`M0 ${h * 0.62} L${w * 0.18} ${h * 0.5} L${w * 0.4} ${h * 0.58}
+            L${w * 0.6} ${h * 0.48} L${w * 0.82} ${h * 0.58} L${w} ${h * 0.52}
+            L${w} ${h} L0 ${h} Z`}
+        fill={C.roche}
+      />
+      {/* Les trois lacs — c'est leur couleur qui fait monter les gens */}
+      {lacs.map((l, i) => (
+        <g key={i}>
+          <ellipse
+            cx={w * l.cx}
+            cy={h * l.cy}
+            rx={w * l.rx}
+            ry={h * l.ry}
+            fill={C.rocheSombre}
+          />
+          <ellipse
+            cx={w * l.cx}
+            cy={h * l.cy}
+            rx={w * l.rx * 0.86}
+            ry={h * l.ry * 0.8}
+            fill={l.fill}
+          />
+        </g>
+      ))}
+    </>
+  );
+}
+
 const MOTIFS = {
   terraces: Terraces,
   canyon: Canyon,
@@ -522,6 +564,7 @@ const MOTIFS = {
   ijen: Ijen,
   rinjani: Rinjani,
   komodo: Komodo,
+  kelimutu: Kelimutu,
 };
 
 export default function Scene({

@@ -21,14 +21,14 @@ const HARMONIES = [
     gloss: "l'harmonie avec les hommes",
     icon: Handshake,
     title: "En direct, sans agence",
-    text: "Une seule personne du premier au dernier jour, en français. Aucune commission : ce que vous payez va aux familles qui vous accueillent.",
+    text: "Une seule personne du premier au dernier jour, en français ou en anglais. Aucune commission : ce que vous payez va aux familles qui vous accueillent.",
   },
   {
     nom: "Palemahan",
     gloss: "l'harmonie avec la nature",
     icon: Leaf,
     title: "Hors des sentiers battus",
-    text: "Villages de l'est, canyons oubliés, plantations de Munduk. Des groupes de quatre, des écolodges, jamais un site où l'on fait la queue.",
+    text: "Bali, Lombok, Java, Sumbawa, Flores, Komodo et Rinca — hors des sentiers battus. Des petits groupes, jamais un site où l'on fait la queue.",
   },
 ];
 
@@ -41,8 +41,10 @@ export default function AboutAgus() {
       <div className="shell">
         <SectionHead eyebrow="L'Esprit" title="Un Balinais, pas une agence.">
           Derrière Bali Découverte, il n&apos;y a ni plateforme, ni centrale de
-          réservation. Il y a Agus, né dans la vallée de Sidemen, qui parle
-          français et connaît les gens chez qui vous déjeunerez.
+          réservation. Il y a Agus Yudiarta, guide diplômé francophone,
+          professionnel depuis octobre 2005 et membre du syndicat des guides de
+          Bali. Il guide aussi en anglais, et connaît personnellement les gens
+          chez qui vous déjeunerez.
         </SectionHead>
 
         <div className="grid items-start gap-[clamp(2rem,6vw,3.5rem)] md:grid-cols-[0.9fr_1.1fr]">
@@ -53,7 +55,7 @@ export default function AboutAgus() {
             <figcaption className="mt-3.5 border-t border-rule pt-3">
               <span className="flex items-baseline justify-between gap-4 text-faint">
                 <span className="label">Agus Yudiarta</span>
-                <span className="label">08°27&apos;S 115°26&apos;E</span>
+                <span className="label">Denpasar · 08°39&apos;S 115°13&apos;E</span>
               </span>
               <span className="mt-2 flex items-start gap-3 text-sm leading-relaxed text-soft">
                 <Jepun size={22} tone="var(--eyebrow)" className="mt-1 shrink-0" />
@@ -68,28 +70,36 @@ export default function AboutAgus() {
 
           <div className="flex flex-col gap-6 md:mt-16">
             <Reveal>
+              {/* Citation de travail : à remplacer par les mots d'Agus.
+                  Les détails personnels inventés ont été retirés. */}
               <blockquote className="border-l-3 border-accent pl-5 text-[clamp(1.25rem,3.6vw,1.6rem)] italic leading-snug text-pretty">
                 « Je ne vends pas un circuit. Je vous emmène là où j&apos;emmènerais
-                un ami : chez ma tante à Sidemen, dans la cascade où j&apos;ai appris
-                à nager. »
+                un ami, et je vous explique ce que vous regardez. »
               </blockquote>
             </Reveal>
 
             <Reveal delay={0.05}>
               <p className="max-w-[62ch] text-soft">
-                J&apos;ai appris le français en accompagnant des voyageurs pendant
-                dix ans, avant de devenir indépendant. Aujourd&apos;hui je conduis
-                moi-même, je traduis moi-même, et je construis chaque itinéraire
-                avec vous — au rythme de votre famille, pas de celui d&apos;un
-                autocar.
+                J&apos;ai quarante ans, je suis marié et père de trois enfants, et
+                je guide en français depuis octobre 2005. Je conduis moi-même, je
+                traduis moi-même, et je construis chaque itinéraire avec vous —
+                au rythme de votre famille, pas de celui d&apos;un autocar.
               </p>
             </Reveal>
 
             <Reveal delay={0.1}>
               <p className="max-w-[62ch] text-soft">
+                Je suis passionné d&apos;histoire, et particulièrement d&apos;histoire
+                européenne — j&apos;ai visité la Belgique et la France plusieurs
+                fois. C&apos;est ce qui rend la conversation possible dans les deux
+                sens : je vous raconte mon île, et vous me racontez la vôtre.
+              </p>
+              <p className="mt-4 max-w-[62ch] text-soft">
                 Passer en direct change tout : le prix que vous payez va aux
                 familles qui vous accueillent, et vous gardez mon numéro pendant
-                tout le séjour.
+                tout le séjour. Je me considère comme un ambassadeur du tourisme
+                de mon pays, et je travaille de tout mon cœur — dans la joie et
+                la bonne humeur.
               </p>
               <p className="mt-4 font-display text-xl">— Agus</p>
             </Reveal>

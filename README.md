@@ -7,6 +7,35 @@ L'objectif produit tient en une phrase : amener le visiteur à envoyer une
 demande de devis **déjà rédigée** sur le WhatsApp d'Agus, sans formulaire, sans
 compte, sans intermédiaire.
 
+## Statut du contenu — à lire avant de reprendre le projet
+
+Le site existant est **https://www.balidecouverte.fr/**. Il renvoie 403 à toute
+récupération automatisée, donc les faits ci-dessous ont été relevés via l'index
+de recherche : **fiables sur les chiffres, partiels sur les formulations**.
+
+`lib/data.js` sépare explicitement deux natures de données :
+
+| Bloc | Nature |
+| --- | --- |
+| `CONTACT`, `AGUS`, `TARIFS` | **Faits relevés sur le site réel.** À ne corriger que sur indication d'Agus. |
+| `EXPERIENCES`, `ROUTE`, `ISLANDS` | **Exemples de démonstration.** Le vrai catalogue est une série d'excursions à la journée numérotées et de circuits packagés à prix fixe. |
+
+Reste à reprendre depuis le site actuel, une fois le contenu récupéré :
+
+- la liste complète des **excursions à la journée numérotées** (n° 12 Nusa
+  Penida, n° 13 le nord et les dauphins, Besakih, Tamblingan…) ;
+- les **cinq circuits packagés** et leurs prix : Bali 15 j (2 420 € pour 2),
+  Bali+Lombok 16 j (3 180 € pour 2), Bali+Java, Bali+Komodo/Rinca 14 j,
+  Flores+Komodo/Rinca 14 j ;
+- le **livre d'or** — des témoignages réels, à substituer à toute note globale ;
+- **mentions légales, CGV, politique de confidentialité, conditions
+  d'annulation** : absentes du site actuel, et obligatoires pour une clientèle
+  française.
+
+Le tarif affiché est **par jour et par véhicule**, jamais par personne. Toute
+tentation d'afficher un prix « à partir de X € / pers. » contredit le modèle
+commercial d'Agus.
+
 ## Deux livrables
 
 | Fichier | Rôle |
@@ -105,7 +134,8 @@ components/
   Circuits.jsx       rail d'itinéraire type
   TripBuilder.jsx    configurateur + générateur WhatsApp
   MobileBar.jsx      rappel du circuit en cours, sur mobile
-  Islands.jsx        extensions Java, Lombok, Komodo
+  Islands.jsx        extensions Java, Lombok, Flores, Komodo
+  Tarifs.jsx         grille saisonnière, inclus et à régler sur place
   Scene.jsx          paysages SVG + ornements (jepun, canang, séparateur)
   Reveal.jsx         apparition au scroll
   SectionHead.jsx    en-tête de section
