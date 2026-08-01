@@ -23,7 +23,7 @@ export default function Hero() {
           <Scene kind="terraces" w={1600} h={900} uid="hero" className="h-full w-full object-cover" />
         </div>
         <div
-          className="absolute inset-0 bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--immersive-deep)_55%,transparent)_0%,color-mix(in_srgb,var(--immersive-deep)_12%,transparent)_30%,color-mix(in_srgb,var(--immersive-deep)_78%,transparent)_62%,var(--immersive-deep)_100%)]"
+          className="absolute inset-0 bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--immersive-deep)_82%,transparent)_0%,color-mix(in_srgb,var(--immersive-deep)_66%,transparent)_34%,color-mix(in_srgb,var(--immersive-deep)_90%,transparent)_66%,var(--immersive-deep)_100%)]"
           aria-hidden="true"
         />
 
@@ -37,7 +37,7 @@ export default function Hero() {
         >
           <motion.p
             variants={rise}
-            className="label flex items-center gap-3 text-on-immersive-soft before:h-px before:w-8 before:bg-accent before:content-['']"
+            className="label flex items-center gap-3 text-on-immersive before:h-px before:w-8 before:bg-accent before:content-['']"
           >
             Sidemen · Munduk · Est de Bali
           </motion.p>
