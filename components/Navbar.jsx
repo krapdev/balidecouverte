@@ -8,6 +8,7 @@ const LINKS = [
   { href: "#esprit", label: "L'Esprit" },
   { href: "#experiences", label: "Expériences" },
   { href: "#circuits", label: "Circuits" },
+  { href: "#iles", label: "Îles sœurs" },
   { href: "#sur-mesure", label: "Sur-Mesure" },
 ];
 

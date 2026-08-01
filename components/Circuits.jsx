@@ -10,7 +10,7 @@ export default function Circuits() {
   return (
     <section
       id="circuits"
-      className="ground-4 band"
+      className="ground-ivoire band"
     >
       <div className="shell">
         <SectionHead
@@ -32,16 +32,7 @@ export default function Circuits() {
             >
               <div className="flex flex-col items-center gap-2">
                 {/* Une lampe par étape : le halo dit l'avancée de la nuit */}
-                <span className="relative grid h-[34px] w-[34px] shrink-0 place-items-center rounded-full border border-[color-mix(in_srgb,var(--accent)_45%,transparent)] bg-nuit text-[0.6875rem] font-semibold tabular-nums text-accent">
-                  <span
-                    className="absolute inset-0 rounded-full opacity-70 blur-md motion-safe:animate-[flicker_4s_ease-in-out_infinite]"
-                    style={{
-                      background:
-                        "radial-gradient(circle, color-mix(in srgb, var(--accent) 70%, transparent), transparent 70%)",
-                      animationDelay: `${i * 0.7}s`,
-                    }}
-                    aria-hidden="true"
-                  />
+                <span className="relative grid h-[34px] w-[34px] shrink-0 place-items-center rounded-full border border-[color-mix(in_srgb,var(--accent)_45%,transparent)] bg-surface text-[0.6875rem] font-semibold tabular-nums text-accent">
                   <span className="relative">{String(i + 1).padStart(2, "0")}</span>
                 </span>
                 {i < ROUTE.length - 1 && (

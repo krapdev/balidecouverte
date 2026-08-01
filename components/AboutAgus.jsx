@@ -36,7 +36,7 @@ export default function AboutAgus() {
   return (
     <section
       id="esprit"
-      className="ground-2 band"
+      className="ground-ivoire band"
     >
       <div className="shell">
         <SectionHead eyebrow="L'Esprit" title="Un Balinais, pas une agence.">
@@ -47,7 +47,7 @@ export default function AboutAgus() {
 
         <div className="grid items-start gap-[clamp(2rem,6vw,3.5rem)] md:grid-cols-[0.9fr_1.1fr]">
           <Reveal as="figure" className="m-0">
-            <div className="arch bg-nuit shadow-[0_30px_70px_-30px_rgba(0,0,0,0.7)]">
+            <div className="arch bg-immersive-deep shadow-[0_30px_70px_-30px_rgba(0,0,0,0.7)]">
               <PortraitAgus className="aspect-[46/58] w-full" />
             </div>
             <figcaption className="mt-3.5 border-t border-rule pt-3">

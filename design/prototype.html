@@ -19,53 +19,55 @@
   }
 
   /* ============================================================
-     Le site est nocturne. Bali spirituelle se vit avant le jour : le
-     melukat à l'aube, les cérémonies de nuit, la brume de Munduk à
-     cinq heures. La page suit cette montée — on entre dans la nuit
-     profonde, chaque section se réchauffe d'un cran, et le
-     configurateur, le moment du départ, arrive à l'aube.
+     Registre : classe, joyeux, zen. Fond ivoire chaud, beaucoup d'air,
+     et une couleur qui chante sans crier.
 
-     Monde chromatique unique et assumé : pas de thème clair, pas de
-     sélecteur. Une aube n'a pas de variante diurne.
+     La palette vient des choses qu'on voit vraiment sur l'île :
+       jade      — le vert laqué des temples et des rizières mûres
+       lagon     — le turquoise des passes et du lac d'Ijen
+       soleil    — le safran des ombrelles et des offrandes
+       bougainv. — le rose des murs de Sanur, la touche de joie
+
+     Discipline : le jade porte les actions et les panneaux pleins, le
+     soleil éclaire, le bougainvillier ne sert qu'aux étiquettes, le
+     lagon vit dans les illustrations.
+
+     Monde clair unique et assumé : pas de variante nocturne. La
+     direction est solaire, elle n'a pas d'envers.
      ============================================================ */
   :root {
-    /* Les paliers de la nuit vers l'aube */
-    --nuit:   #061520;
-    --nuit-2: #0a1e28;
-    --nuit-3: #0e2630;
-    --aube-1: #123037;
-    --aube-2: #17383a;
+    color-scheme: light;
 
-    /* Palette de marque */
-    --lueur:      #e8a33f;
-    --lueur-pale: #f6d79b;
-    --laut:       #12707f;
-    --padi:       #7d9152;
-    --bata:       #b8654a;
-    --sable:      #f2ece0;
+    --jade:        #0f6b5c;
+    --jade-deep:   #084a40;
+    --lagon:       #189aa4;
+    --soleil:      #f2b134;
+    --soleil-pale: #fbe0a5;
+    --bougain:     #c8455f;
+    --ivoire:      #fbf7ee;
+    --sable:       #f2e9d8;
+    --encre:       #22302b;
 
-    /* Rôles */
-    --page:        var(--nuit-2);
-    --surface:     #102a34;
-    --surface-alt: #163540;
-    --rule:        #1d3d47;
-    --text:        #f2ece0;
-    --text-soft:   #b9c8c9;
-    --text-faint:  #94a9ac;
-    --accent:      #e8a33f;
-    --accent-hi:   #f6bd63;
-    --accent-ink:  #0d1e17;
-    --eyebrow:     #e8a33f;
-    --tint:        #2c2a1c;
-    --tint-ink:    #f6d79b;
-    --whatsapp:    #22c05e;
-    --whatsapp-hi: #35d573;
-    --whatsapp-ink:#06231a;
+    --page:        #fbf7ee;
+    --surface:     #ffffff;
+    --surface-alt: #f2e9d8;
+    --rule:        #e3d8c2;
+    --text:        #22302b;
+    --text-soft:   #505f58;
+    --text-faint:  #5d6c64;
+    --immersive:   #0f6b5c;
+    --immersive-2: #084a40;
+    --on-immersive:      #f4f8f3;
+    --on-immersive-soft: #cfe6df;
+    --accent:      #0f6b5c;   /* le jade porte l'action */
+    --accent-hi:   #14806e;
+    --accent-ink:  #fbf7ee;
+    --eyebrow:     #ad3550;   /* le bougainvillier, lisible en petit corps */
+    --tint:        #fdeecf;
+    --tint-ink:    #8a5a09;
+    --whatsapp:    #0f7a40;
+    --whatsapp-hi: #14954f;
 
-    /* Eczar, dessinée pour accompagner le devanagari : une énergie de
-       manuscrit qui renvoie à la racine hindoue de Bali, loin de la
-       capitale romaine des brochures d'hôtel.
-       Mulish : humaniste, douce, très lisible sur fond sombre. */
     --display: "Eczar", "Iowan Old Style", Georgia, serif;
     --body: "Mulish", ui-sans-serif, system-ui, -apple-system, sans-serif;
     --util: "Mulish", ui-sans-serif, system-ui, sans-serif;
@@ -80,7 +82,7 @@
 
     --shell: 1180px;
     --pad: clamp(1.25rem, 5vw, 3rem);
-    --radius: 3px;
+    --radius: 4px;
   }
 
   /* ---------- Base ---------- */
@@ -139,28 +141,25 @@
   .btn-wa:hover { background: var(--whatsapp-hi); box-shadow: 0 0 34px -6px color-mix(in srgb, var(--whatsapp) 70%, transparent); }
   .btn-lg { padding: 1.15em 2em; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.13em; }
 
-  /* Les paliers de la montée du jour, dans l'ordre de la page */
-  .ground-1 { background: var(--nuit); }
-  .ground-2 { background: var(--nuit-2); }
-  .ground-3 { background: var(--nuit-3); }
-  .ground-4 { background: var(--aube-1); }
-  .ground-5 { background: var(--aube-2); }
+  /* Deux surfaces de lecture qui alternent, et un panneau plein jade */
+  .ground-ivoire { background: var(--page); }
+  .ground-sable  { background: var(--surface-alt); }
+  .ground-jade   { background: var(--immersive); color: var(--on-immersive); }
+  .ground-jade .sec-head p { color: var(--on-immersive-soft); }
+  .ground-jade .sec-eyebrow { color: var(--soleil-pale); }
 
-  /* La lumière comme matière : un halo chaud, jamais un aplat. */
+  /* La lumière reste une matière, mais elle est solaire. */
   .glow {
     position: absolute; border-radius: 50%; pointer-events: none;
     filter: blur(var(--glow-blur, 90px));
-    background: radial-gradient(circle, color-mix(in srgb, var(--accent) 62%, transparent) 0%, transparent 70%);
+    background: radial-gradient(circle, color-mix(in srgb, var(--soleil) 55%, transparent) 0%, transparent 70%);
   }
-  /* Le fil de lumière qui coud deux sections, comme un horizon */
   .horizon {
     height: 1px;
-    background: linear-gradient(to right, transparent, color-mix(in srgb, var(--accent) 55%, transparent), transparent);
+    background: linear-gradient(to right, transparent, color-mix(in srgb, var(--jade) 32%, transparent), transparent);
   }
-  @keyframes flicker {
-    0%, 100% { opacity: .85; transform: scale(1); }
-    50%      { opacity: 1;   transform: scale(1.12); }
-  }
+  .btn-sun { background: var(--soleil); color: var(--encre); }
+  .btn-sun:hover { background: #ffc551; box-shadow: 0 10px 26px -12px color-mix(in srgb, var(--soleil) 80%, transparent); }
 
   /* Couture entre deux sections : un filet mince interrompu par un
      jepun. Remplace le damier poleng, qui lisait comme un drapeau de
@@ -200,13 +199,13 @@
   /* ============================================================
      HERO — panneau immersif jungle
      ============================================================ */
-  .hero { position: relative; background: var(--nuit); overflow: hidden; }
+  .hero { position: relative; background: var(--immersive-2); color: var(--on-immersive); overflow: hidden; }
   .hero-scene { position: absolute; inset: 0; }
   .hero-scene svg { width: 100%; height: 100%; object-fit: cover; }
   .hero-veil {
     position: absolute; inset: 0;
     background:
-      linear-gradient(to bottom, color-mix(in srgb, var(--nuit) 88%, transparent) 0%, color-mix(in srgb, var(--nuit) 72%, transparent) 38%, color-mix(in srgb, var(--nuit) 92%, transparent) 70%, var(--nuit) 100%);
+      linear-gradient(to bottom, color-mix(in srgb, var(--immersive-2) 26%, transparent) 0%, color-mix(in srgb, var(--immersive-2) 78%, transparent) 14%, color-mix(in srgb, var(--immersive-2) 86%, transparent) 34%, var(--immersive-2) 72%);
   }
   .hero-branch {
     position: absolute; top: -1rem; right: 0; z-index: 1;
@@ -220,30 +219,29 @@
     min-height: min(88vh, 780px); justify-content: flex-end;
   }
   /* Le ton clair « soft » ne passe pas le contraste en petit corps */
-  .hero-eyebrow { color: var(--text); display: flex; align-items: center; gap: 0.7rem; }
-  .hero-eyebrow::before { content: ""; width: 34px; height: 1px; background: var(--accent); }
+  .hero-eyebrow { color: var(--on-immersive); display: flex; align-items: center; gap: 0.7rem; }
+  .hero-eyebrow::before { content: ""; width: 34px; height: 1px; background: var(--soleil); }
   .hero h1 { font-size: var(--t-4xl); max-width: 15ch; letter-spacing: -0.03em; }
-  .hero h1 em { font-style: italic; color: var(--accent); }
-  .hero-sub { font-size: var(--t-lg); color: var(--text-soft); max-width: 46ch; line-height: 1.55; }
+  .hero h1 em { font-style: italic; color: var(--soleil); }
+  .hero-sub { font-size: var(--t-lg); color: var(--on-immersive-soft); max-width: 46ch; line-height: 1.55; }
   .hero-cta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.4rem; }
   .hero-trust {
     display: flex; align-items: center; gap: 0.85rem; flex-wrap: wrap;
-    margin-top: 1rem; padding-top: 1.4rem; border-top: 1px solid var(--rule);
+    margin-top: 1rem; padding-top: 1.4rem; border-top: 1px solid color-mix(in srgb, var(--on-immersive) 22%, transparent);
     width: 100%;
   }
-  .stars { display: inline-flex; gap: 2px; color: var(--accent); }
-  .hero-trust-text { font-size: var(--t-sm); color: var(--text-soft); }
-  .hero-trust-text b { color: var(--text); font-weight: 700; }
+  .stars { display: inline-flex; gap: 2px; color: var(--soleil); }
+  .hero-trust-text { font-size: var(--t-sm); color: var(--on-immersive-soft); }
+  .hero-trust-text b { color: var(--on-immersive); font-weight: 700; }
 
   /* Bandeau défilant — le fil d'itinéraire */
   .ticker {
-    background: var(--nuit); color: var(--text-soft);
-    border-block: 1px solid var(--rule);
+    background: var(--immersive); color: var(--on-immersive-soft);
     overflow: hidden; padding-block: 0.75rem;
   }
   .ticker-track { display: flex; gap: 3rem; width: max-content; animation: drift 42s linear infinite; }
   .ticker-track span { display: inline-flex; align-items: center; gap: 0.75rem; white-space: nowrap; }
-  .ticker-track span::after { content: "◦"; color: var(--accent); }
+  .ticker-track span::after { content: "◦"; color: var(--soleil); }
   @keyframes drift { to { transform: translateX(-50%); } }
   @media (prefers-reduced-motion: reduce) {
     .ticker-track { animation: none; }
@@ -272,7 +270,7 @@
   .portrait-frame { position: relative; }
   .portrait {
     border-radius: 50% 50% var(--radius) var(--radius) / 32% 32% 1% 1%;
-    overflow: hidden; background: var(--nuit);
+    overflow: hidden; background: var(--immersive-2);
     box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.7);
   }
   .portrait-cap {
@@ -321,11 +319,11 @@
   }
   .exp-card:hover { border-color: color-mix(in srgb, var(--accent) 55%, var(--rule)); transform: translateY(-4px); box-shadow: 0 0 44px -14px color-mix(in srgb, var(--accent) 55%, transparent); }
   .exp-card[data-selected="true"] { border-color: var(--accent); }
-  .exp-scene { position: relative; aspect-ratio: 16 / 11; background: var(--nuit); }
+  .exp-scene { position: relative; aspect-ratio: 16 / 11; background: var(--immersive-2); }
   .exp-scene svg { width: 100%; height: 100%; }
   .exp-badge {
     position: absolute; top: 1rem; left: 1rem;
-    background: color-mix(in srgb, var(--nuit) 72%, transparent);
+    background: color-mix(in srgb, var(--immersive-2) 78%, transparent);
     color: var(--sable); backdrop-filter: blur(6px);
     padding: 0.4rem 0.8rem; border-radius: 999px;
   }
@@ -351,26 +349,43 @@
   .route-rail { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
   /* Une lampe-tempête par étape : le halo dit l'avancée de la nuit. */
   .route-dot {
-    position: relative;
     width: 34px; height: 34px; border-radius: 50%; flex: none;
     border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
     display: grid; place-items: center;
     font-size: var(--t-xs); font-weight: 700; color: var(--accent);
-    background: var(--nuit);
+    background: var(--surface);
   }
-  .route-dot::before {
-    content: ""; position: absolute; inset: 0; border-radius: 50%;
-    background: radial-gradient(circle, color-mix(in srgb, var(--accent) 70%, transparent), transparent 70%);
-    filter: blur(8px); opacity: .7;
-    animation: flicker 4s ease-in-out infinite;
-  }
-  @media (prefers-reduced-motion: reduce) { .route-dot::before { animation: none; } }
   .route-step:last-child .route-line { display: none; }
   .route-line { width: 1px; flex: 1; background: linear-gradient(to bottom, color-mix(in srgb, var(--accent) 40%, transparent), color-mix(in srgb, var(--accent) 5%, transparent)); }
   .route-body { padding-bottom: 0.4rem; }
   .route-body h3 { font-size: var(--t-xl); margin-bottom: 0.35rem; }
   .route-body .label { color: var(--accent); display: block; margin-bottom: 0.5rem; }
   .route-body p { color: var(--text-soft); font-size: var(--t-sm); max-width: 58ch; line-height: 1.6; }
+
+  /* Les îles sœurs : mêmes cartes, sur panneau jade, et décalées. */
+  .islands { display: grid; gap: 2rem; list-style: none; margin: 0; padding: 0; }
+  @media (min-width: 900px) {
+    .islands { grid-template-columns: repeat(3, 1fr); }
+    .islands li:nth-child(2) { margin-top: 2.5rem; }
+    .islands li:nth-child(3) { margin-top: 5rem; }
+  }
+  .island-card {
+    display: flex; flex-direction: column; height: 100%; overflow: hidden;
+    border-radius: 18px 18px var(--radius) var(--radius);
+    border: 1px solid color-mix(in srgb, var(--on-immersive) 22%, transparent);
+    background: color-mix(in srgb, var(--immersive-2) 45%, transparent);
+    transition: transform .3s ease, border-color .3s ease;
+  }
+  .island-card:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--on-immersive) 45%, transparent); }
+  .island-card[data-selected="true"] { border-color: var(--soleil-pale); }
+  .island-body { display: flex; flex-direction: column; gap: 0.75rem; padding: 1rem 1.25rem 1.25rem; flex: 1; }
+  .island-body h3 { font-size: var(--t-xl); }
+  .island-body > p { font-size: var(--t-sm); color: var(--on-immersive-soft); line-height: 1.6; flex: 1; }
+  .island-facts { display: flex; flex-direction: column; gap: 0.4rem; margin: 0; padding-top: 0.85rem; font-size: var(--t-sm); color: var(--on-immersive-soft); border-top: 1px solid color-mix(in srgb, var(--on-immersive) 18%, transparent); }
+  .island-foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .island-card .exp-price { color: var(--on-immersive); }
+  .island-card .exp-price small { color: var(--on-immersive-soft); }
+  .island-card[data-selected="true"] .add-btn { background: transparent; color: var(--soleil-pale); border-color: var(--soleil-pale); }
 
   /* ============================================================
      CONFIGURATEUR
@@ -404,7 +419,7 @@
   .field label { font-size: var(--t-xs); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-soft); }
   .field select, .field input {
     font: inherit; font-size: 0.9375rem; color: var(--text);
-    background: color-mix(in srgb, var(--nuit) 60%, transparent);
+    background: var(--surface);
     border: 1px solid var(--rule); border-radius: var(--radius);
     padding: 0.7rem 0.8rem; width: 100%;
     appearance: none;
@@ -422,6 +437,12 @@
   .counter button:hover { border-color: var(--eyebrow); color: var(--eyebrow); }
   .counter output { font-family: var(--util); font-size: var(--t-sm); min-width: 2.4ch; text-align: center; font-variant-numeric: tabular-nums; }
   .counter .counter-label { font-size: var(--t-sm); color: var(--text-soft); margin-left: 0.1rem; }
+
+  /* Ce qui se passe à la période choisie */
+  .period { border: 1px solid var(--rule); background: var(--tint); border-radius: var(--radius); padding: 1rem; }
+  .period .label { color: var(--tint-ink); margin-bottom: 0.5rem; display: block; }
+  .period ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .period li { font-size: var(--t-sm); color: var(--text-soft); line-height: 1.55; }
 
   .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
   .tag {
@@ -456,11 +477,11 @@
   .footer-in { display: grid; gap: 2rem; }
   @media (min-width: 760px) { .footer-in { grid-template-columns: 1.2fr 1fr 1fr; } }
   .footer h3 { font-size: var(--t-xl); margin-bottom: 0.5rem; }
-  .footer p, .footer a { color: var(--text-soft); font-size: var(--t-sm); text-decoration: none; }
-  .footer a:hover { color: var(--text); }
+  .footer p, .footer a { color: var(--on-immersive-soft); font-size: var(--t-sm); text-decoration: none; }
+  .footer a:hover { color: var(--on-immersive); }
   .footer-col { display: flex; flex-direction: column; gap: 0.5rem; }
-  .footer-col .label { color: var(--accent); margin-bottom: 0.3rem; }
-  .footer-base { margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid color-mix(in srgb, var(--text) 15%, transparent); font-size: var(--t-xs); color: var(--text-soft); display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: space-between; }
+  .footer-col .label { color: var(--soleil-pale); margin-bottom: 0.3rem; }
+  .footer-base { margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid color-mix(in srgb, var(--on-immersive) 22%, transparent); font-size: var(--t-xs); color: var(--on-immersive-soft); display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: space-between; }
   @media (min-width: 760px) { .footer-base { margin-top: 3rem; } }
 
   .mobile-bar {
@@ -508,6 +529,7 @@
       <a href="#esprit">L'Esprit</a>
       <a href="#experiences">Expériences</a>
       <a href="#circuits">Circuits</a>
+      <a href="#iles">Îles sœurs</a>
       <a href="#sur-mesure">Sur-Mesure</a>
     </nav>
     <a class="btn btn-accent nav-wa" href="https://wa.me/628123688936" target="_blank" rel="noopener">
@@ -529,8 +551,8 @@
     <h1>Bali loin des foules. Votre guide privé <em>francophone</em> local.</h1>
     <p class="hero-sub">Circuits 100 % sur-mesure, authenticité garantie et 0 intermédiaire. Vous échangez directement avec Agus, guide balinais indépendant.</p>
     <div class="hero-cta">
-      <a class="btn btn-accent btn-lg" href="#sur-mesure">Créer mon voyage sur-mesure</a>
-      <a class="btn btn-outline btn-lg" href="#experiences" style="color: var(--text)">Voir les expériences</a>
+      <a class="btn btn-sun btn-lg" href="#sur-mesure">Créer mon voyage sur-mesure</a>
+      <a class="btn btn-outline btn-lg" href="#experiences" style="color: var(--on-immersive)">Voir les expériences</a>
     </div>
     <div class="hero-trust">
       <span class="stars" aria-hidden="true">
@@ -550,7 +572,7 @@
 </div>
 
 <!-- ============================ AGUS ============================ -->
-<section class="band ground-2" id="esprit">
+<section class="band ground-ivoire" id="esprit">
   <div class="shell">
     <div class="sec-head reveal">
       <p class="label sec-eyebrow">L'Esprit</p>
@@ -631,7 +653,7 @@
 <div class="horizon" aria-hidden="true"></div>
 
 <!-- ============================ EXPÉRIENCES ============================ -->
-<section class="band ground-3" id="experiences">
+<section class="band ground-sable" id="experiences">
   <div class="shell">
     <div class="sec-head reveal">
       <p class="label sec-eyebrow">Expériences</p>
@@ -647,7 +669,7 @@
 </div></div>
 
 <!-- ============================ CIRCUITS ============================ -->
-<section class="band ground-4" id="circuits">
+<section class="band ground-ivoire" id="circuits">
   <div class="shell">
     <div class="sec-head reveal">
       <p class="label sec-eyebrow">Circuits</p>
@@ -660,8 +682,23 @@
 
 <div class="horizon" aria-hidden="true"></div>
 
+<!-- ============================ ÎLES SŒURS ============================ -->
+<section class="band ground-jade" id="iles">
+  <div class="shell">
+    <div class="sec-head reveal">
+      <p class="label sec-eyebrow">Îles sœurs</p>
+      <h2>L'aventure ne s'arrête pas au détroit.</h2>
+      <p>Bali tient sur 150 km. À une heure de bateau ou d'avion commencent Java,
+      Lombok et Komodo — des volcans qu'on monte de nuit, des villages sasak en
+      bambou, des îles où l'on dort à bord. Agus organise le transport et vous
+      accompagne, ou passe le relais à un guide de confiance sur place.</p>
+    </div>
+    <ul class="islands" id="islandGrid"></ul>
+  </div>
+</section>
+
 <!-- ============================ CONFIGURATEUR ============================ -->
-<section class="band ground-5" id="sur-mesure">
+<section class="band ground-sable" id="sur-mesure">
   <div class="shell">
     <div class="sec-head reveal">
       <p class="label sec-eyebrow">Sur-Mesure</p>
@@ -673,6 +710,8 @@
       <div class="panel">
         <p class="panel-title">1 — Vos expériences <span id="cartCount" style="color: var(--eyebrow)">(0)</span></p>
         <div class="cart" id="cart"></div>
+
+        <div id="islandCart" style="margin-bottom: 1.5rem"></div>
 
         <p class="panel-title">2 — Votre voyage</p>
         <div class="fields">
@@ -709,6 +748,9 @@
             </div>
           </div>
           <div class="field field-wide">
+            <div class="period" id="periodNote"></div>
+          </div>
+          <div class="field field-wide">
             <label>Style recherché</label>
             <div class="tags" id="tags"></div>
           </div>
@@ -741,10 +783,10 @@
 </section>
 
 <!-- ============================ FOOTER ============================ -->
-<footer class="footer ground-1">
+<footer class="footer ground-jade">
   <div class="shell footer-in">
     <div class="footer-col">
-      <p class="label" style="color: var(--accent); margin-bottom: 0.6rem">Om Swastiastu</p>
+      <p class="label" style="color: var(--soleil-pale); margin-bottom: 0.6rem">Om Swastiastu</p>
       <h3>Bali Découverte</h3>
       <p>Voyages privés sur-mesure à Bali, conçus et guidés en français par Agus Yudiarta, guide indépendant basé à Sidemen, Karangasem.</p>
     </div>
@@ -753,6 +795,7 @@
       <a href="#esprit">L'Esprit</a>
       <a href="#experiences">Expériences</a>
       <a href="#circuits">Circuits</a>
+      <a href="#iles">Îles sœurs</a>
       <a href="#sur-mesure">Sur-Mesure</a>
     </div>
     <div class="footer-col">
@@ -846,21 +889,70 @@
     { d: "Jours 11–12", t: "Retour par l'ouest & départ", p: "Dernière journée libre selon vos envies : temple d'eau, plage tranquille ou marché d'artisanat. Dépose à l'aéroport." }
   ];
 
+  /* Les îles sœurs — l'aventure continue au-delà de Bali. */
+  var ISLANDS = [
+    {
+      id: "java-ijen", island: "Java", title: "Le feu bleu du Kawah Ijen",
+      duration: "2 jours / 1 nuit", level: "Soutenu — 3 h de marche de nuit",
+      access: "Ferry depuis Gilimanuk, 1 h de traversée",
+      price: "à partir de 185 €", priceNote: "/ pers.", scene: "ijen",
+      text: "Départ à une heure du matin pour atteindre le cratère avant l'aube : les fumerolles de soufre brûlent en flammes bleues, un phénomène qu'on ne voit qu'ici et en Islande. Au lever du jour, le plus grand lac acide du monde vire au turquoise."
+    },
+    {
+      id: "lombok-rinjani", island: "Lombok", title: "Le Rinjani et les villages sasak",
+      duration: "3 à 5 jours", level: "Exigeant en trek, facile en version vallée",
+      access: "Vol de 30 min ou bateau rapide depuis Padangbai",
+      price: "à partir de 240 €", priceNote: "/ pers.", scene: "rinjani",
+      text: "Deux façons d'aborder le volcan : le trek jusqu'au cratère et au lac Segara Anak avec ses sources chaudes, ou la version douce — la vallée de Sembalun, la cascade de Tiu Kelep et les maisons de bambou des villages sasak."
+    },
+    {
+      id: "komodo-padar", island: "Komodo", title: "Les trois baies de Padar",
+      duration: "3 jours / 2 nuits", level: "Accessible — vie à bord, marches courtes",
+      access: "Vol de 1 h 15 depuis Denpasar, puis bateau",
+      price: "à partir de 420 €", priceNote: "/ pers.", scene: "komodo",
+      text: "Trois jours en bateau entre les îles : la montée de Padar au lever du soleil sur ses trois baies, les dragons de Rinca accompagnés d'un ranger, la plage rose, et les raies manta de Manta Point."
+    }
+  ];
+
+  /* Ce qui se passe à la période choisie. Les saisons sont fiables ; les
+     dates de cérémonies, non — Galungan et Kuningan suivent le cycle
+     pawukon de 210 jours et se déplacent chaque année, Nyepi suit le
+     calendrier saka. On dit ce qu'on sait, Agus confirme le reste. */
+  function periodNote(month) {
+    var m = month.split(" ")[0];
+    var seche = ["Avril","Mai","Juin","Juillet","Août","Septembre","Octobre"];
+    var estSec = seche.indexOf(m) !== -1;
+    var notes = [];
+    notes.push(estSec
+      ? "Ciel dégagé et mer calme : c'est la fenêtre pour le Rinjani et pour Komodo, où les traversées deviennent difficiles le reste de l'année."
+      : "Averses courtes en fin d'après-midi, rizières éclatantes et sites déserts. Les tarifs sont plus doux, mais la mer se ferme parfois du côté de Komodo.");
+    if (m === "Juillet" || m === "Août") {
+      notes.push("Haute saison européenne : les écolodges de Sidemen et de Munduk se réservent plusieurs mois à l'avance.");
+    }
+    if (m === "Mars") {
+      notes.push("Nyepi, le jour du silence, tombe en mars : pendant 24 h l'île entière s'arrête — aucun vol, aucune lumière, personne dehors. C'est une expérience rare, mais elle se prépare. La date exacte suit le calendrier saka, Agus vous la confirme.");
+    }
+    notes.push("Galungan et Kuningan, les grandes fêtes des ancêtres, reviennent tous les 210 jours et se déplacent donc chaque année : demandez à Agus si elles tombent pendant votre séjour, les penjor bordent alors toutes les routes.");
+    return { saison: estSec ? "Saison sèche" : "Saison des pluies", notes: notes };
+  }
+
   var STYLES = ["Nature", "Culture", "Aventure", "Détente", "Famille", "Gastronomie"];
 
   /* ============================================================
      SCÈNES SVG — illustrations duotone maison
      Remplaçables par de vraies photos (voir README).
      ============================================================ */
-  /* Toutes les scènes sont nocturnes ou à l'aube. La lumière n'est jamais
-     un aplat : c'est un halo, un reflet, une braise. */
+  /* Lumière du jour, franche mais douce. Le lagon et le jade portent les
+     paysages, le soleil éclaire, le bougainvillier ne sert qu'aux détails. */
   var C = {
-    cielHaut: "#061520", cielBas: "#1d3f4a", aubeChaude: "#8a5a3a",
-    lueur: "#e8a33f", lueurPale: "#f6d79b",
-    mer: "#0d3944", merProfonde: "#061e26", merClaire: "#14606d",
-    padi: "#2f4a33", padiClair: "#456b40",
-    brique: "#6b3a2c", briqueSombre: "#4a2820",
-    nuitDense: "#04101a", clair: "#f2ece0"
+    cielHaut: "#bfe3e4", cielBas: "#eaf3ea", cielChaud: "#fdf0d2",
+    soleil: "#f2b134", soleilPale: "#fbe0a5",
+    lagon: "#189aa4", lagonPale: "#7fc9cd", lagonProfond: "#0d6570",
+    jade: "#0f6b5c", jadeSombre: "#084a40", jadeClair: "#3f9a7f",
+    padi: "#7fa64a", padiClair: "#a8c46a",
+    brique: "#b5674a", briqueSombre: "#8c4733",
+    roche: "#5c5a52", rocheSombre: "#3c3a34",
+    bougain: "#c8455f", clair: "#fbf7ee"
   };
 
   var PETAL = "M0 2 C 13 -6, 27 -22, 19 -36 C 13 -46, -5 -47, -12 -35 C -19 -22, -9 -7, 0 2 Z";
@@ -883,13 +975,13 @@
     [0, 72, 144, 216, 288].forEach(function (a) {
       s += '<path transform="rotate(' + a + ')" d="' + PETAL + '"/>';
     });
-    return s + '</g><circle r="6" fill="' + C.lueur + '"/></svg>';
+    return s + '</g><circle r="6" fill="' + C.soleil + '"/></svg>';
   }
 
   /* Branche de frangipanier — le cadre végétal en haut du hero. */
   function jepunBranch() {
     var s = '<svg viewBox="0 0 280 210" aria-hidden="true">' +
-      '<g stroke="' + C.nuitDense + '" fill="none" stroke-linecap="round">' +
+      '<g stroke="' + C.rocheSombre + '" fill="none" stroke-linecap="round">' +
         '<path d="M280 4 C 226 22, 178 54, 150 96" stroke-width="7"/>' +
         '<path d="M186 62 C 150 74, 120 104, 100 146" stroke-width="5"/>' +
         '<path d="M212 34 C 178 34, 120 44, 66 74" stroke-width="4"/>' +
@@ -904,7 +996,7 @@
       [0, 72, 144, 216, 288].forEach(function (a) {
         s += '<path transform="rotate(' + a + ')" d="' + PETAL + '" fill="' + C.clair + '"/>';
       });
-      s += '<circle r="7" fill="' + C.lueur + '"/></g>';
+      s += '<circle r="7" fill="' + C.soleil + '"/></g>';
     });
     return s + '</svg>';
   }
@@ -920,17 +1012,17 @@
     return s +
       '<circle cx="18" cy="20" r="7" fill="' + C.clair + '"/>' +
       '<circle cx="30" cy="16" r="8" fill="#b8654a"/>' +
-      '<circle cx="43" cy="20" r="7" fill="' + C.lueur + '"/>' +
+      '<circle cx="43" cy="20" r="7" fill="' + C.soleil + '"/>' +
       '<path d="M30 16 c 8 -10 16 -12 22 -10 c -6 4 -10 10 -12 16 z" fill="' + C.padi + '"/></svg>';
   }
 
   /* Tedung — l'ombrelle à étages plantée devant les sanctuaires. */
   function tedung(x, y, sc, tone) {
     return '<g transform="translate(' + x + ' ' + y + ') scale(' + sc + ')">' +
-      '<path d="M-3 0 L3 0 L2 -74 L-2 -74 Z" fill="' + C.nuitDense + '"/>' +
+      '<path d="M-3 0 L3 0 L2 -74 L-2 -74 Z" fill="' + C.rocheSombre + '"/>' +
       '<path d="M-46 -74 C -30 -102, 30 -102, 46 -74 Z" fill="' + tone + '"/>' +
       '<path d="M-46 -74 q 11 10 15 0 q 11 10 16 0 q 11 10 15 0" fill="' + tone + '" opacity=".75"/>' +
-      '<circle cy="-102" r="4" fill="' + C.nuitDense + '"/></g>';
+      '<circle cy="-102" r="4" fill="' + C.rocheSombre + '"/></g>';
   }
 
   function scene(kind, w, h, uid) {
@@ -940,39 +1032,38 @@
 
     s += '<defs><linearGradient id="sky-' + ns + '" x1="0" y1="0" x2="0" y2="1">' +
         '<stop offset="0" stop-color="' + C.cielHaut + '"/>' +
-        '<stop offset="0.52" stop-color="' + C.cielBas + '"/>' +
-        '<stop offset="0.82" stop-color="' + C.aubeChaude + '"/>' +
-        '<stop offset="1" stop-color="' + C.lueur + '"/>' +
+        '<stop offset="0.55" stop-color="' + C.cielBas + '"/>' +
+        '<stop offset="1" stop-color="' + C.cielChaud + '"/>' +
       '</linearGradient>' +
       // Le halo de l'astre — la lumière déborde toujours de sa source
       '<radialGradient id="halo-' + ns + '">' +
-        '<stop offset="0" stop-color="' + C.lueurPale + '" stop-opacity="0.85"/>' +
-        '<stop offset="0.35" stop-color="' + C.lueur + '" stop-opacity="0.42"/>' +
-        '<stop offset="1" stop-color="' + C.lueur + '" stop-opacity="0"/>' +
+        '<stop offset="0" stop-color="' + C.soleilPale + '" stop-opacity="0.9"/>' +
+        '<stop offset="0.4" stop-color="' + C.soleil + '" stop-opacity="0.28"/>' +
+        '<stop offset="1" stop-color="' + C.soleil + '" stop-opacity="0"/>' +
       '</radialGradient>' +
       // La brume qui monte de la vallée avant le jour
       '<linearGradient id="mist-' + ns + '" x1="0" y1="0" x2="0" y2="1">' +
-        '<stop offset="0" stop-color="' + C.lueurPale + '" stop-opacity="0.22"/>' +
-        '<stop offset="1" stop-color="' + C.lueurPale + '" stop-opacity="0"/>' +
+        '<stop offset="0" stop-color="' + C.clair + '" stop-opacity="0.4"/>' +
+        '<stop offset="1" stop-color="' + C.clair + '" stop-opacity="0"/>' +
       '</linearGradient></defs>';
     s += '<rect width="' + w + '" height="' + h + '" fill="url(#sky-' + ns + ')"/>';
 
     if (kind === "terraces") {
       s += '<ellipse cx="' + (w * 0.74) + '" cy="' + (h * 0.6) + '" rx="' + (w * 0.42) + '" ry="' + (h * 0.34) + '" fill="url(#halo-' + ns + ')"/>';
-      s += '<circle cx="' + (w * 0.74) + '" cy="' + (h * 0.56) + '" r="' + (h * 0.09) + '" fill="' + C.lueurPale + '"/>';
+      s += '<circle cx="' + (w * 0.74) + '" cy="' + (h * 0.56) + '" r="' + (h * 0.09) + '" fill="' + C.soleilPale + '"/>';
       // Le Gunung Agung : arêtes adoucies, jamais une pyramide
       s += '<path d="M' + (w * 0.06) + ' ' + (h * 0.66) +
            ' Q ' + (w * 0.26) + ' ' + (h * 0.46) + ' ' + (w * 0.36) + ' ' + (h * 0.26) +
            ' Q ' + (w * 0.4) + ' ' + (h * 0.21) + ' ' + (w * 0.45) + ' ' + (h * 0.27) +
            ' Q ' + (w * 0.56) + ' ' + (h * 0.47) + ' ' + (w * 0.72) + ' ' + (h * 0.66) +
-           ' Z" fill="' + C.merProfonde + '"/>';
-      s += '<path d="' + band(h * 0.68, h * 0.045, w, h, 2.1) + '" fill="' + C.mer + '"/>';
+           ' Z" fill="' + C.jadeSombre + '"/>';
+      s += '<path d="' + band(h * 0.68, h * 0.045, w, h, 2.1) + '" fill="' + C.jade + '"/>';
       s += '<path d="' + band(h * 0.78, h * 0.04, w, h, 3.3) + '" fill="' + C.padi + '"/>';
-      s += '<path d="' + band(h * 0.88, h * 0.03, w, h, 1.2) + '" fill="' + C.nuitDense + '"/>';
+      s += '<path d="' + band(h * 0.88, h * 0.03, w, h, 1.2) + '" fill="' + C.rocheSombre + '"/>';
       // L'eau des terrasses attrape la lueur : le subak en miroir
       for (var t = 0; t < 4; t++) {
         s += '<path d="M0 ' + (h * (0.9 + t * 0.028)) + ' Q ' + (w * 0.5) + ' ' + (h * (0.86 + t * 0.028)) +
-             ' ' + w + ' ' + (h * (0.92 + t * 0.028)) + '" fill="none" stroke="' + C.lueur +
+             ' ' + w + ' ' + (h * (0.92 + t * 0.028)) + '" fill="none" stroke="' + C.soleil +
              '" stroke-width="1.5" opacity="' + (0.3 - t * 0.05) + '"/>';
       }
     }
@@ -980,8 +1071,8 @@
     if (kind === "spring") {
       var cx = w * 0.5, gy = h * 0.68;
       s += '<ellipse cx="' + cx + '" cy="' + (h * 0.5) + '" rx="' + (w * 0.34) + '" ry="' + (h * 0.34) + '" fill="url(#halo-' + ns + ')"/>';
-      s += '<circle cx="' + cx + '" cy="' + (h * 0.42) + '" r="' + (h * 0.12) + '" fill="' + C.lueurPale + '" opacity=".9"/>';
-      s += '<path d="' + band(h * 0.58, h * 0.035, w, h, 1.9) + '" fill="' + C.merProfonde + '"/>';
+      s += '<circle cx="' + cx + '" cy="' + (h * 0.42) + '" r="' + (h * 0.12) + '" fill="' + C.soleilPale + '" opacity=".9"/>';
+      s += '<path d="' + band(h * 0.58, h * 0.035, w, h, 1.9) + '" fill="' + C.jadeSombre + '"/>';
       [-1, 1].forEach(function (side) {
         s += '<path d="M' + (cx + side * 126) + ' ' + gy +
              ' L' + (cx + side * 110) + ' ' + (gy - h * 0.11) +
@@ -998,17 +1089,17 @@
                '" stroke="' + C.briqueSombre + '" stroke-width="' + Math.max(1.5, h * 0.008) + '" opacity=".7"/>';
         });
       });
-      s += tedung(cx - 168, gy, h / 620, C.lueur);
+      s += tedung(cx - 168, gy, h / 620, C.soleil);
       s += tedung(cx + 168, gy, h / 620, C.clair);
-      s += '<rect y="' + gy + '" width="' + w + '" height="' + (h - gy) + '" fill="' + C.merProfonde + '"/>';
+      s += '<rect y="' + gy + '" width="' + w + '" height="' + (h - gy) + '" fill="' + C.jadeSombre + '"/>';
       s += '<rect y="' + gy + '" width="' + w + '" height="' + (h - gy) + '" fill="url(#mist-' + ns + ')" opacity=".5"/>';
       for (var j = 0; j < 5; j++) {
-        s += '<path d="M' + (cx - 56 + j * 28) + ' ' + (gy - 4) + ' q 3 20 0 36" stroke="' + C.lueurPale +
+        s += '<path d="M' + (cx - 56 + j * 28) + ' ' + (gy - 4) + ' q 3 20 0 36" stroke="' + C.soleilPale +
              '" stroke-width="3.5" opacity=".7" fill="none" stroke-linecap="round"/>';
       }
       for (var k = 0; k < 3; k++) {
         s += '<ellipse cx="' + cx + '" cy="' + (h * 0.9) + '" rx="' + (64 + k * 70) + '" ry="' + (7 + k * 4) +
-             '" fill="none" stroke="' + C.lueur + '" stroke-width="1.5" opacity="' + (0.4 - k * 0.1) + '"/>';
+             '" fill="none" stroke="' + C.soleil + '" stroke-width="1.5" opacity="' + (0.4 - k * 0.1) + '"/>';
       }
     }
 
@@ -1016,15 +1107,15 @@
       s += '<ellipse cx="' + (w * 0.5) + '" cy="' + (h * 0.3) + '" rx="' + (w * 0.2) + '" ry="' + (h * 0.3) + '" fill="url(#halo-' + ns + ')"/>';
       s += '<path d="' + band(h * 0.42, h * 0.04, w, h, 2.6) + '" fill="' + C.padi + '"/>';
       s += '<path d="M' + (w * 0.44) + ' ' + (h * 0.28) + ' L' + (w * 0.42) + ' ' + (h * 0.86) +
-           ' L' + (w * 0.58) + ' ' + (h * 0.86) + ' L' + (w * 0.56) + ' ' + (h * 0.28) + ' Z" fill="' + C.lueurPale + '" opacity=".82"/>';
-      s += '<path d="M0 ' + (h * 0.08) + ' L' + (w * 0.36) + ' ' + (h * 0.26) + ' L' + (w * 0.3) + ' ' + h + ' L0 ' + h + ' Z" fill="' + C.nuitDense + '"/>';
-      s += '<path d="M' + w + ' ' + (h * 0.04) + ' L' + (w * 0.64) + ' ' + (h * 0.28) + ' L' + (w * 0.7) + ' ' + h + ' L' + w + ' ' + h + ' Z" fill="' + C.nuitDense + '"/>';
+           ' L' + (w * 0.58) + ' ' + (h * 0.86) + ' L' + (w * 0.56) + ' ' + (h * 0.28) + ' Z" fill="' + C.soleilPale + '" opacity=".82"/>';
+      s += '<path d="M0 ' + (h * 0.08) + ' L' + (w * 0.36) + ' ' + (h * 0.26) + ' L' + (w * 0.3) + ' ' + h + ' L0 ' + h + ' Z" fill="' + C.rocheSombre + '"/>';
+      s += '<path d="M' + w + ' ' + (h * 0.04) + ' L' + (w * 0.64) + ' ' + (h * 0.28) + ' L' + (w * 0.7) + ' ' + h + ' L' + w + ' ' + h + ' Z" fill="' + C.rocheSombre + '"/>';
       s += '<path d="M0 ' + (h * 0.08) + ' L' + (w * 0.36) + ' ' + (h * 0.26) + ' L' + (w * 0.34) + ' ' + (h * 0.34) + ' L0 ' + (h * 0.18) + ' Z" fill="' + C.padiClair + '" opacity=".8"/>';
       s += '<path d="M' + w + ' ' + (h * 0.04) + ' L' + (w * 0.64) + ' ' + (h * 0.28) + ' L' + (w * 0.66) + ' ' + (h * 0.36) + ' L' + w + ' ' + (h * 0.14) + ' Z" fill="' + C.padiClair + '" opacity=".8"/>';
-      s += '<rect y="' + (h * 0.84) + '" width="' + w + '" height="' + (h * 0.16) + '" fill="' + C.mer + '"/>';
+      s += '<rect y="' + (h * 0.84) + '" width="' + w + '" height="' + (h * 0.16) + '" fill="' + C.jade + '"/>';
       for (var q = 0; q < 3; q++) {
         s += '<ellipse cx="' + (w * 0.5) + '" cy="' + (h * 0.92) + '" rx="' + (50 + q * 66) + '" ry="' + (6 + q * 4) +
-             '" fill="none" stroke="' + C.merClaire + '" stroke-width="2" opacity="' + (0.85 - q * 0.24) + '"/>';
+             '" fill="none" stroke="' + C.lagon + '" stroke-width="2" opacity="' + (0.85 - q * 0.24) + '"/>';
       }
     }
 
@@ -1034,20 +1125,80 @@
              '" r="' + (st % 5 === 0 ? 1.8 : 1) + '" fill="' + C.clair + '" opacity="' + (st % 3 === 0 ? 0.85 : 0.35) + '"/>';
       }
       s += '<ellipse cx="' + (w * 0.76) + '" cy="' + (h * 0.2) + '" rx="' + (w * 0.16) + '" ry="' + (h * 0.24) + '" fill="url(#halo-' + ns + ')" opacity=".7"/>';
-      s += '<circle cx="' + (w * 0.78) + '" cy="' + (h * 0.2) + '" r="' + (h * 0.095) + '" fill="' + C.lueurPale + '"/>';
+      s += '<circle cx="' + (w * 0.78) + '" cy="' + (h * 0.2) + '" r="' + (h * 0.095) + '" fill="' + C.soleilPale + '"/>';
       s += '<circle cx="' + (w * 0.74) + '" cy="' + (h * 0.175) + '" r="' + (h * 0.088) + '" fill="' + C.cielHaut + '"/>';
-      s += '<path d="' + band(h * 0.6, h * 0.05, w, h, 0.9) + '" fill="' + C.merProfonde + '"/>';
-      s += '<path d="' + band(h * 0.74, h * 0.04, w, h, 2.4) + '" fill="' + C.nuitDense + '"/>';
+      s += '<path d="' + band(h * 0.6, h * 0.05, w, h, 0.9) + '" fill="' + C.jadeSombre + '"/>';
+      s += '<path d="' + band(h * 0.74, h * 0.04, w, h, 2.4) + '" fill="' + C.rocheSombre + '"/>';
       for (var c = 0; c < 20; c++) {
         s += '<path d="M' + (20 + c * (w / 19)) + ' ' + (h * 0.88 + (c % 3) * 12) +
-             ' q 13 -24 0 -44 q -13 20 0 44" fill="' + C.nuitDense + '"/>';
+             ' q 13 -24 0 -44 q -13 20 0 44" fill="' + C.rocheSombre + '"/>';
       }
-      s += '<rect y="' + (h * 0.92) + '" width="' + w + '" height="' + (h * 0.08) + '" fill="' + C.nuitDense + '"/>';
+      s += '<rect y="' + (h * 0.92) + '" width="' + w + '" height="' + (h * 0.08) + '" fill="' + C.rocheSombre + '"/>';
       // Les lampes-tempête : chacune éclaire son morceau de sentier
       [0.2, 0.44, 0.66].forEach(function (pp, i) {
         s += '<circle cx="' + (w * pp) + '" cy="' + (h * (0.86 + i * 0.02)) + '" r="' + (h * 0.07) + '" fill="url(#halo-' + ns + ')" opacity=".85"/>';
-        s += '<circle cx="' + (w * pp) + '" cy="' + (h * (0.86 + i * 0.02)) + '" r="4" fill="' + C.lueurPale + '"/>';
+        s += '<circle cx="' + (w * pp) + '" cy="' + (h * (0.86 + i * 0.02)) + '" r="4" fill="' + C.soleilPale + '"/>';
       });
+    }
+
+    if (kind === "ijen") {
+      s += '<ellipse cx="' + (w * 0.24) + '" cy="' + (h * 0.3) + '" rx="' + (w * 0.28) + '" ry="' + (h * 0.3) + '" fill="url(#halo-' + ns + ')"/>';
+      s += '<circle cx="' + (w * 0.24) + '" cy="' + (h * 0.28) + '" r="' + (h * 0.08) + '" fill="' + C.soleilPale + '"/>';
+      // Les lèvres du cratère, en gradins
+      s += '<path d="M0 ' + (h * 0.52) + ' L' + (w * 0.2) + ' ' + (h * 0.34) + ' L' + (w * 0.38) + ' ' + (h * 0.46) +
+           ' L' + (w * 0.62) + ' ' + (h * 0.3) + ' L' + (w * 0.82) + ' ' + (h * 0.44) + ' L' + w + ' ' + (h * 0.36) +
+           ' L' + w + ' ' + h + ' L0 ' + h + ' Z" fill="' + C.roche + '"/>';
+      // Le lac : la couleur qui fait venir ici
+      s += '<path d="M' + (w * 0.16) + ' ' + (h * 0.74) + ' Q ' + (w * 0.5) + ' ' + (h * 0.6) + ' ' + (w * 0.86) + ' ' + (h * 0.76) +
+           ' Q ' + (w * 0.5) + ' ' + (h * 0.96) + ' ' + (w * 0.16) + ' ' + (h * 0.74) + ' Z" fill="' + C.lagon + '"/>';
+      s += '<path d="M' + (w * 0.24) + ' ' + (h * 0.76) + ' Q ' + (w * 0.5) + ' ' + (h * 0.68) + ' ' + (w * 0.76) + ' ' + (h * 0.78) +
+           '" fill="none" stroke="' + C.lagonPale + '" stroke-width="3" opacity=".8"/>';
+      // Les fumerolles de soufre
+      [0.34, 0.44, 0.56].forEach(function (pp, i) {
+        s += '<path d="M' + (w * pp) + ' ' + (h * 0.7) + ' c ' + (w * 0.02) + ' ' + (-h * 0.12) + ', ' + (-w * 0.03) + ' ' + (-h * 0.2) +
+             ', ' + (w * 0.01) + ' ' + (-h * 0.3) + '" stroke="' + C.clair + '" stroke-width="' + (5 - i) +
+             '" opacity="' + (0.5 - i * 0.1) + '" fill="none" stroke-linecap="round"/>';
+      });
+      s += '<path d="M0 ' + (h * 0.52) + ' L' + (w * 0.2) + ' ' + (h * 0.34) + ' L' + (w * 0.26) + ' ' + (h * 0.4) + ' L0 ' + (h * 0.6) + ' Z" fill="' + C.rocheSombre + '"/>';
+    }
+
+    if (kind === "rinjani") {
+      s += '<ellipse cx="' + (w * 0.72) + '" cy="' + (h * 0.32) + '" rx="' + (w * 0.3) + '" ry="' + (h * 0.3) + '" fill="url(#halo-' + ns + ')"/>';
+      s += '<circle cx="' + (w * 0.74) + '" cy="' + (h * 0.24) + '" r="' + (h * 0.075) + '" fill="' + C.soleilPale + '"/>';
+      // Le grand cône, tronqué par la caldeira
+      s += '<path d="M' + (w * 0.04) + ' ' + (h * 0.72) +
+           ' Q ' + (w * 0.26) + ' ' + (h * 0.42) + ' ' + (w * 0.38) + ' ' + (h * 0.16) +
+           ' L' + (w * 0.5) + ' ' + (h * 0.2) + ' L' + (w * 0.56) + ' ' + (h * 0.14) +
+           ' Q ' + (w * 0.74) + ' ' + (h * 0.44) + ' ' + (w * 0.96) + ' ' + (h * 0.72) + ' Z" fill="' + C.jadeSombre + '"/>';
+      s += '<path d="M' + (w * 0.38) + ' ' + (h * 0.16) + ' L' + (w * 0.5) + ' ' + (h * 0.2) + ' L' + (w * 0.56) + ' ' + (h * 0.14) +
+           ' L' + (w * 0.5) + ' ' + (h * 0.1) + ' Z" fill="' + C.rocheSombre + '"/>';
+      // Segara Anak, le lac en croissant dans la caldeira
+      s += '<path d="M' + (w * 0.3) + ' ' + (h * 0.7) + ' Q ' + (w * 0.5) + ' ' + (h * 0.62) + ' ' + (w * 0.7) + ' ' + (h * 0.71) +
+           ' Q ' + (w * 0.5) + ' ' + (h * 0.82) + ' ' + (w * 0.3) + ' ' + (h * 0.7) + ' Z" fill="' + C.lagon + '"/>';
+      s += '<path d="' + band(h * 0.82, h * 0.035, w, h, 1.4) + '" fill="' + C.padi + '"/>';
+      s += '<path d="' + band(h * 0.92, h * 0.025, w, h, 2.8) + '" fill="' + C.padiClair + '"/>';
+    }
+
+    if (kind === "komodo") {
+      s += '<ellipse cx="' + (w * 0.5) + '" cy="' + (h * 0.24) + '" rx="' + (w * 0.4) + '" ry="' + (h * 0.26) + '" fill="url(#halo-' + ns + ')"/>';
+      s += '<circle cx="' + (w * 0.5) + '" cy="' + (h * 0.2) + '" r="' + (h * 0.07) + '" fill="' + C.soleilPale + '"/>';
+      s += '<rect y="' + (h * 0.5) + '" width="' + w + '" height="' + (h * 0.5) + '" fill="' + C.lagon + '"/>';
+      // Trois presqu'îles, celles de la vue de Padar
+      s += '<path d="M' + (-w * 0.05) + ' ' + h + ' Q ' + (w * 0.1) + ' ' + (h * 0.52) + ' ' + (w * 0.3) + ' ' + (h * 0.6) +
+           ' Q ' + (w * 0.42) + ' ' + (h * 0.66) + ' ' + (w * 0.36) + ' ' + h + ' Z" fill="' + C.padi + '"/>';
+      s += '<path d="M' + (w * 0.34) + ' ' + h + ' Q ' + (w * 0.46) + ' ' + (h * 0.46) + ' ' + (w * 0.62) + ' ' + (h * 0.54) +
+           ' Q ' + (w * 0.72) + ' ' + (h * 0.6) + ' ' + (w * 0.68) + ' ' + h + ' Z" fill="' + C.jade + '"/>';
+      s += '<path d="M' + (w * 0.66) + ' ' + h + ' Q ' + (w * 0.8) + ' ' + (h * 0.54) + ' ' + (w * 1.05) + ' ' + (h * 0.62) +
+           ' L' + (w * 1.05) + ' ' + h + ' Z" fill="' + C.jadeSombre + '"/>';
+      // Le liseré de plage, dont l'une est rose
+      s += '<path d="M' + (w * 0.3) + ' ' + (h * 0.6) + ' Q ' + (w * 0.42) + ' ' + (h * 0.66) + ' ' + (w * 0.36) + ' ' + (h * 0.74) +
+           '" fill="none" stroke="' + C.bougain + '" stroke-width="5" opacity=".55" stroke-linecap="round"/>';
+      s += '<path d="M' + (w * 0.62) + ' ' + (h * 0.54) + ' Q ' + (w * 0.72) + ' ' + (h * 0.6) + ' ' + (w * 0.69) + ' ' + (h * 0.68) +
+           '" fill="none" stroke="' + C.clair + '" stroke-width="4" opacity=".7" stroke-linecap="round"/>';
+      // Un pinisi au mouillage
+      s += '<g transform="translate(' + (w * 0.5) + ' ' + (h * 0.9) + ')">' +
+           '<path d="M-26 0 L26 0 L18 9 L-18 9 Z" fill="' + C.rocheSombre + '"/>' +
+           '<path d="M-2 0 L-2 -30 L14 -6 Z" fill="' + C.clair + '"/></g>';
     }
 
     s += '<rect y="' + (h * 0.44) + '" width="' + w + '" height="' + (h * 0.36) + '" fill="url(#mist-' + ns + ')"/>';
@@ -1060,35 +1211,35 @@
       '<defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1">' +
         '<stop offset="0" stop-color="' + C.cielHaut + '"/>' +
         '<stop offset="0.55" stop-color="' + C.cielBas + '"/>' +
-        '<stop offset="0.86" stop-color="' + C.aubeChaude + '"/>' +
+        '<stop offset="0.86" stop-color="' + C.cielChaud + '"/>' +
       '</linearGradient>' +
       '<radialGradient id="ph">' +
-        '<stop offset="0" stop-color="' + C.lueurPale + '" stop-opacity="0.9"/>' +
-        '<stop offset="0.4" stop-color="' + C.lueur + '" stop-opacity="0.4"/>' +
-        '<stop offset="1" stop-color="' + C.lueur + '" stop-opacity="0"/>' +
+        '<stop offset="0" stop-color="' + C.soleilPale + '" stop-opacity="0.9"/>' +
+        '<stop offset="0.4" stop-color="' + C.soleil + '" stop-opacity="0.4"/>' +
+        '<stop offset="1" stop-color="' + C.soleil + '" stop-opacity="0"/>' +
       '</radialGradient>' +
       '<clipPath id="head-clip"><circle cx="230" cy="318" r="76"/></clipPath></defs>' +
       '<rect width="460" height="560" fill="url(#pg)"/>' +
       // Le jour se lève derrière lui : la silhouette est à contre-jour
       '<ellipse cx="300" cy="300" rx="280" ry="220" fill="url(#ph)"/>' +
-      '<circle cx="316" cy="248" r="58" fill="' + C.lueurPale + '" opacity=".95"/>' +
-      '<path d="M0 300 Q120 262 246 302 T460 288 L460 560 L0 560 Z" fill="' + C.merProfonde + '"/>' +
+      '<circle cx="316" cy="248" r="58" fill="' + C.soleilPale + '" opacity=".95"/>' +
+      '<path d="M0 300 Q120 262 246 302 T460 288 L460 560 L0 560 Z" fill="' + C.jadeSombre + '"/>' +
       '<path d="M0 360 Q140 322 262 370 T460 358 L460 560 L0 560 Z" fill="' + C.padi + '"/>' +
-      '<path d="M0 420 Q150 386 268 428 T460 416 L460 560 L0 560 Z" fill="' + C.nuitDense + '"/>' +
-      '<path d="M96 560 c0-118 46-176 134-176 s134 58 134 176 z" fill="' + C.nuitDense + '"/>' +
-      '<circle cx="230" cy="318" r="76" fill="' + C.nuitDense + '"/>' +
+      '<path d="M0 420 Q150 386 268 428 T460 416 L460 560 L0 560 Z" fill="' + C.rocheSombre + '"/>' +
+      '<path d="M96 560 c0-118 46-176 134-176 s134 58 134 176 z" fill="' + C.rocheSombre + '"/>' +
+      '<circle cx="230" cy="318" r="76" fill="' + C.rocheSombre + '"/>' +
       '<g clip-path="url(#head-clip)">' +
         '<rect x="150" y="242" width="160" height="44" fill="' + C.brique + '"/>' +
         '<path d="M150 286 q80 22 160 0 v-14 q-80 20 -160 0z" fill="' + C.briqueSombre + '"/>' +
       '</g>' +
       // Le liseré de lumière sur l'épaule et la joue
-      '<path d="M96 560 c0-118 46-176 134-176" fill="none" stroke="' + C.lueur + '" stroke-width="2.5" opacity=".6"/>' +
-      '<path d="M292 282 a76 76 0 0 1 -6 90" fill="none" stroke="' + C.lueur + '" stroke-width="2.5" opacity=".5"/>' +
+      '<path d="M96 560 c0-118 46-176 134-176" fill="none" stroke="' + C.soleil + '" stroke-width="2.5" opacity=".6"/>' +
+      '<path d="M292 282 a76 76 0 0 1 -6 90" fill="none" stroke="' + C.soleil + '" stroke-width="2.5" opacity=".5"/>' +
       '<g transform="translate(306 330) scale(0.62)">';
     [0, 72, 144, 216, 288].forEach(function (a) {
       s += '<path transform="rotate(' + a + ')" d="' + PETAL + '" fill="' + C.clair + '"/>';
     });
-    return s + '<circle r="6" fill="' + C.lueur + '"/></g></svg>';
+    return s + '<circle r="6" fill="' + C.soleil + '"/></g></svg>';
   }
 
   /* ============================================================
@@ -1096,6 +1247,7 @@
      ============================================================ */
   var state = {
     selected: [],
+    islands: [],
     month: "",
     duration: "10 à 14 jours",
     adults: 2,
@@ -1150,6 +1302,35 @@
     observeReveals();
   }
 
+  /* ---------- Rendu : îles sœurs ---------- */
+  function renderIslands() {
+    $("islandGrid").innerHTML = ISLANDS.map(function (e) {
+      var on = state.islands.indexOf(e.id) !== -1;
+      return '' +
+      '<li class="reveal"><article class="island-card" data-selected="' + on + '">' +
+        '<div class="exp-scene">' + scene(e.scene, 800, 500, e.id) +
+          '<span class="label exp-badge">' + e.island + '</span>' +
+        '</div>' +
+        '<div class="island-body">' +
+          '<h3>' + e.title + '</h3>' +
+          '<p>' + e.text + '</p>' +
+          '<dl class="island-facts">' +
+            '<div>' + e.access + '</div>' +
+            '<div>' + e.duration + '</div>' +
+            '<div>' + e.level + '</div>' +
+          '</dl>' +
+          '<div class="island-foot">' +
+            '<span class="exp-price">' + e.price + ' <small>' + e.priceNote + '</small></span>' +
+            '<button class="btn ' + (on ? "" : "btn-sun") + ' add-btn" data-island="' + e.id + '">' +
+              (on ? "✓ Dans mon circuit" : "+ Ajouter") +
+            '</button>' +
+          '</div>' +
+        '</div>' +
+      '</article></li>';
+    }).join("");
+    observeReveals();
+  }
+
   /* ---------- Rendu : circuits ---------- */
   $("route").innerHTML = ROUTE.map(function (r, i) {
     return '' +
@@ -1189,6 +1370,9 @@
     var items = state.selected.map(function (id) {
       return EXPERIENCES.filter(function (e) { return e.id === id; })[0];
     });
+    var isles = state.islands.map(function (id) {
+      return ISLANDS.filter(function (e) { return e.id === id; })[0];
+    });
 
     $("cart").innerHTML = items.length === 0
       ? '<p class="cart-empty">Aucune expérience pour l\'instant — remontez au catalogue, ou envoyez votre demande telle quelle : Agus vous proposera un itinéraire complet.</p>'
@@ -1206,9 +1390,21 @@
           '</div>';
         }).join("");
 
-    $("cartCount").textContent = "(" + items.length + ")";
-    $("mobileNum").textContent = items.length + " expérience" + (items.length > 1 ? "s" : "");
-    $("mobileBar").dataset.visible = items.length > 0 ? "true" : "false";
+    $("islandCart").innerHTML = isles.length === 0 ? "" :
+      '<p class="label" style="color: var(--eyebrow); margin-bottom: 0.75rem">Extensions îles sœurs</p>' +
+      isles.map(function (e) {
+        return '<div class="cart-item" style="grid-template-columns: 1fr auto">' +
+          '<span><span class="cart-name">' + e.title + '</span><br>' +
+          '<span class="cart-loc">' + e.island + ' · ' + e.duration + '</span></span>' +
+          '<button class="cart-remove" data-island="' + e.id + '" aria-label="Retirer ' + e.title + '">' +
+            '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>' +
+          '</button></div>';
+      }).join("");
+
+    var total = items.length + isles.length;
+    $("cartCount").textContent = "(" + total + ")";
+    $("mobileNum").textContent = total + " étape" + (total > 1 ? "s" : "");
+    $("mobileBar").dataset.visible = total > 0 ? "true" : "false";
   }
 
   /* ---------- Logique WhatsApp ---------- */
@@ -1242,10 +1438,26 @@
       lines.push("Je n'ai pas encore choisi d'expérience — je suis ouvert(e) à vos suggestions.");
     }
 
+    if (state.islands.length) {
+      lines.push("");
+      lines.push("Et une extension vers les îles voisines :");
+      state.islands.forEach(function (id) {
+        var e = ISLANDS.filter(function (x) { return x.id === id; })[0];
+        lines.push("• " + e.title + " — " + e.island + " (" + e.duration + ")");
+      });
+    }
+
     lines.push("");
     lines.push("Pouvez-vous me proposer un itinéraire et un devis ? Merci beaucoup !");
 
     return lines.join("\n");
+  }
+
+  function renderPeriod() {
+    var p = periodNote(state.month);
+    $("periodNote").innerHTML =
+      '<span class="label">' + state.month + ' · ' + p.saison + '</span><ul>' +
+      p.notes.map(function (n) { return "<li>" + n + "</li>"; }).join("") + "</ul>";
   }
 
   function renderMessage() {
@@ -1256,6 +1468,8 @@
 
   function render() {
     renderExperiences();
+    renderIslands();
+    renderPeriod();
     renderCart();
     renderMessage();
   }
@@ -1268,6 +1482,13 @@
     if (addBtn) {
       var id = addBtn.dataset.add, at = state.selected.indexOf(id);
       if (at === -1) state.selected.push(id); else state.selected.splice(at, 1);
+      render();
+      return;
+    }
+    var isl = ev.target.closest("[data-island]");
+    if (isl) {
+      var iid = isl.dataset.island, ia = state.islands.indexOf(iid);
+      if (ia === -1) state.islands.push(iid); else state.islands.splice(ia, 1);
       render();
       return;
     }
@@ -1295,7 +1516,7 @@
     }
   });
 
-  $("fMonth").addEventListener("change", function (e) { state.month = e.target.value; renderMessage(); });
+  $("fMonth").addEventListener("change", function (e) { state.month = e.target.value; renderPeriod(); renderMessage(); });
   $("fDuration").addEventListener("change", function (e) { state.duration = e.target.value; renderMessage(); });
   $("fName").addEventListener("input", function (e) { state.name = e.target.value.trim(); renderMessage(); });
 

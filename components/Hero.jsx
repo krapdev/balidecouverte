@@ -17,7 +17,7 @@ export default function Hero() {
     <>
       <section
         id="top"
-        className="relative overflow-hidden bg-nuit text-ink"
+        className="relative overflow-hidden bg-immersive-deep text-on-immersive"
       >
         <div className="absolute inset-0">
           <Scene kind="terraces" w={1600} h={900} uid="hero" className="h-full w-full object-cover" />
@@ -25,7 +25,7 @@ export default function Hero() {
         {/* Le voile garde le texte lisible ; le halo, lui, est la lumière
             de l'aube qui monte derrière la vallée. */}
         <div
-          className="absolute inset-0 bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--nuit)_88%,transparent)_0%,color-mix(in_srgb,var(--nuit)_72%,transparent)_38%,color-mix(in_srgb,var(--nuit)_92%,transparent)_70%,var(--nuit)_100%)]"
+          className="absolute inset-0 bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--immersive-deep)_26%,transparent)_0%,color-mix(in_srgb,var(--immersive-deep)_78%,transparent)_14%,color-mix(in_srgb,var(--immersive-deep)_86%,transparent)_34%,var(--immersive-deep)_72%)]"
           aria-hidden="true"
         />
         <div
@@ -44,7 +44,7 @@ export default function Hero() {
         >
           <motion.p
             variants={rise}
-            className="label flex items-center gap-3 text-ink before:h-px before:w-8 before:bg-accent before:content-['']"
+            className="label flex items-center gap-3 text-on-immersive before:h-px before:w-8 before:bg-soleil before:content-['']"
           >
             Sidemen · Munduk · Est de Bali
           </motion.p>
@@ -54,23 +54,23 @@ export default function Hero() {
             className="max-w-[15ch] text-[clamp(2.5rem,8.5vw,4.75rem)] tracking-[-0.03em]"
           >
             Bali loin des foules. Votre guide privé{" "}
-            <em className="italic text-accent">francophone</em> local.
+            <em className="italic text-soleil">francophone</em> local.
           </motion.h1>
 
           <motion.p
             variants={rise}
-            className="max-w-[46ch] text-lg leading-relaxed text-soft"
+            className="max-w-[46ch] text-lg leading-relaxed text-on-immersive-soft"
           >
             Circuits 100 % sur-mesure, authenticité garantie et 0 intermédiaire.
             Vous échangez directement avec Agus, guide balinais indépendant.
           </motion.p>
 
           <motion.div variants={rise} className="flex flex-wrap gap-3">
-            <a className="btn btn-accent btn-lg" href="#sur-mesure">
+            <a className="btn btn-sun btn-lg" href="#sur-mesure">
               Créer mon voyage sur-mesure
             </a>
             <a
-              className="btn btn-outline btn-lg text-ink"
+              className="btn btn-outline btn-lg text-on-immersive"
               href="#experiences"
             >
               Voir les expériences
@@ -79,15 +79,15 @@ export default function Hero() {
 
           <motion.div
             variants={rise}
-            className="mt-4 flex w-full flex-wrap items-center gap-3 border-t border-[color-mix(in_srgb,var(--text)_18%,transparent)] pt-5"
+            className="mt-4 flex w-full flex-wrap items-center gap-3 border-t border-[color-mix(in_srgb,var(--on-immersive)_22%,transparent)] pt-5"
           >
-            <span className="flex gap-0.5 text-accent" aria-hidden="true">
+            <span className="flex gap-0.5 text-soleil" aria-hidden="true">
               {Array.from({ length: 5 }, (_, i) => (
                 <Star key={i} size={15} fill="currentColor" strokeWidth={0} />
               ))}
             </span>
-            <p className="text-sm text-soft">
-              <b className="font-semibold text-ink">4,9 / 5</b> — plus
+            <p className="text-sm text-on-immersive-soft">
+              <b className="font-semibold text-on-immersive">4,9 / 5</b> — plus
               de 200 voyageurs francophones accompagnés depuis 2016.
             </p>
           </motion.div>
@@ -96,13 +96,13 @@ export default function Hero() {
 
       {/* Le fil des étapes — bandeau défilant */}
       <div
-        className="overflow-hidden border-y border-rule bg-nuit py-3 text-soft"
+        className="overflow-hidden bg-immersive py-3 text-on-immersive-soft"
         aria-hidden="true"
       >
         <div className="flex w-max gap-12 motion-safe:animate-[drift_42s_linear_infinite]">
           {[...DESTINATIONS, ...DESTINATIONS].map((d, i) => (
             <span key={i} className="label whitespace-nowrap">
-              {d} <span className="text-accent">◦</span>
+              {d} <span className="text-soleil">◦</span>
             </span>
           ))}
         </div>

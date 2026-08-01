@@ -5,7 +5,7 @@ import Reveal from "./Reveal";
 
 export default function Experiences() {
   return (
-    <section id="experiences" className="ground-3 band">
+    <section id="experiences" className="ground-sable band">
       <div className="shell">
         <SectionHead eyebrow="Expériences" title="Coups de cœur d'Agus">
           Ajoutez celles qui vous parlent : elles alimentent votre demande de

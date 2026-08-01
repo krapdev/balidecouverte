@@ -11,23 +11,28 @@
  * dans Hero.jsx et ExperienceCard.jsx — les proportions sont déjà posées.
  */
 
-/* Toutes les scènes sont nocturnes ou à l'aube. La lumière n'est jamais
-   un aplat : c'est un halo, un reflet, une braise. */
+/* Lumière du jour, franche mais douce. Le lagon et le jade portent les
+   paysages, le soleil éclaire, le bougainvillier ne sert qu'aux détails. */
 const C = {
-  cielHaut: "#061520",
-  cielBas: "#1d3f4a",
-  aubeChaude: "#8a5a3a",
-  lueur: "#e8a33f",
-  lueurPale: "#f6d79b",
-  mer: "#0d3944",
-  merProfonde: "#061e26",
-  merClaire: "#14606d",
-  padi: "#2f4a33",
-  padiClair: "#456b40",
-  brique: "#6b3a2c",
-  briqueSombre: "#4a2820",
-  nuitDense: "#04101a",
-  clair: "#f2ece0",
+  cielHaut: "#bfe3e4",
+  cielBas: "#eaf3ea",
+  cielChaud: "#fdf0d2",
+  soleil: "#f2b134",
+  soleilPale: "#fbe0a5",
+  lagon: "#189aa4",
+  lagonPale: "#7fc9cd",
+  lagonProfond: "#0d6570",
+  jade: "#0f6b5c",
+  jadeSombre: "#084a40",
+  jadeClair: "#3f9a7f",
+  padi: "#7fa64a",
+  padiClair: "#a8c46a",
+  brique: "#b5674a",
+  briqueSombre: "#8c4733",
+  roche: "#5c5a52",
+  rocheSombre: "#3c3a34",
+  bougain: "#c8455f",
+  clair: "#fbf7ee",
 };
 
 /** Bande à bord ondulé — la brique de base de tous les paysages. */
@@ -97,7 +102,7 @@ export function JepunBranch({ className = "", flip = false }) {
       style={flip ? { transform: "scaleX(-1)" } : undefined}
       aria-hidden="true"
     >
-      <g stroke={C.nuitDense} fill="none" strokeLinecap="round">
+      <g stroke={C.rocheSombre} fill="none" strokeLinecap="round">
         <path d="M280 4 C 226 22, 178 54, 150 96" strokeWidth="7" />
         <path d="M186 62 C 150 74, 120 104, 100 146" strokeWidth="5" />
         <path d="M212 34 C 178 34, 120 44, 66 74" strokeWidth="4" />
@@ -119,7 +124,7 @@ export function JepunBranch({ className = "", flip = false }) {
           {[0, 72, 144, 216, 288].map((a) => (
             <path key={a} transform={`rotate(${a})`} d={petal} fill={C.clair} />
           ))}
-          <circle r="7" fill={C.lueur} />
+          <circle r="7" fill={C.soleil} />
         </g>
       ))}
     </svg>
@@ -151,7 +156,7 @@ export function Canang({ size = 44, className = "" }) {
       {/* Les fleurs : blanche, rouge, jaune — les directions */}
       <circle cx="18" cy="20" r="7" fill={C.clair} />
       <circle cx="30" cy="16" r="8" fill="#b8654a" />
-      <circle cx="43" cy="20" r="7" fill={C.lueur} />
+      <circle cx="43" cy="20" r="7" fill={C.soleil} />
       <path
         d="M30 16 c 8 -10 16 -12 22 -10 c -6 4 -10 10 -12 16 z"
         fill={C.padi}
@@ -161,17 +166,17 @@ export function Canang({ size = 44, className = "" }) {
 }
 
 /** Tedung — l'ombrelle à étages plantée devant les sanctuaires. */
-function Tedung({ x, y, s = 1, tone = C.lueur }) {
+function Tedung({ x, y, s = 1, tone = C.soleil }) {
   return (
     <g transform={`translate(${x} ${y}) scale(${s})`}>
-      <path d="M-3 0 L3 0 L2 -74 L-2 -74 Z" fill={C.nuitDense} />
+      <path d="M-3 0 L3 0 L2 -74 L-2 -74 Z" fill={C.rocheSombre} />
       <path d="M-46 -74 C -30 -102, 30 -102, 46 -74 Z" fill={tone} />
       <path
         d="M-46 -74 q 11 10 15 0 q 11 10 16 0 q 11 10 15 0"
         fill={tone}
         opacity=".75"
       />
-      <circle cy="-102" r="4" fill={C.nuitDense} />
+      <circle cy="-102" r="4" fill={C.rocheSombre} />
     </g>
   );
 }
@@ -184,18 +189,18 @@ function Terraces({ w, h, ns }) {
     <>
       {/* Le halo précède l'astre : c'est lui qui donne l'heure */}
       <ellipse cx={w * 0.74} cy={h * 0.6} rx={w * 0.42} ry={h * 0.34} fill={`url(#halo-${ns})`} />
-      <circle cx={w * 0.74} cy={h * 0.56} r={h * 0.09} fill={C.lueurPale} />
+      <circle cx={w * 0.74} cy={h * 0.56} r={h * 0.09} fill={C.soleilPale} />
       {/* Le Gunung Agung : arêtes adoucies, jamais une pyramide */}
       <path
         d={`M${w * 0.06} ${h * 0.66}
             Q ${w * 0.26} ${h * 0.46} ${w * 0.36} ${h * 0.26}
             Q ${w * 0.4} ${h * 0.21} ${w * 0.45} ${h * 0.27}
             Q ${w * 0.56} ${h * 0.47} ${w * 0.72} ${h * 0.66} Z`}
-        fill={C.merProfonde}
+        fill={C.jadeSombre}
       />
-      <path d={band(h * 0.68, h * 0.045, w, h, 2.1)} fill={C.mer} />
+      <path d={band(h * 0.68, h * 0.045, w, h, 2.1)} fill={C.jade} />
       <path d={band(h * 0.78, h * 0.04, w, h, 3.3)} fill={C.padi} />
-      <path d={band(h * 0.88, h * 0.03, w, h, 1.2)} fill={C.nuitDense} />
+      <path d={band(h * 0.88, h * 0.03, w, h, 1.2)} fill={C.rocheSombre} />
       {/* L'eau des terrasses attrape la lueur : le subak en miroir */}
       {Array.from({ length: 4 }, (_, i) => (
         <path
@@ -204,7 +209,7 @@ function Terraces({ w, h, ns }) {
             h * (0.86 + i * 0.028)
           } ${w} ${h * (0.92 + i * 0.028)}`}
           fill="none"
-          stroke={C.lueur}
+          stroke={C.soleil}
           strokeWidth="1.5"
           opacity={0.3 - i * 0.05}
         />
@@ -220,8 +225,8 @@ function Spring({ w, h, ns }) {
   return (
     <>
       <ellipse cx={cx} cy={h * 0.5} rx={w * 0.34} ry={h * 0.34} fill={`url(#halo-${ns})`} />
-      <circle cx={cx} cy={h * 0.42} r={h * 0.12} fill={C.lueurPale} opacity=".9" />
-      <path d={band(h * 0.58, h * 0.035, w, h, 1.9)} fill={C.merProfonde} />
+      <circle cx={cx} cy={h * 0.42} r={h * 0.12} fill={C.soleilPale} opacity=".9" />
+      <path d={band(h * 0.58, h * 0.035, w, h, 1.9)} fill={C.jadeSombre} />
       {[-1, 1].map((side) => (
         <g key={side}>
           <path
@@ -249,16 +254,16 @@ function Spring({ w, h, ns }) {
           ))}
         </g>
       ))}
-      <Tedung x={cx - 168} y={gy} s={h / 620} tone={C.lueur} />
+      <Tedung x={cx - 168} y={gy} s={h / 620} tone={C.soleil} />
       <Tedung x={cx + 168} y={gy} s={h / 620} tone={C.clair} />
       {/* Le bassin, et la lueur qui s'y couche */}
-      <rect y={gy} width={w} height={h - gy} fill={C.merProfonde} />
+      <rect y={gy} width={w} height={h - gy} fill={C.jadeSombre} />
       <rect y={gy} width={w} height={h - gy} fill={`url(#mist-${ns})`} opacity=".5" />
       {Array.from({ length: 5 }, (_, j) => (
         <path
           key={j}
           d={`M${cx - 56 + j * 28} ${gy - 4} q 3 20 0 36`}
-          stroke={C.lueurPale}
+          stroke={C.soleilPale}
           strokeWidth="3.5"
           opacity=".7"
           fill="none"
@@ -273,7 +278,7 @@ function Spring({ w, h, ns }) {
           rx={64 + k * 70}
           ry={7 + k * 4}
           fill="none"
-          stroke={C.lueur}
+          stroke={C.soleil}
           strokeWidth="1.5"
           opacity={0.4 - k * 0.1}
         />
@@ -293,16 +298,16 @@ function Canyon({ w, h, ns }) {
         d={`M${w * 0.44} ${h * 0.28} L${w * 0.42} ${h * 0.86} L${w * 0.58} ${
           h * 0.86
         } L${w * 0.56} ${h * 0.28} Z`}
-        fill={C.lueurPale}
+        fill={C.soleilPale}
         opacity=".82"
       />
       <path
         d={`M0 ${h * 0.08} L${w * 0.36} ${h * 0.26} L${w * 0.3} ${h} L0 ${h} Z`}
-        fill={C.nuitDense}
+        fill={C.rocheSombre}
       />
       <path
         d={`M${w} ${h * 0.04} L${w * 0.64} ${h * 0.28} L${w * 0.7} ${h} L${w} ${h} Z`}
-        fill={C.nuitDense}
+        fill={C.rocheSombre}
       />
       <path
         d={`M0 ${h * 0.08} L${w * 0.36} ${h * 0.26} L${w * 0.34} ${h * 0.34} L0 ${
@@ -318,7 +323,7 @@ function Canyon({ w, h, ns }) {
         fill={C.padiClair}
         opacity=".8"
       />
-      <rect y={h * 0.84} width={w} height={h * 0.16} fill={C.mer} />
+      <rect y={h * 0.84} width={w} height={h * 0.16} fill={C.jade} />
       {Array.from({ length: 3 }, (_, k) => (
         <ellipse
           key={k}
@@ -327,7 +332,7 @@ function Canyon({ w, h, ns }) {
           rx={50 + k * 66}
           ry={6 + k * 4}
           fill="none"
-          stroke={C.merClaire}
+          stroke={C.lagon}
           strokeWidth="2"
           opacity={0.85 - k * 0.24}
         />
@@ -351,18 +356,18 @@ function Plantation({ w, h, ns }) {
         />
       ))}
       <ellipse cx={w * 0.76} cy={h * 0.2} rx={w * 0.16} ry={h * 0.24} fill={`url(#halo-${ns})`} opacity=".7" />
-      <circle cx={w * 0.78} cy={h * 0.2} r={h * 0.095} fill={C.lueurPale} />
+      <circle cx={w * 0.78} cy={h * 0.2} r={h * 0.095} fill={C.soleilPale} />
       <circle cx={w * 0.74} cy={h * 0.175} r={h * 0.088} fill={C.cielHaut} />
-      <path d={band(h * 0.6, h * 0.05, w, h, 0.9)} fill={C.merProfonde} />
-      <path d={band(h * 0.74, h * 0.04, w, h, 2.4)} fill={C.nuitDense} />
+      <path d={band(h * 0.6, h * 0.05, w, h, 0.9)} fill={C.jadeSombre} />
+      <path d={band(h * 0.74, h * 0.04, w, h, 2.4)} fill={C.rocheSombre} />
       {Array.from({ length: 20 }, (_, c) => (
         <path
           key={c}
           d={`M${20 + c * (w / 19)} ${h * 0.88 + (c % 3) * 12} q 13 -24 0 -44 q -13 20 0 44`}
-          fill={C.nuitDense}
+          fill={C.rocheSombre}
         />
       ))}
-      <rect y={h * 0.92} width={w} height={h * 0.08} fill={C.nuitDense} />
+      <rect y={h * 0.92} width={w} height={h * 0.08} fill={C.rocheSombre} />
       {/* Les lampes-tempête : chacune éclaire son morceau de sentier */}
       {[0.2, 0.44, 0.66].map((p, i) => (
         <g key={i}>
@@ -373,9 +378,138 @@ function Plantation({ w, h, ns }) {
             fill={`url(#halo-${ns})`}
             opacity=".85"
           />
-          <circle cx={w * p} cy={h * (0.86 + i * 0.02)} r="4" fill={C.lueurPale} />
+          <circle cx={w * p} cy={h * (0.86 + i * 0.02)} r="4" fill={C.soleilPale} />
         </g>
       ))}
+    </>
+  );
+}
+
+/** Kawah Ijen, Java : le lac acide turquoise au lever du jour. */
+function Ijen({ w, h, ns }) {
+  return (
+    <>
+      <ellipse cx={w * 0.24} cy={h * 0.3} rx={w * 0.28} ry={h * 0.3} fill={`url(#halo-${ns})`} />
+      <circle cx={w * 0.24} cy={h * 0.28} r={h * 0.08} fill={C.soleilPale} />
+      {/* Les lèvres du cratère, en gradins */}
+      <path
+        d={`M0 ${h * 0.52} L${w * 0.2} ${h * 0.34} L${w * 0.38} ${h * 0.46}
+            L${w * 0.62} ${h * 0.3} L${w * 0.82} ${h * 0.44} L${w} ${h * 0.36}
+            L${w} ${h} L0 ${h} Z`}
+        fill={C.roche}
+      />
+      {/* Le lac : la couleur qui fait venir ici */}
+      <path
+        d={`M${w * 0.16} ${h * 0.74} Q ${w * 0.5} ${h * 0.6} ${w * 0.86} ${h * 0.76}
+            Q ${w * 0.5} ${h * 0.96} ${w * 0.16} ${h * 0.74} Z`}
+        fill={C.lagon}
+      />
+      <path
+        d={`M${w * 0.24} ${h * 0.76} Q ${w * 0.5} ${h * 0.68} ${w * 0.76} ${h * 0.78}`}
+        fill="none"
+        stroke={C.lagonPale}
+        strokeWidth="3"
+        opacity=".8"
+      />
+      {/* Les fumerolles de soufre */}
+      {[0.34, 0.44, 0.56].map((p, i) => (
+        <path
+          key={i}
+          d={`M${w * p} ${h * 0.7} c ${w * 0.02} ${-h * 0.12}, ${-w * 0.03} ${
+            -h * 0.2
+          }, ${w * 0.01} ${-h * 0.3}`}
+          stroke={C.clair}
+          strokeWidth={5 - i}
+          opacity={0.5 - i * 0.1}
+          fill="none"
+          strokeLinecap="round"
+        />
+      ))}
+      <path
+        d={`M0 ${h * 0.52} L${w * 0.2} ${h * 0.34} L${w * 0.26} ${h * 0.4} L0 ${h * 0.6} Z`}
+        fill={C.rocheSombre}
+      />
+    </>
+  );
+}
+
+/** Rinjani, Lombok : le cône, le lac Segara Anak et les terrasses. */
+function Rinjani({ w, h, ns }) {
+  return (
+    <>
+      <ellipse cx={w * 0.72} cy={h * 0.32} rx={w * 0.3} ry={h * 0.3} fill={`url(#halo-${ns})`} />
+      <circle cx={w * 0.74} cy={h * 0.24} r={h * 0.075} fill={C.soleilPale} />
+      {/* Le grand cône, tronqué par la caldeira */}
+      <path
+        d={`M${w * 0.04} ${h * 0.72}
+            Q ${w * 0.26} ${h * 0.42} ${w * 0.38} ${h * 0.16}
+            L${w * 0.5} ${h * 0.2} L${w * 0.56} ${h * 0.14}
+            Q ${w * 0.74} ${h * 0.44} ${w * 0.96} ${h * 0.72} Z`}
+        fill={C.jadeSombre}
+      />
+      <path
+        d={`M${w * 0.38} ${h * 0.16} L${w * 0.5} ${h * 0.2} L${w * 0.56} ${h * 0.14}
+            L${w * 0.5} ${h * 0.1} Z`}
+        fill={C.rocheSombre}
+      />
+      {/* Segara Anak, le lac en croissant dans la caldeira */}
+      <path
+        d={`M${w * 0.3} ${h * 0.7} Q ${w * 0.5} ${h * 0.62} ${w * 0.7} ${h * 0.71}
+            Q ${w * 0.5} ${h * 0.82} ${w * 0.3} ${h * 0.7} Z`}
+        fill={C.lagon}
+      />
+      <path d={band(h * 0.82, h * 0.035, w, h, 1.4)} fill={C.padi} />
+      <path d={band(h * 0.92, h * 0.025, w, h, 2.8)} fill={C.padiClair} />
+    </>
+  );
+}
+
+/** Padar, Komodo : les trois baies vues depuis la crête. */
+function Komodo({ w, h, ns }) {
+  return (
+    <>
+      <ellipse cx={w * 0.5} cy={h * 0.24} rx={w * 0.4} ry={h * 0.26} fill={`url(#halo-${ns})`} />
+      <circle cx={w * 0.5} cy={h * 0.2} r={h * 0.07} fill={C.soleilPale} />
+      {/* La mer entre les caps */}
+      <rect y={h * 0.5} width={w} height={h * 0.5} fill={C.lagon} />
+      {/* Trois presqu'îles, celles de la vue de Padar */}
+      <path
+        d={`M${-w * 0.05} ${h} Q ${w * 0.1} ${h * 0.52} ${w * 0.3} ${h * 0.6}
+            Q ${w * 0.42} ${h * 0.66} ${w * 0.36} ${h} Z`}
+        fill={C.padi}
+      />
+      <path
+        d={`M${w * 0.34} ${h} Q ${w * 0.46} ${h * 0.46} ${w * 0.62} ${h * 0.54}
+            Q ${w * 0.72} ${h * 0.6} ${w * 0.68} ${h} Z`}
+        fill={C.jade}
+      />
+      <path
+        d={`M${w * 0.66} ${h} Q ${w * 0.8} ${h * 0.54} ${w * 1.05} ${h * 0.62}
+            L${w * 1.05} ${h} Z`}
+        fill={C.jadeSombre}
+      />
+      {/* Le liseré de plage, dont l'une est rose */}
+      <path
+        d={`M${w * 0.3} ${h * 0.6} Q ${w * 0.42} ${h * 0.66} ${w * 0.36} ${h * 0.74}`}
+        fill="none"
+        stroke={C.bougain}
+        strokeWidth="5"
+        opacity=".55"
+        strokeLinecap="round"
+      />
+      <path
+        d={`M${w * 0.62} ${h * 0.54} Q ${w * 0.72} ${h * 0.6} ${w * 0.69} ${h * 0.68}`}
+        fill="none"
+        stroke={C.clair}
+        strokeWidth="4"
+        opacity=".7"
+        strokeLinecap="round"
+      />
+      {/* Un pinisi au mouillage */}
+      <g transform={`translate(${w * 0.5} ${h * 0.9})`}>
+        <path d="M-26 0 L26 0 L18 9 L-18 9 Z" fill={C.rocheSombre} />
+        <path d="M-2 0 L-2 -30 L14 -6 Z" fill={C.clair} />
+      </g>
     </>
   );
 }
@@ -385,6 +519,9 @@ const MOTIFS = {
   canyon: Canyon,
   spring: Spring,
   plantation: Plantation,
+  ijen: Ijen,
+  rinjani: Rinjani,
+  komodo: Komodo,
 };
 
 export default function Scene({
@@ -412,20 +549,19 @@ export default function Scene({
       <defs>
         <linearGradient id={`sky-${ns}`} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor={C.cielHaut} />
-          <stop offset="0.52" stopColor={C.cielBas} />
-          <stop offset="0.82" stopColor={C.aubeChaude} />
-          <stop offset="1" stopColor={C.lueur} />
+          <stop offset="0.55" stopColor={C.cielBas} />
+          <stop offset="1" stopColor={C.cielChaud} />
         </linearGradient>
-        {/* Le halo de l'astre — la lumière déborde toujours de sa source */}
+        {/* Le halo du soleil : la lumière déborde toujours de sa source */}
         <radialGradient id={`halo-${ns}`}>
-          <stop offset="0" stopColor={C.lueurPale} stopOpacity="0.85" />
-          <stop offset="0.35" stopColor={C.lueur} stopOpacity="0.42" />
-          <stop offset="1" stopColor={C.lueur} stopOpacity="0" />
+          <stop offset="0" stopColor={C.soleilPale} stopOpacity="0.9" />
+          <stop offset="0.4" stopColor={C.soleil} stopOpacity="0.28" />
+          <stop offset="1" stopColor={C.soleil} stopOpacity="0" />
         </radialGradient>
-        {/* La brume qui monte de la vallée avant le jour */}
+        {/* La brume de vallée, celle du petit matin */}
         <linearGradient id={`mist-${ns}`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor={C.lueurPale} stopOpacity="0.22" />
-          <stop offset="1" stopColor={C.lueurPale} stopOpacity="0" />
+          <stop offset="0" stopColor={C.clair} stopOpacity="0.4" />
+          <stop offset="1" stopColor={C.clair} stopOpacity="0" />
         </linearGradient>
       </defs>
 
@@ -450,12 +586,12 @@ export function PortraitAgus({ className = "" }) {
         <linearGradient id="portrait-sky" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor={C.cielHaut} />
           <stop offset="0.55" stopColor={C.cielBas} />
-          <stop offset="0.86" stopColor={C.aubeChaude} />
+          <stop offset="0.86" stopColor={C.cielChaud} />
         </linearGradient>
         <radialGradient id="portrait-halo">
-          <stop offset="0" stopColor={C.lueurPale} stopOpacity="0.9" />
-          <stop offset="0.4" stopColor={C.lueur} stopOpacity="0.4" />
-          <stop offset="1" stopColor={C.lueur} stopOpacity="0" />
+          <stop offset="0" stopColor={C.soleilPale} stopOpacity="0.9" />
+          <stop offset="0.4" stopColor={C.soleil} stopOpacity="0.4" />
+          <stop offset="1" stopColor={C.soleil} stopOpacity="0" />
         </radialGradient>
         <clipPath id="portrait-head">
           <circle cx="230" cy="318" r="76" />
@@ -465,13 +601,13 @@ export function PortraitAgus({ className = "" }) {
       <rect width="460" height="560" fill="url(#portrait-sky)" />
       {/* Le jour se lève derrière lui : la silhouette est à contre-jour */}
       <ellipse cx="300" cy="300" rx="280" ry="220" fill="url(#portrait-halo)" />
-      <circle cx="316" cy="248" r="58" fill={C.lueurPale} opacity=".95" />
-      <path d="M0 300 Q120 262 246 302 T460 288 L460 560 L0 560 Z" fill={C.merProfonde} />
+      <circle cx="316" cy="248" r="58" fill={C.soleilPale} opacity=".95" />
+      <path d="M0 300 Q120 262 246 302 T460 288 L460 560 L0 560 Z" fill={C.jadeSombre} />
       <path d="M0 360 Q140 322 262 370 T460 358 L460 560 L0 560 Z" fill={C.padi} />
-      <path d="M0 420 Q150 386 268 428 T460 416 L460 560 L0 560 Z" fill={C.nuitDense} />
+      <path d="M0 420 Q150 386 268 428 T460 416 L460 560 L0 560 Z" fill={C.rocheSombre} />
 
-      <path d="M96 560 c0-118 46-176 134-176 s134 58 134 176 z" fill={C.nuitDense} />
-      <circle cx="230" cy="318" r="76" fill={C.nuitDense} />
+      <path d="M96 560 c0-118 46-176 134-176 s134 58 134 176 z" fill={C.rocheSombre} />
+      <circle cx="230" cy="318" r="76" fill={C.rocheSombre} />
 
       {/* Udeng — le bandeau cérémoniel, découpé sur le crâne */}
       <g clipPath="url(#portrait-head)">
@@ -483,14 +619,14 @@ export function PortraitAgus({ className = "" }) {
       <path
         d="M96 560 c0-118 46-176 134-176"
         fill="none"
-        stroke={C.lueur}
+        stroke={C.soleil}
         strokeWidth="2.5"
         opacity=".6"
       />
       <path
         d="M292 282 a76 76 0 0 1 -6 90"
         fill="none"
-        stroke={C.lueur}
+        stroke={C.soleil}
         strokeWidth="2.5"
         opacity=".5"
       />
@@ -505,7 +641,7 @@ export function PortraitAgus({ className = "" }) {
             fill={C.clair}
           />
         ))}
-        <circle r="6" fill={C.lueur} />
+        <circle r="6" fill={C.soleil} />
       </g>
     </svg>
   );

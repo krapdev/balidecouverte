@@ -2,10 +2,16 @@
 
 import { useMemo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { X, Minus, Plus, MessageSquare, Send } from "lucide-react";
+import { X, Minus, Plus, MessageSquare, Send, CalendarDays } from "lucide-react";
 import { useTrip } from "@/lib/trip-store";
 import { buildMessage, whatsappUrl } from "@/lib/whatsapp";
-import { DURATIONS, STYLES, WHATSAPP_DISPLAY, monthOptions } from "@/lib/data";
+import {
+  DURATIONS,
+  STYLES,
+  WHATSAPP_DISPLAY,
+  monthOptions,
+  periodNote,
+} from "@/lib/data";
 import SectionHead from "./SectionHead";
 
 function Counter({ label, field, value, onStep }) {
@@ -41,13 +47,14 @@ function Counter({ label, field, value, onStep }) {
 export default function TripBuilder() {
   const trip = useTrip();
   const months = useMemo(() => monthOptions(), []);
+  const period = useMemo(() => periodNote(trip.month), [trip.month]);
   const message = buildMessage(trip);
   const href = whatsappUrl(message);
 
   return (
     <section
       id="sur-mesure"
-      className="ground-5 band"
+      className="ground-sable band"
     >
       <div className="shell">
         <SectionHead eyebrow="Sur-Mesure" title="Construisez votre demande.">
@@ -109,6 +116,46 @@ export default function TripBuilder() {
               )}
             </div>
 
+            {trip.islands.length > 0 && (
+              <div className="mb-6">
+                <p className="label mb-3 text-eyebrow">
+                  Extensions îles sœurs
+                </p>
+                <AnimatePresence initial={false}>
+                  {trip.islands.map((e) => (
+                    <motion.div
+                      key={e.id}
+                      layout
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.22 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="flex items-center gap-3.5 border-b border-rule py-3">
+                        <span className="flex-1">
+                          <span className="block text-sm font-semibold leading-snug">
+                            {e.title}
+                          </span>
+                          <span className="label text-faint">
+                            {e.island} · {e.duration}
+                          </span>
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => trip.removeIsland(e.id)}
+                          className="grid place-items-center rounded-sm p-1 text-faint transition-colors hover:text-eyebrow"
+                          aria-label={`Retirer ${e.title}`}
+                        >
+                          <X size={16} />
+                        </button>
+                      </div>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              </div>
+            )}
+
             <p className="label mb-4 font-sans font-bold tracking-[0.06em] text-faint">
               2 — Votre voyage
             </p>
@@ -158,6 +205,23 @@ export default function TripBuilder() {
                 value={trip.children}
                 onStep={trip.stepTraveller}
               />
+
+              {/* Ce qui se passe à la période choisie. Les saisons sont
+                  fiables ; les dates de cérémonies, non — on dit ce qu'on
+                  sait et Agus confirme le reste. */}
+              <div className="rounded border border-rule bg-tint/60 p-4 sm:col-span-2">
+                <p className="label mb-2 flex items-center gap-2 text-tint-ink">
+                  <CalendarDays size={14} />
+                  {trip.month} · {period.saison}
+                </p>
+                <ul className="m-0 flex list-none flex-col gap-2 p-0">
+                  {period.notes.map((n) => (
+                    <li key={n} className="text-sm leading-relaxed text-soft">
+                      {n}
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
               <fieldset className="m-0 border-0 p-0 sm:col-span-2">
                 <legend className="label mb-1.5 text-soft">

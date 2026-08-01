@@ -6,6 +6,7 @@ import Experiences from "@/components/Experiences";
 import Circuits from "@/components/Circuits";
 import TripBuilder from "@/components/TripBuilder";
 import MobileBar from "@/components/MobileBar";
+import Islands from "@/components/Islands";
 import Footer from "@/components/Footer";
 import { Divider } from "@/components/Scene";
 
@@ -22,7 +23,7 @@ export default function Home() {
           <Divider />
         </div>
         <Circuits />
-        <div className="horizon" aria-hidden="true" />
+        <Islands />
         <TripBuilder />
       </main>
       <Footer />

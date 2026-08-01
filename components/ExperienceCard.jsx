@@ -16,13 +16,13 @@ export default function ExperienceCard({ experience }) {
           : "border-rule hover:border-[color-mix(in_srgb,var(--accent)_55%,var(--rule))]"
       }`}
     >
-      <div className="relative aspect-[16/11] bg-nuit">
+      <div className="relative aspect-[16/11] bg-immersive-deep">
         <Scene
           kind={experience.scene}
           uid={experience.id}
           className="h-full w-full"
         />
-        <span className="label absolute left-4 top-4 rounded-full bg-[color-mix(in_srgb,var(--nuit)_78%,transparent)] px-3 py-1.5 text-sable backdrop-blur-sm">
+        <span className="label absolute left-4 top-4 rounded-full bg-[color-mix(in_srgb,var(--immersive-deep)_78%,transparent)] px-3 py-1.5 text-on-immersive backdrop-blur-sm">
           {experience.tag}
         </span>
       </div>

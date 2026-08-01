@@ -24,83 +24,70 @@ npm run build   # build de production
 
 ## Direction artistique
 
-**Le site est nocturne.** Bali spirituelle se vit avant le jour : le *melukat* à
-l'aube, les cérémonies de nuit, la brume de Munduk à cinq heures. C'est aussi ce
-qui sort la page du registre « magazine de voyage », où tout est éclairé à midi.
+Registre : **classe, joyeux, zen**. Fond ivoire chaud, beaucoup d'air, et une
+couleur qui chante sans crier.
 
-**La page suit la montée du jour.** On entre dans la nuit profonde, chaque
-section se réchauffe d'un cran, et le configurateur — le moment du départ —
-arrive à l'aube. Ce n'est pas un dégradé décoratif : c'est la structure de la
-page.
+**Palette.** Elle vient des choses qu'on voit vraiment sur l'île.
 
-| Palier | Couleur | Section |
-| --- | --- | --- |
-| `--nuit` | `#061520` | Hero, pied de page |
-| `--nuit-2` | `#0a1e28` | L'Esprit |
-| `--nuit-3` | `#0e2630` | Expériences |
-| `--aube-1` | `#123037` | Circuits |
-| `--aube-2` | `#17383a` | Sur-mesure — le départ |
+| Jeton | Couleur | Origine | Rôle |
+| --- | --- | --- | --- |
+| `--jade` | `#0f6b5c` | Le vert laqué des temples et des rizières mûres | **Toutes les actions** + les panneaux pleins |
+| `--soleil` | `#f2b134` | Le safran des ombrelles et des offrandes | Éclaire — CTA du hero, îles sœurs |
+| `--lagon` | `#189aa4` | Le turquoise des passes et du lac d'Ijen | Illustrations |
+| `--bougain` | `#c8455f` | Le rose des murs de Sanur | Étiquettes uniquement |
+| `--ivoire` / `--sable` | `#fbf7ee` / `#f2e9d8` | Pierre et sable | Surfaces de lecture, en alternance |
+| `--encre` | `#22302b` | | Texte |
 
-Monde chromatique unique et assumé : **pas de thème clair, pas de sélecteur**.
-Une aube n'a pas de variante diurne.
+Discipline : le jade porte l'action, le soleil éclaire, le bougainvillier ne
+sert qu'aux étiquettes, le lagon vit dans les illustrations. Aucune de ces
+couleurs n'est décorative.
 
-**La lumière est une matière, jamais un aplat.** Halo de l'astre qui déborde de
-sa source, brume qui monte de la vallée, eau des terrasses qui attrape la lueur,
-liseré de contre-jour sur l'épaule d'Agus, lampes-tempête entre les caféiers, et
-un fil de lumière en guise d'horizon entre deux sections. Chaque étape du rail
-d'itinéraire est une lampe qui vacille lentement.
-
-| Jeton | Couleur | Rôle |
-| --- | --- | --- |
-| `--lueur` | `#e8a33f` | La lueur de l'horizon — **toutes les actions** |
-| `--laut` | `#12707f` | La mer |
-| `--padi` | `#7d9152` | Les rizières |
-| `--bata` | `#b8654a` | La brique de temple |
-| `--sable` | `#f2ece0` | Le texte |
+Monde clair unique et assumé : **pas de variante nocturne**. La direction est
+solaire, elle n'a pas d'envers.
 
 **Typographie** — *Eczar* pour les titres : dessinée pour accompagner le
 devanagari, elle porte une énergie de manuscrit qui renvoie à la racine hindoue
 de Bali, loin de la capitale romaine des brochures d'hôtel. *Mulish* pour le
-texte courant : humaniste, douce, très lisible sur fond sombre, et son italique
-porte les moments de rêverie qu'Eczar ne sait pas tenir.
+texte courant.
 
 **Tri Hita Karana.** Les trois causes du bien-être — l'harmonie avec le divin
 (*Parahyangan*), avec les hommes (*Pawongan*), avec la nature (*Palemahan*) —
 remplacent les trois puces d'argumentaire. Elles recouvrent presque exactement
 ce qu'Agus a à dire, avec une assise que trois arguments marketing n'ont pas.
 
-**Ornements balinais**, toujours expliqués au lecteur plutôt que décoratifs :
-le **jepun** (frangipanier) derrière l'oreille d'Agus, posé sur les offrandes et
-repris comme séparateur ; une **branche de jepun** qui déborde en haut du hero ;
-le **canang sari**, l'offrande de fleurs du matin ; le **tedung**, l'ombrelle à
-étages ; le **candi bentar**, le portail fendu en brique avec ses assises. Le
-vocabulaire suit — *subak*, *melukat*, *bumbu*, *songket*, *warung*, et le
-*Om Swastiastu* qui ouvre le pied de page.
+**Ornements balinais**, toujours expliqués au lecteur : le **jepun**
+(frangipanier) derrière l'oreille d'Agus et en séparateur, une **branche de
+jepun** qui déborde en haut du hero, le **canang sari** (l'offrande du matin),
+le **tedung** (l'ombrelle à étages), le **candi bentar** et ses assises de
+brique. Le vocabulaire suit — *subak*, *melukat*, *bumbu*, *songket*, *warung*,
+et le *Om Swastiastu* du pied de page.
 
 **La grille est cassée**, mais jamais au point de faire collision : la seconde
-colonne d'expériences descend d'un cran, la colonne de texte d'Agus est poussée
-sous son portrait, et les trois harmonies se répondent en escalier.
+colonne d'expériences descend d'un cran, les trois îles sœurs montent en
+escalier, la colonne de texte d'Agus est poussée sous son portrait, et les trois
+harmonies se répondent.
 
-**Le garde-fou.** Le risque du registre onirique, c'est le site de retraite
-bien-être. L'antidote est la tension, pas l'adoucissement : imagerie nocturne
-d'un côté, faits durs de l'autre — coordonnées GPS, durées, « faisable dès
-10 ans », prix à la ligne, itinéraire jour par jour. C'est ce contraste qui fait
-l'aventure haut de gamme.
+**Le garde-fou.** Le risque d'une direction douce, c'est le site de retraite
+bien-être. L'antidote est la tension : imagerie apaisée d'un côté, faits durs de
+l'autre — coordonnées GPS, dénivelé, « faisable dès 10 ans », accès et niveau
+pour chaque île, prix à la ligne, itinéraire jour par jour.
 
 ### Contraste
 
-Le texte du hero était devenu illisible (1,67:1 pour un titre) après le passage
-à un fond clair. Un audit automatique parcourt maintenant chaque section et
-compare la couleur déclarée au premier fond opaque au-dessus, avec le seuil WCAG
-correspondant à la taille et à la graisse. Toutes les combinaisons passent. À
-refaire après toute modification de palette.
+Un audit automatique parcourt chaque section, compare la couleur déclarée au
+premier fond opaque au-dessus et applique le seuil WCAG correspondant à la
+taille et à la graisse. Il a rattrapé dix régressions lors du passage à cette
+palette — badges devenus invisibles, texte de pied de page en jade sur jade,
+blanc sur vert WhatsApp à 4,31. Toutes les combinaisons passent. **À rejouer
+après toute modification de palette.**
 
-> Trois directions ont été essayées et abandonnées, elles restent dans
-> l'historique git : le **poleng** (le damier noir et blanc des temples) comme
-> couture entre les sections — il lisait comme un drapeau de course automobile ;
-> le **penjor** (le bambou cérémoniel) dans les paysages — à cette échelle il
-> lisait comme un lampadaire ; et une direction **spa diurne** en pierre
-> calcaire — élégante, mais trop proche de la brochure d'hôtel.
+> Quatre directions ont été essayées et abandonnées, elles restent dans
+> l'historique git : le **poleng** (damier noir et blanc) en couture de
+> sections — il lisait comme un drapeau de course ; le **penjor** dans les
+> paysages — à cette échelle, un lampadaire ; une direction **spa diurne** en
+> pierre calcaire — trop proche de la brochure d'hôtel ; et une direction
+> **nocturne** où la page suivait la montée du jour — belle, mais trop grave
+> pour le propos.
 
 ## Architecture
 
@@ -118,11 +105,12 @@ components/
   Circuits.jsx       rail d'itinéraire type
   TripBuilder.jsx    configurateur + générateur WhatsApp
   MobileBar.jsx      rappel du circuit en cours, sur mobile
+  Islands.jsx        extensions Java, Lombok, Komodo
   Scene.jsx          paysages SVG + ornements (jepun, canang, séparateur)
   Reveal.jsx         apparition au scroll
   SectionHead.jsx    en-tête de section
 lib/
-  data.js            données de démonstration
+  data.js            données de démonstration, îles sœurs, notes de saison
   trip-store.jsx     état partagé (Context + useReducer)
   whatsapp.js        composition du message et de l'URL wa.me
 ```
@@ -137,6 +125,26 @@ compteur et l'aperçu du message.
 Pas de Zustand : un seul provider, un état plat, aucun besoin de sélecteurs ni
 de persistance à ce stade. Un passage à Zustand ne toucherait que ce fichier.
 
+### Les îles sœurs
+
+`components/Islands.jsx` propose trois extensions au-delà de Bali — le Kawah
+Ijen à Java, le Rinjani à Lombok, Padar et les dragons à Komodo. Elles vivent
+dans le même état partagé que les expériences mais dans une liste distincte
+(`islandIds`), et apparaissent sous leur propre rubrique dans le message
+WhatsApp. Chaque carte porte ses faits durs : accès depuis Bali, durée, niveau.
+
+### Ce qui se passe à la période choisie
+
+`periodNote()` dans `lib/data.js` répond au mois sélectionné : saison sèche ou
+des pluies, ce que ça change pour le Rinjani et Komodo, haute saison, et Nyepi
+pour mars.
+
+**Aucune date de cérémonie n'est codée en dur, et c'est volontaire.** Galungan
+et Kuningan suivent le cycle pawukon de 210 jours et se déplacent chaque année ;
+Nyepi suit le calendrier saka. Afficher un calendrier faux serait pire que de ne
+rien afficher : le texte dit ce qui est fiable et renvoie à Agus pour le reste.
+Si Agus fournit les dates exactes, elles se branchent dans cette seule fonction.
+
 ### Lien WhatsApp
 
 `lib/whatsapp.js` compose le message, `encodeURIComponent` l'encode, et le
@@ -147,10 +155,11 @@ Le numéro se change dans `lib/data.js` (`WHATSAPP_NUMBER`).
 
 ## Illustrations
 
-Les visuels sont des scènes SVG dessinées à la main dans `components/Scene.jsx`,
-toutes nocturnes ou à l'aube — rizières de Sidemen sous un Gunung Agung en ombre,
-source sacrée au moment du *melukat*, canyon où la lumière ne tombe qu'une heure
-par jour, plantation de café éclairée à la lampe-tempête. Le même fichier abrite les ornements réutilisables : `Jepun`,
+Les visuels sont des scènes SVG dessinées à la main dans `components/Scene.jsx` —
+rizières de Sidemen sous le Gunung Agung, source sacrée et son *candi bentar*,
+canyon des cascades, plantation de café la nuit, plus les trois îles sœurs : le
+lac acide du Kawah Ijen, le cône du Rinjani et son lac Segara Anak, les trois
+baies de Padar. Le même fichier abrite les ornements réutilisables : `Jepun`,
 `JepunBranch`, `Canang`, `Divider`. Aucune dépendance externe, aucun chargement,
 un rendu identique partout.
 

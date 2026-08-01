@@ -3,63 +3,73 @@
 /* ============================================================
    BALI DÉCOUVERTE — Design tokens
    ------------------------------------------------------------
-   Le site est nocturne. Bali spirituelle se vit avant le jour :
-   le melukat à l'aube, les cérémonies de nuit, la brume de Munduk
-   à cinq heures. La page suit cette montée — on entre dans la nuit
-   profonde, chaque section se réchauffe d'un cran, et le
-   configurateur, le moment du départ, arrive à l'aube.
+   Registre : classe, joyeux, zen. Fond ivoire chaud, beaucoup
+   d'air, et une couleur qui chante sans crier.
 
-   Monde chromatique unique et assumé : pas de thème clair. Une
-   aube n'a pas de variante diurne.
+   La palette vient des choses qu'on voit vraiment sur l'île :
+     jade      — le vert laqué des temples et des rizières mûres
+     lagon     — le turquoise des passes et du lac d'Ijen
+     soleil    — le safran des ombrelles et des offrandes
+     bougainv. — le rose des murs de Sanur, la touche de joie
+
+   Discipline : le jade porte les actions et les panneaux pleins,
+   le soleil éclaire, le bougainvillier ne sert qu'aux étiquettes.
+   Le lagon vit dans les illustrations.
+
+   Monde clair unique et assumé : pas de variante nocturne. La
+   direction est solaire, elle n'a pas d'envers.
    ============================================================ */
 :root {
-  /* Les paliers de la nuit vers l'aube */
-  --nuit: #061520;
-  --nuit-2: #0a1e28;
-  --nuit-3: #0e2630;
-  --aube-1: #123037;
-  --aube-2: #17383a;
+  color-scheme: light;
 
   /* Palette de marque */
-  --lueur: #e8a33f; /* la lueur chaude de l'horizon */
-  --lueur-pale: #f6d79b;
-  --laut: #12707f; /* la mer */
-  --padi: #7d9152; /* rizières */
-  --bata: #b8654a; /* brique de temple */
-  --sable: #f2ece0;
+  --jade: #0f6b5c;
+  --jade-deep: #084a40;
+  --jade-soft: #2d8d7b;
+  --lagon: #189aa4;
+  --lagon-pale: #7fc9cd;
+  --soleil: #f2b134;
+  --soleil-pale: #fbe0a5;
+  --bougain: #c8455f;
+  --bougain-ink: #ad3550;
+  --ivoire: #fbf7ee;
+  --sable: #f2e9d8;
+  --encre: #22302b;
 
   /* Rôles sémantiques */
-  --page: var(--nuit-2);
-  --surface: #102a34;
-  --surface-alt: #163540;
-  --rule: #1d3d47;
-  --text: #f2ece0;
-  --text-soft: #b9c8c9;
-  --text-faint: #94a9ac; /* remonté : à 11 px sur le palier de l'aube, le
-                            ton précédent tombait à 3,96 pour 4,5 requis */
-  --accent: #e8a33f;
-  --accent-hi: #f6bd63;
-  --accent-ink: #0d1e17;
-  --eyebrow: #e8a33f;
-  --tint: #2c2a1c;
-  --whatsapp: #22c05e;
-  --whatsapp-hi: #35d573;
-  --whatsapp-ink: #06231a;
+  --page: #fbf7ee;
+  --surface: #ffffff;
+  --surface-alt: #f2e9d8;
+  --rule: #e3d8c2;
+  --text: #22302b;
+  --text-soft: #505f58;
+  --text-faint: #5d6c64; /* relevé par l'audit : 4,02 sur le sable */
+  --immersive: #0f6b5c;
+  --immersive-deep: #084a40;
+  --on-immersive: #f4f8f3;
+  --on-immersive-soft: #cfe6df; /* relevé : 3,97 sur le jade */
+  --accent: #0f6b5c; /* le jade porte l'action */
+  --accent-hi: #14806e;
+  --accent-ink: #fbf7ee;
+  --eyebrow: #ad3550; /* le bougainvillier, lisible en petit corps */
+  --tint: #fdeecf;
+  --tint-ink: #8a5a09;
+  --whatsapp: #0f7a40; /* assombri : le blanc dessus tombait à 4,31 */
+  --whatsapp-hi: #14954f;
 
-  --radius: 3px;
+  --radius: 4px;
 }
 
 @theme inline {
-  --color-nuit: var(--nuit);
-  --color-nuit-2: var(--nuit-2);
-  --color-nuit-3: var(--nuit-3);
-  --color-aube-1: var(--aube-1);
-  --color-aube-2: var(--aube-2);
-  --color-lueur: var(--lueur);
-  --color-lueur-pale: var(--lueur-pale);
-  --color-laut: var(--laut);
-  --color-padi: var(--padi);
-  --color-bata: var(--bata);
+  --color-jade: var(--jade);
+  --color-jade-deep: var(--jade-deep);
+  --color-jade-soft: var(--jade-soft);
+  --color-lagon: var(--lagon);
+  --color-lagon-pale: var(--lagon-pale);
+  --color-soleil: var(--soleil);
+  --color-soleil-pale: var(--soleil-pale);
+  --color-bougain: var(--bougain);
+  --color-ivoire: var(--ivoire);
   --color-sable: var(--sable);
 
   --color-page: var(--page);
@@ -69,10 +79,15 @@
   --color-ink: var(--text);
   --color-soft: var(--text-soft);
   --color-faint: var(--text-faint);
+  --color-immersive: var(--immersive);
+  --color-immersive-deep: var(--immersive-deep);
+  --color-on-immersive: var(--on-immersive);
+  --color-on-immersive-soft: var(--on-immersive-soft);
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);
   --color-eyebrow: var(--eyebrow);
   --color-tint: var(--tint);
+  --color-tint-ink: var(--tint-ink);
   --color-whatsapp: var(--whatsapp);
   --color-whatsapp-hi: var(--whatsapp-hi);
 
@@ -84,7 +99,7 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 5rem;
-    background: var(--nuit);
+    background: var(--page);
   }
   body {
     background: var(--page);
@@ -102,9 +117,9 @@
   h1,
   h2,
   h3 {
-    /* Eczar, dessinée pour accompagner le devanagari : elle porte une
-       énergie de manuscrit qui renvoie à la racine hindoue de Bali,
-       loin de la capitale romaine des brochures d'hôtel. */
+    /* Eczar, dessinée pour accompagner le devanagari : une énergie de
+       manuscrit qui renvoie à la racine hindoue de Bali, loin de la
+       capitale romaine des brochures d'hôtel. */
     font-family: var(--font-display), "Iowan Old Style", Georgia, serif;
     font-weight: 500;
     text-wrap: balance;
@@ -112,11 +127,11 @@
     letter-spacing: -0.012em;
   }
   ::selection {
-    background: var(--accent);
-    color: var(--accent-ink);
+    background: var(--soleil);
+    color: var(--encre);
   }
   :focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--jade);
     outline-offset: 3px;
   }
 }
@@ -140,15 +155,16 @@
     padding-block: clamp(4.5rem, 12vw, 8rem);
   }
 
-  /* Les paliers de la montée du jour, dans l'ordre de la page */
-  .ground-1 { background: var(--nuit); }
-  .ground-2 { background: var(--nuit-2); }
-  .ground-3 { background: var(--nuit-3); }
-  .ground-4 { background: var(--aube-1); }
-  .ground-5 { background: var(--aube-2); }
+  /* Deux surfaces de lecture qui alternent, et un panneau plein jade */
+  .ground-ivoire { background: var(--page); }
+  .ground-sable { background: var(--surface-alt); }
+  .ground-jade {
+    background: var(--immersive);
+    color: var(--on-immersive);
+  }
 
-  /* La lumière comme matière : un halo chaud, jamais un aplat.
-     Sert aussi à décoller le texte de son fond. */
+  /* La lumière reste une matière, mais elle est solaire : un halo
+     tiède, jamais une tache. */
   .glow {
     position: absolute;
     border-radius: 50%;
@@ -156,17 +172,16 @@
     filter: blur(var(--glow-blur, 90px));
     background: radial-gradient(
       circle,
-      color-mix(in srgb, var(--accent) 62%, transparent) 0%,
+      color-mix(in srgb, var(--soleil) 55%, transparent) 0%,
       transparent 70%
     );
   }
-  /* Le fil de lumière qui coud deux sections, comme un horizon */
   .horizon {
     height: 1px;
     background: linear-gradient(
       to right,
       transparent,
-      color-mix(in srgb, var(--accent) 55%, transparent),
+      color-mix(in srgb, var(--jade) 32%, transparent),
       transparent
     );
   }
@@ -209,7 +224,15 @@
   }
   .btn-accent:hover {
     background: var(--accent-hi);
-    box-shadow: 0 0 34px -6px color-mix(in srgb, var(--accent) 70%, transparent);
+    box-shadow: 0 10px 26px -12px color-mix(in srgb, var(--jade) 70%, transparent);
+  }
+  .btn-sun {
+    background: var(--soleil);
+    color: var(--encre);
+  }
+  .btn-sun:hover {
+    background: #ffc551;
+    box-shadow: 0 10px 26px -12px color-mix(in srgb, var(--soleil) 80%, transparent);
   }
   .btn-outline {
     border-color: color-mix(in srgb, currentColor 38%, transparent);
@@ -221,18 +244,18 @@
   }
   .btn-wa {
     background: var(--whatsapp);
-    color: var(--whatsapp-ink);
+    color: #fff;
   }
   .btn-wa:hover {
     background: var(--whatsapp-hi);
-    box-shadow: 0 0 34px -6px color-mix(in srgb, var(--whatsapp) 70%, transparent);
+    box-shadow: 0 10px 26px -12px color-mix(in srgb, var(--whatsapp) 70%, transparent);
   }
 
   .field-input {
     font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
     font-size: 0.9375rem;
     color: var(--text);
-    background: color-mix(in srgb, var(--nuit) 60%, transparent);
+    background: var(--surface);
     border: 1px solid var(--rule);
     border-radius: var(--radius);
     padding: 0.7rem 0.85rem;
@@ -240,36 +263,19 @@
     appearance: none;
   }
   .field-input:hover {
-    border-color: color-mix(in srgb, var(--accent) 45%, var(--rule));
+    border-color: color-mix(in srgb, var(--jade) 45%, var(--rule));
   }
   select.field-input {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%237f9497' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%235d6c64' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
     background-repeat: no-repeat;
     background-position: right 0.8rem center;
     padding-right: 2.2rem;
-  }
-  .field-input option {
-    background: var(--surface);
-    color: var(--text);
   }
 }
 
 @keyframes drift {
   to {
     transform: translateX(-50%);
-  }
-}
-
-/* Une flamme ne brûle pas régulièrement */
-@keyframes flicker {
-  0%,
-  100% {
-    opacity: 0.85;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.12);
   }
 }
 
