@@ -47,6 +47,34 @@ pages d'Agus signalent elles-mêmes comme « peu connus par des touristes » ou
 quatre cents hectares, les sept Gili du sud-ouest de Lombok, Mesangin sur la
 grande place de Yogyakarta, la nuit à Waerebo.
 
+### L'engagement — l'argument le plus fort, et il est de lui
+
+`components/Engagement.jsx` est placé **juste après les tarifs**, et ce n'est
+pas anodin : la grille de prix pose la question « où va mon argent ? », cette
+section y répond. Elle transforme un argument commercial (« sans
+intermédiaire ») en raison de choisir.
+
+Trois points, tous tirés des mots d'Agus :
+
+- **En direct, sans agence** — ce que vous payez fait vivre le guide, le
+  chauffeur et les familles, pas une commission.
+- **Une union de guides, pas un homme seul** — Agus écrit qu'il travaille « au
+  sein d'une union de guides de Bali », avec d'autres francophones et
+  anglophones. Quand il n'est pas disponible, il passe le relais à quelqu'un
+  qu'il connaît.
+- **« Ambassadeur du tourisme de mon pays »** — sa formule, citée telle quelle.
+
+La chute : *« Chaque voyage organisé en direct, c'est un guide balinais de plus
+qui vit de son métier sans dépendre d'une agence. »*
+
+**Une règle de rédaction à tenir** : la section est écrite **par le positif** —
+ce que le direct rend possible. Jamais une charge contre des agences nommées,
+qu'on ne pourrait ni documenter ni défendre. L'argument est plus fort ainsi, et
+il n'expose pas Agus.
+
+Vocabulaire : il écrit **« une union de guides »**, pas un syndicat. Ne pas
+corriger vers un mot qui n'est pas le sien.
+
 ### La co-construction
 
 Choisir un circuit ne commande rien : il devient la **base de départ**

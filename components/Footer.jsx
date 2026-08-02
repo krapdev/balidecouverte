@@ -68,6 +68,9 @@ export default function Footer() {
           >
             Instagram · {CONTACT.pseudo}
           </a>
+          <p className="text-sm text-on-immersive-soft">
+            Agus y publie ses photos des îles où il accompagne ses voyageurs.
+          </p>
           <address className="mt-1 text-sm not-italic text-on-immersive-soft">
             {CONTACT.adresse}
           </address>

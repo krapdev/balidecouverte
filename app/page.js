@@ -8,6 +8,7 @@ import TripBuilder from "@/components/TripBuilder";
 import MobileBar from "@/components/MobileBar";
 import Islands from "@/components/Islands";
 import Tarifs from "@/components/Tarifs";
+import Engagement from "@/components/Engagement";
 import Footer from "@/components/Footer";
 import { Divider } from "@/components/Scene";
 
@@ -26,6 +27,7 @@ export default function Home() {
         <Circuits />
         <Islands />
         <Tarifs />
+        <Engagement />
         <TripBuilder />
       </main>
       <Footer />

@@ -88,8 +88,8 @@ export default function Hero() {
               <b className="font-semibold text-on-immersive">
                 Guide diplômé francophone
               </b>{" "}
-              — professionnel depuis octobre 2005, membre du syndicat des guides
-              de Bali.
+              — professionnel depuis octobre 2005, membre d&apos;une union de
+              guides de Bali.
             </p>
           </motion.div>
         </motion.div>

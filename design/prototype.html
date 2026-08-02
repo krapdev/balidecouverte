@@ -137,7 +137,9 @@
   .btn-accent:hover { background: var(--accent-hi); box-shadow: 0 0 34px -6px color-mix(in srgb, var(--accent) 70%, transparent); }
   .btn-outline { border-color: color-mix(in srgb, currentColor 35%, transparent); background: transparent; }
   .btn-outline:hover { background: color-mix(in srgb, currentColor 12%, transparent); border-color: currentColor; }
-  .btn-wa { background: var(--whatsapp); color: var(--whatsapp-ink); }
+  /* Le jeton --whatsapp-ink a disparu avec la palette nocturne : sans
+     couleur explicite le bouton héritait de l'encre, à 2,54 de contraste. */
+  .btn-wa { background: var(--whatsapp); color: #fff; }
   .btn-wa:hover { background: var(--whatsapp-hi); box-shadow: 0 0 34px -6px color-mix(in srgb, var(--whatsapp) 70%, transparent); }
   .btn-lg { padding: 1.15em 2em; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.13em; }
 
@@ -416,6 +418,23 @@
   .base-circuit { display: flex; align-items: flex-start; gap: 0.75rem; border: 1px solid var(--accent); background: var(--tint); border-radius: var(--radius); padding: 1rem; margin-bottom: 1.5rem; }
   .base-circuit .cart-remove { flex: none; }
 
+  /* L'engagement, juste après les tarifs — c'est là qu'il pèse : la
+     grille pose la question « où va mon argent », la section y répond. */
+  .engagement { list-style: none; margin: 0; padding: 0; display: grid; gap: 2rem; }
+  @media (min-width: 900px) {
+    .engagement { grid-template-columns: repeat(3, 1fr); }
+    .engagement li:nth-child(2) { margin-top: 2rem; }
+    .engagement li:nth-child(3) { margin-top: 4rem; }
+  }
+  .engagement li { display: flex; flex-direction: column; gap: 0.75rem; border-top: 1px solid color-mix(in srgb, var(--on-immersive) 28%, transparent); padding-top: 1.25rem; }
+  .engagement h3 { font-size: var(--t-xl); line-height: 1.2; }
+  .engagement p { font-size: var(--t-sm); color: var(--on-immersive-soft); line-height: 1.6; }
+  .engagement-chute {
+    margin-top: 3rem; max-width: 62ch; border-left: 3px solid var(--soleil);
+    padding-left: 1.5rem; font-family: var(--display);
+    font-size: clamp(1.15rem, 3vw, 1.45rem); line-height: 1.35;
+  }
+
   /* Grille tarifaire : le prix est au jour et par véhicule. */
   .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
   .tarifs { width: 100%; min-width: 520px; border-collapse: collapse; text-align: left; }
@@ -607,6 +626,7 @@
       <a href="#circuits">Circuits</a>
       <a href="#iles">Îles sœurs</a>
       <a href="#tarifs">Tarifs</a>
+      <a href="#engagement">Engagement</a>
       <a href="#sur-mesure">Sur-Mesure</a>
     </nav>
     <a class="btn btn-accent nav-wa" href="https://wa.me/628123688936" target="_blank" rel="noopener">
@@ -635,7 +655,7 @@
       <!-- Une note inventée ne vaut rien : on affiche ce qui est
            vérifiable — le diplôme et vingt ans de métier. -->
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--soleil)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg>
-      <p class="hero-trust-text"><b>Guide diplômé francophone</b> — professionnel depuis octobre 2005, membre du syndicat des guides de Bali.</p>
+      <p class="hero-trust-text"><b>Guide diplômé francophone</b> — professionnel depuis octobre 2005, membre d'une union de guides de Bali.</p>
     </div>
   </div>
 </section>
@@ -652,9 +672,9 @@
       <h2>Un Balinais, pas une agence.</h2>
       <p>Derrière Bali Découverte, il n'y a ni plateforme, ni centrale de
       réservation. Il y a Agus Yudiarta, guide diplômé francophone, professionnel
-      depuis octobre 2005 et membre du syndicat des guides de Bali. Il guide
-      aussi en anglais, et connaît personnellement les gens chez qui vous
-      déjeunerez.</p>
+      depuis octobre 2005, qui travaille avec d'autres guides au sein d'une
+      union de guides de Bali. Il guide aussi en anglais, et connaît
+      personnellement les gens chez qui vous déjeunerez.</p>
     </div>
 
     <div class="agus-grid">
@@ -675,8 +695,8 @@
       <div class="agus-body">
         <!-- Citation de travail : à remplacer par les mots d'Agus. -->
         <blockquote class="agus-quote reveal">« Je ne vends pas un circuit. Je vous emmène là où j'emmènerais un ami, et je vous explique ce que vous regardez. »</blockquote>
-        <p class="reveal">J'ai quarante ans, je suis marié et père de trois enfants, et je guide en français depuis octobre 2005. Je conduis moi-même, je traduis moi-même, et je construis chaque itinéraire avec vous — au rythme de votre famille, pas de celui d'un autocar.</p>
-        <p class="reveal">Je suis passionné d'histoire, et particulièrement d'histoire européenne — j'ai visité la Belgique et la France plusieurs fois. C'est ce qui rend la conversation possible dans les deux sens : je vous raconte mon île, et vous me racontez la vôtre.</p>
+        <p class="reveal">J'ai quarante ans, je suis marié, et père de deux filles de douze et neuf ans et d'un garçon de cinq ans. Je guide en français depuis octobre 2005. Je conduis moi-même, je traduis moi-même, et je construis chaque itinéraire avec vous — au rythme de votre famille, pas de celui d'un autocar.</p>
+        <p class="reveal">Je suis passionné d'histoire, et particulièrement de celle de l'Europe — la Belgique et la France, où je me suis rendu à plusieurs reprises. C'est ce qui rend la conversation possible dans les deux sens : je vous raconte mon île, et vous me racontez la vôtre.</p>
         <p class="reveal">Passer en direct change tout : le prix que vous payez va aux familles qui vous accueillent, et vous gardez mon numéro pendant tout le séjour. Je me considère comme un ambassadeur du tourisme de mon pays, et je travaille de tout mon cœur — dans la joie et la bonne humeur.</p>
         <p class="agus-sign reveal">— Agus</p>
 
@@ -710,8 +730,9 @@
               <p class="label" style="color: var(--text-faint)">l'harmonie avec les hommes</p>
               <p class="harmonie-title">En direct, sans agence</p>
               <p>Une seule personne du premier au dernier jour, en français ou
-              en anglais. Aucune commission : ce que vous payez va aux familles
-              qui vous accueillent.</p>
+              en anglais. Aucune commission d'agence : ce que vous payez fait
+              vivre le guide, le chauffeur et les familles qui vous
+              accueillent.</p>
             </li>
             <li>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
@@ -880,6 +901,50 @@
   </div>
 </section>
 
+<!-- ============================ ENGAGEMENT ============================ -->
+<section class="band ground-jade" id="engagement">
+  <div class="shell">
+    <div class="sec-head reveal">
+      <p class="label sec-eyebrow">Engagement</p>
+      <h2>Voyager avec Agus, c'est faire vivre les guides de Bali.</h2>
+      <p>Agus est balinais, diplômé, et travaille en direct depuis vingt ans.
+      Ce n'est pas seulement une façon de baisser le prix : c'est une façon de
+      faire vivre un métier.</p>
+    </div>
+
+    <ul class="engagement">
+      <li class="reveal">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--soleil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+        <h3>En direct, sans agence</h3>
+        <p>Ce que vous payez va au guide, au chauffeur et aux familles qui vous
+        accueillent — pas à une commission d'intermédiaire. C'est ce qui rend le
+        métier vivable, et ce qui permet à Agus de refuser les cadences imposées
+        par les groupes.</p>
+      </li>
+      <li class="reveal">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--soleil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <h3>Une union de guides, pas un homme seul</h3>
+        <p>Agus travaille avec d'autres guides francophones et anglophones au
+        sein d'une union de guides de Bali. Quand il n'est pas disponible, il
+        passe le relais à quelqu'un qu'il connaît — jamais à un inconnu envoyé
+        par une centrale.</p>
+      </li>
+      <li class="reveal">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--soleil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+        <h3>Ambassadeur, et il le dit ainsi</h3>
+        <p><em>« En tant que guide, je suis un ambassadeur du tourisme de mon
+        pays, et je peux donc vous assurer que je travaille professionnellement
+        et surtout avec tout mon cœur. »</em></p>
+      </li>
+    </ul>
+
+    <p class="reveal engagement-chute">Chaque voyage organisé en direct, c'est un
+    guide balinais de plus qui vit de son métier sans dépendre d'une agence — et
+    une famille de Sidemen, de Munduk ou de Tenganan qui accueille chez elle
+    plutôt que de servir un autocar.</p>
+  </div>
+</section>
+
 <!-- ============================ CONFIGURATEUR ============================ -->
 <section class="band ground-sable" id="sur-mesure">
   <div class="shell">
@@ -984,6 +1049,7 @@
       <a href="#circuits">Circuits</a>
       <a href="#iles">Îles sœurs</a>
       <a href="#tarifs">Tarifs</a>
+      <a href="#engagement">Engagement</a>
       <a href="#sur-mesure">Sur-Mesure</a>
     </div>
     <div class="footer-col">
@@ -992,6 +1058,7 @@
       <a href="mailto:agus.yudiarta@balidecouverte.fr">agus.yudiarta@balidecouverte.fr</a>
       <a href="https://www.facebook.com/agus.guidebali" target="_blank" rel="noopener">Facebook · agus.guidebali</a>
       <a href="https://www.instagram.com/agus.guidebali" target="_blank" rel="noopener">Instagram · agus.guidebali</a>
+      <p>Agus y publie ses photos des îles où il accompagne ses voyageurs.</p>
       <address style="font-style: normal; font-size: var(--t-sm); color: var(--on-immersive-soft); margin-top: 0.25rem">
         JL. Letda Reta Utara No 3, 80234 Denpasar — Bali
       </address>

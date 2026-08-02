@@ -21,7 +21,7 @@ const HARMONIES = [
     gloss: "l'harmonie avec les hommes",
     icon: Handshake,
     title: "En direct, sans agence",
-    text: "Une seule personne du premier au dernier jour, en français ou en anglais. Aucune commission : ce que vous payez va aux familles qui vous accueillent.",
+    text: "Une seule personne du premier au dernier jour, en français ou en anglais. Aucune commission d'agence : ce que vous payez fait vivre le guide, le chauffeur et les familles qui vous accueillent.",
   },
   {
     nom: "Palemahan",
@@ -42,9 +42,9 @@ export default function AboutAgus() {
         <SectionHead eyebrow="L'Esprit" title="Un Balinais, pas une agence.">
           Derrière Bali Découverte, il n&apos;y a ni plateforme, ni centrale de
           réservation. Il y a Agus Yudiarta, guide diplômé francophone,
-          professionnel depuis octobre 2005 et membre du syndicat des guides de
-          Bali. Il guide aussi en anglais, et connaît personnellement les gens
-          chez qui vous déjeunerez.
+          professionnel depuis octobre 2005, qui travaille avec d&apos;autres
+          guides au sein d&apos;une union de guides de Bali. Il guide aussi en
+          anglais, et connaît personnellement les gens chez qui vous déjeunerez.
         </SectionHead>
 
         <div className="grid items-start gap-[clamp(2rem,6vw,3.5rem)] md:grid-cols-[0.9fr_1.1fr]">
@@ -80,19 +80,21 @@ export default function AboutAgus() {
 
             <Reveal delay={0.05}>
               <p className="max-w-[62ch] text-soft">
-                J&apos;ai quarante ans, je suis marié et père de trois enfants, et
-                je guide en français depuis octobre 2005. Je conduis moi-même, je
-                traduis moi-même, et je construis chaque itinéraire avec vous —
-                au rythme de votre famille, pas de celui d&apos;un autocar.
+                J&apos;ai quarante ans, je suis marié, et père de deux filles de
+                douze et neuf ans et d&apos;un garçon de cinq ans. Je guide en
+                français depuis octobre 2005. Je conduis moi-même, je traduis
+                moi-même, et je construis chaque itinéraire avec vous — au rythme
+                de votre famille, pas de celui d&apos;un autocar.
               </p>
             </Reveal>
 
             <Reveal delay={0.1}>
               <p className="max-w-[62ch] text-soft">
-                Je suis passionné d&apos;histoire, et particulièrement d&apos;histoire
-                européenne — j&apos;ai visité la Belgique et la France plusieurs
-                fois. C&apos;est ce qui rend la conversation possible dans les deux
-                sens : je vous raconte mon île, et vous me racontez la vôtre.
+                Je suis passionné d&apos;histoire, et particulièrement de celle de
+                l&apos;Europe — la Belgique et la France, où je me suis rendu à
+                plusieurs reprises. C&apos;est ce qui rend la conversation possible
+                dans les deux sens : je vous raconte mon île, et vous me racontez
+                la vôtre.
               </p>
               <p className="mt-4 max-w-[62ch] text-soft">
                 Passer en direct change tout : le prix que vous payez va aux
