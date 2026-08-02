@@ -101,22 +101,22 @@ export default function TripBuilder() {
             )}
 
             <p className="label mb-4 font-sans font-bold tracking-[0.06em] text-faint">
-              1 — Vos expériences{" "}
+              1 — Vos journées{" "}
               <span className="text-eyebrow">({trip.count})</span>
             </p>
 
             <div className="mb-6 flex flex-col">
-              {trip.count === 0 ? (
+              {trip.days.length === 0 ? (
                 <p className="border-y border-dashed border-rule py-4 text-sm text-faint">
-                  Aucune expérience pour l&apos;instant — remontez au catalogue, ou
-                  envoyez votre demande telle quelle : Agus vous proposera un
-                  itinéraire complet.
+                  Aucune journée cochée pour l&apos;instant — remontez en
+                  choisir, ou envoyez votre demande telle quelle : Agus vous
+                  proposera un itinéraire complet.
                 </p>
               ) : (
                 <AnimatePresence initial={false}>
-                  {trip.selected.map((e, i) => (
+                  {trip.days.map((j, i) => (
                     <motion.div
-                      key={e.id}
+                      key={j.id}
                       layout
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
@@ -128,50 +128,12 @@ export default function TripBuilder() {
                         <span className="font-sans text-[0.6875rem] tabular-nums text-eyebrow">
                           {String(i + 1).padStart(2, "0")}
                         </span>
-                        <span>
-                          <span className="block text-sm font-semibold leading-snug">
-                            {e.title}
-                          </span>
-                          <span className="label text-faint">
-                            {e.place} · {e.duration}
-                          </span>
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() => trip.removeExperience(e.id)}
-                          className="grid place-items-center rounded-sm p-1 text-faint transition-colors hover:text-eyebrow"
-                          aria-label={`Retirer ${e.title}`}
-                        >
-                          <X size={16} />
-                        </button>
-                      </div>
-                    </motion.div>
-                  ))}
-                </AnimatePresence>
-              )}
-            </div>
-
-            {trip.days.length > 0 && (
-              <div className="mb-6">
-                <p className="label mb-3 text-eyebrow">Mes journées</p>
-                <AnimatePresence initial={false}>
-                  {trip.days.map((j) => (
-                    <motion.div
-                      key={j.id}
-                      layout
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.22 }}
-                      className="overflow-hidden"
-                    >
-                      <div className="flex items-center gap-3.5 border-b border-rule py-3">
-                        <span className="flex-1 text-sm font-semibold leading-snug">
+                        <span className="text-sm font-semibold leading-snug">
                           {j.titre}
                         </span>
                         <button
                           type="button"
-                          onClick={() => trip.toggleDay(j.id)}
+                          onClick={() => trip.removeDay(j.id)}
                           className="grid place-items-center rounded-sm p-1 text-faint transition-colors hover:text-eyebrow"
                           aria-label={`Retirer ${j.titre}`}
                         >
@@ -181,8 +143,8 @@ export default function TripBuilder() {
                     </motion.div>
                   ))}
                 </AnimatePresence>
-              </div>
-            )}
+              )}
+            </div>
 
             {trip.islands.length > 0 && (
               <div className="mb-6">
@@ -205,9 +167,7 @@ export default function TripBuilder() {
                           <span className="block text-sm font-semibold leading-snug">
                             {e.title}
                           </span>
-                          <span className="label text-faint">
-                            {e.island} · {e.duration}
-                          </span>
+                          <span className="label text-faint">{e.island}</span>
                         </span>
                         <button
                           type="button"

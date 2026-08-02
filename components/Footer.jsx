@@ -1,14 +1,17 @@
 import { WHATSAPP_DISPLAY, WHATSAPP_NUMBER, CONTACT, AGUS } from "@/lib/data";
 import { Canang } from "./Scene";
 
+/* Le pied de page s'affiche aussi sur /tarifs : les ancres sont donc
+   ancrées à la racine. Depuis l'accueil, « /#esprit » reste une simple
+   navigation de fragment — pas de rechargement. */
 const LINKS = [
-  { href: "#esprit", label: "L'Esprit" },
-  { href: "#experiences", label: "Expériences" },
-  { href: "#journees", label: "Journées" },
-  { href: "#circuits", label: "Circuits" },
-  { href: "#iles", label: "Îles sœurs" },
-  { href: "#tarifs", label: "Tarifs" },
-  { href: "#sur-mesure", label: "Sur-Mesure" },
+  { href: "/#esprit", label: "L'Esprit" },
+  { href: "/#journees", label: "Journées" },
+  { href: "/#circuits", label: "Circuits" },
+  { href: "/#iles", label: "Îles sœurs" },
+  { href: "/tarifs", label: "Tarifs" },
+  { href: "/#engagement", label: "Engagement" },
+  { href: "/#sur-mesure", label: "Sur-Mesure" },
 ];
 
 export default function Footer() {

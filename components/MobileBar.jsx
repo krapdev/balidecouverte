@@ -19,9 +19,9 @@ export default function MobileBar() {
         >
           <p className="font-sans text-[0.6875rem] leading-tight text-soft">
             <b className="block font-sans text-base font-bold text-ink">
-              {count} expérience{count > 1 ? "s" : ""}
+              {count} envie{count > 1 ? "s" : ""}
             </b>
-            dans votre circuit
+            dans votre voyage
           </p>
           <a className="btn btn-accent ml-auto" href="#sur-mesure">
             Ma demande

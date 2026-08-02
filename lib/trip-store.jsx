@@ -1,17 +1,16 @@
 "use client";
 
 import { createContext, useContext, useMemo, useReducer } from "react";
-import {
-  CIRCUITS,
-  EXPERIENCES,
-  ISLANDS,
-  JOURNEES,
-  monthOptions,
-} from "./data";
+import { CIRCUITS, ISLANDS, JOURNEES, monthOptions } from "./data";
 
 /**
  * État partagé du configurateur.
- * Experiences.jsx écrit dedans (ajout / retrait), TripBuilder.jsx le lit.
+ *
+ * Une seule mécanique de sélection : on coche des journées (et, en plus,
+ * des extensions d'île). L'ancienne liste d'« expériences » doublait les
+ * journées — le voyageur cochait deux fois la même envie et le message
+ * WhatsApp partait avec deux listes séparées. Journees.jsx et Islands.jsx
+ * écrivent, TripBuilder.jsx lit.
  */
 
 const TripContext = createContext(null);
@@ -22,7 +21,6 @@ const initialState = {
   /* Le circuit choisi comme base de travail — le voyageur part de là et
      déforme. Null tant qu'il n'a rien choisi : la page ne présume rien. */
   baseCircuit: null,
-  selectedIds: [],
   islandIds: [],
   dayIds: [],
   month: months[10] ?? months[0], // ~1 an devant, saison sèche
@@ -35,20 +33,6 @@ const initialState = {
 
 function reducer(state, action) {
   switch (action.type) {
-    case "toggleExperience": {
-      const has = state.selectedIds.includes(action.id);
-      return {
-        ...state,
-        selectedIds: has
-          ? state.selectedIds.filter((id) => id !== action.id)
-          : [...state.selectedIds, action.id],
-      };
-    }
-    case "removeExperience":
-      return {
-        ...state,
-        selectedIds: state.selectedIds.filter((id) => id !== action.id),
-      };
     case "toggleIsland": {
       const has = state.islandIds.includes(action.id);
       return {
@@ -94,9 +78,6 @@ export function TripProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const value = useMemo(() => {
-    const selected = state.selectedIds
-      .map((id) => EXPERIENCES.find((e) => e.id === id))
-      .filter(Boolean);
     const days = state.dayIds
       .map((id) => JOURNEES.find((j) => j.id === id))
       .filter(Boolean);
@@ -107,20 +88,17 @@ export function TripProvider({ children }) {
 
     return {
       ...state,
-      selected,
       islands,
       days,
       circuit,
-      count: selected.length + islands.length + days.length,
-      isSelected: (id) => state.selectedIds.includes(id),
+      count: days.length + islands.length,
       isIslandSelected: (id) => state.islandIds.includes(id),
       isDaySelected: (id) => state.dayIds.includes(id),
       toggleDay: (id) => dispatch({ type: "toggleDay", id }),
       toggleIsland: (id) => dispatch({ type: "toggleIsland", id }),
       setBaseCircuit: (id) => dispatch({ type: "setBaseCircuit", id }),
       removeIsland: (id) => dispatch({ type: "toggleIsland", id }),
-      toggleExperience: (id) => dispatch({ type: "toggleExperience", id }),
-      removeExperience: (id) => dispatch({ type: "removeExperience", id }),
+      removeDay: (id) => dispatch({ type: "toggleDay", id }),
       toggleStyle: (style) => dispatch({ type: "toggleStyle", style }),
       setField: (field, value) => dispatch({ type: "setField", field, value }),
       stepTraveller: (field, step) =>

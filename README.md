@@ -18,7 +18,7 @@ récupération automatisée : le contenu ci-dessous a été fourni par copier-co
 | --- | --- |
 | `CONTACT`, `AGUS`, `TARIFS`, `CIRCUIT` | **Contenu réel du site.** À ne corriger que sur indication d'Agus. |
 | `CIRCUITS`, `SIGNATURES` | **Les cinq circuits réels**, résumés à leurs étapes et à trois places secrètes. |
-| `EXPERIENCES` | **Extraits du circuit réel de 15 jours**. |
+| `JOURNEES` | **Les excursions réelles à la journée**, résumées à une ligne. |
 | `ISLANDS` | Réel dans les destinations, **résumé rédigé** pour les descriptions. |
 
 ### Le parti pris éditorial : trois niveaux, jamais quatorze journées
@@ -74,6 +74,42 @@ il n'expose pas Agus.
 
 Vocabulaire : il écrit **« une union de guides »**, pas un syndicat. Ne pas
 corriger vers un mot qui n'est pas le sien.
+
+### Ce qui a été supprimé, et pourquoi
+
+**La section « Quatre moments, sur une quarantaine » (`EXPERIENCES`) n'existe
+plus.** Trois de ses quatre entrées doublaient mot pour mot les journées :
+
+| Expérience supprimée | Où elle vivait déjà |
+| --- | --- |
+| Les dauphins au lever du jour | journée « Le nord et les dauphins » |
+| Cuisine et offrandes chez l'habitant | journées « Cuisine balinaise », « Vie balinaise », « Munduk » |
+| À pied jusqu'à Tenganan | étape Sidemen du circuit de 15 jours |
+| Chez le marionnettiste | **nulle part — récupéré comme 9ᵉ journée** |
+
+Le vrai problème n'était pas la redondance mais ses conséquences : deux
+mécaniques de sélection coexistaient (`selectedIds` et `dayIds`), le voyageur
+cochait deux fois la même envie, et le message WhatsApp partait avec **deux
+listes séparées**. Le store n'a plus qu'une mécanique. **Ne pas réintroduire un
+catalogue parallèle aux journées.**
+
+**Les tarifs ont quitté la page d'accueil** pour `app/tarifs/page.js`. Ils y
+étaient trop longs (2,4 écrans sur mobile) et surtout trop flous : la grille au
+jour et par véhicule cohabitait avec les forfaits de circuit par personne, sans
+que rien ne dise que ce sont deux modèles différents. L'`Engagement` les suit sur
+cette page — le prix pose la question « où va mon argent ? », l'engagement y
+répond — tout en restant aussi sur l'accueil.
+
+La page est passée de **23,6 à 16,6 écrans sur mobile**.
+
+### Le prix d'un circuit ne se lit jamais seul
+
+Les cartes affichent « à partir de 1 210 € — par personne, **hors
+hébergement** ». Le nombre nu était la première source de malentendu : il ne
+comprend pas les nuits d'hôtel, soit quatorze nuits pour le circuit de 15 jours.
+La condition est collée au chiffre, et la fiche renvoie vers `/tarifs` par un
+lien « Ce que comprend ce prix ». **Ne jamais afficher le montant sans sa
+condition.**
 
 ### La fourche : à la journée, ou en circuit
 
@@ -138,8 +174,8 @@ subordonné :
   dans le store), s'affiche en tête du configurateur avec un bouton pour
   repartir de zéro, et le message WhatsApp l'annonce comme telle — « Je pars de
   votre circuit X et j'aimerais l'adapter ».
-- Les journées, les expériences et les îles sœurs se cochent librement et se
-  cumulent dans le même récapitulatif.
+- Les journées et les îles sœurs se cochent librement et se cumulent dans le
+  même récapitulatif.
 - Le message part avec ce que le voyageur a **réfléchi**, pas avec ce qu'il a
   acheté.
 
@@ -184,7 +220,17 @@ ligne « vols » — ne jamais la retirer.
 | Fichier | Rôle |
 | --- | --- |
 | `design/prototype.html` | Maquette autonome, un seul fichier, ouvrable directement dans un navigateur. Polices intégrées en base64 : aucune requête sortante. Sert à valider la direction artistique sans rien installer. |
-| L'app Next.js (racine) | L'implémentation componentisée de cette même maquette. |
+| L'app Next.js (racine) | L'implémentation componentisée de cette même maquette, en deux routes : `/` et `/tarifs`. |
+
+Le site ayant désormais deux pages, la maquette simule les deux dans son fichier
+unique : `<body data-view>` bascule entre `.view-home` et `.view-tarifs`, les
+déclencheurs portant `data-goto`.
+
+> Piège rencontré : le déclencheur s'appelait d'abord `data-view="tarifs"`.
+> Comme l'état de vue vit sur `<body data-view>`, `closest('[data-view="tarifs"]')`
+> remontait jusqu'au `<body>` lui-même — **chaque clic de la vue tarifs partait
+> dans cette branche et se faisait `preventDefault()`**. Ne jamais donner à un
+> déclencheur le nom de l'attribut d'état qui le contient.
 
 ## Démarrer
 
@@ -235,9 +281,8 @@ brique. Le vocabulaire suit — *subak*, *melukat*, *bumbu*, *songket*, *warung*
 et le *Om Swastiastu* du pied de page.
 
 **La grille est cassée**, mais jamais au point de faire collision : la seconde
-colonne d'expériences descend d'un cran, les trois îles sœurs montent en
-escalier, la colonne de texte d'Agus est poussée sous son portrait, et les trois
-harmonies se répondent.
+colonne de journées descend d'un cran, la colonne de texte d'Agus est poussée
+sous son portrait, et les trois harmonies se répondent.
 
 **Le garde-fou.** Le risque d'une direction douce, c'est le site de retraite
 bien-être. L'antidote est la tension : imagerie apaisée d'un côté, faits durs de
@@ -280,16 +325,15 @@ app/
 components/
   Navbar.jsx         nav collante + menu plein écran mobile
   Hero.jsx           panneau immersif, entrée en cascade, bandeau des étapes
-  AboutAgus.jsx      storytelling + 3 piliers
-  Experiences.jsx    catalogue
-  ExperienceCard.jsx carte + bouton « Ajouter à mon circuit »
-  Circuits.jsx       rail d'itinéraire type
-  TripBuilder.jsx    configurateur + générateur WhatsApp
-  MobileBar.jsx      rappel du circuit en cours, sur mobile
+  AboutAgus.jsx      storytelling + Tri Hita Karana
+  Journees.jsx       la fourche journée/circuit + les journées cochables
   Circuits.jsx       cinq cartes-repères + fiches dépliables
   Archipel.jsx       carte schématique de l'archipel
   Islands.jsx        extensions Java, Lombok, Flores, Komodo
   Tarifs.jsx         grille saisonnière, inclus et à régler sur place
+  Engagement.jsx     où va l'argent, et pourquoi c'est un argument
+  TripBuilder.jsx    configurateur + générateur WhatsApp
+  MobileBar.jsx      rappel du voyage en cours, sur mobile
   Scene.jsx          paysages SVG + ornements (jepun, canang, séparateur)
   Reveal.jsx         apparition au scroll
   SectionHead.jsx    en-tête de section
@@ -302,8 +346,9 @@ lib/
 ### État partagé
 
 `lib/trip-store.jsx` expose `<TripProvider>` et `useTrip()` (React Context +
-`useReducer`). `ExperienceCard` y écrit, `TripBuilder` et `MobileBar` le
-lisent — ajouter une expérience met immédiatement à jour le récapitulatif, le
+`useReducer`). `Journees`, `Islands` et `Circuits` y écrivent, `TripBuilder` et
+`MobileBar` le
+lisent — cocher une journée met immédiatement à jour le récapitulatif, le
 compteur et l'aperçu du message.
 
 Pas de Zustand : un seul provider, un état plat, aucun besoin de sélecteurs ni
@@ -311,11 +356,18 @@ de persistance à ce stade. Un passage à Zustand ne toucherait que ce fichier.
 
 ### Les îles sœurs
 
-`components/Islands.jsx` propose trois extensions au-delà de Bali — le Kawah
-Ijen à Java, le Rinjani à Lombok, Padar et les dragons à Komodo. Elles vivent
-dans le même état partagé que les expériences mais dans une liste distincte
+`components/Islands.jsx` propose quatre extensions au-delà de Bali — le Kawah
+Ijen à Java, le Rinjani à Lombok, Padar à Komodo, le Kelimutu à Flores. Elles
+vivent dans le même état partagé que les journées mais dans une liste distincte
 (`islandIds`), et apparaissent sous leur propre rubrique dans le message
-WhatsApp. Chaque carte porte ses faits durs : accès depuis Bali, durée, niveau.
+WhatsApp.
+
+**Un seul fait dur par île, et aucun prix.** La version précédente affichait par
+île l'accès, la durée, le niveau *et un prix* — Java « à partir de 185 € » quand
+le circuit Bali + Java coûte 2 210 €. Deux grilles incompatibles pour la même
+destination : c'était la principale source de confusion sur les prix du site.
+Chaque île renvoie désormais au circuit qui la contient (champ `circuit`), et un
+seul chiffre fait foi. **Ne pas réintroduire de prix ici.**
 
 ### Ce qui se passe à la période choisie
 
@@ -353,7 +405,7 @@ plein cadre pour le hero) sont déjà posées, rien d'autre ne bouge.
 
 ## Reste à faire avant une mise en production
 
-- Photos réelles d'Agus et des expériences.
+- Photos réelles d'Agus et des journées.
 - Contenus définitifs : tarifs, disponibilités, mentions légales, RGPD.
-- Pages de détail par expérience et par circuit.
+- Pages de détail par circuit.
 - Suivi de conversion sur le clic WhatsApp.

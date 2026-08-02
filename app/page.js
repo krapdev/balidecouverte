@@ -2,13 +2,11 @@ import { TripProvider } from "@/lib/trip-store";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import AboutAgus from "@/components/AboutAgus";
-import Experiences from "@/components/Experiences";
 import Journees from "@/components/Journees";
 import Circuits from "@/components/Circuits";
 import TripBuilder from "@/components/TripBuilder";
 import MobileBar from "@/components/MobileBar";
 import Islands from "@/components/Islands";
-import Tarifs from "@/components/Tarifs";
 import Engagement from "@/components/Engagement";
 import Footer from "@/components/Footer";
 import { Divider } from "@/components/Scene";
@@ -21,14 +19,12 @@ export default function Home() {
         <Hero />
         <AboutAgus />
         <div className="horizon" aria-hidden="true" />
-        <Experiences />
         <div className="shell text-accent">
           <Divider />
         </div>
         <Journees />
         <Circuits />
         <Islands />
-        <Tarifs />
         <Engagement />
         <TripBuilder />
       </main>

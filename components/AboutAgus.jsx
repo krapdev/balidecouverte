@@ -60,9 +60,9 @@ export default function AboutAgus() {
               <span className="mt-2 flex items-start gap-3 text-sm leading-relaxed text-soft">
                 <Jepun size={22} tone="var(--eyebrow)" className="mt-1 shrink-0" />
                 <span>
-                  La fleur glissée derrière l&apos;oreille est un <em>jepun</em>,
-                  le frangipanier. On la porte au temple, on la dépose sur les
-                  offrandes — elle revient tout au long de ce site.
+                  La fleur derrière l&apos;oreille est un <em>jepun</em>, le
+                  frangipanier : on la porte au temple, on la dépose sur les
+                  offrandes.
                 </span>
               </span>
             </figcaption>
@@ -86,22 +86,12 @@ export default function AboutAgus() {
                 moi-même, et je construis chaque itinéraire avec vous — au rythme
                 de votre famille, pas de celui d&apos;un autocar.
               </p>
-            </Reveal>
-
-            <Reveal delay={0.1}>
-              <p className="max-w-[62ch] text-soft">
+              <p className="mt-4 max-w-[62ch] text-soft">
                 Je suis passionné d&apos;histoire, et particulièrement de celle de
                 l&apos;Europe — la Belgique et la France, où je me suis rendu à
                 plusieurs reprises. C&apos;est ce qui rend la conversation possible
                 dans les deux sens : je vous raconte mon île, et vous me racontez
                 la vôtre.
-              </p>
-              <p className="mt-4 max-w-[62ch] text-soft">
-                Passer en direct change tout : le prix que vous payez va aux
-                familles qui vous accueillent, et vous gardez mon numéro pendant
-                tout le séjour. Je me considère comme un ambassadeur du tourisme
-                de mon pays, et je travaille de tout mon cœur — dans la joie et
-                la bonne humeur.
               </p>
               <p className="mt-4 font-display text-xl">— Agus</p>
             </Reveal>

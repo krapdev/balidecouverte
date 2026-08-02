@@ -429,7 +429,7 @@
   @media (min-width: 640px) {
     .circuit-prix-col { grid-column: auto; flex-direction: column; align-items: flex-end; border: 0; padding-top: 0; }
   }
-  .circuit-montant { display: block; font-family: var(--display); font-size: 1.5rem; font-variant-numeric: tabular-nums; text-align: right; }
+  .circuit-montant { display: block; font-family: var(--display); font-size: 1.375rem; line-height: 1.2; font-variant-numeric: tabular-nums; text-align: right; }
   .circuit-par { display: block; font-size: var(--t-xs); color: var(--text-faint); text-align: right; }
   .circuit-toggle { display: inline-flex; align-items: center; gap: 0.4rem; font-size: var(--t-sm); color: var(--accent); }
   .circuit-fiche { display: none; border-top: 1px solid var(--rule); padding: 1.25rem; gap: 2rem; }
@@ -496,29 +496,9 @@
   .savoir li { font-size: var(--t-sm); line-height: 1.6; padding-left: 1.1rem; position: relative; }
   .savoir li::before { content: "—"; position: absolute; left: 0; color: var(--tint-ink); }
 
-  /* Les îles sœurs : mêmes cartes, sur panneau jade, et décalées. */
-  .islands { display: grid; gap: 2rem; list-style: none; margin: 0; padding: 0; }
-  @media (min-width: 900px) {
-    .islands { grid-template-columns: repeat(2, 1fr); }
-    .islands li:nth-child(even) { margin-top: 3rem; }
-  }
-  .island-card {
-    display: flex; flex-direction: column; height: 100%; overflow: hidden;
-    border-radius: 18px 18px var(--radius) var(--radius);
-    border: 1px solid color-mix(in srgb, var(--on-immersive) 22%, transparent);
-    background: color-mix(in srgb, var(--immersive-2) 45%, transparent);
-    transition: transform .3s ease, border-color .3s ease;
-  }
-  .island-card:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--on-immersive) 45%, transparent); }
-  .island-card[data-selected="true"] { border-color: var(--soleil-pale); }
-  .island-body { display: flex; flex-direction: column; gap: 0.75rem; padding: 1rem 1.25rem 1.25rem; flex: 1; }
-  .island-body h3 { font-size: var(--t-xl); }
-  .island-body > p { font-size: var(--t-sm); color: var(--on-immersive-soft); line-height: 1.6; flex: 1; }
-  .island-facts { display: flex; flex-direction: column; gap: 0.4rem; margin: 0; padding-top: 0.85rem; font-size: var(--t-sm); color: var(--on-immersive-soft); border-top: 1px solid color-mix(in srgb, var(--on-immersive) 18%, transparent); }
-  .island-foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
-  .island-card .exp-price { color: var(--on-immersive); }
-  .island-card .exp-price small { color: var(--on-immersive-soft); }
-  .island-card[data-selected="true"] .add-btn { background: transparent; color: var(--soleil-pale); border-color: var(--soleil-pale); }
+  /* Îles sœurs — version allégée : une ligne par île, pas une fiche. */
+  .islands { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+  @media (min-width: 640px) { .islands { grid-template-columns: 1fr 1fr; } }
 
   /* ============================================================
      CONFIGURATEUR
@@ -642,6 +622,50 @@
   /* La barre de navigation est collante : sans ce décalage, une ancre
      dépose le haut de la section sous la barre. */
   html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+
+  /* Deux vues dans un seul fichier : la maquette doit refléter que les
+     tarifs vivent désormais sur leur propre page (/tarifs). */
+  body[data-view="tarifs"] .view-home { display: none; }
+  body[data-view="home"] .view-tarifs { display: none; }
+  .back-home { display: block; padding-top: 5.5rem; }
+  body[data-view="home"] .back-home { display: none; }
+
+  .ile {
+    display: flex; align-items: flex-start; gap: 1rem; width: 100%;
+    border: 1px solid color-mix(in srgb, var(--on-immersive) 22%, transparent);
+    border-radius: 14px; background: none; padding: 1rem;
+    text-align: left; cursor: pointer; color: inherit; font: inherit;
+    transition: border-color .2s;
+  }
+  .ile:hover { border-color: color-mix(in srgb, var(--on-immersive) 48%, transparent); }
+  .ile[aria-pressed="true"] {
+    border-color: var(--soleil);
+    background: color-mix(in srgb, var(--immersive-deep) 55%, transparent);
+  }
+  .ile-scene { flex: none; width: 86px; border-radius: 10px; overflow: hidden; display: none; }
+  @media (min-width: 640px) { .ile-scene { display: block; } }
+  .ile-body { min-width: 0; flex: 1; }
+  /* --soleil tombe à 3,39 sur le jade en 11 px : --soleil-pale passe. */
+  .ile-body .ile-nom { color: var(--soleil-pale); }
+  .ile-body h3 { font-size: var(--t-lg); line-height: 1.2; margin-top: 0.25rem; }
+  .ile-body p { font-size: var(--t-sm); color: var(--on-immersive-soft); line-height: 1.6; margin-top: 0.4rem; }
+  .ile-fait { display: block; color: var(--on-immersive-soft); }
+  .ile-circuit { display: block; }
+  .ile-fait { margin-top: 0.75rem; }
+  .ile-circuit { margin-top: 0.25rem; font-size: 0.8125rem; color: var(--soleil-pale); }
+  .ile .puce {
+    flex: none; margin-top: 0.15rem; width: 1.5rem; height: 1.5rem;
+    border-radius: 999px; display: grid; place-items: center;
+    border: 1px solid color-mix(in srgb, var(--on-immersive) 38%, transparent);
+    color: var(--on-immersive-soft); font-size: 0.8rem;
+  }
+  .ile[aria-pressed="true"] .puce {
+    border-color: var(--soleil); background: var(--soleil); color: var(--immersive-deep);
+  }
+  .islands-reste {
+    margin-top: 2rem; max-width: 70ch; font-size: var(--t-sm);
+    color: var(--on-immersive-soft); line-height: 1.6;
+  }
 </style>
 
 <!-- ============================ NAVBAR ============================ -->
@@ -662,11 +686,10 @@
     </a>
     <nav class="nav-links" aria-label="Navigation principale">
       <a href="#esprit">L'Esprit</a>
-      <a href="#experiences">Expériences</a>
       <a href="#journees">Journées</a>
       <a href="#circuits">Circuits</a>
       <a href="#iles">Îles sœurs</a>
-      <a href="#tarifs">Tarifs</a>
+      <a href="#tarifs" data-goto="tarifs">Tarifs</a>
       <a href="#engagement">Engagement</a>
       <a href="#sur-mesure">Sur-Mesure</a>
     </nav>
@@ -679,7 +702,7 @@
 </header>
 
 <!-- ============================ HERO ============================ -->
-<section class="hero" id="top">
+<section class="hero view-home" id="top">
   <div class="hero-scene" id="heroScene" aria-hidden="true"></div>
   <div class="hero-veil" aria-hidden="true"></div>
   <div class="glow" style="left: 52%; top: 46%; width: 46vh; height: 46vh; opacity: .7; --glow-blur: 120px" aria-hidden="true"></div>
@@ -701,12 +724,12 @@
   </div>
 </section>
 
-<div class="ticker" aria-hidden="true">
+<div class="ticker view-home" aria-hidden="true">
   <div class="ticker-track" id="ticker"></div>
 </div>
 
 <!-- ============================ AGUS ============================ -->
-<section class="band ground-ivoire" id="esprit">
+<section class="band ground-ivoire view-home" id="esprit">
   <div class="shell">
     <div class="sec-head reveal">
       <p class="label sec-eyebrow">L'Esprit</p>
@@ -727,9 +750,8 @@
         </figcaption>
         <p style="display: flex; gap: 0.75rem; font-size: var(--t-sm); color: var(--text-soft); margin-top: 0.6rem; line-height: 1.55">
           <span id="capJepun" style="flex: none; margin-top: 0.25rem"></span>
-          <span>La fleur glissée derrière l'oreille est un <em>jepun</em>, le
-          frangipanier. On la porte au temple, on la dépose sur les offrandes —
-          elle revient tout au long de ce site.</span>
+          <span>La fleur derrière l'oreille est un <em>jepun</em>, le frangipanier :
+          on la porte au temple, on la dépose sur les offrandes.</span>
         </p>
       </figure>
 
@@ -738,7 +760,6 @@
         <blockquote class="agus-quote reveal">« Je ne vends pas un circuit. Je vous emmène là où j'emmènerais un ami, et je vous explique ce que vous regardez. »</blockquote>
         <p class="reveal">J'ai quarante ans, je suis marié, et père de deux filles de douze et neuf ans et d'un garçon de cinq ans. Je guide en français depuis octobre 2005. Je conduis moi-même, je traduis moi-même, et je construis chaque itinéraire avec vous — au rythme de votre famille, pas de celui d'un autocar.</p>
         <p class="reveal">Je suis passionné d'histoire, et particulièrement de celle de l'Europe — la Belgique et la France, où je me suis rendu à plusieurs reprises. C'est ce qui rend la conversation possible dans les deux sens : je vous raconte mon île, et vous me racontez la vôtre.</p>
-        <p class="reveal">Passer en direct change tout : le prix que vous payez va aux familles qui vous accueillent, et vous gardez mon numéro pendant tout le séjour. Je me considère comme un ambassadeur du tourisme de mon pays, et je travaille de tout mon cœur — dans la joie et la bonne humeur.</p>
         <p class="agus-sign reveal">— Agus</p>
 
         <div class="reveal" style="display: flex; align-items: flex-start; gap: 1rem; border-block: 1px solid var(--rule); padding-block: 1.25rem">
@@ -791,29 +812,14 @@
   </div>
 </section>
 
-<div class="horizon" aria-hidden="true"></div>
+<div class="horizon view-home" aria-hidden="true"></div>
 
-<!-- ============================ EXPÉRIENCES ============================ -->
-<section class="band ground-sable" id="experiences">
-  <div class="shell">
-    <div class="sec-head reveal">
-      <p class="label sec-eyebrow">Expériences</p>
-      <h2>Quatre moments, sur une quarantaine</h2>
-            <p>Voici ce qu'on retient d'un circuit de quinze jours. Il y en a bien
-      d'autres — marché aux oiseaux, rafting dans les gorges d'Ayung, saline de
-      quatre cents hectares, cochon grillé chez Mère Oka. Ajoutez ceux qui vous
-      parlent, ils alimentent votre demande.</p>
-    </div>
-    <div class="exp-grid" id="expGrid"></div>
-  </div>
-</section>
-
-<div class="shell"><div class="divider" aria-hidden="true">
+<div class="shell view-home"><div class="divider" aria-hidden="true">
   <span></span><span class="jepun-mark"></span><span></span>
 </div></div>
 
 <!-- ============================ JOURNÉES ============================ -->
-<section class="band ground-sable" id="journees">
+<section class="band ground-sable view-home" id="journees">
   <div class="shell">
     <ul class="formules reveal">
       <li>
@@ -853,7 +859,7 @@
 </section>
 
 <!-- ============================ CIRCUITS ============================ -->
-<section class="band ground-ivoire" id="circuits">
+<section class="band ground-ivoire view-home" id="circuits">
   <div class="shell">
     <div class="sec-head reveal">
       <p class="label sec-eyebrow">Circuits</p>
@@ -878,22 +884,30 @@
 </section>
 
 <!-- ============================ ÎLES SŒURS ============================ -->
-<section class="band ground-jade" id="iles">
+<section class="band ground-jade view-home" id="iles">
   <div class="shell">
     <div class="sec-head reveal">
       <p class="label sec-eyebrow">Îles sœurs</p>
-      <h2>L'aventure ne s'arrête pas au détroit.</h2>
+      <h2>Bali d'abord. Puis, si vous voulez aller plus loin.</h2>
       <p>Bali tient sur 150 km. À une heure de bateau ou d'avion commencent Java,
-      Lombok et Komodo — des volcans qu'on monte de nuit, des villages sasak en
-      bambou, des îles où l'on dort à bord. Agus organise le transport et vous
-      accompagne, ou passe le relais à un guide de confiance sur place.</p>
+      Lombok et Komodo. Chacune se greffe sur un circuit qu'Agus conduit déjà —
+      cochez celle qui vous appelle, elle partira dans votre message.</p>
     </div>
     <ul class="islands" id="islandGrid"></ul>
+    <p class="islands-reste reveal">Agus organise le transport et vous accompagne,
+    ou passe le relais à un guide de confiance sur place selon la destination.
+    Sumbawa et Rinca aussi — demandez-lui.</p>
   </div>
 </section>
 
 <!-- ============================ TARIFS ============================ -->
-<section class="band ground-ivoire" id="tarifs">
+<div class="shell back-home view-tarifs">
+  <a href="#top" class="label" data-goto="home" style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--accent)">
+    &larr; Retour à l'accueil
+  </a>
+</div>
+
+<section class="band ground-ivoire view-tarifs" id="tarifs">
   <div class="shell">
     <div class="sec-head reveal">
       <p class="label sec-eyebrow">Tarifs</p>
@@ -1027,7 +1041,7 @@
 </section>
 
 <!-- ============================ CONFIGURATEUR ============================ -->
-<section class="band ground-sable" id="sur-mesure">
+<section class="band ground-sable view-home" id="sur-mesure">
   <div class="shell">
     <div class="sec-head reveal">
       <p class="label sec-eyebrow">Sur-Mesure</p>
@@ -1136,11 +1150,10 @@
     <div class="footer-col">
       <p class="label">Explorer</p>
       <a href="#esprit">L'Esprit</a>
-      <a href="#experiences">Expériences</a>
       <a href="#journees">Journées</a>
       <a href="#circuits">Circuits</a>
       <a href="#iles">Îles sœurs</a>
-      <a href="#tarifs">Tarifs</a>
+      <a href="#tarifs" data-goto="tarifs">Tarifs</a>
       <a href="#engagement">Engagement</a>
       <a href="#sur-mesure">Sur-Mesure</a>
     </div>
@@ -1182,33 +1195,6 @@
      ============================================================ */
   var PHONE = "628123688936";
 
-  /* Quatre moments extraits du circuit réel de 15 jours d'Agus. */
-  var EXPERIENCES = [
-    {
-      id: "cuisine-munduk", title: "Cuisine et offrandes chez l'habitant",
-      place: "Munduk", coords: "08°16'S 115°04'E", duration: "Après-midi et dîner",
-      price: "Compris", priceNote: "dans le circuit", scene: "plantation", tag: "Culture",
-      text: "On cuisine avec la famille, on apprend à tresser les offrandes, et on dîne du fruit de son travail. C'est la soirée dont les voyageurs reparlent le plus."
-    },
-    {
-      id: "marionnettiste", title: "Chez le marionnettiste",
-      place: "Région d'Ubud", coords: "08°30'S 115°15'E", duration: "Fin de journée",
-      price: "Compris", priceNote: "dans le circuit", scene: "wayang", tag: "Culture",
-      text: "Il vous met un gender et un rindik entre les mains — le xylophone de métal et celui de bambou — puis éteint la lumière et lance son théâtre d'ombres. Vingt minutes, et vous ne regardez plus Bali pareil."
-    },
-    {
-      id: "dauphins-lovina", title: "Les dauphins au lever du jour",
-      place: "Lovina, côte nord", coords: "08°09'S 115°01'E", duration: "Départ à 5 h 45",
-      price: "Compris", priceNote: "dans le circuit", scene: "dauphins", tag: "Nature",
-      text: "En bateau à balancier, avant le petit-déjeuner. Le soleil sort de la mer de Java, et les dauphins passent. Retour à l'hôtel pour le café."
-    },
-    {
-      id: "tenganan", title: "À pied jusqu'à Tenganan",
-      place: "De Kastala à Tenganan", coords: "08°28'S 115°34'E", duration: "2 h 30 de marche",
-      price: "Compris", priceNote: "dans le circuit", scene: "terraces", tag: "Aventure",
-      text: "On traverse les rizières et les villages jusqu'à Tenganan, l'un des rares villages bali aga qui vit encore selon ses règles d'avant l'hindouisme. Un guide de sentier vous accompagne — c'est la règle, ici."
-    }
-  ];
 
   /* Les sept étapes du circuit de 15 jours, avec le nombre de nuits.
      Une phrase par étape : on ouvre l'appétit, on ne rédige pas le devis. */
@@ -1413,35 +1399,34 @@
 
   var baseCircuit = null;
 
-  /* Les îles sœurs — l'aventure continue au-delà de Bali. */
+  /* Ces quatre entrées ne sont PAS un second catalogue : chacune renvoie
+     au circuit qui la contient déjà. L'ancienne version portait ses propres
+     prix — Java « à partir de 185 € » quand le circuit Bali + Java est à
+     2 210 € — soit deux grilles incompatibles pour la même destination. */
   var ISLANDS = [
     {
       id: "java-ijen", island: "Java", title: "Le feu bleu du Kawah Ijen",
-      duration: "2 jours / 1 nuit", level: "Soutenu — 3 h de marche de nuit",
-      access: "Ferry depuis Gilimanuk, 1 h de traversée",
-      price: "à partir de 185 €", priceNote: "/ pers.", scene: "ijen",
-      text: "Départ à une heure du matin pour atteindre le cratère avant l'aube : les fumerolles de soufre brûlent en flammes bleues, un phénomène qu'on ne voit qu'ici et en Islande. Au lever du jour, le plus grand lac acide du monde vire au turquoise."
+      fait: "Départ à 1 h du matin, 3 h de marche de nuit",
+      circuit: "bali-java", scene: "ijen",
+      text: "Les fumerolles de soufre brûlent en flammes bleues avant l'aube — on ne voit ça qu'ici et en Islande. Puis Borobudur, Prambanan, le Bromo."
     },
     {
       id: "lombok-rinjani", island: "Lombok", title: "Le Rinjani et les villages sasak",
-      duration: "3 à 5 jours", level: "Exigeant en trek, facile en version vallée",
-      access: "Vol de 30 min ou bateau rapide depuis Padangbai",
-      price: "à partir de 240 €", priceNote: "/ pers.", scene: "rinjani",
-      text: "Deux façons d'aborder le volcan : le trek jusqu'au cratère et au lac Segara Anak avec ses sources chaudes, ou la version douce — la vallée de Sembalun, la cascade de Tiu Kelep et les maisons de bambou des villages sasak."
-    },
-    {
-      id: "flores-kelimutu", island: "Flores", title: "Le Kelimutu et les 17 îles",
-      duration: "14 jours", level: "Modéré — ascension avant l'aube",
-      access: "Vol depuis Denpasar, puis route",
-      price: "circuit complet", priceNote: "sur devis", scene: "kelimutu",
-      text: "Les trois lacs de cratère du Kelimutu, qui changent de couleur d'une saison à l'autre, le parc national des 17 îles, les villages traditionnels et le snorkeling. Agus propose ce circuit en 14 jours, seul ou combiné avec Komodo et Rinca."
+      fait: "Trek au cratère, ou version vallée sans dénivelé",
+      circuit: "bali-lombok", scene: "rinjani",
+      text: "Le lac Segara Anak et ses sources chaudes pour les marcheurs ; pour les autres, la vallée de Sembalun, la cascade de Tiu Kelep et les maisons de bambou."
     },
     {
       id: "komodo-padar", island: "Komodo", title: "Les trois baies de Padar",
-      duration: "3 jours / 2 nuits", level: "Accessible — vie à bord, marches courtes",
-      access: "Vol de 1 h 15 depuis Denpasar, puis bateau",
-      price: "à partir de 420 €", priceNote: "/ pers.", scene: "komodo",
-      text: "Trois jours en bateau entre les îles : la montée de Padar au lever du soleil sur ses trois baies, les dragons de Rinca accompagnés d'un ranger, la plage rose, et les raies manta de Manta Point."
+      fait: "Vie à bord, marches courtes — faisable en famille",
+      circuit: "bali-komodo", scene: "komodo",
+      text: "Padar au lever du soleil, les dragons de Rinca avec un ranger, la plage rose et les raies manta de Manta Point."
+    },
+    {
+      id: "flores-kelimutu", island: "Flores", title: "Les trois lacs du Kelimutu",
+      fait: "Ascension avant l'aube, les lacs changent de couleur",
+      circuit: "flores-komodo", scene: "kelimutu",
+      text: "Trois cratères qui ne sont jamais de la même couleur d'une saison à l'autre, le parc des 17 îles, et la nuit à Waerebo."
     }
   ];
 
@@ -1524,6 +1509,11 @@
       id: "nusa-penida",
       titre: "Nusa Penida",
       texte: "Klingking, Broken Beach, Angel Billabong, et les raies manta si elles veulent bien. Forfait à part, de novembre à mars.",
+    },
+    {
+      id: "marionnettiste",
+      titre: "Chez le marionnettiste",
+      texte: "En fin de journée, région d'Ubud. Il vous met un gender et un rindik entre les mains — le xylophone de métal et celui de bambou — puis éteint la lumière et lance son théâtre d'ombres.",
     },
   ];
 
@@ -1888,8 +1878,10 @@
   /* ============================================================
      ÉTAT — équivalent du store partagé (Context / Zustand)
      ============================================================ */
+  /* Une seule mécanique de sélection : des journées (et, en plus, des
+     extensions d'île). L'ancienne liste « selected » doublait les
+     journées — le voyageur cochait deux fois la même envie. */
   var state = {
-    selected: [],
     islands: [],
     month: "",
     duration: "10 à 14 jours",
@@ -1900,6 +1892,8 @@
   };
 
   var $ = function (id) { return document.getElementById(id); };
+
+  document.body.dataset.view = "home";
 
   /* ---------- Rendu : bandeau ---------- */
   var TICKER = ["Sidemen", "Munduk", "Amed", "Tirta Gangga", "Nusa Penida", "Jatiluwih", "Pemuteran", "Sembalun", "Tulamben", "Banyuwedang"];
@@ -1917,59 +1911,25 @@
   $("canangFooter").innerHTML = canang(54);
   document.querySelector(".jepun-mark").outerHTML = jepun(38, "currentColor");
 
-  /* ---------- Rendu : expériences ---------- */
-  function renderExperiences() {
-    $("expGrid").innerHTML = EXPERIENCES.map(function (e, i) {
-      var on = state.selected.indexOf(e.id) !== -1;
-      return '' +
-      '<article class="exp-card reveal" data-selected="' + on + '" data-id="' + e.id + '">' +
-        '<div class="exp-scene">' + scene(e.scene, 800, 500, e.id) +
-          '<span class="label exp-badge">' + e.tag + '</span>' +
-        '</div>' +
-        '<div class="exp-body">' +
-          '<div class="label exp-meta">' +
-            '<span>' + e.place + '</span>' +
-            '<span>' + e.duration + '</span>' +
-          '</div>' +
-          '<h3>' + e.title + '</h3>' +
-          '<p>' + e.text + '</p>' +
-          '<div class="exp-foot">' +
-            '<span class="exp-price">' + e.price + ' <small>' + e.priceNote + '</small></span>' +
-            '<button class="btn ' + (on ? "btn-outline" : "btn-accent") + ' add-btn" data-add="' + e.id + '">' +
-              (on ? "✓ Dans mon circuit" : "+ Ajouter à mon circuit") +
-            '</button>' +
-          '</div>' +
-        '</div>' +
-      '</article>';
-    }).join("");
-    observeReveals();
-  }
-
   /* ---------- Rendu : îles sœurs ---------- */
   function renderIslands() {
     $("islandGrid").innerHTML = ISLANDS.map(function (e) {
       var on = state.islands.indexOf(e.id) !== -1;
+      var c = CIRCUITS.filter(function (x) { return x.id === e.circuit; })[0];
       return '' +
-      '<li class="reveal"><article class="island-card" data-selected="' + on + '">' +
-        '<div class="exp-scene">' + scene(e.scene, 800, 500, e.id) +
-          '<span class="label exp-badge">' + e.island + '</span>' +
-        '</div>' +
-        '<div class="island-body">' +
-          '<h3>' + e.title + '</h3>' +
-          '<p>' + e.text + '</p>' +
-          '<dl class="island-facts">' +
-            '<div>' + e.access + '</div>' +
-            '<div>' + e.duration + '</div>' +
-            '<div>' + e.level + '</div>' +
-          '</dl>' +
-          '<div class="island-foot">' +
-            '<span class="exp-price">' + e.price + ' <small>' + e.priceNote + '</small></span>' +
-            '<button class="btn ' + (on ? "" : "btn-sun") + ' add-btn" data-island="' + e.id + '">' +
-              (on ? "✓ Dans mon circuit" : "+ Ajouter") +
-            '</button>' +
-          '</div>' +
-        '</div>' +
-      '</article></li>';
+      '<li class="reveal">' +
+        '<button class="ile" type="button" data-island="' + e.id + '" aria-pressed="' + on + '">' +
+          '<span class="ile-scene">' + scene(e.scene, 400, 400, "ile-" + e.id) + '</span>' +
+          '<span class="ile-body">' +
+            '<span class="label ile-nom">' + e.island + '</span>' +
+            '<h3>' + e.title + '</h3>' +
+            '<p>' + e.text + '</p>' +
+            '<span class="label ile-fait">' + e.fait + '</span>' +
+            (c ? '<span class="ile-circuit">Circuit « ' + c.nom + ' » · ' + c.jours + ' jours</span>' : '') +
+          '</span>' +
+          '<span class="puce">' + (on ? "\u2713" : "+") + '</span>' +
+        '</button>' +
+      '</li>';
     }).join("");
     observeReveals();
   }
@@ -2033,8 +1993,9 @@
             '</span>' +
           '</span>' +
           '<span class="circuit-prix-col">' +
-            '<span><span class="circuit-montant">' + c.prixPers + '</span>' +
-            '<span class="circuit-par">par personne · ' + c.prixDeux + ' pour deux</span></span>' +
+            '<span><span class="circuit-par">à partir de</span>' +
+            '<span class="circuit-montant">' + c.prixPers + '</span>' +
+            '<span class="circuit-par">par personne — hors hébergement</span></span>' +
             '<span class="circuit-toggle">' + (open ? "Replier" : "Voir les étapes") +
               '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transform: rotate(' + (open ? 180 : 0) + 'deg); transition: transform .3s"><polyline points="6 9 12 15 18 9"/></svg>' +
             '</span>' +
@@ -2059,6 +2020,7 @@
               '<button class="btn ' + (base ? "btn-outline" : "btn-accent") + '" type="button" data-base="' + c.id + '"' +
                 (base ? ' style="color: var(--accent)"' : '') + '>' +
                 (base ? "✓ C\'est ma base de départ" : "Partir de ce circuit") + '</button>' +
+              '<a href="#tarifs" data-goto="tarifs">Ce que comprend ce prix</a>' +
               '<a href="#sur-mesure">Le détail jour par jour ? Demandez-le à Agus.</a>' +
             '</div>' +
           '</div>' +
@@ -2092,24 +2054,19 @@
 
   /* ---------- Rendu : panier + message ---------- */
   function renderCart() {
-    var items = state.selected.map(function (id) {
-      return EXPERIENCES.filter(function (e) { return e.id === id; })[0];
-    });
     var isles = state.islands.map(function (id) {
       return ISLANDS.filter(function (e) { return e.id === id; })[0];
     });
 
-    $("cart").innerHTML = items.length === 0
-      ? '<p class="cart-empty">Aucune expérience pour l\'instant — remontez au catalogue, ou envoyez votre demande telle quelle : Agus vous proposera un itinéraire complet.</p>'
-      : items.map(function (e, i) {
+    $("cart").innerHTML = days.length === 0
+      ? '<p class="cart-empty">Aucune journée cochée pour l\'instant — remontez en choisir, ou envoyez votre demande telle quelle : Agus vous proposera un itinéraire complet.</p>'
+      : days.map(function (id, i) {
+          var j = JOURNEES.filter(function (x) { return x.id === id; })[0];
           return '' +
           '<div class="cart-item">' +
             '<span class="cart-num">' + String(i + 1).padStart(2, "0") + '</span>' +
-            '<span>' +
-              '<span class="cart-name">' + e.title + '</span><br>' +
-              '<span class="cart-loc">' + e.place + ' · ' + e.duration + '</span>' +
-            '</span>' +
-            '<button class="cart-remove" data-remove="' + e.id + '" aria-label="Retirer ' + e.title + '">' +
+            '<span class="cart-name">' + j.titre + '</span>' +
+            '<button class="cart-remove" data-day="' + j.id + '" aria-label="Retirer ' + j.titre + '">' +
               '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>' +
             '</button>' +
           '</div>';
@@ -2129,16 +2086,7 @@
         '</button>' +
       '</div>';
 
-    $("dayCart").innerHTML = days.length === 0 ? "" :
-      '<p class="label" style="color: var(--eyebrow); margin-bottom: 0.75rem">Mes journées</p>' +
-      days.map(function (id) {
-        var j = JOURNEES.filter(function (x) { return x.id === id; })[0];
-        return '<div class="cart-item" style="grid-template-columns: 1fr auto">' +
-          '<span class="cart-name">' + j.titre + '</span>' +
-          '<button class="cart-remove" data-day="' + j.id + '" aria-label="Retirer ' + j.titre + '">' +
-            '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>' +
-          '</button></div>';
-      }).join("");
+    $("dayCart").innerHTML = "";
 
     $("islandCart").innerHTML = isles.length === 0 ? "" :
       '<p class="label" style="color: var(--eyebrow); margin-bottom: 0.75rem">Extensions îles sœurs</p>' +
@@ -2151,18 +2099,14 @@
           '</button></div>';
       }).join("");
 
-    var total = items.length + isles.length + days.length;
+    var total = days.length + isles.length;
     $("cartCount").textContent = "(" + total + ")";
-    $("mobileNum").textContent = total + " étape" + (total > 1 ? "s" : "");
+    $("mobileNum").textContent = total + " envie" + (total > 1 ? "s" : "");
     $("mobileBar").dataset.visible = total > 0 ? "true" : "false";
   }
 
   /* ---------- Logique WhatsApp ---------- */
   function buildMessage() {
-    var items = state.selected.map(function (id) {
-      return EXPERIENCES.filter(function (e) { return e.id === id; })[0];
-    });
-
     var voyageurs = state.adults + " adulte" + (state.adults > 1 ? "s" : "");
     if (state.children > 0) voyageurs += ", " + state.children + " enfant" + (state.children > 1 ? "s" : "");
 
@@ -2187,29 +2131,21 @@
       lines.push("");
     }
 
-    if (items.length) {
-      lines.push("Les expériences qui m'intéressent :");
-      items.forEach(function (e, i) {
-        lines.push((i + 1) + ". " + e.title + " (" + e.place + ")");
-      });
-    } else {
-      lines.push("Je n'ai pas encore choisi d'expérience — je suis ouvert(e) à vos suggestions.");
-    }
-
     if (days.length) {
-      lines.push("");
       lines.push("Les journées qui me tentent :");
       days.forEach(function (id) {
         lines.push("• " + JOURNEES.filter(function (x) { return x.id === id; })[0].titre);
       });
+    } else {
+      lines.push("Je n'ai pas encore choisi de journée — je suis ouvert(e) à vos suggestions.");
     }
 
     if (state.islands.length) {
       lines.push("");
-      lines.push("Et une extension vers les îles voisines :");
+      lines.push("Et j'aimerais pousser au-delà de Bali :");
       state.islands.forEach(function (id) {
         var e = ISLANDS.filter(function (x) { return x.id === id; })[0];
-        lines.push("• " + e.title + " — " + e.island + " (" + e.duration + ")");
+        lines.push("• " + e.title + " — " + e.island);
       });
     }
 
@@ -2233,7 +2169,6 @@
   }
 
   function render() {
-    renderExperiences();
     renderJournees();
     renderCircuits();
     renderIslands();
@@ -2246,13 +2181,6 @@
      ÉVÉNEMENTS
      ============================================================ */
   document.addEventListener("click", function (ev) {
-    var addBtn = ev.target.closest("[data-add]");
-    if (addBtn) {
-      var id = addBtn.dataset.add, at = state.selected.indexOf(id);
-      if (at === -1) state.selected.push(id); else state.selected.splice(at, 1);
-      render();
-      return;
-    }
     var day = ev.target.closest("[data-day]");
     if (day) {
       var di = days.indexOf(day.dataset.day);
@@ -2279,12 +2207,18 @@
       render();
       return;
     }
-    var rm = ev.target.closest("[data-remove]");
-    if (rm) {
-      state.selected.splice(state.selected.indexOf(rm.dataset.remove), 1);
-      render();
+    /* Les tarifs ont leur propre page dans l'application ; ici, une vue.
+       On bascule, puis on remonte en haut — comme le ferait une
+       navigation réelle. */
+    var goto = ev.target.closest("[data-goto]");
+    if (goto) {
+      ev.preventDefault();
+      document.body.dataset.view = goto.dataset.goto;
+      window.scrollTo({ top: 0, behavior: "instant" });
+      observeReveals();
       return;
     }
+
     var tag = ev.target.closest("[data-tag]");
     if (tag) {
       var t = tag.dataset.tag, ti = state.styles.indexOf(t);

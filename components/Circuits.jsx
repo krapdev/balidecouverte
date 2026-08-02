@@ -100,12 +100,18 @@ export default function Circuits() {
                     </span>
 
                     <span className="col-span-2 flex items-center justify-between gap-4 border-t border-rule pt-3 sm:col-span-1 sm:flex-col sm:items-end sm:border-0 sm:pt-0">
+                      {/* Le prix ne peut plus être lu sans sa condition :
+                          il ne comprend pas les nuits d'hôtel, et c'était
+                          la première source de malentendu. */}
                       <span className="text-right">
-                        <span className="block font-display text-[1.5rem] tabular-nums">
+                        <span className="block text-[0.6875rem] text-faint">
+                          à partir de
+                        </span>
+                        <span className="block font-display text-[1.375rem] tabular-nums leading-tight">
                           {c.prixPers}
                         </span>
                         <span className="block text-[0.6875rem] text-faint">
-                          par personne · {c.prixDeux} pour deux
+                          par personne — hors hébergement
                         </span>
                       </span>
                       <span className="flex items-center gap-1.5 text-sm text-accent">
@@ -196,6 +202,12 @@ export default function Circuits() {
                                   ? "✓ C'est ma base de départ"
                                   : "Partir de ce circuit"}
                               </button>
+                              <a
+                                className="text-sm text-soft underline decoration-rule underline-offset-4 hover:text-ink"
+                                href="/tarifs"
+                              >
+                                Ce que comprend ce prix
+                              </a>
                               <a
                                 className="text-sm text-soft underline decoration-rule underline-offset-4 hover:text-ink"
                                 href="#sur-mesure"

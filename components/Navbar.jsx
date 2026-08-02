@@ -1,16 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X, MessageCircle } from "lucide-react";
 import { WHATSAPP_NUMBER } from "@/lib/data";
 
+/* Les tarifs vivent sur leur propre page ; tout le reste est une ancre
+   de l'accueil. Depuis /tarifs, une ancre nue ne mène nulle part — d'où
+   le préfixe « / » ajouté hors accueil par hrefFor(). */
 const LINKS = [
   { href: "#esprit", label: "L'Esprit" },
-  { href: "#experiences", label: "Expériences" },
   { href: "#journees", label: "Journées" },
   { href: "#circuits", label: "Circuits" },
   { href: "#iles", label: "Îles sœurs" },
-  { href: "#tarifs", label: "Tarifs" },
+  { href: "/tarifs", label: "Tarifs" },
   { href: "#engagement", label: "Engagement" },
   { href: "#sur-mesure", label: "Sur-Mesure" },
 ];
@@ -41,6 +44,8 @@ function Logo() {
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const home = usePathname() === "/";
+  const hrefFor = (h) => (home || !h.startsWith("#") ? h : `/${h}`);
 
   // Le menu plein écran ne doit pas laisser la page défiler derrière lui.
   useEffect(() => {
@@ -53,7 +58,7 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-rule bg-[color-mix(in_srgb,var(--page)_88%,transparent)] backdrop-blur-lg backdrop-saturate-150">
       <div className="shell flex h-[68px] items-center gap-6">
-        <a href="#top" className="mr-auto flex items-center gap-3 no-underline">
+        <a href={home ? "#top" : "/"} className="mr-auto flex items-center gap-3 no-underline">
           <Logo />
           <span className="leading-tight">
             <span className="block font-display text-lg font-semibold tracking-tight">
@@ -67,7 +72,7 @@ export default function Navbar() {
           {LINKS.map((l) => (
             <a
               key={l.href}
-              href={l.href}
+              href={hrefFor(l.href)}
               className="border-b border-transparent pb-0.5 text-sm text-soft no-underline transition-colors hover:border-accent hover:text-ink"
             >
               {l.label}
@@ -102,7 +107,7 @@ export default function Navbar() {
             {LINKS.map((l) => (
               <a
                 key={l.href}
-                href={l.href}
+                href={hrefFor(l.href)}
                 onClick={() => setOpen(false)}
                 className="border-b border-rule py-4 font-display text-2xl no-underline"
               >
