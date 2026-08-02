@@ -7,9 +7,11 @@ import { WHATSAPP_NUMBER } from "@/lib/data";
 const LINKS = [
   { href: "#esprit", label: "L'Esprit" },
   { href: "#experiences", label: "Expériences" },
+  { href: "#journees", label: "Journées" },
   { href: "#circuits", label: "Circuits" },
   { href: "#iles", label: "Îles sœurs" },
   { href: "#tarifs", label: "Tarifs" },
+  { href: "#engagement", label: "Engagement" },
   { href: "#sur-mesure", label: "Sur-Mesure" },
 ];
 

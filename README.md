@@ -75,13 +75,76 @@ il n'expose pas Agus.
 Vocabulaire : il écrit **« une union de guides »**, pas un syndicat. Ne pas
 corriger vers un mot qui n'est pas le sien.
 
+### La fourche : à la journée, ou en circuit
+
+`components/Journees.jsx` s'ouvre sur **deux cartes seulement** (`FORMULES`),
+posées avant tout le reste de la section :
+
+- **À la journée** — le voyageur loge où il veut, Agus vient le chercher le
+  matin. Une journée ou dix, sans engagement de circuit. Tarif **au jour et par
+  véhicule**.
+- **En circuit** — d'un bout à l'autre de l'île ou de plusieurs. Formule
+  globale, **prix par personne**.
+
+C'est la seule information de structure dont le voyageur a besoin pour se
+situer. Les deux modèles de prix étant différents, les confondre est l'erreur
+qui coûte le plus cher : chaque carte porte le sien.
+
+### « Pas trop de détails » — la règle de la section Journées
+
+Le brief est explicite : *le but n'est pas d'acter un circuit sur le site, mais
+de donner envie de contacter Agus en ayant réfléchi au type de voyage qu'on
+souhaite.* La section est donc **volontairement pauvre en détail** : un titre,
+deux lignes, une case à cocher. Pas d'horaire, pas de prix à la journée, pas de
+programme heure par heure.
+
+Deux raisons, et elles tiennent :
+
+1. Ce qui est faisable dans la journée **dépend de l'hôtel** où le voyageur
+   loge. Publier un programme fixe, c'est promettre ce qu'on ne peut pas tenir
+   depuis n'importe où sur l'île. Seul Agus peut trancher.
+2. Huit journées sont affichées, `JOURNEES_RESTE` mentionne les autres par
+   région sans les détailler. La page reste lisible, et la conversation garde
+   une raison d'exister.
+
+L'épigraphe (`JOURNEES_EPIGRAPHE`) est **d'Agus**, reprise telle quelle de sa
+page Excursions : *« Être en vacances, c'est n'avoir rien à faire et avoir toute
+la journée pour le faire. »* Elle donne le ton de la section mieux qu'une
+promesse commerciale.
+
+Cocher une journée ne réserve rien : ça alimente `dayIds` dans le store, et les
+journées choisies partent dans le message WhatsApp sous « Les journées qui me
+tentent ». C'est ce que le voyageur dira en ouvrant la conversation.
+
+### Les hébergements : « partir en paix »
+
+**Correction d'une version précédente de ce fichier** : les hébergements sont à
+la charge du voyageur *par défaut*, mais **Agus peut les choisir, les proposer
+et les réserver**. Ce n'est pas un détail logistique, c'est un argument — le
+voyageur peut tout lui confier et partir l'esprit tranquille.
+
+La ligne exacte figure dans les fiches circuits (`components/Circuits.jsx`) et
+le bloc `HEBERGEMENT` s'affiche dans le configurateur, juste au-dessus de
+l'aperçu du message. Ne pas la réduire à « hébergements non compris » : ce
+serait perdre l'argument.
+
 ### La co-construction
 
-Choisir un circuit ne commande rien : il devient la **base de départ**
-(`baseCircuit` dans le store). Elle s'affiche en tête du configurateur avec un
-bouton pour repartir de zéro, et le message WhatsApp l'annonce comme telle —
-« Je pars de votre circuit X et j'aimerais l'adapter ». Le voyageur reste
-l'auteur de son voyage.
+C'est **l'objectif du site**, pas une fonctionnalité parmi d'autres. Tout y est
+subordonné :
+
+- Les circuits sont **une base de réflexion**, jamais un produit. Choisir un
+  circuit ne commande rien : il devient la **base de départ** (`baseCircuit`
+  dans le store), s'affiche en tête du configurateur avec un bouton pour
+  repartir de zéro, et le message WhatsApp l'annonce comme telle — « Je pars de
+  votre circuit X et j'aimerais l'adapter ».
+- Les journées, les expériences et les îles sœurs se cochent librement et se
+  cumulent dans le même récapitulatif.
+- Le message part avec ce que le voyageur a **réfléchi**, pas avec ce qu'il a
+  acheté.
+
+Le voyageur reste l'auteur de son voyage. Toute évolution qui transformerait la
+page en tunnel de réservation va contre le brief.
 
 ### Comparer les circuits sans se tromper
 
@@ -105,8 +168,13 @@ ligne « vols » — ne jamais la retirer.
 
 ### Reste à reprendre
 
-- La liste complète des **excursions à la journée numérotées**.
 - Le **livre d'or** — des témoignages réels, à substituer à toute note globale.
+- **Quelle adresse e-mail est publique** : le pied de page du site donne
+  `agus.yudiarta@balidecouverte.fr`, la page Présentation
+  `agus.guidebali@gmail.com`. Les deux sont dans `CONTACT`, à trancher avec Agus.
+- Deux incohérences relevées **sur le site actuel**, à corriger à la source :
+  l'Avanza annoncée à « 3 personnes » et à « 4 personnes » sur la même page, et
+  « Munduk (centre-nord de Java) » — Munduk est à Bali.
 - **Mentions légales, CGV, politique de confidentialité, conditions
   d'annulation** : absentes du site actuel, obligatoires pour une clientèle
   française.
@@ -184,6 +252,15 @@ taille et à la graisse. Il a rattrapé dix régressions lors du passage à cett
 palette — badges devenus invisibles, texte de pied de page en jade sur jade,
 blanc sur vert WhatsApp à 4,31. Toutes les combinaisons passent. **À rejouer
 après toute modification de palette.**
+
+Deux pièges si l'audit est réécrit :
+
+- Chromium sérialise `color-mix()` en **`color(srgb r g b / a)`**, composantes
+  en 0–1. Les lire comme du 0–255 fait passer un fond ivoire pour du noir et
+  produit des échecs fantômes.
+- Le décoratif (`aria-hidden="true"`) doit sortir de l'audit : les séparateurs
+  du bandeau défilant ne sont lus par personne, et les compter noie les vraies
+  régressions.
 
 > Quatre directions ont été essayées et abandonnées, elles restent dans
 > l'historique git : le **poleng** (damier noir et blanc) en couture de

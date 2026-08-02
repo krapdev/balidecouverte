@@ -1,7 +1,13 @@
 "use client";
 
 import { createContext, useContext, useMemo, useReducer } from "react";
-import { CIRCUITS, EXPERIENCES, ISLANDS, monthOptions } from "./data";
+import {
+  CIRCUITS,
+  EXPERIENCES,
+  ISLANDS,
+  JOURNEES,
+  monthOptions,
+} from "./data";
 
 /**
  * État partagé du configurateur.
@@ -18,6 +24,7 @@ const initialState = {
   baseCircuit: null,
   selectedIds: [],
   islandIds: [],
+  dayIds: [],
   month: months[10] ?? months[0], // ~1 an devant, saison sèche
   duration: "10 à 14 jours",
   adults: 2,
@@ -51,6 +58,15 @@ function reducer(state, action) {
           : [...state.islandIds, action.id],
       };
     }
+    case "toggleDay": {
+      const has = state.dayIds.includes(action.id);
+      return {
+        ...state,
+        dayIds: has
+          ? state.dayIds.filter((id) => id !== action.id)
+          : [...state.dayIds, action.id],
+      };
+    }
     case "toggleStyle": {
       const has = state.styles.includes(action.style);
       return {
@@ -81,6 +97,9 @@ export function TripProvider({ children }) {
     const selected = state.selectedIds
       .map((id) => EXPERIENCES.find((e) => e.id === id))
       .filter(Boolean);
+    const days = state.dayIds
+      .map((id) => JOURNEES.find((j) => j.id === id))
+      .filter(Boolean);
     const circuit = CIRCUITS.find((c) => c.id === state.baseCircuit) ?? null;
     const islands = state.islandIds
       .map((id) => ISLANDS.find((e) => e.id === id))
@@ -90,10 +109,13 @@ export function TripProvider({ children }) {
       ...state,
       selected,
       islands,
+      days,
       circuit,
-      count: selected.length + islands.length,
+      count: selected.length + islands.length + days.length,
       isSelected: (id) => state.selectedIds.includes(id),
       isIslandSelected: (id) => state.islandIds.includes(id),
+      isDaySelected: (id) => state.dayIds.includes(id),
+      toggleDay: (id) => dispatch({ type: "toggleDay", id }),
       toggleIsland: (id) => dispatch({ type: "toggleIsland", id }),
       setBaseCircuit: (id) => dispatch({ type: "setBaseCircuit", id }),
       removeIsland: (id) => dispatch({ type: "toggleIsland", id }),

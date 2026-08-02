@@ -162,8 +162,8 @@ export default function Circuits() {
                             )}
                             <p className="mt-2 flex gap-2.5 text-sm text-soft">
                               <MoonStar size={15} className="mt-1 shrink-0 text-faint" />
-                              Hébergements à votre charge — Agus vous conseille,
-                              vous réservez.
+                              Hébergements à votre charge par défaut — mais Agus
+                              peut les choisir, vous les proposer et les réserver.
                             </p>
                           </div>
 

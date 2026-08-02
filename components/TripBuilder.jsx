@@ -15,6 +15,7 @@ import { useTrip } from "@/lib/trip-store";
 import { buildMessage, whatsappUrl } from "@/lib/whatsapp";
 import {
   DURATIONS,
+  HEBERGEMENT,
   STYLES,
   WHATSAPP_DISPLAY,
   monthOptions,
@@ -149,6 +150,39 @@ export default function TripBuilder() {
                 </AnimatePresence>
               )}
             </div>
+
+            {trip.days.length > 0 && (
+              <div className="mb-6">
+                <p className="label mb-3 text-eyebrow">Mes journées</p>
+                <AnimatePresence initial={false}>
+                  {trip.days.map((j) => (
+                    <motion.div
+                      key={j.id}
+                      layout
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.22 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="flex items-center gap-3.5 border-b border-rule py-3">
+                        <span className="flex-1 text-sm font-semibold leading-snug">
+                          {j.titre}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => trip.toggleDay(j.id)}
+                          className="grid place-items-center rounded-sm p-1 text-faint transition-colors hover:text-eyebrow"
+                          aria-label={`Retirer ${j.titre}`}
+                        >
+                          <X size={16} />
+                        </button>
+                      </div>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              </div>
+            )}
 
             {trip.islands.length > 0 && (
               <div className="mb-6">
@@ -305,6 +339,17 @@ export default function TripBuilder() {
 
           {/* ---------- Colonne droite : le message ---------- */}
           <div className="flex flex-col gap-4 lg:sticky lg:top-[92px]">
+            {/* Partir en paix : le site taisait qu'Agus peut réserver les
+                hôtels. C'est une réassurance majeure, elle a sa place ici,
+                juste avant l'envoi. */}
+            <div className="rounded border border-rule bg-surface p-5">
+              <p className="font-display text-lg leading-tight">
+                {HEBERGEMENT.titre}
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-soft">
+                {HEBERGEMENT.texte}
+              </p>
+            </div>
             <p className="label font-sans font-bold tracking-[0.06em] text-faint">
               3 — Votre message, prêt à envoyer
             </p>

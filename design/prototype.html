@@ -364,6 +364,44 @@
   .route-body .label { color: var(--accent); display: block; margin-bottom: 0.5rem; }
   .route-body p { color: var(--text-soft); font-size: var(--t-sm); max-width: 58ch; line-height: 1.6; }
 
+  /* Deux façons de voyager — la fourche, posée avant tout le reste. */
+  .formules { list-style: none; margin: 0 0 3.5rem; padding: 0; display: grid; gap: 1.25rem; }
+  @media (min-width: 640px) { .formules { grid-template-columns: 1fr 1fr; } }
+  .formules li { display: flex; flex-direction: column; gap: 0.5rem; border: 1px solid var(--rule); border-radius: 14px; background: var(--surface); padding: 1.25rem; }
+  .formules h3 { font-size: var(--t-xl); line-height: 1.2; }
+  .formules p { font-size: var(--t-sm); color: var(--text-soft); line-height: 1.6; }
+
+  /* Les journées : une ligne, une case à cocher. On n'achète pas un
+     programme, on dit ce qu'on aimerait. */
+  .journees-epigraphe {
+    max-width: 46ch; margin-bottom: 2.5rem; border-left: 3px solid var(--accent);
+    padding-left: 1.25rem; font-family: var(--display);
+    font-size: clamp(1.15rem, 3vw, 1.4rem); line-height: 1.35;
+  }
+  .journees { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+  @media (min-width: 640px) { .journees { grid-template-columns: 1fr 1fr; } }
+  .journee {
+    display: flex; align-items: flex-start; gap: 1rem; width: 100%; height: 100%;
+    border: 1px solid var(--rule); border-radius: 14px; background: var(--surface);
+    padding: 1.25rem; text-align: left; cursor: pointer; font: inherit; color: inherit;
+    transition: border-color .2s ease, background-color .2s ease;
+  }
+  .journee:hover { border-color: color-mix(in srgb, var(--jade) 40%, var(--rule)); }
+  .journee[aria-pressed="true"] { border-color: var(--accent); background: var(--tint); }
+  .journee .puce {
+    flex: none; margin-top: 0.15rem; width: 24px; height: 24px; border-radius: 50%;
+    border: 1px solid var(--rule); display: grid; place-items: center;
+    color: var(--text-faint); font-size: 14px; line-height: 1;
+  }
+  .journee[aria-pressed="true"] .puce { border-color: var(--accent); background: var(--accent); color: var(--accent-ink); }
+  .journee h3 { font-family: var(--display); font-size: var(--t-lg); font-weight: 500; line-height: 1.2; }
+  .journee p { margin-top: 0.25rem; font-size: var(--t-sm); color: var(--text-soft); line-height: 1.6; }
+  .journees-reste { margin-top: 2rem; max-width: 70ch; font-size: var(--t-sm); color: var(--text-soft); line-height: 1.6; }
+  /* Partir en paix : Agus peut réserver les hôtels. */
+  .paix { border: 1px solid var(--rule); border-radius: var(--radius); background: var(--surface); padding: 1.25rem; }
+  .paix h3 { font-family: var(--display); font-size: var(--t-lg); font-weight: 500; line-height: 1.2; }
+  .paix p { margin-top: 0.5rem; font-size: var(--t-sm); color: var(--text-soft); line-height: 1.6; }
+
   /* Les circuits : carte-repère compacte, fiche dépliable au clic. */
   .circuits { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.25rem; }
   .circuit {
@@ -601,7 +639,9 @@
     .reveal { opacity: 1; transform: none; transition: none; }
     * { scroll-behavior: auto !important; }
   }
-  html { scroll-behavior: smooth; }
+  /* La barre de navigation est collante : sans ce décalage, une ancre
+     dépose le haut de la section sous la barre. */
+  html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
 </style>
 
 <!-- ============================ NAVBAR ============================ -->
@@ -623,6 +663,7 @@
     <nav class="nav-links" aria-label="Navigation principale">
       <a href="#esprit">L'Esprit</a>
       <a href="#experiences">Expériences</a>
+      <a href="#journees">Journées</a>
       <a href="#circuits">Circuits</a>
       <a href="#iles">Îles sœurs</a>
       <a href="#tarifs">Tarifs</a>
@@ -770,6 +811,46 @@
 <div class="shell"><div class="divider" aria-hidden="true">
   <span></span><span class="jepun-mark"></span><span></span>
 </div></div>
+
+<!-- ============================ JOURNÉES ============================ -->
+<section class="band ground-sable" id="journees">
+  <div class="shell">
+    <ul class="formules reveal">
+      <li>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <h3>À la journée</h3>
+        <p>Vous logez où vous voulez, Agus vient vous chercher le matin et vous
+        ramène le soir. Une journée ou dix, sans engagement de circuit.</p>
+        <p class="label" style="color: var(--text-faint)">Tarif au jour et par véhicule.</p>
+      </li>
+      <li>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></svg>
+        <h3>En circuit</h3>
+        <p>On traverse l'île, ou plusieurs îles, d'un bout à l'autre. Agus
+        organise tout et peut réserver vos hébergements.</p>
+        <p class="label" style="color: var(--text-faint)">Formule globale, prix par personne.</p>
+      </li>
+    </ul>
+
+    <div class="sec-head reveal">
+      <p class="label sec-eyebrow">Vos journées</p>
+      <h2>On compose vos jours ensemble.</h2>
+      <p>Agus accompagne aussi à la journée, depuis l'hôtel où vous logez. Cochez
+      les journées qui vous tentent — ce n'est pas une commande, c'est ce que
+      vous lui direz en ouvrant la conversation.</p>
+    </div>
+
+    <p class="reveal journees-epigraphe">« Être en vacances, c'est n'avoir rien à
+    faire et avoir toute la journée pour le faire. »</p>
+
+    <ul class="journees" id="journeeList"></ul>
+
+    <p class="reveal journees-reste">Six autres journées existent, organisées par
+    région — le sud et la presqu'île de Bukit, l'est et Tirta Gangga, le
+    centre-est et Besakih, le centre-nord et Tamblingan, le sud-ouest et Tanah
+    Lot. Agus vous propose celles qui collent à l'endroit où vous logez.</p>
+  </div>
+</section>
 
 <!-- ============================ CIRCUITS ============================ -->
 <section class="band ground-ivoire" id="circuits">
@@ -961,6 +1042,7 @@
         <p class="panel-title">1 — Vos expériences <span id="cartCount" style="color: var(--eyebrow)">(0)</span></p>
         <div class="cart" id="cart"></div>
 
+        <div id="dayCart" style="margin-bottom: 1.5rem"></div>
         <div id="islandCart" style="margin-bottom: 1.5rem"></div>
 
         <p class="panel-title">2 — Votre voyage</p>
@@ -1013,6 +1095,15 @@
 
       <div class="preview-wrap">
         <div class="panel" style="padding: 0; border: none; background: transparent">
+          <div class="paix" style="margin-bottom: 1.25rem">
+            <h3>Il peut aussi s'occuper des hôtels.</h3>
+            <p>Par défaut, vous réservez vos hébergements vous-même — Agus vous
+            dit où dormir et pourquoi. Mais si vous préférez ne rien avoir à
+            faire, il les choisit, vous les propose et les réserve : la formule
+            devient globale, hôtels, activités, transport et chauffeur-guide
+            réunis. Vous n'avez plus qu'à venir.</p>
+          </div>
+
           <p class="panel-title">3 — Votre message, prêt à envoyer</p>
           <div class="preview">
             <div class="preview-head">
@@ -1046,6 +1137,7 @@
       <p class="label">Explorer</p>
       <a href="#esprit">L'Esprit</a>
       <a href="#experiences">Expériences</a>
+      <a href="#journees">Journées</a>
       <a href="#circuits">Circuits</a>
       <a href="#iles">Îles sœurs</a>
       <a href="#tarifs">Tarifs</a>
@@ -1374,6 +1466,68 @@
     notes.push("Galungan et Kuningan, les grandes fêtes des ancêtres, reviennent tous les 210 jours et se déplacent donc chaque année : demandez à Agus si elles tombent pendant votre séjour, les penjor bordent alors toutes les routes.");
     return { saison: estSec ? "Saison sèche" : "Saison des pluies", notes: notes };
   }
+
+  var FORMULES = [
+    {
+      id: "journee",
+      titre: "À la journée",
+      texte:
+        "Vous logez où vous voulez, Agus vient vous chercher le matin et vous ramène le soir. Une journée ou dix, sans engagement de circuit.",
+      detail: "Tarif au jour et par véhicule.",
+    },
+    {
+      id: "circuit",
+      titre: "En circuit",
+      texte:
+        "On traverse l'île, ou plusieurs îles, d'un bout à l'autre. Agus organise tout et peut réserver vos hébergements.",
+      detail: "Formule globale, prix par personne.",
+    },
+  ];
+
+  var JOURNEES = [
+    {
+      id: "ubud-temples",
+      titre: "Ubud et ses temples",
+      texte: "Goa Gajah, la Lune de Pejeng, le mausolée de Gunung Kawi, les bains sacrés de Tirta Empul et le village de Penglipuran.",
+    },
+    {
+      id: "cuisine",
+      titre: "Cuisine balinaise face aux rizières",
+      texte: "La danse du Barong le matin, puis deux heures de cuisine dans un warung — et on déjeune de ce qu'on a fait.",
+    },
+    {
+      id: "habitant",
+      titre: "Une journée de vie balinaise",
+      texte: "Chez une famille au nord-est de Tabanan : offrandes, torréfaction du café, huile de coco, labour et plantation du riz. Prévoyez des vêtements de rechange.",
+    },
+    {
+      id: "sportive",
+      titre: "Journée sportive",
+      texte: "Rafting dans les gorges d'Ayung le matin, descente à vélo depuis le volcan l'après-midi — 90 % en roue libre.",
+    },
+    {
+      id: "munduk",
+      titre: "Les trois cascades de Munduk",
+      texte: "Trois heures de marche entre girofliers, cacaoyers et caféiers, puis une source d'eau chaude. Guide de sentier obligatoire.",
+    },
+    {
+      id: "dauphins",
+      titre: "Le nord et les dauphins",
+      texte: "Bateau à balancier à l'aube, petit-déjeuner au bord de l'eau, temple bouddhiste de Brahma Vihara Arama et bain chaud à Banjar.",
+    },
+    {
+      id: "peche",
+      titre: "Pêcher avec un pêcheur",
+      texte: "Au filet et à la ligne, en bateau à balancier, puis on cuisine la prise et on partage le repas avec sa famille. Et la saline de Kusamba.",
+    },
+    {
+      id: "nusa-penida",
+      titre: "Nusa Penida",
+      texte: "Klingking, Broken Beach, Angel Billabong, et les raies manta si elles veulent bien. Forfait à part, de novembre à mars.",
+    },
+  ];
+
+  var days = [];
 
   var STYLES = ["Nature", "Culture", "Aventure", "Détente", "Famille", "Gastronomie"];
 
@@ -1820,6 +1974,19 @@
     observeReveals();
   }
 
+  /* ---------- Rendu : les journées ---------- */
+  function renderJournees() {
+    $("journeeList").innerHTML = JOURNEES.map(function (j) {
+      var on = days.indexOf(j.id) !== -1;
+      return '<li class="reveal"><button class="journee" type="button" data-day="' + j.id +
+        '" aria-pressed="' + on + '">' +
+        '<span class="puce">' + (on ? "✓" : "+") + '</span>' +
+        '<span><h3>' + j.titre + '</h3><p>' + j.texte + '</p></span>' +
+      '</button></li>';
+    }).join("");
+    observeReveals();
+  }
+
   /* ---------- Rendu : l'archipel ---------- */
   var ILES = [
     { id: "java", nom: "Java", lx: 186, ly: 76, d: "M18 96 C 60 70, 120 62, 190 68 C 250 73, 300 84, 344 96 C 320 116, 260 126, 190 124 C 120 122, 56 114, 18 96 Z" },
@@ -1881,7 +2048,7 @@
                      '<span class="label nuits">' + e.nuits + (e.nuits > 1 ? " nuits" : " nuit") + '</span></li>';
             }).join("") + '</ol>' +
             (c.vols ? '<p class="fiche-note">✈ ' + c.vols + '</p>' : '') +
-            '<p class="fiche-note">☾ Hébergements à votre charge — Agus vous conseille, vous réservez.</p>' +
+            '<p class="fiche-note">☾ Hébergements à votre charge par défaut — mais Agus peut les choisir, vous les proposer et les réserver.</p>' +
           '</div>' +
           '<div>' +
             '<p class="label" style="color: var(--eyebrow); margin-bottom: 1rem">✦ Trois places secrètes</p>' +
@@ -1962,6 +2129,17 @@
         '</button>' +
       '</div>';
 
+    $("dayCart").innerHTML = days.length === 0 ? "" :
+      '<p class="label" style="color: var(--eyebrow); margin-bottom: 0.75rem">Mes journées</p>' +
+      days.map(function (id) {
+        var j = JOURNEES.filter(function (x) { return x.id === id; })[0];
+        return '<div class="cart-item" style="grid-template-columns: 1fr auto">' +
+          '<span class="cart-name">' + j.titre + '</span>' +
+          '<button class="cart-remove" data-day="' + j.id + '" aria-label="Retirer ' + j.titre + '">' +
+            '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>' +
+          '</button></div>';
+      }).join("");
+
     $("islandCart").innerHTML = isles.length === 0 ? "" :
       '<p class="label" style="color: var(--eyebrow); margin-bottom: 0.75rem">Extensions îles sœurs</p>' +
       isles.map(function (e) {
@@ -1973,7 +2151,7 @@
           '</button></div>';
       }).join("");
 
-    var total = items.length + isles.length;
+    var total = items.length + isles.length + days.length;
     $("cartCount").textContent = "(" + total + ")";
     $("mobileNum").textContent = total + " étape" + (total > 1 ? "s" : "");
     $("mobileBar").dataset.visible = total > 0 ? "true" : "false";
@@ -1999,6 +2177,9 @@
     lines.push("⏳ Durée : " + state.duration);
     lines.push("👥 Voyageurs : " + voyageurs);
     lines.push("🎯 Style : " + (state.styles.length ? state.styles.join(", ") : "à définir ensemble"));
+    lines.push("");
+    /* Le circuit sert de base de discussion, pas de commande : la phrase
+       dit explicitement qu'on part de là pour l'adapter. */
     if (baseCircuit) {
       var b0 = CIRCUITS.filter(function (c) { return c.id === baseCircuit; })[0];
       lines.push("🧭 Je pars de votre circuit « " + b0.nom + " » (" + b0.jours +
@@ -2013,6 +2194,14 @@
       });
     } else {
       lines.push("Je n'ai pas encore choisi d'expérience — je suis ouvert(e) à vos suggestions.");
+    }
+
+    if (days.length) {
+      lines.push("");
+      lines.push("Les journées qui me tentent :");
+      days.forEach(function (id) {
+        lines.push("• " + JOURNEES.filter(function (x) { return x.id === id; })[0].titre);
+      });
     }
 
     if (state.islands.length) {
@@ -2045,6 +2234,7 @@
 
   function render() {
     renderExperiences();
+    renderJournees();
     renderCircuits();
     renderIslands();
     renderPeriod();
@@ -2060,6 +2250,13 @@
     if (addBtn) {
       var id = addBtn.dataset.add, at = state.selected.indexOf(id);
       if (at === -1) state.selected.push(id); else state.selected.splice(at, 1);
+      render();
+      return;
+    }
+    var day = ev.target.closest("[data-day]");
+    if (day) {
+      var di = days.indexOf(day.dataset.day);
+      if (di === -1) days.push(day.dataset.day); else days.splice(di, 1);
       render();
       return;
     }

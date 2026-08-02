@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import AboutAgus from "@/components/AboutAgus";
 import Experiences from "@/components/Experiences";
+import Journees from "@/components/Journees";
 import Circuits from "@/components/Circuits";
 import TripBuilder from "@/components/TripBuilder";
 import MobileBar from "@/components/MobileBar";
@@ -24,6 +25,7 @@ export default function Home() {
         <div className="shell text-accent">
           <Divider />
         </div>
+        <Journees />
         <Circuits />
         <Islands />
         <Tarifs />
