@@ -17,17 +17,50 @@ récupération automatisée : le contenu ci-dessous a été fourni par copier-co
 | Bloc | Nature |
 | --- | --- |
 | `CONTACT`, `AGUS`, `TARIFS`, `CIRCUIT` | **Contenu réel du site.** À ne corriger que sur indication d'Agus. |
-| `EXPERIENCES`, `ROUTE` | **Extraits du circuit réel de 15 jours**, résumés. |
+| `CIRCUITS`, `SIGNATURES` | **Les cinq circuits réels**, résumés à leurs étapes et à trois places secrètes. |
+| `EXPERIENCES` | **Extraits du circuit réel de 15 jours**. |
 | `ISLANDS` | Réel dans les destinations, **résumé rédigé** pour les descriptions. |
 
-### Le parti pris éditorial
+### Le parti pris éditorial : trois niveaux, jamais quatorze journées
 
-La page d'origine du circuit déroule les quatorze journées activité par
-activité. C'est complet, mais ça se lit comme un devis. Ici on garde **les sept
-étapes et une phrase par étape**, plus **quatre moments sur la quarantaine** que
-compte le circuit. L'objectif est d'ouvrir l'appétit et de rappeler que tout se
-réécrit — le détail complet reste chez Agus, et c'est justement le prétexte à la
-conversation.
+Les pages d'origine déroulent chaque circuit activité par activité. C'est
+complet, mais ça se lit comme un devis. `components/Circuits.jsx` organise
+l'information en trois niveaux :
+
+1. **La carte-repère** — nom, tempérament en une phrase, trois chiffres
+   (jours, nuits, étapes) et le prix par personne. De quoi trancher.
+2. **La fiche dépliable**, au clic et sur place — le squelette des étapes avec
+   le nombre de nuits, **trois places secrètes**, et le bouton « Partir de ce
+   circuit ».
+3. **Le jour par jour — délibérément absent.** C'est le livrable d'Agus et la
+   raison même de lui écrire. Le publier serait à la fois surcharger la page et
+   donner gratuitement ce qui justifie le premier échange. Le site dit : « Le
+   détail jour par jour ? Demandez-le à Agus. »
+
+L'**archipel** en tête de section (`components/Archipel.jsx`) répond à la
+question « où » sans que le texte ait à la répéter cinq fois : les îles du
+circuit survolé ou ouvert s'allument.
+
+Les **places secrètes** ne sont pas inventées : ce sont les endroits que les
+pages d'Agus signalent elles-mêmes comme « peu connus par des touristes » ou
+« loin des visites touristiques » — le grand ficus de Munduk, la saline de
+quatre cents hectares, les sept Gili du sud-ouest de Lombok, Mesangin sur la
+grande place de Yogyakarta, la nuit à Waerebo.
+
+### La co-construction
+
+Choisir un circuit ne commande rien : il devient la **base de départ**
+(`baseCircuit` dans le store). Elle s'affiche en tête du configurateur avec un
+bouton pour repartir de zéro, et le message WhatsApp l'annonce comme telle —
+« Je pars de votre circuit X et j'aimerais l'adapter ». Le voyageur reste
+l'auteur de son voyage.
+
+### Comparer les circuits sans se tromper
+
+Les **vols intérieurs sont compris dans Bali + Komodo et pas dans Flores**, où
+les billets d'Agus sont en plus à la charge du voyageur. Sans mention explicite,
+Flores paraît moins cher alors qu'il va plus loin. Chaque fiche porte donc sa
+ligne « vols » — ne jamais la retirer.
 
 ### Les points de tarification à ne pas perdre
 
@@ -45,8 +78,6 @@ conversation.
 ### Reste à reprendre
 
 - La liste complète des **excursions à la journée numérotées**.
-- Les quatre autres **circuits packagés** : Bali+Lombok, Bali+Java,
-  Bali+Komodo/Rinca, Flores+Komodo/Rinca.
 - Le **livre d'or** — des témoignages réels, à substituer à toute note globale.
 - **Mentions légales, CGV, politique de confidentialité, conditions
   d'annulation** : absentes du site actuel, obligatoires pour une clientèle
@@ -150,6 +181,8 @@ components/
   Circuits.jsx       rail d'itinéraire type
   TripBuilder.jsx    configurateur + générateur WhatsApp
   MobileBar.jsx      rappel du circuit en cours, sur mobile
+  Circuits.jsx       cinq cartes-repères + fiches dépliables
+  Archipel.jsx       carte schématique de l'archipel
   Islands.jsx        extensions Java, Lombok, Flores, Komodo
   Tarifs.jsx         grille saisonnière, inclus et à régler sur place
   Scene.jsx          paysages SVG + ornements (jepun, canang, séparateur)

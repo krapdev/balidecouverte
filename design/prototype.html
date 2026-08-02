@@ -362,12 +362,59 @@
   .route-body .label { color: var(--accent); display: block; margin-bottom: 0.5rem; }
   .route-body p { color: var(--text-soft); font-size: var(--t-sm); max-width: 58ch; line-height: 1.6; }
 
-  .circuit-prix { display: flex; flex-direction: column; gap: 1rem; border-top: 1px solid var(--rule); margin-top: 1rem; padding-top: 2rem; }
-  @media (min-width: 640px) { .circuit-prix { flex-direction: row; align-items: flex-end; justify-content: space-between; } }
-  .circuit-montant { font-family: var(--display); font-size: 1.75rem; font-variant-numeric: tabular-nums; }
-  .circuit-montant span { font-family: var(--body); font-size: var(--t-base); color: var(--text-soft); margin-left: 0.6rem; }
-  .circuit-prix p + p { margin-top: 0.5rem; font-size: var(--t-sm); color: var(--text-soft); max-width: 52ch; line-height: 1.6; }
-  .circuit-prix .btn { flex: none; }
+  /* Les circuits : carte-repère compacte, fiche dépliable au clic. */
+  .circuits { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.25rem; }
+  .circuit {
+    overflow: hidden; border-radius: 18px; border: 1px solid var(--rule);
+    background: var(--surface); transition: border-color .3s ease;
+  }
+  .circuit[data-open="true"] { border-color: color-mix(in srgb, var(--jade) 45%, var(--rule)); }
+  .circuit[data-base="true"] { border-color: var(--accent); }
+  .circuit-head {
+    display: grid; grid-template-columns: auto 1fr; gap: 1.25rem;
+    width: 100%; padding: 1rem; text-align: left; cursor: pointer;
+    background: none; border: 0; color: inherit; font: inherit;
+  }
+  @media (min-width: 640px) { .circuit-head { grid-template-columns: 128px 1fr auto; padding: 1.25rem; } }
+  .circuit-vignette { display: none; border-radius: 12px; overflow: hidden; }
+  @media (min-width: 640px) { .circuit-vignette { display: block; } }
+  .circuit-vignette svg { aspect-ratio: 16 / 11; width: 100%; }
+  .circuit-nom { display: block; font-family: var(--display); font-size: var(--t-xl); line-height: 1.15; }
+  .circuit-temp { display: block; margin-top: 0.15rem; font-size: var(--t-sm); color: var(--text-soft); }
+  .circuit-chiffres { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; margin-top: 0.5rem; color: var(--text-faint); }
+  .circuit-prix-col {
+    grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem; border-top: 1px solid var(--rule); padding-top: 0.75rem;
+  }
+  @media (min-width: 640px) {
+    .circuit-prix-col { grid-column: auto; flex-direction: column; align-items: flex-end; border: 0; padding-top: 0; }
+  }
+  .circuit-montant { display: block; font-family: var(--display); font-size: 1.5rem; font-variant-numeric: tabular-nums; text-align: right; }
+  .circuit-par { display: block; font-size: var(--t-xs); color: var(--text-faint); text-align: right; }
+  .circuit-toggle { display: inline-flex; align-items: center; gap: 0.4rem; font-size: var(--t-sm); color: var(--accent); }
+  .circuit-fiche { display: none; border-top: 1px solid var(--rule); padding: 1.25rem; gap: 2rem; }
+  @media (min-width: 640px) { .circuit-fiche { padding: 1.75rem; } }
+  .circuit[data-open="true"] .circuit-fiche { display: grid; }
+  @media (min-width: 1000px) { .circuit[data-open="true"] .circuit-fiche { grid-template-columns: 0.9fr 1.1fr; } }
+  .etapes { list-style: none; margin: 0; padding: 0; }
+  .etapes li { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; border-bottom: 1px solid var(--rule); padding: 0.6rem 0; }
+  .etapes li:last-child { border-bottom: 0; }
+  .etapes .lieu { font-weight: 700; }
+  .etapes .region { margin-left: 0.5rem; font-size: var(--t-sm); color: var(--text-soft); }
+  .etapes .nuits { flex: none; color: var(--text-faint); font-variant-numeric: tabular-nums; }
+  .secrets { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1rem; }
+  .secrets h4 { font-family: var(--display); font-size: var(--t-lg); font-weight: 500; line-height: 1.2; margin: 0; }
+  .secrets p { margin-top: 0.25rem; font-size: var(--t-sm); color: var(--text-soft); line-height: 1.6; }
+  .fiche-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; border-top: 1px solid var(--rule); margin-top: 1.5rem; padding-top: 1.25rem; }
+  .fiche-actions a { font-size: var(--t-sm); color: var(--text-soft); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--rule); }
+  .fiche-note { display: flex; gap: 0.6rem; margin-top: 1rem; font-size: var(--t-sm); color: var(--text-soft); }
+  .signatures { margin-top: 3rem; border: 1px solid var(--rule); border-radius: var(--radius); background: var(--surface-alt); padding: 1.5rem; }
+  .signatures ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.65rem; }
+  @media (min-width: 640px) { .signatures ul { grid-template-columns: 1fr 1fr; } }
+  .signatures li { font-size: var(--t-sm); color: var(--text-soft); line-height: 1.6; }
+  /* La base de départ, rappelée dans le configurateur */
+  .base-circuit { display: flex; align-items: flex-start; gap: 0.75rem; border: 1px solid var(--accent); background: var(--tint); border-radius: var(--radius); padding: 1rem; margin-bottom: 1.5rem; }
+  .base-circuit .cart-remove { flex: none; }
 
   /* Grille tarifaire : le prix est au jour et par véhicule. */
   .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
@@ -708,29 +755,25 @@
   <div class="shell">
     <div class="sec-head reveal">
       <p class="label sec-eyebrow">Circuits</p>
-      <h2>Quinze jours, sept étapes, quatorze nuits.</h2>
-            <p>Un circuit qu'Agus a réellement construit, résumé à ses étapes. Chacune se
-      rallonge, se raccourcit ou se remplace : c'est un point de départ, pas un
-      catalogue.</p>
+      <h2>Cinq points de départ, aucun point d'arrivée.</h2>
+      <p>Ce ne sont pas des produits sur étagère : ce sont cinq circuits qu'Agus
+      a réellement conduits, et que vous allez déformer. Choisissez celui qui
+      vous ressemble, gardez ce qui vous plaît, jetez le reste — la conversation
+      part de là.</p>
     </div>
-    <div class="route" id="route"></div>
 
-    <div class="reveal circuit-prix">
-      <div>
-        <p class="circuit-montant">2 420 €<span>pour deux, soit 1 210 € par personne</span></p>
-        <p>Activités + transport + chauffeur-guide francophone. Entrées des sites,
-        activités du programme, véhicule climatisé, carburant et assurance compris.
-        Hébergements et repas restent à votre charge. En basse saison — janvier,
-        février, mars, novembre, décembre.</p>
-        <p>À trois ou quatre, le prix par personne baisse : c'est le même véhicule
-        et le même guide.</p>
-      </div>
-      <a class="btn btn-accent" href="#sur-mesure">Partir de ce circuit</a>
+    <div class="reveal" id="archipel" style="margin-bottom: 2.5rem"></div>
+
+    <ul class="circuits" id="circuitList"></ul>
+
+    <div class="reveal signatures">
+      <p class="label" style="color: var(--eyebrow); margin-bottom: 0.75rem">
+        Ce qu'Agus met dans presque tous ses circuits
+      </p>
+      <ul id="signatures"></ul>
     </div>
   </div>
 </section>
-
-<div class="horizon" aria-hidden="true"></div>
 
 <!-- ============================ ÎLES SŒURS ============================ -->
 <section class="band ground-jade" id="iles">
@@ -848,6 +891,8 @@
 
     <div class="builder">
       <div class="panel">
+        <div id="baseCircuit"></div>
+
         <p class="panel-title">1 — Vos expériences <span id="cartCount" style="color: var(--eyebrow)">(0)</span></p>
         <div class="cart" id="cart"></div>
 
@@ -1008,15 +1053,206 @@
 
   /* Les sept étapes du circuit de 15 jours, avec le nombre de nuits.
      Une phrase par étape : on ouvre l'appétit, on ne rédige pas le devis. */
-  var ROUTE = [
-    { d: "2 nuits", t: "Candidasa — l'est", p: "Le marché d'Amlapura à l'heure où il vit vraiment, le palais royal de Karangasem, et le palais d'eau de Tirta Gangga qu'on quitte à pied par les rizières." },
-    { d: "1 nuit", t: "Sidemen — le centre-est", p: "Deux heures et demie de marche depuis Kastala jusqu'à Tenganan, village indigène qui vit encore selon ses propres règles. Un guide de sentier vous accompagne, c'est obligatoire ici." },
-    { d: "4 nuits", t: "Ubud — le centre", p: "Besakih le temple mère, une heure de marche dans la coulée de lave du Batur, le Barong à Batubulan, et une descente à vélo de la région du volcan jusqu'à Ubud — 90 % en roue libre." },
-    { d: "2 nuits", t: "Munduk — le centre-nord", p: "Les rizières de Jatiluwih classées à l'UNESCO, puis un cours de cuisine et d'offrandes chez l'habitant : vous dînez de ce que vous avez préparé." },
-    { d: "1 nuit", t: "Lovina — le nord", p: "Départ à 5 h 45 en bateau à balancier. Le jour se lève sur la mer, et les dauphins arrivent." },
-    { d: "2 nuits", t: "Pemuteran — le nord-ouest", p: "Les tombants de Menjangan en snorkeling, la plus grande saline de Bali — quatre cents hectares que les touristes ignorent — et le coucher de soleil depuis la colline." },
-    { d: "2 nuits", t: "Sanur — le sud", p: "Le marché aux oiseaux de Denpasar, le village chrétien de Palasari et sa grotte de Marie, Tanah Lot, puis Uluwatu sur sa falaise." }
-  ];
+  /* Les cinq circuits d'Agus, réduits à ce qui aide à choisir. */
+  var CIRCUITS = [
+    {
+      id: "bali",
+      nom: "Bali",
+      iles: ["bali"],
+      temperament: "Culture, rizières et rencontres",
+      jours: 15,
+      joursGuides: 14,
+      nuits: 14,
+      prixPers: "1 210 €",
+      prixDeux: "2 420 €",
+      scene: "terraces",
+      vols: null,
+      etapes: [
+        { lieu: "Candidasa", region: "est", nuits: 2 },
+        { lieu: "Sidemen", region: "centre-est", nuits: 1 },
+        { lieu: "Ubud", region: "centre", nuits: 4 },
+        { lieu: "Munduk", region: "centre-nord", nuits: 2 },
+        { lieu: "Lovina", region: "nord", nuits: 1 },
+        { lieu: "Pemuteran", region: "nord-ouest", nuits: 2 },
+        { lieu: "Sanur", region: "sud", nuits: 2 },
+      ],
+      secrets: [
+        {
+          titre: "Le grand ficus",
+          texte: "Un arbre qui enjambe la route, au fond de la région de Munduk, loin de toute visite touristique.",
+        },
+        {
+          titre: "La saline de Pemuteran",
+          texte: "Quatre cents hectares, la plus grande de Bali, et personne — les cars passent à côté sans s'arrêter.",
+        },
+        {
+          titre: "Les dauphins à 5 h 45",
+          texte: "En bateau à balancier depuis Lovina, avant le petit-déjeuner. Le jour se lève sur la mer de Java.",
+        },
+      ],
+    },
+    {
+      id: "bali-lombok",
+      nom: "Bali + Lombok",
+      iles: ["bali", "lombok"],
+      temperament: "Îlots déserts et plages blanches",
+      jours: 16,
+      joursGuides: 15,
+      nuits: 15,
+      prixPers: "1 590 €",
+      prixDeux: "3 180 €",
+      scene: "rinjani",
+      vols: "Trois traversées en bateau rapide comprises",
+      etapes: [
+        { lieu: "Ubud", region: "Bali, centre", nuits: 4 },
+        { lieu: "Munduk", region: "Bali, centre-nord", nuits: 2 },
+        { lieu: "Sidemen", region: "Bali, centre-est", nuits: 2 },
+        { lieu: "Senaru", region: "Lombok, nord", nuits: 1 },
+        { lieu: "Tetebatu", region: "Lombok, est", nuits: 1 },
+        { lieu: "Sekotong", region: "Lombok, sud-ouest", nuits: 3 },
+        { lieu: "Senggigi", region: "Lombok, ouest", nuits: 1 },
+        { lieu: "Sanur", region: "Bali, sud", nuits: 1 },
+      ],
+      secrets: [
+        {
+          titre: "Sept Gili que personne ne nomme",
+          texte: "Sudak, Kedis, Nanggu, puis Layar, Goleng, Asahan et Rengit — en bateau traditionnel, grillade de poissons sur un îlot désert. Rien à voir avec les Gili des brochures.",
+        },
+        {
+          titre: "Une journée dans les rizières",
+          texte: "Chez l'habitant au nord-est de Tabanan : confection des offrandes, huile de coco, labour, plantation du riz, poissons attrapés à la main. Prévoir des vêtements de change.",
+        },
+        {
+          titre: "Loyok et ses paniers d'osier",
+          texte: "Un village d'artisans à l'est de Lombok, puis deux heures de marche dans les rizières de Tetebatu.",
+        },
+      ],
+    },
+    {
+      id: "bali-java",
+      nom: "Bali + Java",
+      iles: ["java", "bali"],
+      temperament: "Volcans mythiques et temples monumentaux",
+      jours: 19,
+      joursGuides: 18,
+      nuits: 18,
+      prixPers: "2 210 €",
+      prixDeux: "4 420 €",
+      scene: "ijen",
+      vols: "Traversée en ferry Java–Bali comprise",
+      etapes: [
+        { lieu: "Yogyakarta", region: "Java, centre", nuits: 2 },
+        { lieu: "Malang", region: "Java, est", nuits: 1 },
+        { lieu: "Bromo", region: "Java, est", nuits: 1 },
+        { lieu: "Banyuwangi", region: "Java, est", nuits: 1 },
+        { lieu: "Pemuteran", region: "Bali, nord-ouest", nuits: 2 },
+        { lieu: "Munduk", region: "Bali, centre-nord", nuits: 2 },
+        { lieu: "Ubud", region: "Bali, centre", nuits: 4 },
+        { lieu: "Amed", region: "Bali, est", nuits: 2 },
+        { lieu: "Sidemen", region: "Bali, centre-est", nuits: 2 },
+        { lieu: "Sanur", region: "Bali, sud", nuits: 1 },
+      ],
+      secrets: [
+        {
+          titre: "La flamme bleue de l'Ijen",
+          texte: "Départ à une heure du matin. Le soufre brûle en bleu dans le cratère — on ne voit ça qu'ici et en Islande.",
+        },
+        {
+          titre: "Mesangin, sur la grande place",
+          texte: "Le soir à Yogyakarta : traverser les yeux fermés entre deux grands ficus. Les habitants disent que si vous passez, ça porte bonheur. Presque personne n'y arrive.",
+        },
+        {
+          titre: "Trois volcans avant le jour",
+          texte: "Le Bromo en 4×4 à 3 h, l'Ijen à 1 h, le Batur à 2 h 15. Trois levers de soleil depuis trois sommets.",
+        },
+      ],
+    },
+    {
+      id: "bali-komodo",
+      nom: "Bali + Komodo",
+      iles: ["bali", "komodo"],
+      temperament: "Deux nuits en mer, chez les dragons",
+      jours: 14,
+      joursGuides: 13,
+      nuits: 13,
+      prixPers: "2 135 €",
+      prixDeux: "4 270 €",
+      scene: "komodo",
+      vols: "Vols intérieurs Denpasar–Labuan Bajo compris",
+      etapes: [
+        { lieu: "Candidasa", region: "Bali, est", nuits: 2 },
+        { lieu: "Sidemen", region: "Bali, centre-est", nuits: 1 },
+        { lieu: "Ubud", region: "Bali, centre", nuits: 3 },
+        { lieu: "Munduk", region: "Bali, centre-nord", nuits: 1 },
+        { lieu: "Lovina", region: "Bali, nord", nuits: 1 },
+        { lieu: "Sanur", region: "Bali, sud", nuits: 1 },
+        { lieu: "À bord", region: "baies de Komodo et Rinca", nuits: 2 },
+        { lieu: "Labuan Bajo", region: "Flores", nuits: 1 },
+        { lieu: "Jimbaran", region: "Bali, sud", nuits: 1 },
+      ],
+      secrets: [
+        {
+          titre: "L'île de Kalong au crépuscule",
+          texte: "Des milliers de roussettes quittent l'île toutes ensemble au coucher du soleil. On regarde ça depuis le pont du bateau.",
+        },
+        {
+          titre: "Taka Makassar",
+          texte: "Un banc de sable en croissant au milieu de nulle part, et le Manta Point juste à côté.",
+        },
+        {
+          titre: "Dormir dans une baie",
+          texte: "Deux nuits à bord, à Loh Buaya puis Loh Liang. Repas compris, et le silence.",
+        },
+      ],
+    },
+    {
+      id: "flores-komodo",
+      nom: "Flores + Komodo",
+      iles: ["flores", "komodo"],
+      temperament: "L'expédition — villages et Kelimutu",
+      jours: 14,
+      joursGuides: 12,
+      nuits: 13,
+      prixPers: "1 870 €",
+      prixDeux: "3 740 €",
+      scene: "kelimutu",
+      vols: "Vols intérieurs à votre charge, y compris ceux d'Agus",
+      etapes: [
+        { lieu: "Sanur", region: "Bali", nuits: 1 },
+        { lieu: "Maumere", region: "Flores, est", nuits: 2 },
+        { lieu: "Moni", region: "Flores", nuits: 1 },
+        { lieu: "Riung", region: "Flores", nuits: 2 },
+        { lieu: "Bajawa", region: "Flores", nuits: 2 },
+        { lieu: "Ruteng", region: "Flores", nuits: 1 },
+        { lieu: "Waerebo", region: "Flores, montagne", nuits: 1 },
+        { lieu: "Labuan Bajo", region: "Flores, ouest", nuits: 2 },
+        { lieu: "Sanur", region: "Bali", nuits: 1 },
+      ],
+      secrets: [
+        {
+          titre: "Une nuit à Waerebo",
+          texte: "Moto-taxi, puis deux heures et demie de marche avec un guide de sentier, pour dormir dans une maison traditionnelle en cône. Confort minimum : un matelas. C'est le moment fort du circuit.",
+        },
+        {
+          titre: "Linko Randang",
+          texte: "Des rizières dessinées en toile d'araignée, visibles de nulle part ailleurs au monde.",
+        },
+        {
+          titre: "Les roussettes d'Ontoloe",
+          texte: "Dans le parc national des 17 îles, en bateau traditionnel, avec un déjeuner de poisson grillé sur une plage désertique.",
+        },
+      ],
+    },
+  ];;
+
+  var SIGNATURES = [
+    "La rencontre avec le marionnettiste — gender, rindik et théâtre d'ombres — revient dans quatre circuits sur cinq.",
+    "Le cours de cuisine et d'offrandes chez l'habitant, dans trois circuits.",
+    "La marche de deux heures trente vers Tenganan, avec un guide de sentier.",
+    "La forêt primaire de Tamblingan en pirogue, et les rizières de Jatiluwih.",
+  ];;
+
+  var baseCircuit = null;
 
   /* Les îles sœurs — l'aventure continue au-delà de Bali. */
   var ISLANDS = [
@@ -1517,21 +1753,90 @@
     observeReveals();
   }
 
+  /* ---------- Rendu : l'archipel ---------- */
+  var ILES = [
+    { id: "java", nom: "Java", lx: 186, ly: 76, d: "M18 96 C 60 70, 120 62, 190 68 C 250 73, 300 84, 344 96 C 320 116, 260 126, 190 124 C 120 122, 56 114, 18 96 Z" },
+    { id: "bali", nom: "Bali", lx: 404, ly: 78, d: "M372 98 C 386 84, 412 80, 432 88 C 444 93, 444 110, 430 118 C 410 128, 382 122, 372 108 Z" },
+    { id: "lombok", nom: "Lombok", lx: 486, ly: 76, d: "M462 96 C 472 82, 496 80, 508 90 C 518 98, 516 114, 502 120 C 486 126, 466 116, 462 104 Z" },
+    { id: "sumbawa", nom: "Sumbawa", lx: 604, ly: 72, d: "M540 100 C 566 86, 596 88, 614 96 C 630 88, 660 90, 676 100 C 662 118, 632 122, 612 112 C 594 124, 558 120, 540 108 Z" },
+    { id: "komodo", nom: "Komodo", lx: 712, ly: 74, d: "M700 98 C 708 90, 722 90, 728 98 C 732 106, 724 116, 714 114 C 704 112, 696 106, 700 98 Z M686 116 C 692 112, 700 114, 700 120 C 700 126, 690 128, 686 122 Z" },
+    { id: "flores", nom: "Flores", lx: 872, ly: 72, d: "M754 104 C 786 88, 830 88, 862 96 C 894 90, 934 94, 962 106 C 936 122, 894 124, 864 114 C 830 124, 782 120, 754 108 Z" }
+  ];
+
+  /* Silhouettes très simplifiées — ce n'est pas une carte, c'est un
+     repère. Les îles du circuit ouvert s'allument, les autres reculent. */
+  function renderArchipel(actives) {
+    var on = function (id) { return !actives || !actives.length || actives.indexOf(id) !== -1; };
+    var s = '<svg viewBox="0 54 980 92" style="width: 100%" role="img" aria-label="Archipel indonésien">' +
+      '<path d="M0 132 Q 245 122 490 132 T 980 132" fill="none" stroke="var(--lagon)" stroke-width="1.5" opacity=".35"/>';
+    ILES.forEach(function (i) {
+      var a = on(i.id);
+      s += '<g opacity="' + (a ? 1 : 0.34) + '" style="transition: opacity .35s ease">' +
+           '<path d="' + i.d + '" fill="' + (a ? "var(--jade)" : "var(--text-faint)") + '" style="transition: fill .35s ease"/>' +
+           '<text x="' + i.lx + '" y="' + i.ly + '" text-anchor="middle" class="label" fill="' +
+             (a ? "var(--eyebrow)" : "var(--text-faint)") + '" style="font-size: 12px; letter-spacing: .16em">' + i.nom + '</text>' +
+           '</g>';
+    });
+    $("archipel").innerHTML = s + '</svg>';
+  }
+
   /* ---------- Rendu : circuits ---------- */
-  $("route").innerHTML = ROUTE.map(function (r, i) {
-    return '' +
-    '<div class="route-step reveal">' +
-      '<div class="route-rail">' +
-        '<span class="route-dot">' + String(i + 1).padStart(2, "0") + '</span>' +
-        '<span class="route-line"></span>' +
-      '</div>' +
-      '<div class="route-body">' +
-        '<span class="label">' + r.d + '</span>' +
-        '<h3>' + r.t + '</h3>' +
-        '<p>' + r.p + '</p>' +
-      '</div>' +
-    '</div>';
-  }).join("");
+  var openCircuit = null;
+
+  function renderCircuits() {
+    $("circuitList").innerHTML = CIRCUITS.map(function (c) {
+      var open = openCircuit === c.id, base = baseCircuit === c.id;
+      return '' +
+      '<li><article class="circuit" data-open="' + open + '" data-base="' + base + '" data-hover="' + c.id + '">' +
+        '<button class="circuit-head" type="button" data-circuit="' + c.id + '" aria-expanded="' + open + '">' +
+          '<span class="circuit-vignette">' + scene(c.scene, 320, 220, "circ-" + c.id) + '</span>' +
+          '<span>' +
+            '<span class="circuit-nom">' + c.nom + '</span>' +
+            '<span class="circuit-temp">' + c.temperament + '</span>' +
+            '<span class="label circuit-chiffres">' +
+              '<span>' + c.jours + ' jours</span><span>' + c.nuits + ' nuits</span>' +
+              '<span>' + c.etapes.length + ' étapes</span>' +
+            '</span>' +
+          '</span>' +
+          '<span class="circuit-prix-col">' +
+            '<span><span class="circuit-montant">' + c.prixPers + '</span>' +
+            '<span class="circuit-par">par personne · ' + c.prixDeux + ' pour deux</span></span>' +
+            '<span class="circuit-toggle">' + (open ? "Replier" : "Voir les étapes") +
+              '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transform: rotate(' + (open ? 180 : 0) + 'deg); transition: transform .3s"><polyline points="6 9 12 15 18 9"/></svg>' +
+            '</span>' +
+          '</span>' +
+        '</button>' +
+        '<div class="circuit-fiche">' +
+          '<div>' +
+            '<p class="label" style="color: var(--eyebrow); margin-bottom: 1rem">Où vous dormez</p>' +
+            '<ol class="etapes">' + c.etapes.map(function (e) {
+              return '<li><span><span class="lieu">' + e.lieu + '</span><span class="region">' + e.region + '</span></span>' +
+                     '<span class="label nuits">' + e.nuits + (e.nuits > 1 ? " nuits" : " nuit") + '</span></li>';
+            }).join("") + '</ol>' +
+            (c.vols ? '<p class="fiche-note">✈ ' + c.vols + '</p>' : '') +
+            '<p class="fiche-note">☾ Hébergements à votre charge — Agus vous conseille, vous réservez.</p>' +
+          '</div>' +
+          '<div>' +
+            '<p class="label" style="color: var(--eyebrow); margin-bottom: 1rem">✦ Trois places secrètes</p>' +
+            '<ul class="secrets">' + c.secrets.map(function (x) {
+              return '<li><h4>' + x.titre + '</h4><p>' + x.texte + '</p></li>';
+            }).join("") + '</ul>' +
+            '<div class="fiche-actions">' +
+              '<button class="btn ' + (base ? "btn-outline" : "btn-accent") + '" type="button" data-base="' + c.id + '"' +
+                (base ? ' style="color: var(--accent)"' : '') + '>' +
+                (base ? "✓ C\'est ma base de départ" : "Partir de ce circuit") + '</button>' +
+              '<a href="#sur-mesure">Le détail jour par jour ? Demandez-le à Agus.</a>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</article></li>';
+    }).join("");
+
+    $("signatures").innerHTML = SIGNATURES.map(function (t) { return "<li>" + t + "</li>"; }).join("");
+    var mis = CIRCUITS.filter(function (c) { return c.id === openCircuit; })[0];
+    renderArchipel(mis ? mis.iles : []);
+    observeReveals();
+  }
 
   /* ---------- Rendu : mois ---------- */
   (function () {
@@ -1576,6 +1881,20 @@
           '</div>';
         }).join("");
 
+    var bc = CIRCUITS.filter(function (c) { return c.id === baseCircuit; })[0];
+    $("baseCircuit").innerHTML = !bc ? "" :
+      '<div class="base-circuit">' +
+        '<div style="flex: 1">' +
+          '<p class="label" style="color: var(--eyebrow)">Ma base de départ</p>' +
+          '<p style="font-weight: 700; margin-top: 0.25rem">' + bc.nom + ' · ' + bc.jours + ' jours</p>' +
+          '<p style="font-size: var(--t-sm); color: var(--text-soft)">' + bc.temperament +
+          ' — ' + bc.prixPers + ' par personne. À déformer autant que vous voulez.</p>' +
+        '</div>' +
+        '<button class="cart-remove" data-base="' + bc.id + '" aria-label="Repartir de zéro">' +
+          '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>' +
+        '</button>' +
+      '</div>';
+
     $("islandCart").innerHTML = isles.length === 0 ? "" :
       '<p class="label" style="color: var(--eyebrow); margin-bottom: 0.75rem">Extensions îles sœurs</p>' +
       isles.map(function (e) {
@@ -1613,7 +1932,12 @@
     lines.push("⏳ Durée : " + state.duration);
     lines.push("👥 Voyageurs : " + voyageurs);
     lines.push("🎯 Style : " + (state.styles.length ? state.styles.join(", ") : "à définir ensemble"));
-    lines.push("");
+    if (baseCircuit) {
+      var b0 = CIRCUITS.filter(function (c) { return c.id === baseCircuit; })[0];
+      lines.push("🧭 Je pars de votre circuit « " + b0.nom + " » (" + b0.jours +
+                 " jours, " + b0.prixPers + " par personne) et j'aimerais l'adapter.");
+      lines.push("");
+    }
 
     if (items.length) {
       lines.push("Les expériences qui m'intéressent :");
@@ -1654,6 +1978,7 @@
 
   function render() {
     renderExperiences();
+    renderCircuits();
     renderIslands();
     renderPeriod();
     renderCart();
@@ -1668,6 +1993,18 @@
     if (addBtn) {
       var id = addBtn.dataset.add, at = state.selected.indexOf(id);
       if (at === -1) state.selected.push(id); else state.selected.splice(at, 1);
+      render();
+      return;
+    }
+    var circ = ev.target.closest("[data-circuit]");
+    if (circ) {
+      openCircuit = openCircuit === circ.dataset.circuit ? null : circ.dataset.circuit;
+      renderCircuits();
+      return;
+    }
+    var bse = ev.target.closest("[data-base]");
+    if (bse && bse.tagName === "BUTTON") {
+      baseCircuit = baseCircuit === bse.dataset.base ? null : bse.dataset.base;
       render();
       return;
     }

@@ -1,5 +1,5 @@
 import { Check, X, Bed, Ship, Route, Compass, Car } from "lucide-react";
-import { TARIFS, AGUS, CIRCUIT } from "@/lib/data";
+import { TARIFS, AGUS, CIRCUITS } from "@/lib/data";
 import SectionHead from "./SectionHead";
 import Reveal from "./Reveal";
 
@@ -118,8 +118,8 @@ export default function Tarifs() {
             </p>
             <p className="flex gap-3 text-sm leading-relaxed">
               <Route size={16} className="mt-1 shrink-0 text-tint-ink" />
-              {TARIFS.circuits} Le circuit de {CIRCUIT.jours} jours revient à{" "}
-              {CIRCUIT.prix} pour deux personnes.
+              {TARIFS.circuits} Le circuit Bali de {CIRCUITS[0].jours} jours
+              revient à {CIRCUITS[0].prixPers} par personne.
             </p>
             <p className="flex gap-3 text-sm leading-relaxed">
               <Compass size={16} className="mt-1 shrink-0 text-tint-ink" />

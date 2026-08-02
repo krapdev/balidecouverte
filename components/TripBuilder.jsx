@@ -2,7 +2,15 @@
 
 import { useMemo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { X, Minus, Plus, MessageSquare, Send, CalendarDays } from "lucide-react";
+import {
+  X,
+  Minus,
+  Plus,
+  MessageSquare,
+  Send,
+  CalendarDays,
+  Compass,
+} from "lucide-react";
 import { useTrip } from "@/lib/trip-store";
 import { buildMessage, whatsappUrl } from "@/lib/whatsapp";
 import {
@@ -65,6 +73,32 @@ export default function TripBuilder() {
         <div className="grid items-start gap-[clamp(1.75rem,4vw,2.5rem)] lg:grid-cols-[1.05fr_0.95fr]">
           {/* ---------- Colonne gauche : les choix ---------- */}
           <div className="rounded border border-rule bg-surface p-[clamp(1.25rem,3.5vw,1.85rem)]">
+            {/* La base de départ, si le voyageur en a choisi une. Elle
+                s'affiche en tête : c'est le point d'ancrage de tout le reste. */}
+            {trip.circuit && (
+              <div className="mb-6 flex items-start gap-3 rounded border border-accent bg-tint/70 p-4">
+                <Compass size={17} className="mt-1 shrink-0 text-accent" />
+                <div className="flex-1">
+                  <p className="label text-eyebrow">Ma base de départ</p>
+                  <p className="mt-1 font-semibold">
+                    {trip.circuit.nom} · {trip.circuit.jours} jours
+                  </p>
+                  <p className="text-sm text-soft">
+                    {trip.circuit.temperament} — {trip.circuit.prixPers} par
+                    personne. À déformer autant que vous voulez.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => trip.setBaseCircuit(null)}
+                  className="grid place-items-center rounded-sm p-1 text-faint transition-colors hover:text-eyebrow"
+                  aria-label="Repartir de zéro"
+                >
+                  <X size={16} />
+                </button>
+              </div>
+            )}
+
             <p className="label mb-4 font-sans font-bold tracking-[0.06em] text-faint">
               1 — Vos expériences{" "}
               <span className="text-eyebrow">({trip.count})</span>

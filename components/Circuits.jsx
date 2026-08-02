@@ -1,79 +1,232 @@
-import { ROUTE, CIRCUIT } from "@/lib/data";
+"use client";
+
+import { useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { ChevronDown, Sparkles, Plane, MoonStar } from "lucide-react";
+import Scene from "./Scene";
+import Archipel from "./Archipel";
 import SectionHead from "./SectionHead";
 import Reveal from "./Reveal";
+import { CIRCUITS, SIGNATURES } from "@/lib/data";
+import { useTrip } from "@/lib/trip-store";
 
 /**
- * Rail d'itinéraire. La numérotation est ici porteuse de sens :
- * c'est une séquence de jours, pas une décoration.
+ * Cinq points de départ, aucun point d'arrivée.
+ *
+ * Trois niveaux de lecture, pour ne pas noyer la page :
+ *   1. la carte-repère — tempérament et trois chiffres, on tranche
+ *   2. la fiche dépliable — étapes, places secrètes, ce qui est compris
+ *   3. le jour par jour — pas ici : c'est le travail d'Agus, et le
+ *      prétexte au premier message
+ *
+ * L'archipel en haut s'allume selon le circuit survolé ou ouvert : il
+ * répond à « où » sans que le texte ait à le répéter cinq fois.
  */
 export default function Circuits() {
+  const [ouvert, setOuvert] = useState(null);
+  const [survole, setSurvole] = useState(null);
+  const { baseCircuit, setBaseCircuit } = useTrip();
+  const still = useReducedMotion();
+
+  const misEnAvant = CIRCUITS.find((c) => c.id === (survole ?? ouvert));
+
   return (
-    <section
-      id="circuits"
-      className="ground-ivoire band"
-    >
+    <section id="circuits" className="ground-ivoire band">
       <div className="shell">
         <SectionHead
           eyebrow="Circuits"
-          title="Quinze jours, sept étapes, quatorze nuits."
+          title="Cinq points de départ, aucun point d'arrivée."
         >
-          Un circuit qu&apos;Agus a réellement construit, résumé à ses étapes.
-          Chacune se rallonge, se raccourcit ou se remplace : c&apos;est un point
-          de départ, pas un catalogue.
+          Ce ne sont pas des produits sur étagère : ce sont cinq circuits qu&apos;Agus
+          a réellement conduits, et que vous allez déformer. Choisissez celui
+          qui vous ressemble, gardez ce qui vous plaît, jetez le reste — la
+          conversation part de là.
         </SectionHead>
 
-        <ol className="m-0 list-none p-0">
-          {ROUTE.map((step, i) => (
-            <Reveal
-              as="li"
-              key={step.title}
-              delay={i * 0.04}
-              className="grid grid-cols-[auto_1fr] gap-5 pb-9"
-            >
-              <div className="flex flex-col items-center gap-2">
-                {/* Une lampe par étape : le halo dit l'avancée de la nuit */}
-                <span className="relative grid h-[34px] w-[34px] shrink-0 place-items-center rounded-full border border-[color-mix(in_srgb,var(--accent)_45%,transparent)] bg-surface text-[0.6875rem] font-semibold tabular-nums text-accent">
-                  <span className="relative">{String(i + 1).padStart(2, "0")}</span>
-                </span>
-                {i < ROUTE.length - 1 && (
-                  <span className="w-px flex-1 bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--accent)_40%,transparent),color-mix(in_srgb,var(--accent)_5%,transparent))]" />
-                )}
-              </div>
+        <Reveal>
+          <Archipel
+            actives={misEnAvant ? misEnAvant.iles : []}
+            className="mb-10 w-full"
+          />
+        </Reveal>
 
-              <div className="pb-1">
-                <span className="label mb-2 block text-eyebrow">
-                  {step.days}
-                </span>
-                <h3 className="mb-1.5 text-[1.375rem]">{step.title}</h3>
-                <p className="max-w-[58ch] text-sm leading-relaxed text-soft">
-                  {step.text}
-                </p>
-              </div>
-            </Reveal>
-          ))}
-        </ol>
+        <ul className="m-0 grid list-none gap-5 p-0">
+          {CIRCUITS.map((c, i) => {
+            const open = ouvert === c.id;
+            const base = baseCircuit === c.id;
+            return (
+              <Reveal as="li" key={c.id} delay={i * 0.05}>
+                <article
+                  onMouseEnter={() => setSurvole(c.id)}
+                  onMouseLeave={() => setSurvole(null)}
+                  className={`overflow-hidden rounded-[18px] border bg-surface transition-colors duration-300 ${
+                    base
+                      ? "border-accent"
+                      : open
+                        ? "border-[color-mix(in_srgb,var(--jade)_45%,var(--rule))]"
+                        : "border-rule"
+                  }`}
+                >
+                  {/* ---------- Niveau 1 : la carte-repère ---------- */}
+                  <button
+                    type="button"
+                    onClick={() => setOuvert(open ? null : c.id)}
+                    aria-expanded={open}
+                    aria-controls={`fiche-${c.id}`}
+                    className="grid w-full cursor-pointer grid-cols-[auto_1fr] items-center gap-5 p-4 text-left sm:grid-cols-[128px_1fr_auto] sm:p-5"
+                  >
+                    <span className="hidden overflow-hidden rounded-[12px] sm:block">
+                      <Scene
+                        kind={c.scene}
+                        uid={`circ-${c.id}`}
+                        w={320}
+                        h={220}
+                        className="aspect-[16/11] w-full"
+                      />
+                    </span>
 
+                    <span className="min-w-0">
+                      <span className="block font-display text-[1.375rem] leading-tight">
+                        {c.nom}
+                      </span>
+                      <span className="mt-0.5 block text-sm text-soft">
+                        {c.temperament}
+                      </span>
+                      <span className="label mt-2 flex flex-wrap gap-x-4 gap-y-1 text-faint">
+                        <span>{c.jours} jours</span>
+                        <span>{c.nuits} nuits</span>
+                        <span>{c.etapes.length} étapes</span>
+                      </span>
+                    </span>
+
+                    <span className="col-span-2 flex items-center justify-between gap-4 border-t border-rule pt-3 sm:col-span-1 sm:flex-col sm:items-end sm:border-0 sm:pt-0">
+                      <span className="text-right">
+                        <span className="block font-display text-[1.5rem] tabular-nums">
+                          {c.prixPers}
+                        </span>
+                        <span className="block text-[0.6875rem] text-faint">
+                          par personne · {c.prixDeux} pour deux
+                        </span>
+                      </span>
+                      <span className="flex items-center gap-1.5 text-sm text-accent">
+                        {open ? "Replier" : "Voir les étapes"}
+                        <ChevronDown
+                          size={16}
+                          className="transition-transform duration-300"
+                          style={{ transform: open ? "rotate(180deg)" : "none" }}
+                        />
+                      </span>
+                    </span>
+                  </button>
+
+                  {/* ---------- Niveau 2 : la fiche ---------- */}
+                  <AnimatePresence initial={false}>
+                    {open && (
+                      <motion.div
+                        id={`fiche-${c.id}`}
+                        initial={still ? false : { height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.32, ease: [0.2, 0.7, 0.3, 1] }}
+                        className="overflow-hidden"
+                      >
+                        <div className="grid gap-8 border-t border-rule p-5 sm:p-7 lg:grid-cols-[0.9fr_1.1fr]">
+                          {/* Le squelette : où je dors, combien de temps */}
+                          <div>
+                            <p className="label mb-4 text-eyebrow">
+                              Où vous dormez
+                            </p>
+                            <ol className="m-0 flex list-none flex-col gap-0 p-0">
+                              {c.etapes.map((e) => (
+                                <li
+                                  key={e.lieu + e.region}
+                                  className="flex items-baseline justify-between gap-4 border-b border-rule py-2.5 last:border-0"
+                                >
+                                  <span>
+                                    <span className="font-semibold">{e.lieu}</span>
+                                    <span className="ml-2 text-sm text-soft">
+                                      {e.region}
+                                    </span>
+                                  </span>
+                                  <span className="label shrink-0 tabular-nums text-faint">
+                                    {e.nuits} {e.nuits > 1 ? "nuits" : "nuit"}
+                                  </span>
+                                </li>
+                              ))}
+                            </ol>
+                            {c.vols && (
+                              <p className="mt-4 flex gap-2.5 text-sm text-soft">
+                                <Plane size={15} className="mt-1 shrink-0 text-faint" />
+                                {c.vols}
+                              </p>
+                            )}
+                            <p className="mt-2 flex gap-2.5 text-sm text-soft">
+                              <MoonStar size={15} className="mt-1 shrink-0 text-faint" />
+                              Hébergements à votre charge — Agus vous conseille,
+                              vous réservez.
+                            </p>
+                          </div>
+
+                          {/* Les places secrètes */}
+                          <div>
+                            <p className="label mb-4 flex items-center gap-2 text-eyebrow">
+                              <Sparkles size={14} />
+                              Trois places secrètes
+                            </p>
+                            <ul className="m-0 flex list-none flex-col gap-4 p-0">
+                              {c.secrets.map((s) => (
+                                <li key={s.titre}>
+                                  <p className="font-display text-lg leading-tight">
+                                    {s.titre}
+                                  </p>
+                                  <p className="mt-1 text-sm leading-relaxed text-soft">
+                                    {s.texte}
+                                  </p>
+                                </li>
+                              ))}
+                            </ul>
+
+                            <div className="mt-6 flex flex-wrap items-center gap-3 border-t border-rule pt-5">
+                              <button
+                                type="button"
+                                onClick={() => setBaseCircuit(base ? null : c.id)}
+                                className={`btn ${base ? "btn-outline text-accent" : "btn-accent"}`}
+                              >
+                                {base
+                                  ? "✓ C'est ma base de départ"
+                                  : "Partir de ce circuit"}
+                              </button>
+                              <a
+                                className="text-sm text-soft underline decoration-rule underline-offset-4 hover:text-ink"
+                                href="#sur-mesure"
+                              >
+                                Le détail jour par jour ? Demandez-le à Agus.
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </article>
+              </Reveal>
+            );
+          })}
+        </ul>
+
+        {/* Ce que tous les circuits partagent */}
         <Reveal delay={0.1}>
-          <div className="mt-4 flex flex-col gap-4 border-t border-rule pt-8 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="font-display text-[1.75rem] tabular-nums">
-                {CIRCUIT.prix}
-                <span className="ml-2 font-sans text-base text-soft">
-                  pour deux, soit {CIRCUIT.prixParPersonne} par personne
-                </span>
-              </p>
-              <p className="mt-1 max-w-[52ch] text-sm text-soft">
-                {CIRCUIT.formule} {CIRCUIT.horsForfait} {CIRCUIT.saison
-                  .charAt(0)
-                  .toUpperCase() + CIRCUIT.saison.slice(1)}.
-              </p>
-              <p className="mt-2 max-w-[52ch] text-sm text-soft">
-                {CIRCUIT.degressif}
-              </p>
-            </div>
-            <a className="btn btn-accent shrink-0" href="#sur-mesure">
-              Partir de ce circuit
-            </a>
+          <div className="mt-12 rounded border border-rule bg-surface-alt p-6">
+            <p className="label mb-3 text-eyebrow">
+              Ce qu&apos;Agus met dans presque tous ses circuits
+            </p>
+            <ul className="m-0 grid list-none gap-2.5 p-0 sm:grid-cols-2">
+              {SIGNATURES.map((t) => (
+                <li key={t} className="text-sm leading-relaxed text-soft">
+                  {t}
+                </li>
+              ))}
+            </ul>
           </div>
         </Reveal>
       </div>
