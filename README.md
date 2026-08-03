@@ -4,7 +4,7 @@ Prototype de site pour **Bali Découverte** — voyages privés sur-mesure à Ba
 avec Agus Yudiarta, guide balinais francophone indépendant.
 
 L'objectif produit tient en une phrase : amener le visiteur à envoyer une
-demande de devis **déjà rédigée** sur le WhatsApp d'Agus, sans formulaire, sans
+demande de devis **déjà rédigée** dans la messagerie du voyageur, sans formulaire, sans
 compte, sans intermédiaire.
 
 ## Statut du contenu — à lire avant de reprendre le projet
@@ -31,7 +31,7 @@ conversation**. `CHEMINS` pose la fourche avant tout le reste :
 | **Partir de vos envies** | Les activités cochées deviennent le squelette du sur-mesure. | `Activites.jsx` |
 
 Les deux mènent au même endroit, et se cumulent : on peut prendre le circuit
-pour base **et** cocher des envies. Le message WhatsApp dit lequel a servi de
+pour base **et** cocher des envies. L'e-mail dit lequel a servi de
 point de départ, parce que ça change le travail d'Agus — adapter un itinéraire
 qu'il connaît, ou en construire un.
 
@@ -54,12 +54,69 @@ ou quinze, c'est vous qui voyez »), et la grille au jour vit sur `/tarifs`.
   saline de quatre cents hectares. Les remonter en surface est le vrai gain de
   cette refonte.
 
-Le message WhatsApp les annonce séparément (« Ce que je ne veux pas manquer »
+L'e-mail les annonce séparément (« Ce que je ne veux pas manquer »
 puis « Et ces endroits-là m'ont donné envie ») : ce n'est pas la même demande,
 et Agus lit la seconde comme un signal sur le voyageur qu'il a en face.
 
 **Règle d'écriture** : on nomme la place secrète et on donne envie ; on ne
 publie ni l'adresse ni le chemin. Ce qui se monnaie, c'est d'y conduire.
+
+### Le canal : l'e-mail, pas WhatsApp
+
+Le configurateur produit un **e-mail** (`lib/message.js`), pas un lien
+`wa.me`. La raison n'est pas technique : un fil d'e-mail se retrouve, se cite
+et se complète — c'est le support naturel d'un aller-retour de devis, là où
+WhatsApp remonte et se perd. WhatsApp reste dans le pied de page pour une
+question rapide ; ce n'est pas le même moment.
+
+Trois pièces :
+
+- `buildMessage()` — le corps, inchangé dans sa logique ;
+- `buildSubject()` — « Demande de devis Bali — Marie, Juillet 2027, 10 à 14
+  jours ». L'objet dit l'essentiel avant l'ouverture : Agus trie sa boîte au
+  premier coup d'œil ;
+- `mailtoUrl()` — le lien. **`URLSearchParams` encode l'espace en `+`**, que
+  les clients mail n'interprètent pas : on repasse en `%20`. Sans ça, le
+  message arrive truffé de `+`.
+
+**Limite assumée, et son garde-fou.** Un `mailto:` très long est tronqué par
+certains clients, et un utilisateur de webmail sans client configuré ne voit
+rien s'ouvrir. D'où le bouton **« Copier le message »** juste en dessous. En
+production, un formulaire côté serveur enverrait le même texte — le corps est
+déjà isolé dans `buildMessage()`, il n'y a que le transport à brancher.
+
+### Les emplacements photo
+
+`components/Photo.jsx` tient la place des vraies images. Deux partis pris :
+
+1. **Le fond reste beau** — le placeholder n'est pas un rectangle gris, c'est
+   l'illustration SVG déjà dessinée. La page ne se dégrade pas en attendant.
+2. **Le placeholder porte le brief** — `brief` décrit la photo à prendre. La
+   page *est* la liste des prises de vue à donner à Agus, au lieu d'une note
+   perdue ailleurs.
+
+Le jour où la photo existe : passer `src` (et `alt`). Rien d'autre à changer,
+ni dans `Photo.jsx` ni chez les appelants. Les sept places secrètes portent
+déjà leur `photo: { scene, brief, alt, src: null }` dans `lib/data.js`.
+
+Le brief le plus important est celui du portrait : **tout le site dit « un
+homme, pas une agence » et c'est le seul endroit où on peut le prouver.**
+
+### La visionneuse
+
+`components/Lightbox.jsx` — clic sur la photo d'une place secrète, plein écran,
+et on passe de l'une à l'autre. Trois façons de naviguer parce qu'aucune ne
+couvre tout le monde : swipe, flèches du clavier, boutons visibles.
+
+**La photo et la case à cocher sont deux boutons frères, pas imbriqués.**
+Un bouton dans un bouton est invalide et impraticable au clavier ; la carte
+est donc un `<article>` qui contient les deux.
+
+> **Piège corrigé, à ne pas réintroduire.** `touchend` lisait l'écart depuis
+> l'état React. Sur un geste rapide, `touchmove` et `touchend` tombent dans le
+> même tick et la mise à jour n'est pas encore commitée : le swipe était
+> ignoré. L'écart vit maintenant dans une **ref** (la décision) *et* dans
+> l'état (le rendu qui suit le doigt).
 
 ### Bali seulement — et ce qui a été mis de côté
 
@@ -116,7 +173,7 @@ plus.** Trois de ses quatre entrées doublaient mot pour mot les journées :
 
 Le vrai problème n'était pas la redondance mais ses conséquences : deux
 mécaniques de sélection coexistaient (`selectedIds` et `dayIds`), le voyageur
-cochait deux fois la même envie, et le message WhatsApp partait avec **deux
+cochait deux fois la même envie, et le message partait avec **deux
 listes séparées**. Le store n'a plus qu'une mécanique. **Ne pas réintroduire un
 catalogue parallèle aux journées.**
 
@@ -173,7 +230,7 @@ la journée pour le faire. »* Elle donne le ton de la section mieux qu'une
 promesse commerciale.
 
 Cocher ne réserve rien : ça alimente `actIds` dans le store, et les
-activités choisies partent dans le message WhatsApp, réparties selon leur
+activités choisies partent dans l'e-mail, réparties selon leur
 famille. C'est ce que le voyageur dira en ouvrant la conversation.
 
 ### Les hébergements : « partir en paix »
@@ -196,7 +253,7 @@ subordonné :
 - Les circuits sont **une base de réflexion**, jamais un produit. Choisir un
   circuit ne commande rien : il devient la **base de départ** (`baseCircuit`
   dans le store), s'affiche en tête du configurateur avec un bouton pour
-  repartir de zéro, et le message WhatsApp l'annonce comme telle — « Je pars de
+  repartir de zéro, et l'e-mail l'annonce comme telle — « Je pars de
   votre circuit X et j'aimerais l'adapter ».
 - Les activités se cochent librement, et se cumulent avec le circuit pris pour
   base : prendre le squelette d'Agus n'interdit pas d'y ajouter ses envies.
@@ -322,7 +379,7 @@ palette — badges devenus invisibles, texte de pied de page en jade sur jade,
 blanc sur vert WhatsApp à 4,31. Toutes les combinaisons passent. **À rejouer
 après toute modification de palette.**
 
-Deux pièges si l'audit est réécrit :
+Trois pièges si l'audit est réécrit :
 
 - Chromium sérialise `color-mix()` en **`color(srgb r g b / a)`**, composantes
   en 0–1. Les lire comme du 0–255 fait passer un fond ivoire pour du noir et
@@ -330,6 +387,14 @@ Deux pièges si l'audit est réécrit :
 - Le décoratif (`aria-hidden="true"`) doit sortir de l'audit : les séparateurs
   du bandeau défilant ne sont lus par personne, et les compter noie les vraies
   régressions.
+- Ce qui est masqué par `hidden` (la visionneuse fermée) aussi, pour la même
+  raison.
+
+**Et un fond translucide au-dessus d'une illustration est indémontrable.** Le
+bandeau « Photo à venir » était à 82 % d'opacité : selon la couleur de la scène
+en dessous, le contraste pouvait passer ou non, et l'audit ne pouvait rien
+conclure. Il est désormais opaque. Règle générale : **du texte au-dessus d'une
+image ou d'une illustration exige un fond plein.**
 
 > Quatre directions ont été essayées et abandonnées, elles restent dans
 > l'historique git : le **poleng** (damier noir et blanc) en couture de
@@ -355,7 +420,9 @@ components/
   Activites.jsx      classiques et places secrètes, cochables
   Tarifs.jsx         grille saisonnière, inclus et à régler sur place
   Engagement.jsx     où va l'argent, et pourquoi c'est un argument
-  TripBuilder.jsx    configurateur + générateur WhatsApp
+  Photo.jsx          emplacement photo — placeholder porteur du brief
+  Lightbox.jsx       visionneuse plein écran, swipe et clavier
+  TripBuilder.jsx    configurateur + rédaction de l'e-mail
   MobileBar.jsx      rappel du voyage en cours, sur mobile
   Scene.jsx          paysages SVG + ornements (jepun, canang, séparateur)
   Reveal.jsx         apparition au scroll
@@ -363,7 +430,7 @@ components/
 lib/
   data.js            données de démonstration, îles sœurs, notes de saison
   trip-store.jsx     état partagé (Context + useReducer)
-  whatsapp.js        composition du message et de l'URL wa.me
+  message.js         objet, corps et lien mailto:
 ```
 
 ### État partagé
@@ -392,13 +459,14 @@ Nyepi suit le calendrier saka. Afficher un calendrier faux serait pire que de ne
 rien afficher : le texte dit ce qui est fiable et renvoie à Agus pour le reste.
 Si Agus fournit les dates exactes, elles se branchent dans cette seule fonction.
 
-### Lien WhatsApp
+### Lien e-mail
 
-`lib/whatsapp.js` compose le message, `encodeURIComponent` l'encode, et le
-bouton pointe vers `https://wa.me/628123688936?text=…`. Le message est affiché
-en clair au-dessus du bouton : on n'envoie rien que le voyageur n'ait pu relire.
+`lib/message.js` compose l'objet et le corps, et le bouton pointe vers un
+`mailto:`. **L'objet et le message sont affichés en clair au-dessus du
+bouton** : on n'envoie rien que le voyageur n'ait pu relire.
 
-Le numéro se change dans `lib/data.js` (`WHATSAPP_NUMBER`).
+L'adresse se change dans `lib/data.js` (`CONTACT.email`), le numéro WhatsApp
+du pied de page dans `WHATSAPP_NUMBER`.
 
 ## Illustrations
 

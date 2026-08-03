@@ -272,6 +272,7 @@
   .portrait-frame { position: relative; margin-inline: auto; width: 100%; max-width: 300px; }
   @media (min-width: 880px) { .portrait-frame { max-width: none; } }
   .portrait {
+    position: relative;
     aspect-ratio: 46 / 50;
     border-radius: 50% 50% var(--radius) var(--radius) / 32% 32% 1% 1%;
     overflow: hidden; background: var(--immersive-2);
@@ -386,7 +387,8 @@
   /* Le circuit, seul et déplié */
   .circuit-un { display: grid; gap: 2rem; align-items: start; }
   @media (min-width: 960px) { .circuit-un { grid-template-columns: 1fr 1.15fr; } }
-  .circuit-scene { overflow: hidden; border: 1px solid var(--rule); border-radius: 18px; }
+  .circuit-scene { position: relative; overflow: hidden; border: 1px solid var(--rule); border-radius: 18px; aspect-ratio: 16 / 11; }
+  .circuit-scene > svg { width: 100%; height: 100%; }
   .circuit-chiffres { margin-top: 1.25rem; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 1rem; color: var(--text-faint); }
   .circuit-prix { text-align: right; }
   .etapes { list-style: none; margin: 0; padding: 0; }
@@ -394,6 +396,71 @@
   .etapes li:last-child { border-bottom: 0; }
   .etape-region { font-size: var(--t-sm); color: var(--text-soft); margin-left: 0.5rem; }
   .circuit-heb { margin-top: 1rem; font-size: var(--t-sm); color: var(--text-soft); line-height: 1.6; }
+
+  /* Emplacements photo */
+  .photo-img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .photo-brief {
+    position: absolute; inset-inline: 0; bottom: 0; display: flex; gap: 0.5rem;
+    align-items: flex-start; padding: 0.5rem 0.75rem; font-size: 0.6875rem;
+    line-height: 1.35; color: var(--on-immersive); pointer-events: none;
+    /* Fond opaque : au-dessus d'une illustration dont les couleurs
+       varient, un voile translucide rend le contraste indémontrable. */
+    background: var(--immersive-2);
+  }
+  .photo-brief svg { flex: none; margin-top: 0.15rem; }
+
+  /* Les cartes d'envies, avec photo pour les places secrètes */
+  .journee-carte {
+    display: flex; flex-direction: column; height: 100%; overflow: hidden;
+    border: 1px solid var(--rule); border-radius: 14px; background: var(--surface);
+    transition: border-color .2s;
+  }
+  .journee-carte:hover { border-color: color-mix(in srgb, var(--jade) 40%, var(--rule)); }
+  .journee-carte[data-on="true"] { border-color: var(--accent); background: var(--tint); }
+  .journee-photo {
+    position: relative; display: block; width: 100%; aspect-ratio: 16 / 11;
+    overflow: hidden; border: 0; padding: 0; background: none; cursor: zoom-in;
+  }
+  .journee-photo > svg { width: 100%; height: 100%; }
+  .journee-loupe {
+    position: absolute; top: 0.75rem; right: 0.75rem; width: 2rem; height: 2rem;
+    display: grid; place-items: center; border-radius: 999px;
+    background: color-mix(in srgb, var(--immersive-2) 70%, transparent);
+    color: var(--on-immersive); backdrop-filter: blur(4px);
+  }
+  .journee-carte .journee { border: 0; border-radius: 0; background: none; flex: 1; }
+  .journee-carte .journee:hover { border-color: transparent; }
+
+  /* Visionneuse plein écran */
+  .lightbox {
+    position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column;
+    background: color-mix(in srgb, var(--immersive-2) 94%, transparent);
+    backdrop-filter: blur(4px); color: var(--on-immersive);
+  }
+  .lightbox[hidden] { display: none; }
+  .lightbox-tete { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem clamp(1rem, 4vw, 2rem); }
+  .lightbox-tete .label { color: var(--on-immersive-soft); font-variant-numeric: tabular-nums; }
+  .lightbox-rond {
+    width: 2.75rem; height: 2.75rem; display: grid; place-items: center;
+    border-radius: 999px; cursor: pointer; background: none; color: inherit;
+    border: 1px solid color-mix(in srgb, var(--on-immersive) 30%, transparent);
+    transition: border-color .2s, color .2s;
+  }
+  .lightbox-rond:hover { border-color: var(--soleil); color: var(--soleil); }
+  .lightbox-corps { flex: 1; display: flex; align-items: center; gap: 0.5rem; padding: 0 clamp(0.5rem, 3vw, 2rem) 1.5rem; }
+  .lightbox-fleche { display: none; flex: none; width: 3rem; height: 3rem; }
+  @media (min-width: 640px) { .lightbox-fleche { display: grid; } }
+  .lightbox-figure { margin: 0; flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; }
+  .lightbox-photo { position: relative; display: block; width: 100%; aspect-ratio: 3 / 2; overflow: hidden; border-radius: 14px; }
+  .lightbox-photo > svg { width: 100%; height: 100%; }
+  .lightbox-titre { margin-top: 1rem; font-family: var(--display); font-size: clamp(1.25rem, 4vw, 1.75rem); line-height: 1.2; }
+  .lightbox-texte { margin-top: 0.4rem; max-width: 62ch; font-size: var(--t-sm); color: var(--on-immersive-soft); line-height: 1.6; }
+  .lightbox-aide { padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px)); text-align: center; font-size: 0.6875rem; color: var(--on-immersive-soft); }
+  @media (min-width: 640px) { .lightbox-aide { display: none; } }
+
+  .preview-objet { margin-bottom: 0.75rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--rule); font-size: var(--t-sm); }
+  .preview-objet .label { color: var(--text-faint); }
+  .btn-copier { width: 100%; margin-top: 0.75rem; color: var(--accent); }
 
   /* Les familles d'envies */
   .famille-suivante { margin-top: 3.5rem; }
@@ -681,9 +748,9 @@
       <a href="#engagement">Engagement</a>
       <a href="#sur-mesure">Sur-Mesure</a>
     </nav>
-    <a class="btn btn-accent nav-wa" href="https://wa.me/628123688936" target="_blank" rel="noopener">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1s-.5-.2-.7.1-.8 1-.9 1.2-.3.2-.6.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.6-2c-.2-.4 0-.5.1-.7l.5-.6.3-.5v-.5l-.9-2.2c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.5 3.5 0 0 0-1.1 2.6A6.1 6.1 0 0 0 7.3 12a13.9 13.9 0 0 0 5.3 4.7c2.5 1 2.5.7 3 .6a3.2 3.2 0 0 0 2.1-1.4 2.6 2.6 0 0 0 .2-1.5Z"/><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .9.9-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg>
-      Contact WhatsApp
+    <a class="btn btn-accent nav-wa" href="#sur-mesure">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      Demander un devis
     </a>
   
   </div>
@@ -960,7 +1027,7 @@
     <div class="sec-head reveal">
       <p class="label sec-eyebrow">Sur-Mesure</p>
       <h2>Construisez votre demande.</h2>
-      <p>Quatre questions, et votre message part sur le WhatsApp d'Agus, déjà rédigé. Il répond sous 24 h, en français.</p>
+      <p>Quatre questions, et votre e-mail part chez Agus déjà rédigé. Il répond sous 24 h, en français — et c'est ce fil-là qui devient votre devis.</p>
     </div>
 
     <div class="builder">
@@ -1034,16 +1101,23 @@
           <div class="preview">
             <div class="preview-head">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg>
-              <span class="label">Aperçu — WhatsApp · +62 81 236 88 936</span>
+              <span class="label">Aperçu — e-mail à agus.yudiarta@balidecouverte.fr</span>
             </div>
+            <p class="preview-objet"><span class="label">Objet</span><br><b id="previewObjet"></b></p>
             <pre class="preview-body" id="previewBody"></pre>
           </div>
         </div>
-        <a class="btn btn-wa btn-lg btn-send" id="sendBtn" href="#" target="_blank" rel="noopener">
-          <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1s-.5-.2-.7.1-.8 1-.9 1.2-.3.2-.6.1a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.6-2c-.2-.4 0-.5.1-.7l.5-.6.3-.5v-.5l-.9-2.2c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.5 3.5 0 0 0-1.1 2.6A6.1 6.1 0 0 0 7.3 12a13.9 13.9 0 0 0 5.3 4.7c2.5 1 2.5.7 3 .6a3.2 3.2 0 0 0 2.1-1.4 2.6 2.6 0 0 0 .2-1.5Z"/><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .9.9-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg>
+        <a class="btn btn-accent btn-lg btn-send" id="sendBtn" href="#">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
           Envoyer ma demande à Agus
         </a>
-        <p class="send-note">Ouvre WhatsApp avec le message pré-rempli. Vous relisez avant d'envoyer — aucun engagement.</p>
+        <button class="btn btn-outline btn-copier" id="copyBtn" type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <span id="copyLabel">Copier le message</span>
+        </button>
+        <p class="send-note">Ouvre votre messagerie avec le message déjà rédigé. Vous
+        relisez avant d'envoyer — aucun engagement. Agus répond sous 24 h, et le
+        devis se discute par retour de mail.</p>
       </div>
     </div>
   </div>
@@ -1089,6 +1163,29 @@
   </div>
 </footer>
 
+<!-- ============================ VISIONNEUSE ============================ -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" hidden>
+  <div class="lightbox-tete">
+    <span class="label" id="lbCompteur"></span>
+    <button class="lightbox-rond" type="button" id="lbFermer" aria-label="Fermer">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="lightbox-corps" id="lbCorps">
+    <button class="lightbox-rond lightbox-fleche" type="button" data-pas="-1" aria-label="Place précédente">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+    </button>
+    <figure class="lightbox-figure" id="lbFigure">
+      <span class="lightbox-photo" id="lbPhoto"></span>
+      <figcaption><p class="lightbox-titre" id="lbTitre"></p><p class="lightbox-texte" id="lbTexte"></p></figcaption>
+    </figure>
+    <button class="lightbox-rond lightbox-fleche" type="button" data-pas="1" aria-label="Place suivante">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+    </button>
+  </div>
+  <p class="lightbox-aide">Balayez pour passer d'une place à l'autre</p>
+</div>
+
 <!-- ============================ BARRE MOBILE ============================ -->
 <div class="mobile-bar" id="mobileBar">
   <div class="mobile-count">
@@ -1106,6 +1203,7 @@
      DONNÉES — mock data
      ============================================================ */
   var PHONE = "628123688936";
+  var EMAIL = "agus.yudiarta@balidecouverte.fr";
 
 
   /* Les sept étapes du circuit de 15 jours, avec le nombre de nuits.
@@ -1223,22 +1321,24 @@
     { id: "nusa-penida", famille: "classique", titre: "Nusa Penida",
       texte: "Klingking, Broken Beach, Angel Billabong, et les raies manta si elles veulent bien. Forfait à part, de novembre à mars." },
 
-    { id: "ficus", famille: "secret", titre: "Le grand ficus",
+    { id: "ficus", famille: "secret", photo: { scene: "plantation", brief: "le ficus qui enjambe la route, quelqu'un dessous pour l'échelle", src: null }, titre: "Le grand ficus",
       texte: "Un arbre qui enjambe la route, au fond de la région de Munduk. Aucun car ne s'y arrête, aucune brochure n'en parle." },
-    { id: "saline", famille: "secret", titre: "La saline de quatre cents hectares",
+    { id: "saline", famille: "secret", photo: { scene: "terraces", brief: "les bassins au soleil rasant, un saunier au travail", src: null }, titre: "La saline de quatre cents hectares",
       texte: "La plus grande de Bali, du côté de Pemuteran — et personne. Les cars passent devant sans ralentir." },
-    { id: "tenganan", famille: "secret", titre: "Tenganan, à pied",
+    { id: "tenganan", famille: "secret", photo: { scene: "terraces", brief: "le sentier entre les rizières, puis une ruelle du village", src: null }, titre: "Tenganan, à pied",
       texte: "Deux heures trente de marche depuis Kastala à travers rizières et villages, jusqu'à l'un des rares villages bali aga qui vit encore selon ses règles d'avant l'hindouisme." },
-    { id: "peche", famille: "secret", titre: "Pêcher avec un pêcheur",
+    { id: "peche", famille: "secret", photo: { scene: "dauphins", brief: "le bateau à balancier à l'aube, les mains sur le filet", src: null }, titre: "Pêcher avec un pêcheur",
       texte: "Au filet et à la ligne, en bateau à balancier, puis on cuisine la prise et on partage le repas avec sa famille. Et la saline de Kusamba." },
-    { id: "habitant", famille: "secret", titre: "Une journée de vie balinaise",
+    { id: "habitant", famille: "secret", photo: { scene: "plantation", brief: "les mains qui tressent l'offrande, la torréfaction du café", src: null }, titre: "Une journée de vie balinaise",
       texte: "Chez une famille au nord-est de Tabanan : offrandes, torréfaction du café, huile de coco, labour et plantation du riz. Prévoyez des vêtements de rechange." },
-    { id: "marionnettiste", famille: "secret", titre: "Chez le marionnettiste",
+    { id: "marionnettiste", famille: "secret", photo: { scene: "wayang", brief: "l'écran éclairé de dos, la silhouette de la marionnette", src: null }, titre: "Chez le marionnettiste",
       texte: "Il vous met un gender et un rindik entre les mains — le xylophone de métal et celui de bambou — puis éteint la lumière et lance son théâtre d'ombres." },
-    { id: "munduk", famille: "secret", titre: "Les trois cascades de Munduk",
+    { id: "munduk", famille: "secret", photo: { scene: "canyon", brief: "la cascade en contre-plongée, un marcheur pour l'échelle", src: null }, titre: "Les trois cascades de Munduk",
       texte: "Trois heures de marche entre girofliers, cacaoyers et caféiers, puis une source d'eau chaude. Guide de sentier obligatoire." }
   ];
 
+  /* La visionneuse ne parcourt que les places secrètes : ce sont les
+     seules à porter une photo. */
   var FAMILLES = [
     { id: "classique", titre: "Les classiques",
       texte: "Ce qu'on vient chercher à Bali, et qu'il serait dommage de manquer." },
@@ -1249,6 +1349,8 @@
   var actIds = [];
 
   var EPIGRAPHE = "Être en vacances, c'est n'avoir rien à faire et avoir toute la journée pour le faire.";
+
+  var SECRETES = [];
 
   var ACTIVITES_RESTE = "Trois journées ou quinze, c'est vous qui voyez : Agus vient vous chercher à votre hôtel pour une seule journée, ou construit le circuit entier. Cette liste n'est pas fermée : d'autres journées existent, par région — le sud et la presqu'île de Bukit, l'est et Tirta Gangga, le centre-nord et Tamblingan, le sud-ouest et Tanah Lot. Agus vous propose celles qui collent à l'endroit où vous logez.";
 
@@ -1339,6 +1441,18 @@
       '<path d="M-46 -74 C -30 -102, 30 -102, 46 -74 Z" fill="' + tone + '"/>' +
       '<path d="M-46 -74 q 11 10 15 0 q 11 10 16 0 q 11 10 15 0" fill="' + tone + '" opacity=".75"/>' +
       '<circle cy="-102" r="4" fill="' + C.rocheSombre + '"/></g>';
+  }
+
+  /* Emplacement photo : le fond reste l'illustration (la page ne se
+     dégrade pas en attendant), et le bandeau porte le brief de prise de
+     vue — la section devient la liste des photos à faire. Le jour où la
+     photo existe, on passe `src` et rien d'autre ne change. */
+  function photo(o) {
+    if (o.src) return '<img src="' + o.src + '" alt="' + (o.alt || "") + '" class="photo-img">';
+    return scene(o.scene, 800, 550, o.uid) +
+      (o.brief ? '<span class="photo-brief">' +
+        '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>' +
+        '<span><b>Photo à venir</b> — ' + o.brief + '</span></span>' : "");
   }
 
   function scene(kind, w, h, uid) {
@@ -1636,8 +1750,13 @@
 
   /* ---------- Rendu : hero + portrait ---------- */
   $("heroScene").innerHTML = scene("terraces", 1600, 900, "hero");
+  /* Pas de brief sur le hero : il couvre toute la hauteur, un bandeau y
+     tomberait au milieu du texte. Le brief est dans le README. */
   $("heroBranch").innerHTML = jepunBranch();
-  $("portrait").innerHTML = portraitScene();
+  $("portrait").innerHTML = portraitScene() +
+    '<span class="photo-brief">' +
+      '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>' +
+      "<span><b>Photo à venir</b> — LA photo à faire en premier : Agus de face, en extérieur, lumière douce</span></span>";
   $("capJepun").innerHTML = jepun(22, "var(--eyebrow)");
   $("canangEsprit").innerHTML = canang(52);
   $("canangFooter").innerHTML = canang(54);
@@ -1662,7 +1781,8 @@
     var base = baseCircuit === c.id;
     $("circuitUn").innerHTML =
       '<div class="reveal">' +
-        '<div class="circuit-scene">' + scene(c.scene, 640, 440, "circuit-bali") + '</div>' +
+        '<div class="circuit-scene">' + photo({ scene: c.scene, uid: "circuit-bali",
+          brief: "une vue large du circuit — rizières de Sidemen ou de Jatiluwih" }) + '</div>' +
         '<div class="circuit-chiffres">' +
           '<span class="label">' + c.jours + ' jours &nbsp; ' + c.nuits + ' nuits &nbsp; ' + c.etapes.length + ' étapes</span>' +
           '<span class="circuit-prix">' +
@@ -1694,6 +1814,7 @@
 
   /* ---------- Rendu : les envies, en deux familles ---------- */
   function renderActivites() {
+    SECRETES = ACTIVITES.filter(function (a) { return a.famille === "secret"; });
     $("epigraphe").textContent = "\u00AB " + EPIGRAPHE + " \u00BB";
     $("activitesReste").textContent = ACTIVITES_RESTE;
     $("familles").innerHTML = FAMILLES.map(function (f, fi) {
@@ -1705,11 +1826,21 @@
         '</div>' +
         '<ul class="journees">' + liste.map(function (a) {
           var on = actIds.indexOf(a.id) !== -1;
-          return '<li class="reveal"><button class="journee" type="button" data-act="' + a.id +
-            '" aria-pressed="' + on + '">' +
-            '<span class="puce">' + (on ? "\u2713" : "+") + '</span>' +
-            '<span><h3>' + a.titre + '</h3><p>' + a.texte + '</p></span>' +
-          '</button></li>';
+          var rang = SECRETES.indexOf(a);
+          return '<li class="reveal"><article class="journee-carte" data-on="' + on + '">' +
+            (a.photo
+              ? '<button class="journee-photo" type="button" data-voir="' + rang +
+                '" aria-label="Voir ' + a.titre + ' en grand">' +
+                photo({ scene: a.photo.scene, brief: a.photo.brief, src: a.photo.src, uid: "act-" + a.id }) +
+                '<span class="journee-loupe" aria-hidden="true">' +
+                  '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>' +
+                '</span></button>'
+              : "") +
+            '<button class="journee" type="button" data-act="' + a.id + '" aria-pressed="' + on + '">' +
+              '<span class="puce">' + (on ? "\u2713" : "+") + '</span>' +
+              '<span><h3>' + a.titre + '</h3><p>' + a.texte + '</p></span>' +
+            '</button>' +
+          '</article></li>';
         }).join("") + '</ul>' +
       '</div>';
     }).join("");
@@ -1833,11 +1964,33 @@
       p.notes.map(function (n) { return "<li>" + n + "</li>"; }).join("") + "</ul>";
   }
 
-  function renderMessage() {
-    var msg = buildMessage();
-    $("previewBody").textContent = msg;
-    $("sendBtn").href = "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(msg);
+  /* L'objet dit l'essentiel avant l'ouverture : Agus trie sa boîte au
+     premier coup d'œil, et le fil garde un titre lisible. */
+  function buildSubject() {
+    return "Demande de devis Bali — " + (state.name ? state.name + ", " : "") +
+      state.month + ", " + state.duration;
   }
+
+  function renderMessage() {
+    var msg = buildMessage(), objet = buildSubject();
+    $("previewObjet").textContent = objet;
+    $("previewBody").textContent = msg;
+    /* URLSearchParams encode l'espace en « + », que les clients mail
+       n'interprètent pas : on repasse en %20. */
+    var q = new URLSearchParams({ subject: objet, body: msg }).toString().replace(/\+/g, "%20");
+    $("sendBtn").href = "mailto:" + EMAIL + "?" + q;
+  }
+
+  /* Repli pour les webmails : sans client mail configuré, un lien
+     mailto: n'ouvre rien. Le presse-papiers sauve la demande. */
+  $("copyBtn").addEventListener("click", function () {
+    var texte = buildSubject() + "\n\n" + buildMessage();
+    var fini = function () {
+      $("copyLabel").textContent = "Copié — collez-le dans votre messagerie";
+      setTimeout(function () { $("copyLabel").textContent = "Copier le message"; }, 2400);
+    };
+    if (navigator.clipboard) navigator.clipboard.writeText(texte).then(fini, function () {});
+  });
 
   function render() {
     renderChemins();
@@ -1849,9 +2002,83 @@
   }
 
   /* ============================================================
+     VISIONNEUSE
+     ============================================================ */
+  var lbIndex = null, lbRendreFocus = null, lbDepart = null, lbEcart = 0;
+
+  function lbRendu() {
+    var a = SECRETES[lbIndex];
+    $("lbCompteur").textContent = (lbIndex + 1) + " / " + SECRETES.length;
+    $("lbPhoto").innerHTML = photo({ scene: a.photo.scene, brief: a.photo.brief, src: a.photo.src, uid: "lb-" + a.id });
+    $("lbTitre").textContent = a.titre;
+    $("lbTexte").textContent = a.texte;
+    $("lightbox").setAttribute("aria-label", a.titre + " — " + (lbIndex + 1) + " sur " + SECRETES.length);
+  }
+
+  function lbOuvrir(i) {
+    lbRendreFocus = document.activeElement;
+    lbIndex = i;
+    lbRendu();
+    $("lightbox").hidden = false;
+    document.body.style.overflow = "hidden";
+    $("lbFermer").focus();
+  }
+
+  function lbFermer() {
+    if (lbIndex === null) return;
+    lbIndex = null;
+    $("lightbox").hidden = true;
+    document.body.style.overflow = "";
+    if (lbRendreFocus && lbRendreFocus.focus) lbRendreFocus.focus();
+  }
+
+  /* On boucle : depuis la dernière, « suivant » ramène à la première. */
+  function lbAller(pas) {
+    if (lbIndex === null) return;
+    lbIndex = (lbIndex + pas + SECRETES.length) % SECRETES.length;
+    lbRendu();
+  }
+
+  $("lbFermer").addEventListener("click", lbFermer);
+  $("lightbox").addEventListener("click", function (ev) {
+    if (ev.target === this) lbFermer();
+    var f = ev.target.closest("[data-pas]");
+    if (f) lbAller(Number(f.dataset.pas));
+  });
+  document.addEventListener("keydown", function (ev) {
+    if (lbIndex === null) return;
+    if (ev.key === "Escape") lbFermer();
+    else if (ev.key === "ArrowRight") lbAller(1);
+    else if (ev.key === "ArrowLeft") lbAller(-1);
+  });
+
+  /* L'écart est lu depuis une variable, pas depuis le DOM : un geste
+     rapide ne doit pas dépendre d'un rendu intermédiaire. */
+  (function () {
+    var c = $("lbCorps"), fig = $("lbFigure");
+    c.addEventListener("touchstart", function (ev) { lbDepart = ev.touches[0].clientX; lbEcart = 0; }, { passive: true });
+    c.addEventListener("touchmove", function (ev) {
+      if (lbDepart === null) return;
+      lbEcart = ev.touches[0].clientX - lbDepart;
+      fig.style.transition = "none";
+      fig.style.transform = "translateX(" + (lbEcart * 0.4) + "px)";
+    }, { passive: true });
+    c.addEventListener("touchend", function () {
+      /* 60 px : assez pour ne pas déclencher sur un simple appui,
+         assez peu pour rester confortable au pouce. */
+      if (lbEcart > 60) lbAller(-1); else if (lbEcart < -60) lbAller(1);
+      lbDepart = null; lbEcart = 0;
+      fig.style.transition = "transform .25s ease";
+      fig.style.transform = "translateX(0)";
+    });
+  })();
+
+  /* ============================================================
      ÉVÉNEMENTS
      ============================================================ */
   document.addEventListener("click", function (ev) {
+    var voir = ev.target.closest("[data-voir]");
+    if (voir) { lbOuvrir(Number(voir.dataset.voir)); return; }
     var act = ev.target.closest("[data-act]");
     if (act) {
       var ai = actIds.indexOf(act.dataset.act);

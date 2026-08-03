@@ -43,18 +43,18 @@ export default function Footer() {
         <div className="flex flex-col gap-2">
           <p className="label mb-1 text-soleil-pale">Contact direct</p>
           <a
+            href={`mailto:${CONTACT.email}`}
+            className="text-sm text-on-immersive-soft no-underline transition-colors hover:text-on-immersive"
+          >
+            {CONTACT.email}
+          </a>
+          <a
             href={`https://wa.me/${WHATSAPP_NUMBER}`}
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm text-on-immersive-soft no-underline transition-colors hover:text-on-immersive"
           >
             WhatsApp · {WHATSAPP_DISPLAY}
-          </a>
-          <a
-            href={`mailto:${CONTACT.email}`}
-            className="text-sm text-on-immersive-soft no-underline transition-colors hover:text-on-immersive"
-          >
-            {CONTACT.email}
           </a>
           <a
             href={CONTACT.facebook}

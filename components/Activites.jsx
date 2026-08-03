@@ -1,6 +1,9 @@
 "use client";
 
-import { Check, Plus } from "lucide-react";
+import { useState } from "react";
+import { Check, Plus, Expand } from "lucide-react";
+import Photo from "./Photo";
+import Lightbox from "./Lightbox";
 import SectionHead from "./SectionHead";
 import Reveal from "./Reveal";
 import {
@@ -24,6 +27,12 @@ import { useTrip } from "@/lib/trip-store";
  */
 export default function Activites() {
   const { isActiviteSelected, toggleActivite, count } = useTrip();
+  const [vue, setVue] = useState(null);
+
+  /* La visionneuse ne parcourt que les places secrètes : ce sont les
+     seules à porter une photo, et les faire défiler entre elles a du
+     sens — c'est le même genre d'endroit. */
+  const secretes = ACTIVITES.filter((a) => a.famille === "secret");
 
   return (
     <section id="envies" className="ground-sable band">
@@ -61,41 +70,70 @@ export default function Activites() {
               <ul className="m-0 grid list-none gap-4 p-0 sm:grid-cols-2">
                 {liste.map((a, i) => {
                   const on = isActiviteSelected(a.id);
+                  const rang = secretes.indexOf(a);
                   return (
                     <Reveal as="li" key={a.id} delay={(i % 2) * 0.05}>
-                      <button
-                        type="button"
-                        onClick={() => toggleActivite(a.id)}
-                        aria-pressed={on}
-                        className={`flex h-full w-full cursor-pointer items-start gap-4 rounded-[14px] border p-5 text-left transition-colors duration-200 ${
+                      <article
+                        className={`flex h-full flex-col overflow-hidden rounded-[14px] border transition-colors duration-200 ${
                           on
                             ? "border-accent bg-tint"
                             : "border-rule bg-surface hover:border-[color-mix(in_srgb,var(--jade)_40%,var(--rule))]"
                         }`}
                       >
-                        <span
-                          className={`mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full border transition-colors ${
-                            on
-                              ? "border-accent bg-accent text-accent-ink"
-                              : "border-rule text-faint"
-                          }`}
-                          aria-hidden="true"
+                        {a.photo && (
+                          <button
+                            type="button"
+                            onClick={() => setVue(rang)}
+                            className="group relative block w-full cursor-zoom-in"
+                            aria-label={`Voir ${a.titre} en grand`}
+                          >
+                            <Photo
+                              src={a.photo.src}
+                              alt={a.photo.alt}
+                              scene={a.photo.scene}
+                              uid={`act-${a.id}`}
+                              brief={a.photo.brief}
+                              className="w-full"
+                            />
+                            <span
+                              className="absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full bg-[color-mix(in_srgb,var(--immersive-deep)_70%,transparent)] text-on-immersive opacity-90 backdrop-blur-sm transition-opacity group-hover:opacity-100"
+                              aria-hidden="true"
+                            >
+                              <Expand size={14} />
+                            </span>
+                          </button>
+                        )}
+
+                        <button
+                          type="button"
+                          onClick={() => toggleActivite(a.id)}
+                          aria-pressed={on}
+                          className="flex flex-1 cursor-pointer items-start gap-4 p-5 text-left"
                         >
-                          {on ? (
-                            <Check size={13} strokeWidth={3} />
-                          ) : (
-                            <Plus size={13} />
-                          )}
-                        </span>
-                        <span>
-                          <span className="block font-display text-lg leading-tight">
-                            {a.titre}
+                          <span
+                            className={`mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full border transition-colors ${
+                              on
+                                ? "border-accent bg-accent text-accent-ink"
+                                : "border-rule text-faint"
+                            }`}
+                            aria-hidden="true"
+                          >
+                            {on ? (
+                              <Check size={13} strokeWidth={3} />
+                            ) : (
+                              <Plus size={13} />
+                            )}
                           </span>
-                          <span className="mt-1 block text-sm leading-relaxed text-soft">
-                            {a.texte}
+                          <span>
+                            <span className="block font-display text-lg leading-tight">
+                              {a.titre}
+                            </span>
+                            <span className="mt-1 block text-sm leading-relaxed text-soft">
+                              {a.texte}
+                            </span>
                           </span>
-                        </span>
-                      </button>
+                        </button>
+                      </article>
                     </Reveal>
                   );
                 })}
@@ -120,6 +158,13 @@ export default function Activites() {
           </Reveal>
         )}
       </div>
+
+      <Lightbox
+        items={secretes}
+        index={vue}
+        onClose={() => setVue(null)}
+        onIndex={setVue}
+      />
     </section>
   );
 }

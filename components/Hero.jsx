@@ -2,7 +2,8 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { BadgeCheck } from "lucide-react";
-import Scene, { JepunBranch } from "./Scene";
+import { JepunBranch } from "./Scene";
+import Photo from "./Photo";
 import { DESTINATIONS } from "@/lib/data";
 
 const rise = {
@@ -20,7 +21,14 @@ export default function Hero() {
         className="relative overflow-hidden bg-immersive-deep text-on-immersive"
       >
         <div className="absolute inset-0">
-          <Scene kind="terraces" w={1600} h={900} uid="hero" className="h-full w-full object-cover" />
+          <Photo
+            scene="terraces"
+            uid="hero"
+            ratio="h-full"
+            priority
+            className="h-full w-full"
+            alt="Rizières en terrasses de Sidemen au lever du jour"
+          />
         </div>
         {/* Le voile garde le texte lisible ; le halo, lui, est la lumière
             de l'aube qui monte derrière la vallée. */}

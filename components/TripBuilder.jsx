@@ -1,23 +1,25 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   X,
   Minus,
   Plus,
   MessageSquare,
-  Send,
   CalendarDays,
   Compass,
+  Mail,
+  Copy,
+  Check,
 } from "lucide-react";
 import { useTrip } from "@/lib/trip-store";
-import { buildMessage, whatsappUrl } from "@/lib/whatsapp";
+import { buildMessage, buildSubject, mailtoUrl } from "@/lib/message";
 import {
   DURATIONS,
   HEBERGEMENT,
   STYLES,
-  WHATSAPP_DISPLAY,
+  CONTACT,
   monthOptions,
   periodNote,
 } from "@/lib/data";
@@ -58,7 +60,22 @@ export default function TripBuilder() {
   const months = useMemo(() => monthOptions(), []);
   const period = useMemo(() => periodNote(trip.month), [trip.month]);
   const message = buildMessage(trip);
-  const href = whatsappUrl(message);
+  const objet = buildSubject(trip);
+  const href = mailtoUrl(trip, message);
+  const [copie, setCopie] = useState(false);
+
+  /* Repli pour les webmails : sans client mail configuré, un lien
+     mailto: n'ouvre rien. Le presse-papiers sauve la demande. */
+  async function copier() {
+    try {
+      await navigator.clipboard.writeText(`${objet}\n\n${message}`);
+      setCopie(true);
+      setTimeout(() => setCopie(false), 2400);
+    } catch {
+      /* Navigateur sans presse-papiers : le texte reste sélectionnable
+         juste au-dessus, rien de cassé. */
+    }
+  }
 
   return (
     <section
@@ -67,8 +84,9 @@ export default function TripBuilder() {
     >
       <div className="shell">
         <SectionHead eyebrow="Sur-Mesure" title="Construisez votre demande.">
-          Quatre questions, et votre message part sur le WhatsApp d&apos;Agus, déjà
-          rédigé. Il répond sous 24 h, en français.
+          Quatre questions, et votre e-mail part chez Agus déjà rédigé. Il
+          répond sous 24 h, en français — et c&apos;est ce fil-là qui devient
+          votre devis.
         </SectionHead>
 
         <div className="grid items-start gap-[clamp(1.75rem,4vw,2.5rem)] lg:grid-cols-[1.05fr_0.95fr]">
@@ -287,27 +305,36 @@ export default function TripBuilder() {
             <div className="rounded border border-rule bg-surface bg-[linear-gradient(to_bottom,transparent_27px,color-mix(in_srgb,var(--rule)_60%,transparent)_27px,transparent_28px)] bg-[length:100%_28px] px-5 pb-6 pt-5">
               <div className="mb-3.5 flex items-center gap-2.5 text-faint">
                 <MessageSquare size={15} strokeWidth={1.7} />
-                <span className="label">
-                  Aperçu — WhatsApp · {WHATSAPP_DISPLAY}
-                </span>
+                <span className="label">Aperçu — e-mail à {CONTACT.email}</span>
               </div>
-              <pre className="m-0 max-h-[340px] overflow-y-auto whitespace-pre-wrap break-words font-sans text-sm leading-[28px]">
+              <p className="mb-3 border-b border-rule pb-3 text-sm">
+                <span className="label text-faint">Objet</span>
+                <br />
+                <span className="font-semibold leading-[28px]">{objet}</span>
+              </p>
+              <pre className="m-0 max-h-[300px] overflow-y-auto whitespace-pre-wrap break-words font-sans text-sm leading-[28px]">
                 {message}
               </pre>
             </div>
 
-            <a
-              className="btn btn-wa btn-lg w-full"
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Send size={18} />
+            <a className="btn btn-accent btn-lg w-full" href={href}>
+              <Mail size={18} />
               Envoyer ma demande à Agus
             </a>
-            <p className="text-center text-[0.6875rem] text-faint">
-              Ouvre WhatsApp avec le message pré-rempli. Vous relisez avant
-              d&apos;envoyer — aucun engagement.
+
+            <button
+              type="button"
+              onClick={copier}
+              className="btn btn-outline w-full text-accent"
+            >
+              {copie ? <Check size={16} /> : <Copy size={16} />}
+              {copie ? "Copié — collez-le dans votre messagerie" : "Copier le message"}
+            </button>
+
+            <p className="text-center text-[0.6875rem] leading-relaxed text-faint">
+              Ouvre votre messagerie avec le message déjà rédigé. Vous relisez
+              avant d&apos;envoyer — aucun engagement. Agus répond sous 24 h, et
+              le devis se discute par retour de mail.
             </p>
           </div>
         </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { MoonStar, Check } from "lucide-react";
-import Scene from "./Scene";
+import Photo from "./Photo";
 import SectionHead from "./SectionHead";
 import Reveal from "./Reveal";
 import { CIRCUITS } from "@/lib/data";
@@ -39,7 +39,13 @@ export default function Circuit() {
         <div className="grid gap-8 lg:grid-cols-[1fr_1.15fr] lg:items-start">
           <Reveal>
             <div className="overflow-hidden rounded-[18px] border border-rule">
-              <Scene kind={c.scene} uid="circuit-bali" w={640} h={440} className="aspect-[16/11] w-full" />
+              <Photo
+                scene={c.scene}
+                uid="circuit-bali"
+                brief="une vue large du circuit — rizières de Sidemen ou de Jatiluwih"
+                alt="Les rizières en terrasses traversées par le circuit"
+                className="w-full"
+              />
             </div>
             <div className="mt-5 flex flex-wrap items-baseline justify-between gap-4">
               <span className="label flex flex-wrap gap-x-4 gap-y-1 text-faint">

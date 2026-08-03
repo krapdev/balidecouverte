@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { Menu, X, MessageCircle } from "lucide-react";
-import { WHATSAPP_NUMBER } from "@/lib/data";
+import { Menu, X, Mail } from "lucide-react";
 
 /* Les tarifs vivent sur leur propre page ; tout le reste est une ancre
    de l'accueil. Depuis /tarifs, une ancre nue ne mène nulle part — d'où
@@ -80,14 +79,9 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <a
-          className="btn btn-accent hidden lg:inline-flex"
-          href={`https://wa.me/${WHATSAPP_NUMBER}`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <MessageCircle size={16} />
-          Contact WhatsApp
+        <a className="btn btn-accent hidden lg:inline-flex" href={hrefFor("#sur-mesure")}>
+          <Mail size={16} />
+          Demander un devis
         </a>
 
         <button
@@ -116,12 +110,11 @@ export default function Navbar() {
             ))}
             <a
               className="btn btn-accent btn-lg mt-6"
-              href={`https://wa.me/${WHATSAPP_NUMBER}`}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={hrefFor("#sur-mesure")}
+              onClick={() => setOpen(false)}
             >
-              <MessageCircle size={18} />
-              Contact WhatsApp direct
+              <Mail size={18} />
+              Demander un devis
             </a>
           </nav>
         </div>

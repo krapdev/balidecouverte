@@ -1,4 +1,5 @@
 import { PortraitAgus, Canang, Jepun } from "./Scene";
+import Photo from "./Photo";
 
 /**
  * La présentation : donner envie de partir avec lui, sans en faire trop.
@@ -29,7 +30,15 @@ export default function AboutAgus() {
         <div className="grid items-start gap-[clamp(2rem,6vw,3.5rem)] md:grid-cols-[0.72fr_1.28fr]">
           <Reveal as="figure" className="m-0 mx-auto w-full max-w-[300px] md:max-w-none">
             <div className="arch bg-immersive-deep shadow-[0_30px_70px_-30px_rgba(0,0,0,0.7)]">
-              <PortraitAgus className="aspect-[46/50] w-full" />
+              <Photo
+                fallback={<PortraitAgus className="h-full w-full" />}
+                uid="agus"
+                ratio="aspect-[46/50]"
+                priority
+                brief="LA photo à faire en premier — Agus de face, en extérieur, lumière douce"
+                alt="Agus Yudiarta, guide francophone à Bali"
+                className="w-full"
+              />
             </div>
             <figcaption className="mt-3.5 border-t border-rule pt-3">
               <span className="flex items-baseline justify-between gap-4 text-faint">
