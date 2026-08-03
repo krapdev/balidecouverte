@@ -1,36 +1,15 @@
-import { Leaf, Flame, Handshake } from "lucide-react";
 import { PortraitAgus, Canang, Jepun } from "./Scene";
-import SectionHead from "./SectionHead";
-import Reveal from "./Reveal";
 
 /**
- * Tri Hita Karana — les trois causes du bien-être, la philosophie qui
- * organise la vie balinaise. Elle recouvre presque exactement ce qu'Agus
- * a à dire, et lui donne une assise que trois puces marketing n'ont pas.
+ * La présentation : donner envie de partir avec lui, sans en faire trop.
+ *
+ * Un visage, une voix, deux détails concrets. Le bloc « Tri Hita Karana »
+ * qui structurait cette section en trois harmonies a été retiré : c'était
+ * la partie la plus conceptuelle, et l'une des trois (« En direct, sans
+ * agence ») redisait mot pour mot la section Engagement.
  */
-const HARMONIES = [
-  {
-    nom: "Parahyangan",
-    gloss: "l'harmonie avec le divin",
-    icon: Flame,
-    title: "Les portes s'ouvrent",
-    text: "Agus est balinais et hindou : il vous emmène aux cérémonies de son village et aux sources que les groupes ne voient jamais.",
-  },
-  {
-    nom: "Pawongan",
-    gloss: "l'harmonie avec les hommes",
-    icon: Handshake,
-    title: "En direct, sans agence",
-    text: "Une seule personne du premier au dernier jour, et aucune commission d'agence sur ce que vous payez.",
-  },
-  {
-    nom: "Palemahan",
-    gloss: "l'harmonie avec la nature",
-    icon: Leaf,
-    title: "Hors des sentiers battus",
-    text: "Bali, Lombok, Java, Sumbawa, Flores, Komodo et Rinca — en petit groupe, jamais un site où l'on fait la queue.",
-  },
-];
+import SectionHead from "./SectionHead";
+import Reveal from "./Reveal";
 
 export default function AboutAgus() {
   return (
@@ -110,28 +89,6 @@ export default function AboutAgus() {
           </div>
         </div>
 
-        <Reveal delay={0.12}>
-          <p className="label mb-5 mt-[clamp(2.5rem,6vw,3.5rem)] text-accent">
-            Tri Hita Karana — les trois harmonies
-          </p>
-          <ul className="grid list-none gap-x-8 gap-y-6 p-0 sm:grid-cols-3">
-            {HARMONIES.map(({ icon: Icon, nom, gloss, title, text }, i) => (
-              <li
-                key={nom}
-                className="flex flex-col gap-2 border-t border-rule pt-4"
-                /* Décalage : les trois harmonies ne sont pas alignées
-                   au cordeau, elles se répondent. */
-                style={{ marginTop: `${i * 12}px` }}
-              >
-                <Icon size={20} className="text-accent" strokeWidth={1.5} />
-                <h3 className="text-lg leading-tight">{nom}</h3>
-                <p className="label -mt-1 text-faint">{gloss}</p>
-                <p className="mt-1 font-semibold">{title}</p>
-                <p className="text-sm leading-relaxed text-soft">{text}</p>
-              </li>
-            ))}
-          </ul>
-        </Reveal>
       </div>
     </section>
   );

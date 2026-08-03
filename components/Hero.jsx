@@ -71,9 +71,9 @@ export default function Hero() {
             </a>
             <a
               className="btn btn-outline btn-lg text-on-immersive"
-              href="#journees"
+              href="#chemins"
             >
-              Voir les journées
+              Par où commencer
             </a>
           </motion.div>
 

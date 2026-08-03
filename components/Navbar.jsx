@@ -10,9 +10,9 @@ import { WHATSAPP_NUMBER } from "@/lib/data";
    le préfixe « / » ajouté hors accueil par hrefFor(). */
 const LINKS = [
   { href: "#esprit", label: "L'Esprit" },
-  { href: "#journees", label: "Journées" },
-  { href: "#circuits", label: "Circuits" },
-  { href: "#iles", label: "Îles sœurs" },
+  { href: "#chemins", label: "Par où commencer" },
+  { href: "#circuit", label: "Le circuit" },
+  { href: "#envies", label: "Vos envies" },
   { href: "/tarifs", label: "Tarifs" },
   { href: "#engagement", label: "Engagement" },
   { href: "#sur-mesure", label: "Sur-Mesure" },

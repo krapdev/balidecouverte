@@ -1,16 +1,15 @@
 "use client";
 
 import { createContext, useContext, useMemo, useReducer } from "react";
-import { CIRCUITS, ISLANDS, JOURNEES, monthOptions } from "./data";
+import { ACTIVITES, CIRCUITS, monthOptions } from "./data";
 
 /**
  * État partagé du configurateur.
  *
- * Une seule mécanique de sélection : on coche des journées (et, en plus,
- * des extensions d'île). L'ancienne liste d'« expériences » doublait les
- * journées — le voyageur cochait deux fois la même envie et le message
- * WhatsApp partait avec deux listes séparées. Journees.jsx et Islands.jsx
- * écrivent, TripBuilder.jsx lit.
+ * Une seule mécanique de sélection : des activités. Elles servent les
+ * deux chemins — soit elles s'ajoutent au circuit pris pour base, soit
+ * elles forment à elles seules le squelette du sur-mesure. Activites.jsx
+ * et Circuit.jsx écrivent, TripBuilder.jsx lit.
  */
 
 const TripContext = createContext(null);
@@ -21,8 +20,7 @@ const initialState = {
   /* Le circuit choisi comme base de travail — le voyageur part de là et
      déforme. Null tant qu'il n'a rien choisi : la page ne présume rien. */
   baseCircuit: null,
-  islandIds: [],
-  dayIds: [],
+  actIds: [],
   month: months[10] ?? months[0], // ~1 an devant, saison sèche
   duration: "10 à 14 jours",
   adults: 2,
@@ -33,22 +31,13 @@ const initialState = {
 
 function reducer(state, action) {
   switch (action.type) {
-    case "toggleIsland": {
-      const has = state.islandIds.includes(action.id);
+    case "toggleActivite": {
+      const has = state.actIds.includes(action.id);
       return {
         ...state,
-        islandIds: has
-          ? state.islandIds.filter((id) => id !== action.id)
-          : [...state.islandIds, action.id],
-      };
-    }
-    case "toggleDay": {
-      const has = state.dayIds.includes(action.id);
-      return {
-        ...state,
-        dayIds: has
-          ? state.dayIds.filter((id) => id !== action.id)
-          : [...state.dayIds, action.id],
+        actIds: has
+          ? state.actIds.filter((id) => id !== action.id)
+          : [...state.actIds, action.id],
       };
     }
     case "toggleStyle": {
@@ -78,27 +67,20 @@ export function TripProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const value = useMemo(() => {
-    const days = state.dayIds
-      .map((id) => JOURNEES.find((j) => j.id === id))
-      .filter(Boolean);
+    /* On respecte l'ordre de la liste, pas celui des clics : le
+       récapitulatif se lit comme la page. */
+    const activites = ACTIVITES.filter((a) => state.actIds.includes(a.id));
     const circuit = CIRCUITS.find((c) => c.id === state.baseCircuit) ?? null;
-    const islands = state.islandIds
-      .map((id) => ISLANDS.find((e) => e.id === id))
-      .filter(Boolean);
 
     return {
       ...state,
-      islands,
-      days,
+      activites,
       circuit,
-      count: days.length + islands.length,
-      isIslandSelected: (id) => state.islandIds.includes(id),
-      isDaySelected: (id) => state.dayIds.includes(id),
-      toggleDay: (id) => dispatch({ type: "toggleDay", id }),
-      toggleIsland: (id) => dispatch({ type: "toggleIsland", id }),
+      count: activites.length,
+      isActiviteSelected: (id) => state.actIds.includes(id),
+      toggleActivite: (id) => dispatch({ type: "toggleActivite", id }),
       setBaseCircuit: (id) => dispatch({ type: "setBaseCircuit", id }),
-      removeIsland: (id) => dispatch({ type: "toggleIsland", id }),
-      removeDay: (id) => dispatch({ type: "toggleDay", id }),
+      removeActivite: (id) => dispatch({ type: "toggleActivite", id }),
       toggleStyle: (style) => dispatch({ type: "toggleStyle", style }),
       setField: (field, value) => dispatch({ type: "setField", field, value }),
       stepTraveller: (field, step) =>

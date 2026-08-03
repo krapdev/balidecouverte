@@ -17,35 +17,62 @@ récupération automatisée : le contenu ci-dessous a été fourni par copier-co
 | Bloc | Nature |
 | --- | --- |
 | `CONTACT`, `AGUS`, `TARIFS`, `CIRCUIT` | **Contenu réel du site.** À ne corriger que sur indication d'Agus. |
-| `CIRCUITS` | **Les cinq circuits réels**, résumés à leurs étapes et à trois places secrètes. |
-| `JOURNEES` | **Les excursions réelles à la journée**, résumées à une ligne. |
-| `ISLANDS` | Réel dans les destinations, **résumé rédigé** pour les descriptions. |
+| `CIRCUITS` | **Le circuit réel de 15 jours**, résumé à ses étapes. |
+| `ACTIVITES` | **Réel** : excursions à la journée et places secrètes tirées des pages d'Agus, résumées à une ligne. |
 
-### Le parti pris éditorial : trois niveaux, jamais quatorze journées
+### Le parcours : deux chemins, et un seul but
 
-Les pages d'origine déroulent chaque circuit activité par activité. C'est
-complet, mais ça se lit comme un devis. `components/Circuits.jsx` organise
-l'information en trois niveaux :
+Le voyageur ne choisit pas un produit : il choisit **par où il entre dans la
+conversation**. `CHEMINS` pose la fourche avant tout le reste :
 
-1. **La carte-repère** — nom, tempérament en une phrase, trois chiffres
-   (jours, nuits, étapes) et le prix par personne. De quoi trancher.
-2. **La fiche dépliable**, au clic et sur place — le squelette des étapes avec
-   le nombre de nuits, **trois places secrètes**, et le bouton « Partir de ce
-   circuit ».
-3. **Le jour par jour — délibérément absent.** C'est le livrable d'Agus et la
-   raison même de lui écrire. Le publier serait à la fois surcharger la page et
-   donner gratuitement ce qui justifie le premier échange. Le site dit : « Le
-   détail jour par jour ? Demandez-le à Agus. »
+| Chemin | Ce qu'il fait | Section |
+| --- | --- | --- |
+| **Partir de son circuit** | Le circuit de 15 jours devient la base (`baseCircuit`), à déformer. | `Circuit.jsx` |
+| **Partir de vos envies** | Les activités cochées deviennent le squelette du sur-mesure. | `Activites.jsx` |
 
-L'**archipel** en tête de section (`components/Archipel.jsx`) répond à la
-question « où » sans que le texte ait à la répéter cinq fois : les îles du
-circuit survolé ou ouvert s'allument.
+Les deux mènent au même endroit, et se cumulent : on peut prendre le circuit
+pour base **et** cocher des envies. Le message WhatsApp dit lequel a servi de
+point de départ, parce que ça change le travail d'Agus — adapter un itinéraire
+qu'il connaît, ou en construire un.
 
-Les **places secrètes** ne sont pas inventées : ce sont les endroits que les
-pages d'Agus signalent elles-mêmes comme « peu connus par des touristes » ou
-« loin des visites touristiques » — le grand ficus de Munduk, la saline de
-quatre cents hectares, les sept Gili du sud-ouest de Lombok, Mesangin sur la
-grande place de Yogyakarta, la nuit à Waerebo.
+**Une seule fourche, jamais deux.** L'ancienne opposait « à la journée » et
+« en circuit » : elle portait sur le format et le prix, pas sur ce que le
+voyageur a besoin de décider. Deux fourches sur la même page, et il ne sait
+plus laquelle l'engage. Le service « à la journée » n'a pas disparu pour
+autant — il est redit en une phrase dans `ACTIVITES_RESTE` (« trois journées
+ou quinze, c'est vous qui voyez »), et la grille au jour vit sur `/tarifs`.
+
+### Les classiques et les places secrètes
+
+`ACTIVITES` porte un champ `famille`, et la distinction n'est pas cosmétique :
+
+- **`classique`** — ce qu'on vient chercher à Bali. Le voyageur les connaît de
+  nom ; il veut savoir qu'Agus les fait.
+- **`secret`** — ce qu'Agus est à peu près seul à montrer. C'est son avantage,
+  et **c'était jusqu'ici enterré au troisième niveau de lecture** : il fallait
+  déplier une fiche circuit pour tomber sur le grand ficus de Munduk ou la
+  saline de quatre cents hectares. Les remonter en surface est le vrai gain de
+  cette refonte.
+
+Le message WhatsApp les annonce séparément (« Ce que je ne veux pas manquer »
+puis « Et ces endroits-là m'ont donné envie ») : ce n'est pas la même demande,
+et Agus lit la seconde comme un signal sur le voyageur qu'il a en face.
+
+**Règle d'écriture** : on nomme la place secrète et on donne envie ; on ne
+publie ni l'adresse ni le chemin. Ce qui se monnaie, c'est d'y conduire.
+
+### Bali seulement — et ce qui a été mis de côté
+
+Le parcours a été recentré sur Bali. Sont sortis de l'interface :
+
+- les **quatre autres circuits** (Bali + Lombok, Bali + Java, Bali + Komodo,
+  Flores + Komodo) ;
+- la section **îles sœurs** et ses quatre extensions ;
+- `Archipel.jsx`, la carte schématique de l'archipel, qui n'avait plus d'objet.
+
+C'est provisoire. **Les données sont dans l'historique git**
+(`git show <commit>:lib/data.js`) — les remettre prend cinq minutes, les
+réécrire de mémoire produirait des prix faux. Ne pas les recomposer à la main.
 
 ### L'engagement — l'argument le plus fort, et il est de lui
 
@@ -93,6 +120,12 @@ cochait deux fois la même envie, et le message WhatsApp partait avec **deux
 listes séparées**. Le store n'a plus qu'une mécanique. **Ne pas réintroduire un
 catalogue parallèle aux journées.**
 
+**Les trois harmonies (Tri Hita Karana) ont quitté la présentation.** C'était
+la partie la plus conceptuelle de la page, et l'une des trois — « En direct,
+sans agence » — redisait mot pour mot la section Engagement. Il reste un
+visage, une voix, et deux détails concrets (le jepun, le canang sari) : de quoi
+donner envie de partir avec lui sans en faire trop.
+
 **Le bloc « Ce qu'Agus met dans presque tous ses circuits » (`SIGNATURES`) a
 disparu.** Il redisait en quatre lignes ce que les fiches circuits montrent déjà
 — le marionnettiste, la cuisine chez l'habitant, la marche vers Tenganan, la
@@ -106,7 +139,7 @@ que rien ne dise que ce sont deux modèles différents. L'`Engagement` les suit 
 cette page — le prix pose la question « où va mon argent ? », l'engagement y
 répond — tout en restant aussi sur l'accueil.
 
-La page d'accueil est passée de **23,6 à 15,9 écrans sur mobile**.
+La page d'accueil est passée de **23,6 à 14,7 écrans sur mobile**.
 
 ### Le prix d'un circuit ne se lit jamais seul
 
@@ -117,22 +150,7 @@ La condition est collée au chiffre, et la fiche renvoie vers `/tarifs` par un
 lien « Ce que comprend ce prix ». **Ne jamais afficher le montant sans sa
 condition.**
 
-### La fourche : à la journée, ou en circuit
-
-`components/Journees.jsx` s'ouvre sur **deux cartes seulement** (`FORMULES`),
-posées avant tout le reste de la section :
-
-- **À la journée** — le voyageur loge où il veut, Agus vient le chercher le
-  matin. Une journée ou dix, sans engagement de circuit. Tarif **au jour et par
-  véhicule**.
-- **En circuit** — d'un bout à l'autre de l'île ou de plusieurs. Formule
-  globale, **prix par personne**.
-
-C'est la seule information de structure dont le voyageur a besoin pour se
-situer. Les deux modèles de prix étant différents, les confondre est l'erreur
-qui coûte le plus cher : chaque carte porte le sien.
-
-### « Pas trop de détails » — la règle de la section Journées
+### « Pas trop de détails » — la règle de la section Envies
 
 Le brief est explicite : *le but n'est pas d'acter un circuit sur le site, mais
 de donner envie de contacter Agus en ayant réfléchi au type de voyage qu'on
@@ -145,18 +163,18 @@ Deux raisons, et elles tiennent :
 1. Ce qui est faisable dans la journée **dépend de l'hôtel** où le voyageur
    loge. Publier un programme fixe, c'est promettre ce qu'on ne peut pas tenir
    depuis n'importe où sur l'île. Seul Agus peut trancher.
-2. Huit journées sont affichées, `JOURNEES_RESTE` mentionne les autres par
+2. Quatorze activités sont affichées, `ACTIVITES_RESTE` mentionne les autres par
    région sans les détailler. La page reste lisible, et la conversation garde
    une raison d'exister.
 
-L'épigraphe (`JOURNEES_EPIGRAPHE`) est **d'Agus**, reprise telle quelle de sa
+L'épigraphe (`ACTIVITES_EPIGRAPHE`) est **d'Agus**, reprise telle quelle de sa
 page Excursions : *« Être en vacances, c'est n'avoir rien à faire et avoir toute
 la journée pour le faire. »* Elle donne le ton de la section mieux qu'une
 promesse commerciale.
 
-Cocher une journée ne réserve rien : ça alimente `dayIds` dans le store, et les
-journées choisies partent dans le message WhatsApp sous « Les journées qui me
-tentent ». C'est ce que le voyageur dira en ouvrant la conversation.
+Cocher ne réserve rien : ça alimente `actIds` dans le store, et les
+activités choisies partent dans le message WhatsApp, réparties selon leur
+famille. C'est ce que le voyageur dira en ouvrant la conversation.
 
 ### Les hébergements : « partir en paix »
 
@@ -180,20 +198,13 @@ subordonné :
   dans le store), s'affiche en tête du configurateur avec un bouton pour
   repartir de zéro, et le message WhatsApp l'annonce comme telle — « Je pars de
   votre circuit X et j'aimerais l'adapter ».
-- Les journées et les îles sœurs se cochent librement et se cumulent dans le
-  même récapitulatif.
+- Les activités se cochent librement, et se cumulent avec le circuit pris pour
+  base : prendre le squelette d'Agus n'interdit pas d'y ajouter ses envies.
 - Le message part avec ce que le voyageur a **réfléchi**, pas avec ce qu'il a
   acheté.
 
 Le voyageur reste l'auteur de son voyage. Toute évolution qui transformerait la
 page en tunnel de réservation va contre le brief.
-
-### Comparer les circuits sans se tromper
-
-Les **vols intérieurs sont compris dans Bali + Komodo et pas dans Flores**, où
-les billets d'Agus sont en plus à la charge du voyageur. Sans mention explicite,
-Flores paraît moins cher alors qu'il va plus loin. Chaque fiche porte donc sa
-ligne « vols » — ne jamais la retirer.
 
 ### Les points de tarification à ne pas perdre
 
@@ -256,7 +267,7 @@ couleur qui chante sans crier.
 | Jeton | Couleur | Origine | Rôle |
 | --- | --- | --- | --- |
 | `--jade` | `#0f6b5c` | Le vert laqué des temples et des rizières mûres | **Toutes les actions** + les panneaux pleins |
-| `--soleil` | `#f2b134` | Le safran des ombrelles et des offrandes | Éclaire — CTA du hero, îles sœurs |
+| `--soleil` | `#f2b134` | Le safran des ombrelles et des offrandes | Éclaire — CTA du hero |
 | `--lagon` | `#189aa4` | Le turquoise des passes et du lac d'Ijen | Illustrations |
 | `--bougain` | `#c8455f` | Le rose des murs de Sanur | Étiquettes uniquement |
 | `--ivoire` / `--sable` | `#fbf7ee` / `#f2e9d8` | Pierre et sable | Surfaces de lecture, en alternance |
@@ -339,10 +350,9 @@ components/
   Navbar.jsx         nav collante + menu plein écran mobile
   Hero.jsx           panneau immersif, entrée en cascade, bandeau des étapes
   AboutAgus.jsx      storytelling + Tri Hita Karana
-  Journees.jsx       la fourche journée/circuit + les journées cochables
-  Circuits.jsx       cinq cartes-repères + fiches dépliables
-  Archipel.jsx       carte schématique de l'archipel
-  Islands.jsx        extensions Java, Lombok, Flores, Komodo
+  Chemins.jsx        la fourche : partir du circuit, ou de ses envies
+  Circuit.jsx        le circuit de 15 jours, déplié d'emblée
+  Activites.jsx      classiques et places secrètes, cochables
   Tarifs.jsx         grille saisonnière, inclus et à régler sur place
   Engagement.jsx     où va l'argent, et pourquoi c'est un argument
   TripBuilder.jsx    configurateur + générateur WhatsApp
@@ -359,28 +369,16 @@ lib/
 ### État partagé
 
 `lib/trip-store.jsx` expose `<TripProvider>` et `useTrip()` (React Context +
-`useReducer`). `Journees`, `Islands` et `Circuits` y écrivent, `TripBuilder` et
-`MobileBar` le
-lisent — cocher une journée met immédiatement à jour le récapitulatif, le
+`useReducer`). `Activites` et `Circuit` y écrivent, `TripBuilder` et `MobileBar`
+le lisent — cocher une activité met immédiatement à jour le récapitulatif, le
 compteur et l'aperçu du message.
+
+Le sélecteur `activites` **filtre `ACTIVITES` dans l'ordre de la liste**, pas
+dans l'ordre des clics : le récapitulatif et le message se lisent comme la
+page.
 
 Pas de Zustand : un seul provider, un état plat, aucun besoin de sélecteurs ni
 de persistance à ce stade. Un passage à Zustand ne toucherait que ce fichier.
-
-### Les îles sœurs
-
-`components/Islands.jsx` propose quatre extensions au-delà de Bali — le Kawah
-Ijen à Java, le Rinjani à Lombok, Padar à Komodo, le Kelimutu à Flores. Elles
-vivent dans le même état partagé que les journées mais dans une liste distincte
-(`islandIds`), et apparaissent sous leur propre rubrique dans le message
-WhatsApp.
-
-**Un seul fait dur par île, et aucun prix.** La version précédente affichait par
-île l'accès, la durée, le niveau *et un prix* — Java « à partir de 185 € » quand
-le circuit Bali + Java coûte 2 210 €. Deux grilles incompatibles pour la même
-destination : c'était la principale source de confusion sur les prix du site.
-Chaque île renvoie désormais au circuit qui la contient (champ `circuit`), et un
-seul chiffre fait foi. **Ne pas réintroduire de prix ici.**
 
 ### Ce qui se passe à la période choisie
 
