@@ -5,7 +5,12 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import Photo from "./Photo";
 
 /**
- * Visionneuse plein écran pour les places secrètes.
+ * Visionneuse plein écran — les photos d'UNE place secrète.
+ *
+ * Le swipe reste à l'intérieur de la place ouverte : on regarde le grand
+ * ficus sous trois angles, on ne dérive pas vers la saline. Passer d'une
+ * place à l'autre est une décision, elle se prend sur la page en
+ * refermant — pas par accident au bout d'un geste.
  *
  * Trois façons de naviguer, parce qu'aucune ne couvre tout le monde :
  * le swipe sur mobile, les flèches du clavier au bureau, et deux boutons
@@ -16,7 +21,7 @@ import Photo from "./Photo";
  * revient d'où il vient, Échap qui ferme, et le défilement de la page
  * bloqué tant que la visionneuse est ouverte.
  */
-export default function Lightbox({ items, index, onClose, onIndex }) {
+export default function Lightbox({ place, index, onClose, onIndex }) {
   const fermer = useRef(null);
   const depart = useRef(null);
   /* L'écart vit dans une ref autant que dans l'état : l'état sert au
@@ -27,17 +32,19 @@ export default function Lightbox({ items, index, onClose, onIndex }) {
   const ecart = useRef(0);
   const [glisse, setGlisse] = useState(0);
 
-  const ouvert = index != null;
-  const item = ouvert ? items[index] : null;
+  const photos = place?.photos ?? [];
+  const ouvert = index != null && photos.length > 0;
+  const vue = ouvert ? photos[index] : null;
+  const seule = photos.length < 2;
 
   const aller = useCallback(
     (pas) => {
       if (!ouvert) return;
       /* On boucle : depuis la dernière, « suivant » ramène à la première.
          Rien à gagner à bloquer le voyageur en bout de liste. */
-      onIndex((index + pas + items.length) % items.length);
+      onIndex((index + pas + photos.length) % photos.length);
     },
-    [index, items.length, onIndex, ouvert]
+    [index, photos.length, onIndex, ouvert]
   );
 
   useEffect(() => {
@@ -87,15 +94,20 @@ export default function Lightbox({ items, index, onClose, onIndex }) {
     <div
       role="dialog"
       aria-modal="true"
-      aria-label={`${item.titre} — ${index + 1} sur ${items.length}`}
+      aria-label={`${place.titre} — photo ${index + 1} sur ${photos.length}`}
       className="fixed inset-0 z-[100] flex flex-col bg-[color-mix(in_srgb,var(--immersive-deep)_94%,transparent)] backdrop-blur-sm"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
       <div className="flex items-center justify-between gap-4 px-[clamp(1rem,4vw,2rem)] py-4 text-on-immersive">
-        <span className="label tabular-nums text-on-immersive-soft">
-          {index + 1} / {items.length}
+        <span className="label text-on-immersive-soft">
+          {place.titre}
+          {!seule && (
+            <span className="ml-3 tabular-nums">
+              {index + 1} / {photos.length}
+            </span>
+          )}
         </span>
         <button
           ref={fermer}
@@ -114,14 +126,16 @@ export default function Lightbox({ items, index, onClose, onIndex }) {
         onTouchMove={pendantTouche}
         onTouchEnd={finTouche}
       >
-        <button
-          type="button"
-          onClick={() => aller(-1)}
-          className="hidden h-12 w-12 shrink-0 place-items-center rounded-full border border-[color-mix(in_srgb,var(--on-immersive)_30%,transparent)] text-on-immersive transition-colors hover:border-soleil hover:text-soleil sm:grid"
-          aria-label="Place précédente"
-        >
-          <ChevronLeft size={22} />
-        </button>
+        {!seule && (
+          <button
+            type="button"
+            onClick={() => aller(-1)}
+            className="hidden h-12 w-12 shrink-0 place-items-center rounded-full border border-[color-mix(in_srgb,var(--on-immersive)_30%,transparent)] text-on-immersive transition-colors hover:border-soleil hover:text-soleil sm:grid"
+            aria-label="Photo précédente"
+          >
+            <ChevronLeft size={22} />
+          </button>
+        )}
 
         <figure
           className="m-0 flex min-w-0 flex-1 flex-col justify-center"
@@ -131,38 +145,42 @@ export default function Lightbox({ items, index, onClose, onIndex }) {
           }}
         >
           <Photo
-            src={item.photo?.src}
-            alt={item.photo?.alt}
-            scene={item.photo?.scene}
-            uid={`lb-${item.id}`}
-            brief={item.photo?.brief}
+            src={vue.src}
+            alt={vue.alt}
+            scene={vue.scene}
+            uid={`lb-${place.id}-${index}`}
+            brief={vue.brief}
             ratio="aspect-[3/2]"
             priority
             className="w-full rounded-[14px]"
           />
           <figcaption className="mt-4 text-on-immersive">
             <p className="font-display text-[clamp(1.25rem,4vw,1.75rem)] leading-tight">
-              {item.titre}
+              {place.titre}
             </p>
             <p className="mt-1.5 max-w-[62ch] text-sm leading-relaxed text-on-immersive-soft">
-              {item.texte}
+              {place.texte}
             </p>
           </figcaption>
         </figure>
 
-        <button
-          type="button"
-          onClick={() => aller(1)}
-          className="hidden h-12 w-12 shrink-0 place-items-center rounded-full border border-[color-mix(in_srgb,var(--on-immersive)_30%,transparent)] text-on-immersive transition-colors hover:border-soleil hover:text-soleil sm:grid"
-          aria-label="Place suivante"
-        >
-          <ChevronRight size={22} />
-        </button>
+        {!seule && (
+          <button
+            type="button"
+            onClick={() => aller(1)}
+            className="hidden h-12 w-12 shrink-0 place-items-center rounded-full border border-[color-mix(in_srgb,var(--on-immersive)_30%,transparent)] text-on-immersive transition-colors hover:border-soleil hover:text-soleil sm:grid"
+            aria-label="Photo suivante"
+          >
+            <ChevronRight size={22} />
+          </button>
+        )}
       </div>
 
-      <p className="pb-[calc(1rem+env(safe-area-inset-bottom,0px))] text-center text-[0.6875rem] text-on-immersive-soft sm:hidden">
-        Balayez pour passer d&apos;une place à l&apos;autre
-      </p>
+      {!seule && (
+        <p className="pb-[calc(1rem+env(safe-area-inset-bottom,0px))] text-center text-[0.6875rem] text-on-immersive-soft sm:hidden">
+          Balayez pour voir les autres photos de cette place
+        </p>
+      )}
     </div>
   );
 }

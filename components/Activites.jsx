@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Plus, Expand } from "lucide-react";
+import { Check, Plus, Images } from "lucide-react";
 import Photo from "./Photo";
 import Lightbox from "./Lightbox";
 import SectionHead from "./SectionHead";
@@ -27,12 +27,10 @@ import { useTrip } from "@/lib/trip-store";
  */
 export default function Activites() {
   const { isActiviteSelected, toggleActivite, count } = useTrip();
-  const [vue, setVue] = useState(null);
-
-  /* La visionneuse ne parcourt que les places secrètes : ce sont les
-     seules à porter une photo, et les faire défiler entre elles a du
-     sens — c'est le même genre d'endroit. */
-  const secretes = ACTIVITES.filter((a) => a.famille === "secret");
+  /* La visionneuse s'ouvre sur UNE place : `ouverte` porte la place,
+     `photo` le rang de la vue à l'intérieur. Le swipe reste dedans. */
+  const [ouverte, setOuverte] = useState(null);
+  const [photo, setPhoto] = useState(0);
 
   return (
     <section id="envies" className="ground-sable band">
@@ -70,36 +68,36 @@ export default function Activites() {
               <ul className="m-0 grid list-none gap-4 p-0 sm:grid-cols-2">
                 {liste.map((a, i) => {
                   const on = isActiviteSelected(a.id);
-                  const rang = secretes.indexOf(a);
                   return (
                     <Reveal as="li" key={a.id} delay={(i % 2) * 0.05}>
                       <article
-                        className={`flex h-full flex-col overflow-hidden rounded-[14px] border transition-colors duration-200 ${
+                        className={`flex h-full items-stretch gap-3 overflow-hidden rounded-[14px] border p-2.5 transition-colors duration-200 ${
                           on
                             ? "border-accent bg-tint"
                             : "border-rule bg-surface hover:border-[color-mix(in_srgb,var(--jade)_40%,var(--rule))]"
                         }`}
                       >
-                        {a.photo && (
+                        {a.photos?.length > 0 && (
                           <button
                             type="button"
-                            onClick={() => setVue(rang)}
-                            className="group relative block w-full cursor-zoom-in"
-                            aria-label={`Voir ${a.titre} en grand`}
+                            onClick={() => {
+                              setOuverte(a);
+                              setPhoto(0);
+                            }}
+                            className="group relative block shrink-0 cursor-zoom-in self-start"
+                            aria-label={`Voir les ${a.photos.length} photos de ${a.titre}`}
                           >
                             <Photo
-                              src={a.photo.src}
-                              alt={a.photo.alt}
-                              scene={a.photo.scene}
+                              src={a.photos[0].src}
+                              alt={a.photos[0].alt}
+                              scene={a.photos[0].scene}
                               uid={`act-${a.id}`}
-                              brief={a.photo.brief}
-                              className="w-full"
+                              ratio="aspect-square"
+                              className="w-[84px] rounded-[10px] sm:w-[96px]"
                             />
-                            <span
-                              className="absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full bg-[color-mix(in_srgb,var(--immersive-deep)_70%,transparent)] text-on-immersive opacity-90 backdrop-blur-sm transition-opacity group-hover:opacity-100"
-                              aria-hidden="true"
-                            >
-                              <Expand size={14} />
+                            <span className="absolute bottom-1.5 left-1.5 flex items-center gap-1 rounded-full bg-immersive-deep px-2 py-0.5 text-[0.625rem] text-on-immersive">
+                              <Images size={10} strokeWidth={2} />
+                              {a.photos.length}
                             </span>
                           </button>
                         )}
@@ -108,10 +106,10 @@ export default function Activites() {
                           type="button"
                           onClick={() => toggleActivite(a.id)}
                           aria-pressed={on}
-                          className="flex flex-1 cursor-pointer items-start gap-4 p-5 text-left"
+                          className="flex flex-1 cursor-pointer items-start gap-3 p-1.5 text-left"
                         >
                           <span
-                            className={`mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full border transition-colors ${
+                            className={`mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full border transition-colors ${
                               on
                                 ? "border-accent bg-accent text-accent-ink"
                                 : "border-rule text-faint"
@@ -119,16 +117,16 @@ export default function Activites() {
                             aria-hidden="true"
                           >
                             {on ? (
-                              <Check size={13} strokeWidth={3} />
+                              <Check size={11} strokeWidth={3} />
                             ) : (
-                              <Plus size={13} />
+                              <Plus size={11} />
                             )}
                           </span>
-                          <span>
-                            <span className="block font-display text-lg leading-tight">
+                          <span className="min-w-0">
+                            <span className="block font-display text-[1.0625rem] leading-tight">
                               {a.titre}
                             </span>
-                            <span className="mt-1 block text-sm leading-relaxed text-soft">
+                            <span className="mt-1 block text-[0.8125rem] leading-relaxed text-soft">
                               {a.texte}
                             </span>
                           </span>
@@ -160,10 +158,10 @@ export default function Activites() {
       </div>
 
       <Lightbox
-        items={secretes}
-        index={vue}
-        onClose={() => setVue(null)}
-        onIndex={setVue}
+        place={ouverte}
+        index={ouverte ? photo : null}
+        onClose={() => setOuverte(null)}
+        onIndex={setPhoto}
       />
     </section>
   );

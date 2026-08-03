@@ -96,17 +96,37 @@ déjà isolé dans `buildMessage()`, il n'y a que le transport à brancher.
    perdue ailleurs.
 
 Le jour où la photo existe : passer `src` (et `alt`). Rien d'autre à changer,
-ni dans `Photo.jsx` ni chez les appelants. Les sept places secrètes portent
-déjà leur `photo: { scene, brief, alt, src: null }` dans `lib/data.js`.
+ni dans `Photo.jsx` ni chez les appelants.
+
+Chaque place secrète porte une **galerie de trois prises** —
+`photos: [{ scene, brief, alt, src: null }, …]` dans `lib/data.js`. Les trois
+briefs ne se répètent pas : un plan large, un détail, une présence humaine.
+C'est une commande photo utilisable telle quelle, pas une intention.
 
 Le brief le plus important est celui du portrait : **tout le site dit « un
 homme, pas une agence » et c'est le seul endroit où on peut le prouver.**
 
 ### La visionneuse
 
-`components/Lightbox.jsx` — clic sur la photo d'une place secrète, plein écran,
-et on passe de l'une à l'autre. Trois façons de naviguer parce qu'aucune ne
-couvre tout le monde : swipe, flèches du clavier, boutons visibles.
+`components/Lightbox.jsx` — clic sur la vignette d'une place, plein écran, et on
+passe d'une **photo de cette place** à l'autre. Trois façons de naviguer parce
+qu'aucune ne couvre tout le monde : swipe, flèches du clavier, boutons visibles.
+
+**Le swipe reste à l'intérieur de la place ouverte.** Une version précédente
+faisait défiler les sept places entre elles : on partait regarder le grand
+ficus et on se retrouvait à la saline sans l'avoir demandé. Changer de place
+est une décision — elle se prend sur la page, en refermant, pas par accident au
+bout d'un geste. La visionneuse reçoit donc `place` (une place) et non `items`
+(toutes).
+
+Sur une place à photo unique, les flèches et l'invitation au balayage
+disparaissent : `seule` les masque plutôt que de proposer une navigation qui ne
+mène nulle part.
+
+**La carte est une vignette, pas une bannière.** Une image carrée de 84 px avec
+le nombre de photos en pastille, le texte à côté. Le grand format vit dans la
+visionneuse — c'est tout son objet. La section a regagné 1,8 écran sur mobile
+en passant de la bannière pleine largeur à la vignette.
 
 **La photo et la case à cocher sont deux boutons frères, pas imbriqués.**
 Un bouton dans un bouton est invalide et impraticable au clavier ; la carte
