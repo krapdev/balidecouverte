@@ -7,7 +7,7 @@ import Scene from "./Scene";
 import Archipel from "./Archipel";
 import SectionHead from "./SectionHead";
 import Reveal from "./Reveal";
-import { CIRCUITS, SIGNATURES } from "@/lib/data";
+import { CIRCUITS } from "@/lib/data";
 import { useTrip } from "@/lib/trip-store";
 
 /**
@@ -226,21 +226,6 @@ export default function Circuits() {
           })}
         </ul>
 
-        {/* Ce que tous les circuits partagent */}
-        <Reveal delay={0.1}>
-          <div className="mt-12 rounded border border-rule bg-surface-alt p-6">
-            <p className="label mb-3 text-eyebrow">
-              Ce qu&apos;Agus met dans presque tous ses circuits
-            </p>
-            <ul className="m-0 grid list-none gap-2.5 p-0 sm:grid-cols-2">
-              {SIGNATURES.map((t) => (
-                <li key={t} className="text-sm leading-relaxed text-soft">
-                  {t}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Reveal>
       </div>
     </section>
   );

@@ -17,7 +17,7 @@ récupération automatisée : le contenu ci-dessous a été fourni par copier-co
 | Bloc | Nature |
 | --- | --- |
 | `CONTACT`, `AGUS`, `TARIFS`, `CIRCUIT` | **Contenu réel du site.** À ne corriger que sur indication d'Agus. |
-| `CIRCUITS`, `SIGNATURES` | **Les cinq circuits réels**, résumés à leurs étapes et à trois places secrètes. |
+| `CIRCUITS` | **Les cinq circuits réels**, résumés à leurs étapes et à trois places secrètes. |
 | `JOURNEES` | **Les excursions réelles à la journée**, résumées à une ligne. |
 | `ISLANDS` | Réel dans les destinations, **résumé rédigé** pour les descriptions. |
 
@@ -93,6 +93,12 @@ cochait deux fois la même envie, et le message WhatsApp partait avec **deux
 listes séparées**. Le store n'a plus qu'une mécanique. **Ne pas réintroduire un
 catalogue parallèle aux journées.**
 
+**Le bloc « Ce qu'Agus met dans presque tous ses circuits » (`SIGNATURES`) a
+disparu.** Il redisait en quatre lignes ce que les fiches circuits montrent déjà
+— le marionnettiste, la cuisine chez l'habitant, la marche vers Tenganan, la
+pirogue de Tamblingan — juste après les avoir montrées. Une récapitulation
+n'apporte rien à qui vient de lire.
+
 **Les tarifs ont quitté la page d'accueil** pour `app/tarifs/page.js`. Ils y
 étaient trop longs (2,4 écrans sur mobile) et surtout trop flous : la grille au
 jour et par véhicule cohabitait avec les forfaits de circuit par personne, sans
@@ -100,7 +106,7 @@ que rien ne dise que ce sont deux modèles différents. L'`Engagement` les suit 
 cette page — le prix pose la question « où va mon argent ? », l'engagement y
 répond — tout en restant aussi sur l'accueil.
 
-La page est passée de **23,6 à 16,6 écrans sur mobile**.
+La page d'accueil est passée de **23,6 à 15,9 écrans sur mobile**.
 
 ### Le prix d'un circuit ne se lit jamais seul
 
@@ -283,6 +289,13 @@ et le *Om Swastiastu* du pied de page.
 **La grille est cassée**, mais jamais au point de faire collision : la seconde
 colonne de journées descend d'un cran, la colonne de texte d'Agus est poussée
 sous son portrait, et les trois harmonies se répondent.
+
+**Le portrait a été réduit** — colonne plus étroite, image moins haute, largeur
+plafonnée sur mobile où elle s'étalait sur toute la page. Il tient encore
+l'esprit du guide, il ne le monopolise plus. Le vide qu'il laissait à gauche a
+servi : **les trois harmonies sont passées en pleine largeur** sous les deux
+colonnes, au lieu de s'écraser sur trois colonnes de 200 px où chaque glose
+partait sur deux lignes.
 
 **Le garde-fou.** Le risque d'une direction douce, c'est le site de retraite
 bien-être. L'antidote est la tension : imagerie apaisée d'un côté, faits durs de

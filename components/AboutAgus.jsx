@@ -14,21 +14,21 @@ const HARMONIES = [
     gloss: "l'harmonie avec le divin",
     icon: Flame,
     title: "Les portes s'ouvrent",
-    text: "Agus est balinais et hindou. Il vous emmène aux cérémonies de son village et aux sources que les groupes ne voient jamais — parce qu'on l'y attend.",
+    text: "Agus est balinais et hindou : il vous emmène aux cérémonies de son village et aux sources que les groupes ne voient jamais.",
   },
   {
     nom: "Pawongan",
     gloss: "l'harmonie avec les hommes",
     icon: Handshake,
     title: "En direct, sans agence",
-    text: "Une seule personne du premier au dernier jour, en français ou en anglais. Aucune commission d'agence : ce que vous payez fait vivre le guide, le chauffeur et les familles qui vous accueillent.",
+    text: "Une seule personne du premier au dernier jour, et aucune commission d'agence sur ce que vous payez.",
   },
   {
     nom: "Palemahan",
     gloss: "l'harmonie avec la nature",
     icon: Leaf,
     title: "Hors des sentiers battus",
-    text: "Bali, Lombok, Java, Sumbawa, Flores, Komodo et Rinca — hors des sentiers battus. Des petits groupes, jamais un site où l'on fait la queue.",
+    text: "Bali, Lombok, Java, Sumbawa, Flores, Komodo et Rinca — en petit groupe, jamais un site où l'on fait la queue.",
   },
 ];
 
@@ -47,10 +47,10 @@ export default function AboutAgus() {
           anglais, et connaît personnellement les gens chez qui vous déjeunerez.
         </SectionHead>
 
-        <div className="grid items-start gap-[clamp(2rem,6vw,3.5rem)] md:grid-cols-[0.9fr_1.1fr]">
-          <Reveal as="figure" className="m-0">
+        <div className="grid items-start gap-[clamp(2rem,6vw,3.5rem)] md:grid-cols-[0.72fr_1.28fr]">
+          <Reveal as="figure" className="m-0 mx-auto w-full max-w-[300px] md:max-w-none">
             <div className="arch bg-immersive-deep shadow-[0_30px_70px_-30px_rgba(0,0,0,0.7)]">
-              <PortraitAgus className="aspect-[46/58] w-full" />
+              <PortraitAgus className="aspect-[46/50] w-full" />
             </div>
             <figcaption className="mt-3.5 border-t border-rule pt-3">
               <span className="flex items-baseline justify-between gap-4 text-faint">
@@ -107,31 +107,31 @@ export default function AboutAgus() {
                 </p>
               </div>
             </Reveal>
-
-            <Reveal delay={0.18}>
-              <p className="label mb-5 text-accent">
-                Tri Hita Karana — les trois harmonies
-              </p>
-              <ul className="grid list-none gap-8 p-0 sm:grid-cols-3">
-                {HARMONIES.map(({ icon: Icon, nom, gloss, title, text }, i) => (
-                  <li
-                    key={nom}
-                    className="flex flex-col gap-2.5 border-t border-rule pt-5"
-                    /* Décalage : les trois harmonies ne sont pas alignées
-                       au cordeau, elles se répondent. */
-                    style={{ marginTop: `${i * 18}px` }}
-                  >
-                    <Icon size={20} className="text-accent" strokeWidth={1.5} />
-                    <h3 className="text-xl leading-tight">{nom}</h3>
-                    <p className="label -mt-1 text-faint">{gloss}</p>
-                    <p className="mt-1 font-semibold">{title}</p>
-                    <p className="text-sm leading-relaxed text-soft">{text}</p>
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
           </div>
         </div>
+
+        <Reveal delay={0.12}>
+          <p className="label mb-5 mt-[clamp(2.5rem,6vw,3.5rem)] text-accent">
+            Tri Hita Karana — les trois harmonies
+          </p>
+          <ul className="grid list-none gap-x-8 gap-y-6 p-0 sm:grid-cols-3">
+            {HARMONIES.map(({ icon: Icon, nom, gloss, title, text }, i) => (
+              <li
+                key={nom}
+                className="flex flex-col gap-2 border-t border-rule pt-4"
+                /* Décalage : les trois harmonies ne sont pas alignées
+                   au cordeau, elles se répondent. */
+                style={{ marginTop: `${i * 12}px` }}
+              >
+                <Icon size={20} className="text-accent" strokeWidth={1.5} />
+                <h3 className="text-lg leading-tight">{nom}</h3>
+                <p className="label -mt-1 text-faint">{gloss}</p>
+                <p className="mt-1 font-semibold">{title}</p>
+                <p className="text-sm leading-relaxed text-soft">{text}</p>
+              </li>
+            ))}
+          </ul>
+        </Reveal>
       </div>
     </section>
   );

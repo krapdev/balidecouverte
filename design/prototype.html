@@ -265,12 +265,14 @@
      ============================================================ */
   .agus-grid { display: grid; gap: clamp(2rem, 6vw, 3.5rem); align-items: start; }
   @media (min-width: 880px) {
-    .agus-grid { grid-template-columns: 0.9fr 1.1fr; }
+    .agus-grid { grid-template-columns: 0.72fr 1.28fr; }
     .agus-body { margin-top: 4rem; }
   }
 
-  .portrait-frame { position: relative; }
+  .portrait-frame { position: relative; margin-inline: auto; width: 100%; max-width: 300px; }
+  @media (min-width: 880px) { .portrait-frame { max-width: none; } }
   .portrait {
+    aspect-ratio: 46 / 50;
     border-radius: 50% 50% var(--radius) var(--radius) / 32% 32% 1% 1%;
     overflow: hidden; background: var(--immersive-2);
     box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.7);
@@ -289,15 +291,16 @@
 
   /* Tri Hita Karana — les trois causes du bien-être. Décalées : elles
      se répondent, elles ne s'alignent pas au cordeau. */
-  .harmonies { display: grid; gap: 2rem; list-style: none; margin: 0; padding: 0; }
+  .harmonies-bloc { margin-top: clamp(2.5rem, 6vw, 3.5rem); }
+  .harmonies { display: grid; gap: 1.5rem 2rem; list-style: none; margin: 0; padding: 0; }
   @media (min-width: 620px) { .harmonies { grid-template-columns: repeat(3, 1fr); } }
-  .harmonies li { display: flex; flex-direction: column; gap: 0.6rem; border-top: 1px solid var(--rule); padding-top: 1.25rem; }
+  .harmonies li { display: flex; flex-direction: column; gap: 0.5rem; border-top: 1px solid var(--rule); padding-top: 1rem; }
   @media (min-width: 620px) {
-    .harmonies li:nth-child(2) { margin-top: 18px; }
-    .harmonies li:nth-child(3) { margin-top: 36px; }
+    .harmonies li:nth-child(2) { margin-top: 12px; }
+    .harmonies li:nth-child(3) { margin-top: 24px; }
   }
   .harmonies svg { color: var(--accent); }
-  .harmonies h3 { font-size: var(--t-xl); line-height: 1.2; }
+  .harmonies h3 { font-size: var(--t-lg); line-height: 1.2; }
   .harmonies .label { margin-top: -0.35rem; }
   .harmonie-title { font-weight: 700; margin-top: 0.25rem; }
   .harmonies p { font-size: var(--t-sm); color: var(--text-soft); line-height: 1.6; }
@@ -448,14 +451,6 @@
   .fiche-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; border-top: 1px solid var(--rule); margin-top: 1.5rem; padding-top: 1.25rem; }
   .fiche-actions a { font-size: var(--t-sm); color: var(--text-soft); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--rule); }
   .fiche-note { display: flex; gap: 0.6rem; margin-top: 1rem; font-size: var(--t-sm); color: var(--text-soft); }
-  .signatures { margin-top: 3rem; border: 1px solid var(--rule); border-radius: var(--radius); background: var(--surface-alt); padding: 1.5rem; }
-  .signatures ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.65rem; }
-  @media (min-width: 640px) { .signatures ul { grid-template-columns: 1fr 1fr; } }
-  .signatures li { font-size: var(--t-sm); color: var(--text-soft); line-height: 1.6; }
-  /* La base de départ, rappelée dans le configurateur */
-  .base-circuit { display: flex; align-items: flex-start; gap: 0.75rem; border: 1px solid var(--accent); background: var(--tint); border-radius: var(--radius); padding: 1rem; margin-bottom: 1.5rem; }
-  .base-circuit .cart-remove { flex: none; }
-
   /* L'engagement, juste après les tarifs — c'est là qu'il pèse : la
      grille pose la question « où va mon argent », la section y répond. */
   .engagement { list-style: none; margin: 0; padding: 0; display: grid; gap: 2rem; }
@@ -771,9 +766,10 @@
             vrai début de la journée.
           </p>
         </div>
-
-        <div class="reveal">
-          <p class="label" style="color: var(--accent); margin-bottom: 1.25rem">
+      </div>
+    </div>
+    <div class="reveal harmonies-bloc">
+      <p class="label" style="color: var(--accent); margin-bottom: 1.25rem">
             Tri Hita Karana — les trois harmonies
           </p>
           <ul class="harmonies">
@@ -782,33 +778,27 @@
               <h3>Parahyangan</h3>
               <p class="label" style="color: var(--text-faint)">l'harmonie avec le divin</p>
               <p class="harmonie-title">Les portes s'ouvrent</p>
-              <p>Agus est balinais et hindou. Il vous emmène aux cérémonies de
-              son village et aux sources que les groupes ne voient jamais —
-              parce qu'on l'y attend.</p>
+              <p>Agus est balinais et hindou : il vous emmène aux cérémonies
+              de son village et aux sources que les groupes ne voient jamais.</p>
             </li>
             <li>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></svg>
               <h3>Pawongan</h3>
               <p class="label" style="color: var(--text-faint)">l'harmonie avec les hommes</p>
               <p class="harmonie-title">En direct, sans agence</p>
-              <p>Une seule personne du premier au dernier jour, en français ou
-              en anglais. Aucune commission d'agence : ce que vous payez fait
-              vivre le guide, le chauffeur et les familles qui vous
-              accueillent.</p>
+              <p>Une seule personne du premier au dernier jour, et aucune
+              commission d'agence sur ce que vous payez.</p>
             </li>
             <li>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
               <h3>Palemahan</h3>
               <p class="label" style="color: var(--text-faint)">l'harmonie avec la nature</p>
               <p class="harmonie-title">Hors des sentiers battus</p>
-              <p>Bali, Lombok, Java, Sumbawa, Flores, Komodo et Rinca — hors des
-              sentiers battus. Des petits groupes, jamais un site où l'on fait la
-              queue.</p>
+              <p>Bali, Lombok, Java, Sumbawa, Flores, Komodo et Rinca — en
+              petit groupe, jamais un site où l'on fait la queue.</p>
             </li>
           </ul>
         </div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -873,13 +863,6 @@
     <div class="reveal" id="archipel" style="margin-bottom: 2.5rem"></div>
 
     <ul class="circuits" id="circuitList"></ul>
-
-    <div class="reveal signatures">
-      <p class="label" style="color: var(--eyebrow); margin-bottom: 0.75rem">
-        Ce qu'Agus met dans presque tous ses circuits
-      </p>
-      <ul id="signatures"></ul>
-    </div>
   </div>
 </section>
 
@@ -1390,12 +1373,7 @@
     },
   ];;
 
-  var SIGNATURES = [
-    "La rencontre avec le marionnettiste — gender, rindik et théâtre d'ombres — revient dans quatre circuits sur cinq.",
-    "Le cours de cuisine et d'offrandes chez l'habitant, dans trois circuits.",
-    "La marche de deux heures trente vers Tenganan, avec un guide de sentier.",
-    "La forêt primaire de Tamblingan en pirogue, et les rizières de Jatiluwih.",
-  ];;
+
 
   var baseCircuit = null;
 
@@ -2028,7 +2006,6 @@
       '</article></li>';
     }).join("");
 
-    $("signatures").innerHTML = SIGNATURES.map(function (t) { return "<li>" + t + "</li>"; }).join("");
     var mis = CIRCUITS.filter(function (c) { return c.id === openCircuit; })[0];
     renderArchipel(mis ? mis.iles : []);
     observeReveals();
