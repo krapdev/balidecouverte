@@ -22,8 +22,14 @@ import { useTrip } from "@/lib/trip-store";
  * plutôt que par une agence. Ces dernières étaient jusqu'ici enterrées
  * au troisième niveau de lecture, dans une fiche circuit dépliable.
  *
- * Volontairement pauvre en détail : on nomme et on donne envie, on ne
- * publie ni adresse ni chemin. Ce qui se monnaie, c'est d'y conduire.
+ * **Même carte pour les deux familles.** Seule la rubrique change : deux
+ * gabarits auraient laissé croire que les classiques comptent moins,
+ * alors qu'elles sont souvent ce qui décide du voyage.
+ *
+ * La carte est compacte et sert à choisir — vignette, titre, trois
+ * lignes calées sur la hauteur de l'image. Le développement vit dans le
+ * plein écran : c'est là qu'on lit le récit et qu'on fait défiler les
+ * photos. On nomme et on donne envie, on ne publie ni adresse ni chemin.
  */
 export default function Activites() {
   const { isActiviteSelected, toggleActivite, count } = useTrip();
@@ -85,7 +91,7 @@ export default function Activites() {
                               setPhoto(0);
                             }}
                             className="group relative block shrink-0 cursor-zoom-in self-start"
-                            aria-label={`Voir les ${a.photos.length} photos de ${a.titre}`}
+                            aria-label={`Voir ${a.titre} en grand`}
                           >
                             <Photo
                               src={a.photos[0].src}
@@ -126,7 +132,11 @@ export default function Activites() {
                             <span className="block font-display text-[1.0625rem] leading-tight">
                               {a.titre}
                             </span>
-                            <span className="mt-1 block text-[0.8125rem] leading-relaxed text-soft">
+                            {/* Trois lignes : le texte se cale sur la
+                                hauteur de la vignette, toutes les cartes
+                                font la même taille. La suite est dans le
+                                plein écran. */}
+                            <span className="mt-1 line-clamp-3 text-[0.8125rem] leading-relaxed text-soft">
                               {a.texte}
                             </span>
                           </span>

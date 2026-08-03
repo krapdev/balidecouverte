@@ -98,10 +98,11 @@ déjà isolé dans `buildMessage()`, il n'y a que le transport à brancher.
 Le jour où la photo existe : passer `src` (et `alt`). Rien d'autre à changer,
 ni dans `Photo.jsx` ni chez les appelants.
 
-Chaque place secrète porte une **galerie de trois prises** —
-`photos: [{ scene, brief, alt, src: null }, …]` dans `lib/data.js`. Les trois
-briefs ne se répètent pas : un plan large, un détail, une présence humaine.
-C'est une commande photo utilisable telle quelle, pas une intention.
+**Les quatorze activités** — classiques comprises — portent une galerie de
+trois prises : `photos: [{ scene, brief, alt, src: null }, …]` dans
+`lib/data.js`. Les trois briefs ne se répètent pas : **un plan large, un
+détail, une présence humaine**. Quarante-deux prises de vue décrites, une
+commande photo utilisable telle quelle plutôt qu'une intention.
 
 Le brief le plus important est celui du portrait : **tout le site dit « un
 homme, pas une agence » et c'est le seul endroit où on peut le prouver.**
@@ -123,10 +124,26 @@ Sur une place à photo unique, les flèches et l'invitation au balayage
 disparaissent : `seule` les masque plutôt que de proposer une navigation qui ne
 mène nulle part.
 
-**La carte est une vignette, pas une bannière.** Une image carrée de 84 px avec
-le nombre de photos en pastille, le texte à côté. Le grand format vit dans la
-visionneuse — c'est tout son objet. La section a regagné 1,8 écran sur mobile
-en passant de la bannière pleine largeur à la vignette.
+**Une seule carte pour les deux familles.** Vignette carrée de 84 px, pastille
+du nombre de photos, titre, et le texte coupé à trois lignes — calé sur la
+hauteur de l'image, si bien que les cartes d'une même rangée font la même
+taille. Deux gabarits distincts auraient laissé croire que les classiques
+comptent moins, alors qu'elles sont souvent ce qui décide du voyage. Seule la
+rubrique les sépare.
+
+**Deux niveaux de texte, et c'est structurel.** `texte` est écrit pour la carte
+(court, il sera coupé) ; `recit` pour le plein écran — le déroulé, ce qu'on
+ressent, l'utile. Écrire un seul texte pour les deux, c'est le rendre trop long
+pour la carte ou trop maigre pour l'écran.
+
+> ⚠️ Les `recit` sont **rédigés à partir des pages d'Agus**, pas dictés par
+> lui. Les faits en viennent, la mise en mots est de nous. À lui faire relire
+> avant mise en ligne.
+
+> **Piège Tailwind.** `line-clamp-3` pose `display: -webkit-box` ; une classe
+> `block` sur le même élément l'écrase et **annule silencieusement la coupe**
+> — six lignes s'affichaient au lieu de trois, et seule la mesure des hauteurs
+> de cartes l'a montré. Ne pas remettre `block` à côté d'un `line-clamp`.
 
 **La photo et la case à cocher sont deux boutons frères, pas imbriqués.**
 Un bouton dans un bouton est invalide et impraticable au clavier ; la carte

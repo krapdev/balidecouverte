@@ -440,7 +440,14 @@
   .journee-carte .journee:hover { border-color: transparent; }
   .journee-carte .journee .puce { width: 1.25rem; height: 1.25rem; font-size: 0.7rem; }
   .journee-carte .journee h3 { font-size: 1.0625rem; }
-  .journee-carte .journee p { font-size: 0.8125rem; }
+  .journee-carte .journee p {
+    font-size: 0.8125rem;
+    /* Trois lignes : le texte se cale sur la hauteur de la vignette et
+       toutes les cartes font la même taille. La suite est en plein
+       écran. */
+    display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3;
+    line-clamp: 3; overflow: hidden;
+  }
 
   /* Visionneuse plein écran */
   .lightbox {
@@ -1320,34 +1327,61 @@
      On nomme et on donne envie ; on ne publie ni adresse ni chemin. */
   var ACTIVITES = [
     { id: "ubud-temples", famille: "classique", titre: "Ubud et ses temples",
-      texte: "Goa Gajah, la Lune de Pejeng, le mausolée de Gunung Kawi, les bains sacrés de Tirta Empul et le village de Penglipuran." },
+      texte: "Goa Gajah, la Lune de Pejeng, le mausolée de Gunung Kawi, les bains sacrés de Tirta Empul et le village de Penglipuran.",
+      recit: "La journée qui donne les clés du reste du séjour. On entre par Goa Gajah, la grotte de l'Éléphant, puis la Lune de Pejeng — le plus grand tambour de bronze d'Asie du Sud-Est, coulé il y a plus de deux mille ans. Gunung Kawi et ses mausolées taillés dans la falaise se méritent : trois cents marches à descendre, autant à remonter. À Tirta Empul, les Balinais viennent se purifier sous les fontaines ; on peut y entrer, sarong obligatoire. Penglipuran ferme la journée — un village où chaque portail est identique au suivant, sur toute la longueur de la rue.",
+      photos: [{ scene: "wayang", brief: "plan large : les mausolées de Gunung Kawi dans la falaise", src: null }, { scene: "canyon", brief: "détail : l'eau qui sort des fontaines de Tirta Empul", src: null }, { scene: "terraces", brief: "la rue de Penglipuran et ses portails alignés", src: null }] },
     { id: "jatiluwih", famille: "classique", titre: "Les rizières de Jatiluwih",
-      texte: "Les terrasses classées à l'UNESCO, et le subak — le système d'irrigation que les villages se partagent depuis le IXe siècle." },
+      texte: "Les terrasses classées à l'UNESCO, et le subak — le système d'irrigation que les villages se partagent depuis le IXe siècle.",
+      recit: "Six cents hectares de terrasses, et pas une clôture. Ce qui est classé à l'UNESCO ici, ce n'est pas le paysage mais le subak : la façon dont les villages se partagent l'eau depuis le IXe siècle, temple par temple, canal par canal, sans qu'aucune administration n'ait jamais eu à trancher. Agus vous explique comment ça tient — c'est une leçon de gouvernance autant qu'une promenade. On marche autant qu'on veut, le sentier est plat, et la lumière de fin d'après-midi vaut le détour.",
+      photos: [{ scene: "terraces", brief: "plan large : l'étagement des terrasses jusqu'à l'horizon", src: null }, { scene: "terraces", brief: "détail : un canal du subak, l'eau qui passe d'un niveau à l'autre", src: null }, { scene: "plantation", brief: "un riziculteur au travail, chapeau conique", src: null }] },
     { id: "besakih", famille: "classique", titre: "Besakih et le Batur",
-      texte: "Le temple mère sur les flancs de l'Agung, puis une heure de marche dans la coulée de lave du Batur." },
+      texte: "Le temple mère sur les flancs de l'Agung, puis une heure de marche dans la coulée de lave du Batur.",
+      recit: "Besakih est le temple mère de Bali : vingt-trois sanctuaires étagés sur le flanc de l'Agung, le volcan que les Balinais tiennent pour le centre du monde. En 1963, l'éruption a tout ravagé autour et s'est arrêtée aux marches du temple — on vous montrera où. L'après-midi, on marche une heure dans la coulée de lave du Batur : du noir à perte de vue, encore tiède par endroits, et la végétation qui recommence. Prévoyez des chaussures fermées.",
+      photos: [{ scene: "terraces", brief: "plan large : les toits étagés de Besakih devant l'Agung", src: null }, { scene: "canyon", brief: "la coulée de lave noire du Batur, texture au sol", src: null }, { scene: "wayang", brief: "une offrande déposée sur un autel du temple", src: null }] },
     { id: "dauphins", famille: "classique", titre: "Les dauphins de Lovina",
-      texte: "Bateau à balancier à l'aube, petit-déjeuner au bord de l'eau, temple bouddhiste de Brahma Vihara Arama et bain chaud à Banjar." },
+      texte: "Bateau à balancier à l'aube, petit-déjeuner au bord de l'eau, temple bouddhiste de Brahma Vihara Arama et bain chaud à Banjar.",
+      recit: "Départ à cinq heures quarante-cinq, en bateau à balancier, alors qu'il fait encore nuit. Le soleil sort de la mer de Java et les dauphins passent — ils sont sauvages, personne ne les appelle, certains matins ils ne viennent pas. Retour pour le petit-déjeuner au bord de l'eau. La suite est plus douce : Brahma Vihara Arama, le seul monastère bouddhiste de l'île, puis les bains chauds sulfureux de Banjar, sous les gargouilles de pierre. Prévoyez un maillot.",
+      photos: [{ scene: "dauphins", brief: "les bateaux à balancier au lever du soleil sur la mer de Java", src: null }, { scene: "wayang", brief: "le monastère de Brahma Vihara Arama, les stupas dorées", src: null }, { scene: "canyon", brief: "les bains chauds de Banjar, la vapeur et les gargouilles", src: null }] },
     { id: "cuisine", famille: "classique", titre: "Cuisine balinaise face aux rizières",
-      texte: "La danse du Barong le matin, puis deux heures de cuisine dans un warung — et on déjeune de ce qu'on a fait." },
+      texte: "La danse du Barong le matin, puis deux heures de cuisine dans un warung — et on déjeune de ce qu'on a fait.",
+      recit: "Le matin, la danse du Barong à Batubulan : le lion mythique contre la sorcière Rangda, un combat que personne ne gagne jamais — c'est le propos. L'après-midi, deux heures de cuisine dans un warung face aux rizières. On commence par le bumbu, la pâte d'épices qu'on pile au mortier et qui sert de base à presque tout. Puis le sate lilit, le lawar, le nasi campur. On déjeune de ce qu'on a fait, et on repart avec les recettes.",
+      photos: [{ scene: "wayang", brief: "le Barong en scène, masque et crinière", src: null }, { scene: "plantation", brief: "le bumbu au mortier, les épices en gros plan", src: null }, { scene: "terraces", brief: "la table dressée face aux rizières, les plats terminés", src: null }] },
     { id: "sportive", famille: "classique", titre: "Journée sportive",
-      texte: "Rafting dans les gorges d'Ayung le matin, descente à vélo depuis le volcan l'après-midi — 90 % en roue libre." },
+      texte: "Rafting dans les gorges d'Ayung le matin, descente à vélo depuis le volcan l'après-midi — 90 % en roue libre.",
+      recit: "Deux heures de rafting dans les gorges de l'Ayung le matin : des rapides de classe II et III, rien qui exige de l'expérience, et des parois sculptées en bas-reliefs par des artistes locaux au fil des années. L'après-midi, on monte en voiture jusqu'à la région du volcan et on redescend à vélo jusqu'à Ubud — quatre-vingt-dix pour cent en roue libre, à travers les villages et les plantations. Faisable dès dix ans. Prévoyez des vêtements de rechange.",
+      photos: [{ scene: "canyon", brief: "le raft dans les gorges, l'eau blanche", src: null }, { scene: "canyon", brief: "détail : les bas-reliefs sculptés dans la paroi", src: null }, { scene: "plantation", brief: "la descente à vélo entre les plantations", src: null }] },
     { id: "nusa-penida", famille: "classique", titre: "Nusa Penida",
-      texte: "Klingking, Broken Beach, Angel Billabong, et les raies manta si elles veulent bien. Forfait à part, de novembre à mars." },
-
-    { id: "ficus", famille: "secret", photos: [{ scene: "plantation", brief: "plan large : le ficus qui enjambe la route, quelqu'un dessous pour l'échelle", src: null }, { scene: "plantation", brief: "détail : l'enchevêtrement des racines aériennes", src: null }, { scene: "terraces", brief: "le chemin qui y mène, entre girofliers et caféiers", src: null }], titre: "Le grand ficus",
-      texte: "Un arbre qui enjambe la route, au fond de la région de Munduk. Aucun car ne s'y arrête, aucune brochure n'en parle." },
-    { id: "saline", famille: "secret", photos: [{ scene: "terraces", brief: "plan large : les bassins au soleil rasant, l'étendue jusqu'à l'horizon", src: null }, { scene: "terraces", brief: "un saunier au travail, le râteau sur l'épaule", src: null }, { scene: "dauphins", brief: "détail : la croûte de sel qui craque, la lumière dedans", src: null }], titre: "La saline de quatre cents hectares",
-      texte: "La plus grande de Bali, du côté de Pemuteran — et personne. Les cars passent devant sans ralentir." },
-    { id: "tenganan", famille: "secret", photos: [{ scene: "terraces", brief: "le sentier entre les rizières, au départ de Kastala", src: null }, { scene: "terraces", brief: "une ruelle du village, les maisons alignées", src: null }, { scene: "wayang", brief: "le tissage du geringsing sur le métier", src: null }], titre: "Tenganan, à pied",
-      texte: "Deux heures trente de marche depuis Kastala à travers rizières et villages, jusqu'à l'un des rares villages bali aga qui vit encore selon ses règles d'avant l'hindouisme." },
-    { id: "peche", famille: "secret", photos: [{ scene: "dauphins", brief: "le bateau à balancier à l'aube, silhouette contre le ciel", src: null }, { scene: "dauphins", brief: "les mains sur le filet, la prise qui remonte", src: null }, { scene: "plantation", brief: "le repas partagé avec la famille, après", src: null }], titre: "Pêcher avec un pêcheur",
-      texte: "Au filet et à la ligne, en bateau à balancier, puis on cuisine la prise et on partage le repas avec sa famille. Et la saline de Kusamba." },
-    { id: "habitant", famille: "secret", photos: [{ scene: "plantation", brief: "les mains qui tressent l'offrande, en gros plan", src: null }, { scene: "plantation", brief: "la torréfaction du café sur le feu de bois", src: null }, { scene: "terraces", brief: "le labour et la plantation du riz, pieds dans l'eau", src: null }], titre: "Une journée de vie balinaise",
-      texte: "Chez une famille au nord-est de Tabanan : offrandes, torréfaction du café, huile de coco, labour et plantation du riz. Prévoyez des vêtements de rechange." },
-    { id: "marionnettiste", famille: "secret", photos: [{ scene: "wayang", brief: "l'écran éclairé de dos, la silhouette de la marionnette", src: null }, { scene: "wayang", brief: "le marionnettiste de profil, la lampe et les tiges", src: null }, { scene: "wayang", brief: "le gender et le rindik entre les mains d'un voyageur", src: null }], titre: "Chez le marionnettiste",
-      texte: "Il vous met un gender et un rindik entre les mains — le xylophone de métal et celui de bambou — puis éteint la lumière et lance son théâtre d'ombres." },
-    { id: "munduk", famille: "secret", photos: [{ scene: "canyon", brief: "la cascade en contre-plongée, un marcheur pour l'échelle", src: null }, { scene: "plantation", brief: "le sentier entre cacaoyers et caféiers", src: null }, { scene: "canyon", brief: "la source d'eau chaude, la vapeur au petit matin", src: null }], titre: "Les trois cascades de Munduk",
-      texte: "Trois heures de marche entre girofliers, cacaoyers et caféiers, puis une source d'eau chaude. Guide de sentier obligatoire." }
+      texte: "Klingking, Broken Beach, Angel Billabong, et les raies manta si elles veulent bien. Forfait à part, de novembre à mars.",
+      recit: "Bateau rapide depuis Sanur, voiture et chauffeur des deux côtés. Klingking et sa falaise en dos de dinosaure, Broken Beach — une arche que la mer a percée dans la roche —, Angel Billabong et son bassin naturel qui ne se découvre qu'à marée basse. Puis Manta Point, où les raies passent si elles veulent bien : elles sont sauvages, ce n'est jamais garanti. La route sur l'île est rude et la journée longue ; c'est un forfait à part, de novembre à mars, à 230 € pour deux.",
+      photos: [{ scene: "canyon", brief: "plan large : la falaise de Klingking en dos de dinosaure", src: null }, { scene: "canyon", brief: "l'arche de Broken Beach, la mer dessous", src: null }, { scene: "dauphins", brief: "une raie manta en snorkeling à Manta Point", src: null }] },
+    { id: "ficus", famille: "secret", titre: "Le grand ficus",
+      texte: "Un arbre qui enjambe la route, au fond de la région de Munduk. Aucun car ne s'y arrête, aucune brochure n'en parle.",
+      recit: "Il faut savoir qu'il existe, et savoir par où passer. Un ficus dont les racines aériennes ont fini par enjamber la route : on passe dessous en voiture, et on ne comprend l'échelle qu'en descendant se mettre à côté. Aucun car ne s'y arrête, aucune brochure n'en parle, il n'y a ni panneau ni billetterie. C'est exactement le genre d'endroit qui justifie d'avoir quelqu'un du pays au volant — sans Agus, on passe devant sans le voir.",
+      photos: [{ scene: "plantation", brief: "plan large : le ficus qui enjambe la route, quelqu'un dessous pour l'échelle", src: null }, { scene: "plantation", brief: "détail : l'enchevêtrement des racines aériennes", src: null }, { scene: "terraces", brief: "le chemin qui y mène, entre girofliers et caféiers", src: null }] },
+    { id: "saline", famille: "secret", titre: "La saline de quatre cents hectares",
+      texte: "La plus grande de Bali, du côté de Pemuteran — et personne. Les cars passent devant sans ralentir.",
+      recit: "Quatre cents hectares de bassins peu profonds, la plus grande saline de l'île, et pas un touriste. Les sauniers travaillent comme leurs pères : on remplit, on attend que le soleil fasse le reste, on ratisse. La croûte craque sous le râteau et la lumière s'y accroche — en fin de journée l'ensemble vire au rose. On peut parler avec eux, Agus traduit. Les cars passent devant sans ralentir : il n'y a rien à vendre ici, c'est bien pour ça que c'est intact.",
+      photos: [{ scene: "terraces", brief: "plan large : les bassins au soleil rasant, l'étendue jusqu'à l'horizon", src: null }, { scene: "terraces", brief: "un saunier au travail, le râteau sur l'épaule", src: null }, { scene: "dauphins", brief: "détail : la croûte de sel qui craque, la lumière dedans", src: null }] },
+    { id: "tenganan", famille: "secret", titre: "Tenganan, à pied",
+      texte: "Deux heures trente de marche depuis Kastala à travers rizières et villages, jusqu'à l'un des rares villages bali aga qui vit encore selon ses règles d'avant l'hindouisme.",
+      recit: "Deux heures trente de marche depuis Kastala, à travers rizières et hameaux — un guide de sentier vous accompagne, c'est la règle ici et elle n'est pas négociable. Au bout, Tenganan : l'un des derniers villages bali aga, ceux d'avant l'arrivée de l'hindouisme javanais. Le village vit selon ses propres lois, on n'y épouse personne de l'extérieur, et on y tisse le geringsing — un double ikat qu'on ne fabrique qu'à trois endroits au monde, et dont une pièce demande plusieurs années.",
+      photos: [{ scene: "terraces", brief: "le sentier entre les rizières, au départ de Kastala", src: null }, { scene: "terraces", brief: "une ruelle du village, les maisons alignées", src: null }, { scene: "wayang", brief: "le tissage du geringsing sur le métier", src: null }] },
+    { id: "peche", famille: "secret", titre: "Pêcher avec un pêcheur",
+      texte: "Au filet et à la ligne, en bateau à balancier, puis on cuisine la prise et on partage le repas avec sa famille. Et la saline de Kusamba.",
+      recit: "On part avec lui, pas à côté de lui. Bateau à balancier, filet et ligne, et le travail se fait à quatre mains — vous apprenez en le faisant, il corrige. Ce qu'on remonte, on le rapporte, on le cuisine, et on déjeune avec sa famille : c'est le moment dont les voyageurs reparlent le plus. En chemin, la saline de Kusamba, où le sel se récolte encore dans des troncs de cocotier évidés.",
+      photos: [{ scene: "dauphins", brief: "le bateau à balancier à l'aube, silhouette contre le ciel", src: null }, { scene: "dauphins", brief: "les mains sur le filet, la prise qui remonte", src: null }, { scene: "plantation", brief: "le repas partagé avec la famille, après", src: null }] },
+    { id: "habitant", famille: "secret", titre: "Une journée de vie balinaise",
+      texte: "Chez une famille au nord-est de Tabanan : offrandes, torréfaction du café, huile de coco, labour et plantation du riz. Prévoyez des vêtements de rechange.",
+      recit: "Une journée entière chez une famille, au nord-est de Tabanan, et vous ne regardez pas : vous faites. Tresser le canang sari, torréfier le café sur le feu de bois, presser l'huile de coco, puis descendre dans la rizière pour le labour et le repiquage — pieds dans l'eau, dos courbé, et le fou rire qui vient assez vite. On déjeune avec eux. Prévoyez des vêtements de rechange, ce n'est pas une figure de style.",
+      photos: [{ scene: "plantation", brief: "les mains qui tressent l'offrande, en gros plan", src: null }, { scene: "plantation", brief: "la torréfaction du café sur le feu de bois", src: null }, { scene: "terraces", brief: "le labour et la plantation du riz, pieds dans l'eau", src: null }] },
+    { id: "marionnettiste", famille: "secret", titre: "Chez le marionnettiste",
+      texte: "Il vous met un gender et un rindik entre les mains — le xylophone de métal et celui de bambou — puis éteint la lumière et lance son théâtre d'ombres.",
+      recit: "En fin de journée, chez lui, dans la région d'Ubud. Il commence par vous mettre les instruments entre les mains — le gender, xylophone de métal, et le rindik, son cousin de bambou — et vous fait jouer, mal, ce qui le fait rire. Puis il allume la lampe derrière l'écran, éteint le reste, et lance le wayang kulit : des marionnettes de cuir découpé, une voix pour chaque personnage, des histoires tirées du Mahabharata. Vingt minutes, et on ne regarde plus Bali de la même façon.",
+      photos: [{ scene: "wayang", brief: "l'écran éclairé de dos, la silhouette de la marionnette", src: null }, { scene: "wayang", brief: "le marionnettiste de profil, la lampe et les tiges", src: null }, { scene: "wayang", brief: "le gender et le rindik entre les mains d'un voyageur", src: null }] },
+    { id: "munduk", famille: "secret", titre: "Les trois cascades de Munduk",
+      texte: "Trois heures de marche entre girofliers, cacaoyers et caféiers, puis une source d'eau chaude. Guide de sentier obligatoire.",
+      recit: "Trois heures de marche d'une cascade à l'autre, à travers les plantations : girofliers, cacaoyers, caféiers — Agus vous fait ouvrir une cabosse et goûter la pulpe autour de la fève, ce qui surprend tout le monde. Le sentier descend puis remonte, il est glissant après la pluie, et un guide de sentier est obligatoire. On finit dans une source d'eau chaude, ce qui, après trois heures de dénivelé, se mérite.",
+      photos: [{ scene: "canyon", brief: "la cascade en contre-plongée, un marcheur pour l'échelle", src: null }, { scene: "plantation", brief: "le sentier entre cacaoyers et caféiers", src: null }, { scene: "canyon", brief: "la source d'eau chaude, la vapeur au petit matin", src: null }] }
   ];
 
   /* La visionneuse ne parcourt que les places secrètes : ce sont les
@@ -1839,7 +1873,7 @@
           return '<li class="reveal"><article class="journee-carte" data-on="' + on + '">' +
             (a.photos && a.photos.length
               ? '<button class="journee-vignette" type="button" data-voir="' + a.id +
-                '" aria-label="Voir les ' + a.photos.length + ' photos de ' + a.titre + '">' +
+                '" aria-label="Voir ' + a.titre + ' en grand">' +
                 photo({ scene: a.photos[0].scene, src: a.photos[0].src, uid: "act-" + a.id }) +
                 '<span class="journee-compte">' +
                   '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 22H4a2 2 0 0 1-2-2V6"/><path d="m22 13-1.3-1.3a2 2 0 0 0-2.8 0L14 16"/><circle cx="12" cy="8" r="2"/><rect width="16" height="16" x="6" y="2" rx="2"/></svg>' +
@@ -2027,7 +2061,7 @@
       (seule ? "" : '<span class="lb-rang">' + (lbIndex + 1) + " / " + vues.length + "</span>");
     $("lbPhoto").innerHTML = photo({ scene: v.scene, brief: v.brief, src: v.src, uid: "lb-" + lbPlace.id + "-" + lbIndex });
     $("lbTitre").textContent = lbPlace.titre;
-    $("lbTexte").textContent = lbPlace.texte;
+    $("lbTexte").textContent = lbPlace.recit || lbPlace.texte;
     $("lightbox").setAttribute("aria-label", lbPlace.titre + " — photo " + (lbIndex + 1) + " sur " + vues.length);
     /* Flèches et invitation au balayage n'ont pas d'objet sur une place
        à photo unique. */

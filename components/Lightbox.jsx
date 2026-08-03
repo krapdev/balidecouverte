@@ -158,8 +158,8 @@ export default function Lightbox({ place, index, onClose, onIndex }) {
             <p className="font-display text-[clamp(1.25rem,4vw,1.75rem)] leading-tight">
               {place.titre}
             </p>
-            <p className="mt-1.5 max-w-[62ch] text-sm leading-relaxed text-on-immersive-soft">
-              {place.texte}
+            <p className="mt-2 max-w-[62ch] text-sm leading-relaxed text-on-immersive-soft">
+              {place.recit ?? place.texte}
             </p>
           </figcaption>
         </figure>
