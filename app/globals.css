@@ -331,6 +331,69 @@
   }
 }
 
+/* ------------------------------------------------------------------
+   Les pages légales.
+
+   Colonne unique et sobre : on lit ces pages pour se rassurer, pas pour
+   rêver. Le corps est descendu à 1 rem et l'interligne à 1,7 — le
+   réglage du reste du site (1,0625 rem / 1,8) est fait pour du texte
+   d'accroche, il rend un contrat interminable.
+   ------------------------------------------------------------------ */
+.texte-legal {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+.texte-legal p {
+  color: var(--text-soft);
+}
+.texte-legal strong,
+.texte-legal b {
+  color: var(--text);
+  font-weight: 600;
+}
+.texte-legal ul {
+  list-style: none;
+  margin: 0.25rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.texte-legal ul li {
+  position: relative;
+  padding-left: 1.4rem;
+  color: var(--text-soft);
+}
+.texte-legal ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.texte-legal dl {
+  margin: 0.5rem 0 0;
+  border-top: 1px solid var(--rule);
+}
+.texte-legal dl > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--rule);
+  padding: 0.75rem 0;
+}
+.texte-legal dt {
+  font-weight: 600;
+}
+.texte-legal dd {
+  margin: 0;
+  color: var(--text-soft);
+}
+
 @keyframes drift {
   to {
     transform: translateX(-50%);

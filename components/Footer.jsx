@@ -97,7 +97,24 @@ export default function Footer() {
 
       <div className="shell mt-10 flex flex-wrap justify-between gap-3 border-t border-[color-mix(in_srgb,var(--on-immersive)_22%,transparent)] pt-5 text-[0.6875rem] text-on-immersive-soft">
         <span>© {new Date().getFullYear()} Bali Découverte — Prototype</span>
-        <span>Mentions légales et CGV à rédiger</span>
+        {/* `min-w-11` autant que `min-h-11` : « CGV » ne fait que 23 px de
+            large, un pixel sous le minimum AA de 24. Ces deux liens sont
+            seuls sur leur ligne — l'exception « lien en pleine phrase »
+            de la WCAG 2.5.8 ne les couvre pas. */}
+        <span className="flex flex-wrap gap-x-4">
+          {[
+            ["/mentions-legales", "Mentions légales"],
+            ["/cgv", "CGV"],
+          ].map(([href, libelle]) => (
+            <a
+              key={href}
+              href={href}
+              className="inline-flex min-h-11 min-w-11 items-center justify-center text-on-immersive-soft underline decoration-[color-mix(in_srgb,var(--on-immersive)_35%,transparent)] underline-offset-4 hover:text-on-immersive"
+            >
+              {libelle}
+            </a>
+          ))}
+        </span>
         <span className="label">Denpasar · Bali · Indonésie</span>
       </div>
     </footer>

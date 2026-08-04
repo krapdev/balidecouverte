@@ -710,6 +710,17 @@ mesurées, toutes à zéro défaut aujourd'hui :
 - Les liens de listes (navigation, pied de page) faisaient **20 px de haut**.
   L'exception « lien en ligne dans une phrase » de WCAG 2.5.8 **ne s'applique
   pas** à une liste de navigation : il leur faut `min-h-11`.
+
+  > **La réciproque est vraie et l'audit ne sait pas la voir.** Les liens des
+  > pages légales qui vivent *à l'intérieur d'une phrase* — « décrites dans les
+  > conditions générales de vente » — sont, eux, bien couverts par l'exception,
+  > et il ne faut **pas** les agrandir : ça casserait l'interligne du
+  > paragraphe. L'audit les signale quand même ; c'est à la relecture de
+  > trancher, en regardant si le lien est seul sur sa ligne ou pris dans du
+  > texte.
+- `min-w-11` autant que `min-h-11` : « CGV » en pied de page ne faisait que
+  **23 px de large**, un pixel sous le minimum AA. La hauteur seule ne suffit
+  pas pour un libellé court.
 - Ajouter un bouton à côté du burger l'a **comprimé à 37 px** : `shrink-0` est
   obligatoire sur les cibles d'une barre flexible.
 - Une règle `font-size` ajoutée **au-dessus** d'une autre dans le même bloc est
@@ -849,6 +860,79 @@ de charger les polices à l'exécution.
 Elle compte : ce site va circuler sur Facebook, Instagram et WhatsApp, où Agus
 publie déjà. Un lien sans image de partage y est un rectangle gris.
 
+## Les pages légales
+
+Deux pages : `/mentions-legales` et `/cgv`. Elles sont **rédigées mais pas
+opposables** — voir plus bas ce qu'il reste à trancher.
+
+### Comment elles sont faites
+
+Toutes les valeurs vivent dans `lib/legal.js`. Ce qui n'est pas encore connu y
+vaut `null`, et **s'affiche alors en clair sur la page, en rouge, avec la
+mention « à compléter »**. C'est délibéré : une page légale à trous qui a
+l'air complète est plus dangereuse qu'une page visiblement inachevée, parce
+qu'on la met en ligne sans la voir. Un bandeau d'avertissement coiffe les deux
+pages, et les deux routes sont en `noindex` — elles ne sont pas non plus dans
+le sitemap.
+
+Le vocabulaire change de registre : le reste du site parle à la première
+personne, les CGV disent « le Guide » et « le Client ». Ce n'est pas une
+inattention. Un contrat a besoin de termes définis, et « je » ne dit pas qui
+s'engage quand la prestation est reprise par un autre guide de l'union.
+
+Le barème d'annulation de l'article 11 est **une proposition**, pas les
+conditions d'Agus. Il est marqué comme telle et vit dans une seule constante
+(`ANNULATION`) : tout le reste des CGV y renvoie, il n'y a qu'un endroit à
+changer.
+
+### La question qui commande tout : forfait ou pas
+
+Le site dit aujourd'hui « si vous le souhaitez, je choisis et je réserve aussi
+vos hôtels », et Agus a confirmé qu'il le fait sur demande. Or **la
+combinaison d'un transport et d'un hébergement vendus pour un même voyage est
+un forfait touristique** au sens de la directive européenne 2015/2302. Un site
+en français, en euros, qui s'adresse à des voyageurs français « dirige son
+activité » vers la France : le régime s'applique même à un opérateur établi
+en Indonésie.
+
+Ce que ça déclenche :
+
+- une **protection contre l'insolvabilité** (garantie financière), qui est la
+  contrepartie du fait d'encaisser un acompte pour des nuits qu'on n'a pas
+  encore payées ;
+- une **responsabilité de plein droit** sur toute la chaîne, y compris les
+  prestations exécutées par les hôteliers ;
+- un **formulaire d'information standard** à remettre avant la conclusion du
+  contrat.
+
+Deux issues, et c'est à Agus de choisir :
+
+1. **Ne plus réserver les hébergements** — conseiller, envoyer les liens,
+   mais laisser le voyageur contracter directement avec l'hôtel. Le voyage
+   redevient une prestation unique, sans garantie financière à souscrire.
+   C'est de loin le plus simple, et ça ne change presque rien pour le
+   voyageur.
+2. **Assumer le forfait** et souscrire la garantie. Plus protecteur pour le
+   client, plus engageant pour Agus.
+
+L'article 3 des CGV est écrit pour tenir les deux : il décrit les deux natures
+de prestation et dit qu'en l'absence de garantie, seule la première est
+proposée. **Ne pas retirer ce paragraphe sans avoir tranché.**
+
+### Ce qui manque, et qui n'est pas de la rédaction
+
+| Champ | Où | Pourquoi c'est bloquant |
+| --- | --- | --- |
+| Numéro d'enregistrement (NIB / NPWP) | `EDITEUR.identifiant` | Identification du professionnel |
+| Hébergeur : nom, adresse, téléphone | `HEBERGEUR` | Obligation de la LCEN, pas facultative |
+| Assurance RC pro : assureur, police, **étendue géographique** | `ASSURANCE` | Une police qui ne couvre pas une réclamation portée en France ne protège de rien |
+| Garantie contre l'insolvabilité | `GARANTIE` | Obligatoire si forfait — voir ci-dessus |
+| Médiateur de la consommation | `MEDIATEUR` | Obligatoire pour vendre à des consommateurs français |
+| Montant de l'acompte, échéance du solde, validité du devis | `PAIEMENT`, article 4 et 8 | Ce sont les pratiques réelles d'Agus, pas des choix de rédaction |
+
+Et une relecture par un professionnel du droit français du tourisme. Ce
+document a été écrit avec soin, il n'a pas été écrit par un juriste.
+
 ## Performance
 
 Mesures faites en local, `next start`, gzip actif, sur `encodedDataLength`
@@ -929,6 +1013,7 @@ components/
   TripBuilder.jsx    configurateur + rédaction de l'e-mail
   MobileBar.jsx      rappel du voyage en cours, sur mobile
   Scene.jsx          paysages SVG + ornements (jepun, puce jepun, canang, séparateur)
+  PageLegale.jsx     gabarit des pages légales + marqueur « à compléter »
   Reveal.jsx         apparition au scroll (serveur, pure CSS)
   RevealObserver.jsx l'unique IntersectionObserver, monté par page
   DonneesStructurees.jsx  le graphe JSON-LD
@@ -939,6 +1024,7 @@ lib/
   message.js         objet, corps et lien mailto:
   retours.js         d'où l'on vient, et comment y retourner
   site.js            origine canonique, titre, description
+  legal.js           identité, assurance, barèmes — et les trous
 ```
 
 `app/` porte aussi les conventions de fichiers de Next : `robots.js`,
@@ -1010,7 +1096,7 @@ plein cadre pour le hero) sont déjà posées, rien d'autre ne bouge.
 - Photos réelles d'Agus et des journées (42 briefs sont prêts).
 - Le **livre d'or** : des témoignages réels, qui deviendront des `Review` dans
   les données structurées. Aucune note tant qu'il n'y en a pas.
-- Contenus définitifs : mentions légales, CGV, politique de confidentialité,
-  conditions d'annulation. À ajouter au `sitemap.js` en même temps.
+- **Compléter et faire relire les pages légales** (voir la section dédiée),
+  puis lever le `noindex` et les ajouter au `sitemap.js`.
 - Faire relire à Agus les 14 récits d'activités et la citation de travail.
 - Suivi de conversion sur l'envoi du mail.
