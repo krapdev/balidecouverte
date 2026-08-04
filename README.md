@@ -1004,11 +1004,9 @@ plein cadre pour le hero) sont déjà posées, rien d'autre ne bouge.
 
 ## Reste à faire avant une mise en production
 
-- **Confirmer l'origine canonique** (`www.balidecouverte.fr` ou l'apex ?) et la
-  poser dans `NEXT_PUBLIC_SITE_URL`. Tant que ce n'est pas fait, les canoniques,
-  le sitemap et le JSON-LD désignent une valeur supposée.
-- **Confirmer laquelle des deux adresses e-mail est publique** — elle est dans
-  le JSON-LD et dans le lien du configurateur.
+- **Côté hébergement** : faire rediriger `www.balidecouverte.fr` en 301 vers
+  l'apex, et vérifier que le certificat couvre l'apex. Le domaine canonique est
+  tranché (voir `lib/site.js`), mais ces deux réglages-là vivent hors du dépôt.
 - Photos réelles d'Agus et des journées (42 briefs sont prêts).
 - Le **livre d'or** : des témoignages réels, qui deviendront des `Review` dans
   les données structurées. Aucune note tant qu'il n'y en a pas.
