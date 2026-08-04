@@ -84,8 +84,8 @@ export default function TripBuilder() {
     >
       <div className="shell">
         <SectionHead eyebrow="Sur-Mesure" title="Construisez votre demande.">
-          Quatre questions, et votre e-mail part chez Agus déjà rédigé. Il
-          répond sous 24 h, en français — et c&apos;est ce fil-là qui devient
+          Quatre questions, et votre e-mail m&apos;arrive déjà rédigé. Je
+          réponds sous 24 h, en français — et c&apos;est ce fil-là qui devient
           votre devis.
         </SectionHead>
 
@@ -127,8 +127,8 @@ export default function TripBuilder() {
               {trip.activites.length === 0 ? (
                 <p className="border-y border-dashed border-rule py-4 text-sm text-faint">
                   {trip.circuit
-                    ? "Rien d'ajouté au circuit pour l'instant — envoyez tel quel, Agus vous proposera la suite."
-                    : "Rien de coché pour l'instant — remontez choisir, ou envoyez votre demande telle quelle : Agus vous proposera un itinéraire complet."}
+                    ? "Rien d'ajouté au circuit pour l'instant — envoyez tel quel, je vous proposerai la suite."
+                    : "Rien de coché pour l'instant — remontez choisir, ou envoyez votre demande telle quelle : je vous proposerai un itinéraire complet."}
                 </p>
               ) : (
                 <AnimatePresence initial={false}>
@@ -319,7 +319,7 @@ export default function TripBuilder() {
 
             <a className="btn btn-accent btn-lg w-full" href={href}>
               <Mail size={18} />
-              Envoyer ma demande à Agus
+              Envoyer ma demande
             </a>
 
             <button
@@ -333,7 +333,7 @@ export default function TripBuilder() {
 
             <p className="text-center text-[0.6875rem] leading-relaxed text-faint">
               Ouvre votre messagerie avec le message déjà rédigé. Vous relisez
-              avant d&apos;envoyer — aucun engagement. Agus répond sous 24 h, et
+              avant d&apos;envoyer — aucun engagement. Je réponds sous 24 h, et
               le devis se discute par retour de mail.
             </p>
           </div>

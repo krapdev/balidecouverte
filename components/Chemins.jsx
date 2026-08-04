@@ -21,8 +21,8 @@ export default function Chemins() {
     <section id="chemins" className="ground-sable band">
       <div className="shell">
         <SectionHead eyebrow="Par où commencer" title="Deux façons de partir.">
-          Rien de ce que vous choisissez ici n&apos;est réservé. C&apos;est la
-          matière du premier message — de quoi qu&apos;Agus sache qui vous êtes
+          Rien de ce que vous cochez ici n&apos;est réservé. C&apos;est la
+          matière de votre premier message — de quoi que je sache qui vous êtes
           avant de vous répondre.
         </SectionHead>
 
@@ -33,7 +33,7 @@ export default function Chemins() {
               <Reveal as="li" key={c.id} delay={i * 0.06} className="h-full">
                 <a
                   href={c.ancre}
-                  className="flex h-full flex-col gap-2.5 rounded-[16px] border border-rule bg-surface p-6 no-underline transition-colors duration-200 hover:border-accent"
+                  className="filigrane relative flex h-full flex-col gap-2.5 overflow-hidden rounded-[16px] border border-rule bg-surface p-6 no-underline transition-colors duration-200 hover:border-accent"
                 >
                   <Icon size={22} className="text-accent" strokeWidth={1.5} />
                   <h3 className="text-[1.375rem] leading-tight">{c.titre}</h3>

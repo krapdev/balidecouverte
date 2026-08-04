@@ -16,13 +16,36 @@ export default function Tarifs() {
     <section id="tarifs" className="ground-ivoire band">
       <div className="shell">
         <SectionHead eyebrow="Tarifs" title="Au jour, et par véhicule.">
-          Vous ne payez pas par personne : vous payez la journée d&apos;Agus et
-          sa voiture. À deux comme à cinq, le tarif bouge à peine — c&apos;est ce
+          Vous ne payez pas par personne : vous payez ma journée et ma
+          voiture. À deux comme à cinq, le tarif bouge à peine — c&apos;est ce
           qui rend le guide privé abordable en famille ou entre amis.
         </SectionHead>
 
+        {/* Trois blocs, trois ancres : on doit pouvoir aller droit à
+            « ce qui est compris » sans relire la grille. */}
         <Reveal>
-          <div className="overflow-x-auto">
+          <nav
+            className="mb-10 flex flex-wrap gap-x-6 gap-y-2 border-y border-rule py-3.5"
+            aria-label="Sommaire des tarifs"
+          >
+            {[
+              ["#grille", "La grille par saison"],
+              ["#compris", "Ce qui est compris"],
+              ["#savoir", "Bon à savoir"],
+            ].map(([href, label]) => (
+              <a
+                key={href}
+                href={href}
+                className="label text-accent no-underline hover:text-ink"
+              >
+                {label}
+              </a>
+            ))}
+          </nav>
+        </Reveal>
+
+        <Reveal>
+          <div id="grille" className="overflow-x-auto">
             <table className="w-full min-w-[520px] border-collapse text-left">
               <caption className="sr-only">
                 Tarifs des excursions à la journée, par jour et par véhicule
@@ -71,7 +94,7 @@ export default function Tarifs() {
 
         <div className="mt-12 grid gap-8 sm:grid-cols-2">
           <Reveal delay={0.06}>
-            <h3 className="mb-4 text-xl">Compris dans le tarif</h3>
+            <h3 id="compris" className="mb-4 text-xl">Compris dans le tarif</h3>
             <ul className="m-0 flex list-none flex-col gap-2.5 p-0">
               {TARIFS.inclus.map((t) => (
                 <li key={t} className="flex gap-3 text-sm leading-relaxed">
@@ -105,7 +128,7 @@ export default function Tarifs() {
         <Reveal delay={0.16}>
           <div className="mt-10 grid gap-x-8 gap-y-5 rounded border border-rule bg-tint p-6 sm:grid-cols-2">
             <div className="sm:col-span-2">
-              <p className="label mb-2 text-tint-ink">Bon à savoir</p>
+              <p id="savoir" className="label mb-2 text-tint-ink">Bon à savoir</p>
             </div>
 
             <p className="flex gap-3 text-sm leading-relaxed">

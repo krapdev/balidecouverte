@@ -19,7 +19,7 @@ export default function Engagement() {
     <section id="engagement" className="ground-jade band">
       <div className="shell">
         <SectionHead eyebrow="Engagement" title={ENGAGEMENT.titre} onImmersive>
-          Agus est balinais, diplômé, et travaille en direct depuis vingt ans.
+          Je suis balinais, diplômé, et je travaille en direct depuis vingt ans.
           Ce n&apos;est pas seulement une façon de baisser le prix : c&apos;est une
           façon de faire vivre un métier.
         </SectionHead>

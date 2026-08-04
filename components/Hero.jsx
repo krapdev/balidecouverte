@@ -70,7 +70,7 @@ export default function Hero() {
             className="max-w-[46ch] text-lg leading-relaxed text-on-immersive-soft"
           >
             Circuits 100 % sur-mesure, authenticité garantie et 0 intermédiaire.
-            Vous échangez directement avec Agus, guide balinais indépendant.
+            Vous m&apos;écrivez directement — je suis guide balinais indépendant.
           </motion.p>
 
           <motion.div variants={rise} className="flex flex-wrap gap-3">

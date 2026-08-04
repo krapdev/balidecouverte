@@ -5,7 +5,7 @@ import { Canang } from "./Scene";
    ancrées à la racine. Depuis l'accueil, « /#esprit » reste une simple
    navigation de fragment — pas de rechargement. */
 const LINKS = [
-  { href: "/#esprit", label: "L'Esprit" },
+  { href: "/#esprit", label: "Qui je suis" },
   { href: "/#chemins", label: "Par où commencer" },
   { href: "/#circuit", label: "Le circuit" },
   { href: "/#envies", label: "Vos envies" },
@@ -73,7 +73,7 @@ export default function Footer() {
             Instagram · {CONTACT.pseudo}
           </a>
           <p className="text-sm text-on-immersive-soft">
-            Agus y publie ses photos des îles où il accompagne ses voyageurs.
+            J&apos;y publie mes photos des endroits où j&apos;accompagne mes voyageurs.
           </p>
           <address className="mt-1 text-sm not-italic text-on-immersive-soft">
             {CONTACT.adresse}

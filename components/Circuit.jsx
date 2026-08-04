@@ -27,13 +27,13 @@ export default function Circuit() {
     <section id="circuit" className="ground-ivoire band">
       <div className="shell">
         <SectionHead
-          eyebrow="Le circuit d'Agus"
+          eyebrow="Mon circuit"
           title="Quinze jours, et tout Bali."
         >
           Ce n&apos;est pas un produit sur étagère : c&apos;est l&apos;itinéraire
-          qu&apos;Agus a conduit des dizaines de fois, et qu&apos;il connaît
-          assez bien pour le défaire. Prenez-le comme base — on garde ce qui
-          vous plaît, on jette le reste.
+          que j&apos;ai conduit des dizaines de fois, et que je connais assez
+          bien pour le défaire. Prenez-le comme base — on garde ce qui vous
+          plaît, on jette le reste.
         </SectionHead>
 
         <div className="grid gap-8 lg:grid-cols-[1fr_1.15fr] lg:items-start">
@@ -88,7 +88,7 @@ export default function Circuit() {
 
             <p className="mt-4 flex gap-2.5 text-sm text-soft">
               <MoonStar size={15} className="mt-1 shrink-0 text-faint" />
-              Hébergements à votre charge par défaut — mais Agus peut les
+              Hébergements à votre charge par défaut — mais je peux les
               choisir, vous les proposer et les réserver.
             </p>
 
@@ -116,8 +116,8 @@ export default function Circuit() {
 
             {base && (
               <p className="mt-4 text-sm leading-relaxed text-soft">
-                Vous pouvez maintenant descendre cocher ce que vous voulez y
-                ajouter — ou l&apos;envoyer tel quel et laisser Agus proposer.
+                Descendez cocher ce que vous voulez y ajouter — ou
+                envoyez-le tel quel et laissez-moi vous proposer la suite.
               </p>
             )}
           </Reveal>

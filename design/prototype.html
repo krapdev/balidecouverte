@@ -144,9 +144,24 @@
   .btn-lg { padding: 1.15em 2em; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.13em; }
 
   /* Deux surfaces de lecture qui alternent, et un panneau plein jade */
-  .ground-ivoire { background: var(--page); }
-  .ground-sable  { background: var(--surface-alt); }
-  .ground-jade   { background: var(--immersive); color: var(--on-immersive); }
+  /* Sérigraphie très pâle : le tressage de la feuille de palme, celui du
+     panier du canang sari. Elle se lit comme un grain de papier.
+     ⚠️ Sur le FOND DE SECTION, jamais sous un bloc de texte : les cartes
+     gardent leur surface pleine. Le texte sur motif est là où la
+     lisibilité meurt, et l'audit de contraste ne mesure qu'une couleur
+     de fond, pas une image. */
+  .ground-ivoire { background-color: var(--page); background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22rgba%2815%2C107%2C92%2C0.042%29%22%20stroke-width%3D%221.4%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M-6%2034%2034%20-6M6%2046%2046%206M18%2058%2058%2018M-6%2022%2022%20-6M6%2034%2034%206M18%2046%2046%2018M30%2058%2058%2030%22%2F%3E%3Cpath%20d%3D%22M-6%2022%2022%2050M6%2010%2034%2038M18%20-2%2046%2026M30%20-6%2058%2022M-6%2034%2010%2050M42%20-6%2058%2010%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"); }
+  .ground-sable  { background-color: var(--surface-alt); background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22rgba%2815%2C107%2C92%2C0.036%29%22%20stroke-width%3D%221.4%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M-6%2034%2034%20-6M6%2046%2046%206M18%2058%2058%2018M-6%2022%2022%20-6M6%2034%2034%206M18%2046%2046%2018M30%2058%2058%2030%22%2F%3E%3Cpath%20d%3D%22M-6%2022%2022%2050M6%2010%2034%2038M18%20-2%2046%2026M30%20-6%2058%2022M-6%2034%2010%2050M42%20-6%2058%2010%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"); }
+  .ground-jade   { background-color: var(--immersive); background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22rgba%28251%2C247%2C238%2C0.05%29%22%20stroke-width%3D%221.4%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M-6%2034%2034%20-6M6%2046%2046%206M18%2058%2058%2018M-6%2022%2022%20-6M6%2034%2034%206M18%2046%2046%2018M30%2058%2058%2030%22%2F%3E%3Cpath%20d%3D%22M-6%2022%2022%2050M6%2010%2034%2038M18%20-2%2046%2026M30%20-6%2058%2022M-6%2034%2010%2050M42%20-6%2058%2010%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"); color: var(--on-immersive); }
+
+  /* Filigrane de jepun, dans l'angle vide des grandes cartes. */
+  .filigrane { position: relative; overflow: hidden; }
+  .filigrane::after {
+    content: ""; position: absolute; right: -8px; bottom: -10px;
+    width: 78px; height: 78px; background-size: contain;
+    background-repeat: no-repeat; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22120%22%20height%3D%22120%22%20viewBox%3D%220%200%20120%20120%22%3E%3Cg%20fill%3D%22rgba%2815%2C107%2C92%2C0.07%29%22%3E%3Cpath%20transform%3D%22rotate%280%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%2872%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28144%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28216%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28288%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%280%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3Cpath%20transform%3D%22rotate%2872%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28144%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28216%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28288%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  }
   .ground-jade .sec-head p { color: var(--on-immersive-soft); }
   .ground-jade .sec-eyebrow { color: var(--soleil-pale); }
 
@@ -372,6 +387,17 @@
   /* Les deux chemins */
   .chemins { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.25rem; }
   @media (min-width: 640px) { .chemins { grid-template-columns: 1fr 1fr; } }
+  .tarifs-sommaire {
+    display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem;
+    margin-bottom: 2.5rem; padding-block: 0.85rem;
+    border-block: 1px solid var(--rule);
+  }
+  .tarifs-sommaire a {
+    font-family: var(--util); font-size: var(--t-xs); letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--accent); text-decoration: none;
+  }
+  .tarifs-sommaire a:hover { color: var(--text); }
+
   .chemin {
     display: flex; flex-direction: column; gap: 0.6rem; height: 100%;
     border: 1px solid var(--rule); border-radius: 16px; background: var(--surface);
@@ -760,7 +786,7 @@
       </span>
     </a>
     <nav class="nav-links" aria-label="Navigation principale">
-      <a href="#esprit">L'Esprit</a>
+      <a href="#esprit">Qui je suis</a>
       <a href="#chemins">Par où commencer</a>
       <a href="#circuit">Le circuit</a>
       <a href="#envies">Vos envies</a>
@@ -785,7 +811,7 @@
   <div class="shell hero-in">
     <p class="label hero-eyebrow">Sidemen · Munduk · Est de Bali</p>
     <h1>Bali loin des foules. Votre guide privé <em>francophone</em> local.</h1>
-    <p class="hero-sub">Circuits 100 % sur-mesure, authenticité garantie et 0 intermédiaire. Vous échangez directement avec Agus, guide balinais indépendant.</p>
+    <p class="hero-sub">Circuits 100 % sur-mesure, authenticité garantie et 0 intermédiaire. Vous m'écrivez directement — je suis guide balinais indépendant.</p>
     <div class="hero-cta">
       <a class="btn btn-sun btn-lg" href="#sur-mesure">Créer mon voyage sur-mesure</a>
       <a class="btn btn-outline btn-lg" href="#chemins" style="color: var(--on-immersive)">Par où commencer</a>
@@ -864,7 +890,7 @@
       <p class="label sec-eyebrow">Par où commencer</p>
       <h2>Deux façons de partir.</h2>
       <p>Rien de ce que vous choisissez ici n'est réservé. C'est la matière du
-      premier message — de quoi qu'Agus sache qui vous êtes avant de vous
+      premier message — de quoi que je sache qui vous êtes avant de vous
       répondre.</p>
     </div>
     <ul class="chemins" id="cheminList"></ul>
@@ -875,9 +901,9 @@
 <section class="band ground-ivoire view-home" id="circuit">
   <div class="shell">
     <div class="sec-head reveal">
-      <p class="label sec-eyebrow">Le circuit d'Agus</p>
+      <p class="label sec-eyebrow">Mon circuit</p>
       <h2>Quinze jours, et tout Bali.</h2>
-      <p>Ce n'est pas un produit sur étagère : c'est l'itinéraire qu'Agus a
+      <p>Ce n'est pas un produit sur étagère : c'est l'itinéraire que j'ai
       conduit des dizaines de fois, et qu'il connaît assez bien pour le défaire.
       Prenez-le comme base — on garde ce qui vous plaît, on jette le reste.</p>
     </div>
@@ -890,9 +916,9 @@
   <div class="shell">
     <div class="sec-head reveal">
       <p class="label sec-eyebrow">Vos envies</p>
-      <h2>Cochez, il en fait un itinéraire.</h2>
+      <h2>Cochez, j'en fais un itinéraire.</h2>
       <p>Rien ici n'est une commande. Ce que vous cochez part dans votre message,
-      et Agus construit le circuit autour — c'est lui qui sait ce qui s'enchaîne
+      et je construis le circuit autour — c'est mon métier de savoir ce qui s'enchaîne
       bien et ce qui se dilue.</p>
     </div>
     <p class="journees-epigraphe reveal" id="epigraphe"></p>
@@ -913,12 +939,20 @@
     <div class="sec-head reveal">
       <p class="label sec-eyebrow">Tarifs</p>
       <h2>Au jour, et par véhicule.</h2>
-      <p>Vous ne payez pas par personne : vous payez la journée d'Agus et sa
+      <p>Vous ne payez pas par personne : vous payez ma journée et ma
       voiture. À deux comme à cinq, le tarif bouge à peine — c'est ce qui rend le
       guide privé abordable en famille ou entre amis.</p>
     </div>
 
-    <div class="reveal" style="overflow-x: auto">
+    <!-- Trois blocs, trois ancres : on doit pouvoir aller droit à
+         « ce qui est compris » sans relire la grille. -->
+    <nav class="tarifs-sommaire reveal" aria-label="Sommaire des tarifs">
+      <a href="#grille">La grille par saison</a>
+      <a href="#compris">Ce qui est compris</a>
+      <a href="#savoir">Bon à savoir</a>
+    </nav>
+
+    <div class="reveal" id="grille" style="overflow-x: auto">
       <table class="tarifs">
         <caption class="sr-only">Tarifs des excursions à la journée, par jour et par véhicule</caption>
         <thead>
@@ -945,12 +979,12 @@
       </table>
     </div>
     <p class="reveal" style="font-size: var(--t-sm); color: var(--text-soft); margin-top: 1rem">
-      Au-delà de 5 personnes, Agus établit un devis.
+      Au-delà de 5 personnes, je vous établis un devis.
     </p>
 
     <div class="tarifs-cols">
       <div class="reveal">
-        <h3 style="font-size: var(--t-xl); margin-bottom: 1rem">Compris dans le tarif</h3>
+        <h3 id="compris" style="font-size: var(--t-xl); margin-bottom: 1rem">Compris dans le tarif</h3>
         <ul class="tarifs-list">
           <li>La location du véhicule climatisé</li>
           <li>Le carburant et l'assurance du véhicule</li>
@@ -971,21 +1005,20 @@
     </div>
 
     <div class="reveal period" style="margin-top: 2.5rem">
-      <span class="label" style="display: block; margin-bottom: 0.75rem">Bon à savoir</span>
+      <span class="label" id="savoir" style="display: block; margin-bottom: 0.75rem">Bon à savoir</span>
       <ul class="savoir">
         <li>Si vous logez dans l'est (Candidasa, Sidemen, Amed, Tulamben), le
         nord-centre (Jatiluwih, Munduk, Kintamani) ou le nord et nord-ouest
         (Lovina, Pemuteran), comptez 15 € par nuit pour l'hébergement et les
-        repas d'Agus.</li>
+        mes repas sur place.</li>
         <li>Nusa Penida à la journée est un forfait à part : 230 € pour deux
         personnes de novembre à mars, bateau rapide aller-retour depuis Sanur,
         voiture et chauffeur des deux côtés, entrées des plages comprises.</li>
         <li>Sur un circuit de plusieurs jours, activités, entrées, transport et
         chauffeur-guide sont réunis dans un forfait global — quinze jours
         reviennent à 2 420 € pour deux personnes.</li>
-        <li>Java centre — Borobudur, Prambanan, le palais des sultans, le plateau
-        de Dieng — les volcans Merapi, Bromo et Ijen, Lombok, Sumbawa, Flores et
-        l'archipel de Komodo : Agus en parle avec vous.</li>
+        <li>Au-delà de Bali — Java, Lombok, Sumbawa, Flores, Komodo —
+        j'organise aussi, mais ça se discute de vive voix : écrivez-moi.</li>
       </ul>
       <span class="label" style="display: block; margin: 1.5rem 0 0.75rem">Le véhicule, selon le nombre</span>
       <ul class="savoir">
@@ -1002,8 +1035,8 @@
   <div class="shell">
     <div class="sec-head reveal">
       <p class="label sec-eyebrow">Engagement</p>
-      <h2>Voyager avec Agus, c'est faire vivre les guides de Bali.</h2>
-      <p>Agus est balinais, diplômé, et travaille en direct depuis vingt ans.
+      <h2>Voyager avec moi, c'est faire vivre les guides de Bali.</h2>
+      <p>Je suis balinais, diplômé, et je travaille en direct depuis vingt ans.
       Ce n'est pas seulement une façon de baisser le prix : c'est une façon de
       faire vivre un métier.</p>
     </div>
@@ -1014,13 +1047,13 @@
         <h3>En direct, sans agence</h3>
         <p>Ce que vous payez va au guide, au chauffeur et aux familles qui vous
         accueillent — pas à une commission d'intermédiaire. C'est ce qui rend le
-        métier vivable, et ce qui permet à Agus de refuser les cadences imposées
+        métier vivable, et ce qui me permet de refuser les cadences imposées
         par les groupes.</p>
       </li>
       <li class="reveal">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--soleil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         <h3>Une union de guides, pas un homme seul</h3>
-        <p>Agus travaille avec d'autres guides francophones et anglophones au
+        <p>Je travaille avec d'autres guides francophones et anglophones au
         sein d'une union de guides de Bali. Quand il n'est pas disponible, il
         passe le relais à quelqu'un qu'il connaît — jamais à un inconnu envoyé
         par une centrale.</p>
@@ -1047,7 +1080,7 @@
     <div class="sec-head reveal">
       <p class="label sec-eyebrow">Sur-Mesure</p>
       <h2>Construisez votre demande.</h2>
-      <p>Quatre questions, et votre e-mail part chez Agus déjà rédigé. Il répond sous 24 h, en français — et c'est ce fil-là qui devient votre devis.</p>
+      <p>Quatre questions, et votre e-mail m'arrive déjà rédigé. Je réponds sous 24 h, en français — et c'est ce fil-là qui devient votre devis.</p>
     </div>
 
     <div class="builder">
@@ -1109,12 +1142,12 @@
       <div class="preview-wrap">
         <div class="panel" style="padding: 0; border: none; background: transparent">
           <div class="paix" style="margin-bottom: 1.25rem">
-            <h3>Il peut aussi s'occuper des hôtels.</h3>
-            <p>Par défaut, vous réservez vos hébergements vous-même — Agus vous
-            dit où dormir et pourquoi. Mais si vous préférez ne rien avoir à
-            faire, il les choisit, vous les propose et les réserve : la formule
-            devient globale, hôtels, activités, transport et chauffeur-guide
-            réunis. Vous n'avez plus qu'à venir.</p>
+            <h3>Je peux aussi m'occuper des hôtels.</h3>
+            <p>Par défaut vous réservez vous-même, et je vous dis où dormir et
+            pourquoi. Mais si vous préférez n'avoir à penser à rien, je les
+            choisis, je vous les propose et je réserve : la formule devient
+            globale — hôtels, activités, transport et chauffeur-guide réunis.
+            Vous n'avez plus qu'à venir.</p>
           </div>
 
           <p class="panel-title">3 — Votre message, prêt à envoyer</p>
@@ -1129,14 +1162,14 @@
         </div>
         <a class="btn btn-accent btn-lg btn-send" id="sendBtn" href="#">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-          Envoyer ma demande à Agus
+          Envoyer ma demande
         </a>
         <button class="btn btn-outline btn-copier" id="copyBtn" type="button">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
           <span id="copyLabel">Copier le message</span>
         </button>
         <p class="send-note">Ouvre votre messagerie avec le message déjà rédigé. Vous
-        relisez avant d'envoyer — aucun engagement. Agus répond sous 24 h, et le
+        relisez avant d'envoyer — aucun engagement. Je réponds sous 24 h, et le
         devis se discute par retour de mail.</p>
       </div>
     </div>
@@ -1155,7 +1188,7 @@
     </div>
     <div class="footer-col">
       <p class="label">Explorer</p>
-      <a href="#esprit">L'Esprit</a>
+      <a href="#esprit">Qui je suis</a>
       <a href="#chemins">Par où commencer</a>
       <a href="#circuit">Le circuit</a>
       <a href="#envies">Vos envies</a>
@@ -1169,7 +1202,7 @@
       <a href="mailto:agus.yudiarta@balidecouverte.fr">agus.yudiarta@balidecouverte.fr</a>
       <a href="https://www.facebook.com/agus.guidebali" target="_blank" rel="noopener">Facebook · agus.guidebali</a>
       <a href="https://www.instagram.com/agus.guidebali" target="_blank" rel="noopener">Instagram · agus.guidebali</a>
-      <p>Agus y publie ses photos des îles où il accompagne ses voyageurs.</p>
+      <p>J'y publie mes photos des endroits où j'accompagne mes voyageurs.</p>
       <address style="font-style: normal; font-size: var(--t-sm); color: var(--on-immersive-soft); margin-top: 0.25rem">
         JL. Letda Reta Utara No 3, 80234 Denpasar — Bali
       </address>
@@ -1305,7 +1338,7 @@
     {
       id: "circuit",
       titre: "Partir de son circuit",
-      texte: "Quinze jours à travers Bali qu'Agus a conduits des dizaines de fois. Vous le prenez comme base et vous le déformez : on garde, on jette, on rallonge.",
+      texte: "Quinze jours à travers Bali que j'ai conduits des dizaines de fois. Prenez-le comme base et déformez-le : on garde, on jette, on rallonge.",
       detail: "Le squelette existe, vous l'ajustez.",
       ancre: "#circuit",
       action: "Voir le circuit"
@@ -1313,7 +1346,7 @@
     {
       id: "envies",
       titre: "Partir de vos envies",
-      texte: "Les classiques qu'on vient chercher à Bali, et les endroits qu'Agus est à peu près seul à montrer. Vous cochez, il en fait un itinéraire.",
+      texte: "Les classiques qu'on vient chercher à Bali, et les endroits que je suis à peu près seul à montrer. Vous cochez, j'en fais un itinéraire.",
       detail: "Vos choix deviennent le circuit.",
       ancre: "#envies",
       action: "Voir les envies"
@@ -1332,11 +1365,11 @@
       photos: [{ scene: "wayang", brief: "plan large : les mausolées de Gunung Kawi dans la falaise", src: null }, { scene: "canyon", brief: "détail : l'eau qui sort des fontaines de Tirta Empul", src: null }, { scene: "terraces", brief: "la rue de Penglipuran et ses portails alignés", src: null }] },
     { id: "jatiluwih", famille: "classique", titre: "Les rizières de Jatiluwih",
       texte: "Les terrasses classées à l'UNESCO, et le subak — le système d'irrigation que les villages se partagent depuis le IXe siècle.",
-      recit: "Six cents hectares de terrasses, et pas une clôture. Ce qui est classé à l'UNESCO ici, ce n'est pas le paysage mais le subak : la façon dont les villages se partagent l'eau depuis le IXe siècle, temple par temple, canal par canal, sans qu'aucune administration n'ait jamais eu à trancher. Agus vous explique comment ça tient — c'est une leçon de gouvernance autant qu'une promenade. On marche autant qu'on veut, le sentier est plat, et la lumière de fin d'après-midi vaut le détour.",
+      recit: "Six cents hectares de terrasses, et pas une clôture. Ce qui est classé à l'UNESCO ici, ce n'est pas le paysage mais le subak : la façon dont les villages se partagent l'eau depuis le IXe siècle, temple par temple, canal par canal, sans qu'aucune administration n'ait jamais eu à trancher. Je vous explique comment ça tient — c'est une leçon de gouvernance autant qu'une promenade. On marche autant qu'on veut, le sentier est plat, et la lumière de fin d'après-midi vaut le détour.",
       photos: [{ scene: "terraces", brief: "plan large : l'étagement des terrasses jusqu'à l'horizon", src: null }, { scene: "terraces", brief: "détail : un canal du subak, l'eau qui passe d'un niveau à l'autre", src: null }, { scene: "plantation", brief: "un riziculteur au travail, chapeau conique", src: null }] },
     { id: "besakih", famille: "classique", titre: "Besakih et le Batur",
       texte: "Le temple mère sur les flancs de l'Agung, puis une heure de marche dans la coulée de lave du Batur.",
-      recit: "Besakih est le temple mère de Bali : vingt-trois sanctuaires étagés sur le flanc de l'Agung, le volcan que les Balinais tiennent pour le centre du monde. En 1963, l'éruption a tout ravagé autour et s'est arrêtée aux marches du temple — on vous montrera où. L'après-midi, on marche une heure dans la coulée de lave du Batur : du noir à perte de vue, encore tiède par endroits, et la végétation qui recommence. Prévoyez des chaussures fermées.",
+      recit: "Besakih est le temple mère de Bali : vingt-trois sanctuaires étagés sur le flanc de l'Agung, le volcan que les Balinais tiennent pour le centre du monde. En 1963, l'éruption a tout ravagé autour et s'est arrêtée aux marches du temple — je vous montrerai où. L'après-midi, on marche une heure dans la coulée de lave du Batur : du noir à perte de vue, encore tiède par endroits, et la végétation qui recommence. Prévoyez des chaussures fermées.",
       photos: [{ scene: "terraces", brief: "plan large : les toits étagés de Besakih devant l'Agung", src: null }, { scene: "canyon", brief: "la coulée de lave noire du Batur, texture au sol", src: null }, { scene: "wayang", brief: "une offrande déposée sur un autel du temple", src: null }] },
     { id: "dauphins", famille: "classique", titre: "Les dauphins de Lovina",
       texte: "Bateau à balancier à l'aube, petit-déjeuner au bord de l'eau, temple bouddhiste de Brahma Vihara Arama et bain chaud à Banjar.",
@@ -1356,11 +1389,11 @@
       photos: [{ scene: "canyon", brief: "plan large : la falaise de Klingking en dos de dinosaure", src: null }, { scene: "canyon", brief: "l'arche de Broken Beach, la mer dessous", src: null }, { scene: "dauphins", brief: "une raie manta en snorkeling à Manta Point", src: null }] },
     { id: "ficus", famille: "secret", titre: "Le grand ficus",
       texte: "Un arbre qui enjambe la route, au fond de la région de Munduk. Aucun car ne s'y arrête, aucune brochure n'en parle.",
-      recit: "Il faut savoir qu'il existe, et savoir par où passer. Un ficus dont les racines aériennes ont fini par enjamber la route : on passe dessous en voiture, et on ne comprend l'échelle qu'en descendant se mettre à côté. Aucun car ne s'y arrête, aucune brochure n'en parle, il n'y a ni panneau ni billetterie. C'est exactement le genre d'endroit qui justifie d'avoir quelqu'un du pays au volant — sans Agus, on passe devant sans le voir.",
+      recit: "Il faut savoir qu'il existe, et savoir par où passer. Un ficus dont les racines aériennes ont fini par enjamber la route : on passe dessous en voiture, et on ne comprend l'échelle qu'en descendant se mettre à côté. Aucun car ne s'y arrête, aucune brochure n'en parle, il n'y a ni panneau ni billetterie. C'est exactement le genre d'endroit pour lequel il faut quelqu'un du pays au volant — sans quelqu'un qui sait, on passe devant sans le voir.",
       photos: [{ scene: "plantation", brief: "plan large : le ficus qui enjambe la route, quelqu'un dessous pour l'échelle", src: null }, { scene: "plantation", brief: "détail : l'enchevêtrement des racines aériennes", src: null }, { scene: "terraces", brief: "le chemin qui y mène, entre girofliers et caféiers", src: null }] },
     { id: "saline", famille: "secret", titre: "La saline de quatre cents hectares",
       texte: "La plus grande de Bali, du côté de Pemuteran — et personne. Les cars passent devant sans ralentir.",
-      recit: "Quatre cents hectares de bassins peu profonds, la plus grande saline de l'île, et pas un touriste. Les sauniers travaillent comme leurs pères : on remplit, on attend que le soleil fasse le reste, on ratisse. La croûte craque sous le râteau et la lumière s'y accroche — en fin de journée l'ensemble vire au rose. On peut parler avec eux, Agus traduit. Les cars passent devant sans ralentir : il n'y a rien à vendre ici, c'est bien pour ça que c'est intact.",
+      recit: "Quatre cents hectares de bassins peu profonds, la plus grande saline de l'île, et pas un touriste. Les sauniers travaillent comme leurs pères : on remplit, on attend que le soleil fasse le reste, on ratisse. La croûte craque sous le râteau et la lumière s'y accroche — en fin de journée l'ensemble vire au rose. On peut parler avec eux, je traduis. Les cars passent devant sans ralentir : il n'y a rien à vendre ici, c'est bien pour ça que c'est intact.",
       photos: [{ scene: "terraces", brief: "plan large : les bassins au soleil rasant, l'étendue jusqu'à l'horizon", src: null }, { scene: "terraces", brief: "un saunier au travail, le râteau sur l'épaule", src: null }, { scene: "dauphins", brief: "détail : la croûte de sel qui craque, la lumière dedans", src: null }] },
     { id: "tenganan", famille: "secret", titre: "Tenganan, à pied",
       texte: "Deux heures trente de marche depuis Kastala à travers rizières et villages, jusqu'à l'un des rares villages bali aga qui vit encore selon ses règles d'avant l'hindouisme.",
@@ -1380,7 +1413,7 @@
       photos: [{ scene: "wayang", brief: "l'écran éclairé de dos, la silhouette de la marionnette", src: null }, { scene: "wayang", brief: "le marionnettiste de profil, la lampe et les tiges", src: null }, { scene: "wayang", brief: "le gender et le rindik entre les mains d'un voyageur", src: null }] },
     { id: "munduk", famille: "secret", titre: "Les trois cascades de Munduk",
       texte: "Trois heures de marche entre girofliers, cacaoyers et caféiers, puis une source d'eau chaude. Guide de sentier obligatoire.",
-      recit: "Trois heures de marche d'une cascade à l'autre, à travers les plantations : girofliers, cacaoyers, caféiers — Agus vous fait ouvrir une cabosse et goûter la pulpe autour de la fève, ce qui surprend tout le monde. Le sentier descend puis remonte, il est glissant après la pluie, et un guide de sentier est obligatoire. On finit dans une source d'eau chaude, ce qui, après trois heures de dénivelé, se mérite.",
+      recit: "Trois heures de marche d'une cascade à l'autre, à travers les plantations : girofliers, cacaoyers, caféiers — je vous fais ouvrir une cabosse et goûter la pulpe autour de la fève, ce qui surprend tout le monde. Le sentier descend puis remonte, il est glissant après la pluie, et un guide de sentier est obligatoire. On finit dans une source d'eau chaude, ce qui, après trois heures de dénivelé, se mérite.",
       photos: [{ scene: "canyon", brief: "la cascade en contre-plongée, un marcheur pour l'échelle", src: null }, { scene: "plantation", brief: "le sentier entre cacaoyers et caféiers", src: null }, { scene: "canyon", brief: "la source d'eau chaude, la vapeur au petit matin", src: null }] }
   ];
 
@@ -1390,14 +1423,14 @@
     { id: "classique", titre: "Les classiques",
       texte: "Ce qu'on vient chercher à Bali, et qu'il serait dommage de manquer." },
     { id: "secret", titre: "Les places secrètes",
-      texte: "Ce qu'Agus est à peu près seul à montrer. C'est là que le voyage bascule." }
+      texte: "Ce que je suis à peu près seul à montrer. C'est là que le voyage bascule." }
   ];
 
   var actIds = [];
 
   var EPIGRAPHE = "Être en vacances, c'est n'avoir rien à faire et avoir toute la journée pour le faire.";
 
-  var ACTIVITES_RESTE = "Trois journées ou quinze, c'est vous qui voyez : Agus vient vous chercher à votre hôtel pour une seule journée, ou construit le circuit entier. Cette liste n'est pas fermée : d'autres journées existent, par région — le sud et la presqu'île de Bukit, l'est et Tirta Gangga, le centre-nord et Tamblingan, le sud-ouest et Tanah Lot. Agus vous propose celles qui collent à l'endroit où vous logez.";
+  var ACTIVITES_RESTE = "Trois journées ou quinze, c'est vous qui voyez : je viens vous chercher à votre hôtel pour une seule journée, ou je construis le circuit entier. Et cette liste n'est pas fermée — il y en a d'autres, par région : le sud et la presqu'île de Bukit, l'est et Tirta Gangga, le centre-nord et Tamblingan, le sud-ouest et Tanah Lot. Je vous propose celles qui collent à l'endroit où vous logez.";
 
   var STYLES = ["Nature", "Culture", "Aventure", "Détente", "Famille", "Gastronomie"];
 
@@ -1810,7 +1843,7 @@
   /* ---------- Rendu : les deux chemins ---------- */
   function renderChemins() {
     $("cheminList").innerHTML = CHEMINS.map(function (c) {
-      return '<li class="reveal"><a class="chemin" href="' + c.ancre + '">' +
+      return '<li class="reveal"><a class="chemin filigrane" href="' + c.ancre + '">' +
         '<h3>' + c.titre + '</h3>' +
         '<p>' + c.texte + '</p>' +
         '<p class="label chemin-detail">' + c.detail + '</p>' +

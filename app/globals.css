@@ -155,12 +155,43 @@
     padding-block: clamp(4.5rem, 12vw, 8rem);
   }
 
-  /* Deux surfaces de lecture qui alternent, et un panneau plein jade */
-  .ground-ivoire { background: var(--page); }
-  .ground-sable { background: var(--surface-alt); }
+  /* Deux surfaces de lecture qui alternent, et un panneau plein jade.
+     Chacune porte une sérigraphie très pâle — le tressage de la feuille
+     de palme, celui du panier du canang sari. Elle se lit comme un grain
+     de papier, pas comme un décor.
+
+     ⚠️ Le motif est sur le FOND DE SECTION, jamais sous un bloc de
+     texte : les cartes gardent leur surface pleine. Deux raisons — le
+     texte sur motif est exactement là où la lisibilité meurt, et l'audit
+     de contraste ne sait mesurer qu'une couleur de fond, pas une image.
+     Un motif sous du texte serait un angle mort. */
+  .ground-ivoire {
+    background-color: var(--page);
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22rgba%2815%2C107%2C92%2C0.042%29%22%20stroke-width%3D%221.4%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M-6%2034%2034%20-6M6%2046%2046%206M18%2058%2058%2018M-6%2022%2022%20-6M6%2034%2034%206M18%2046%2046%2018M30%2058%2058%2030%22%2F%3E%3Cpath%20d%3D%22M-6%2022%2022%2050M6%2010%2034%2038M18%20-2%2046%2026M30%20-6%2058%2022M-6%2034%2010%2050M42%20-6%2058%2010%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  }
+  .ground-sable {
+    background-color: var(--surface-alt);
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22rgba%2815%2C107%2C92%2C0.036%29%22%20stroke-width%3D%221.4%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M-6%2034%2034%20-6M6%2046%2046%206M18%2058%2058%2018M-6%2022%2022%20-6M6%2034%2034%206M18%2046%2046%2018M30%2058%2058%2030%22%2F%3E%3Cpath%20d%3D%22M-6%2022%2022%2050M6%2010%2034%2038M18%20-2%2046%2026M30%20-6%2058%2022M-6%2034%2010%2050M42%20-6%2058%2010%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  }
   .ground-jade {
-    background: var(--immersive);
+    background-color: var(--immersive);
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22rgba%28251%2C247%2C238%2C0.05%29%22%20stroke-width%3D%221.4%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M-6%2034%2034%20-6M6%2046%2046%206M18%2058%2058%2018M-6%2022%2022%20-6M6%2034%2034%206M18%2046%2046%2018M30%2058%2058%2030%22%2F%3E%3Cpath%20d%3D%22M-6%2022%2022%2050M6%2010%2034%2038M18%20-2%2046%2026M30%20-6%2058%2022M-6%2034%2010%2050M42%20-6%2058%2010%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
     color: var(--on-immersive);
+  }
+
+  /* Le filigrane de jepun : dans l'angle vide d'une carte, là où aucun
+     texte ne passe. `pointer-events: none` pour ne rien intercepter. */
+  .filigrane::after {
+    content: "";
+    position: absolute;
+    right: -8px;
+    bottom: -10px;
+    width: 78px;
+    height: 78px;
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22120%22%20height%3D%22120%22%20viewBox%3D%220%200%20120%20120%22%3E%3Cg%20fill%3D%22rgba%2815%2C107%2C92%2C0.07%29%22%3E%3Cpath%20transform%3D%22rotate%280%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%2872%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28144%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28216%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28288%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%280%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3Cpath%20transform%3D%22rotate%2872%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28144%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28216%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28288%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
   }
 
   /* La lumière reste une matière, mais elle est solaire : un halo

@@ -85,6 +85,52 @@ rien s'ouvrir. D'où le bouton **« Copier le message »** juste en dessous. En
 production, un formulaire côté serveur enverrait le même texte — le corps est
 déjà isolé dans `buildMessage()`, il n'y a que le transport à brancher.
 
+### La voix : Agus parle, on ne parle pas de lui
+
+Tout le site est à la **première personne**. « Je viens vous chercher à votre
+hôtel », pas « Agus vient vous chercher ». La différence n'est pas cosmétique :
+le site vend une personne, et parler d'elle à la troisième personne remet
+exactement l'intermédiaire que la page passe son temps à nier.
+
+Deux exceptions assumées :
+- le **pied de page** et les **libellés d'interface**, qui sont la voix du site
+  et non celle d'Agus ;
+- dans les récits, le « **on** » collectif reste — « on marche trois heures »,
+  « on déjeune de ce qu'on a fait ». Passer tout en « je » alourdirait ; le
+  français préfère alterner. Règle : **« je » quand Agus agit, « on » quand
+  l'expérience est partagée.**
+
+### Les motifs sérigraphiés
+
+Une trame très pâle court sur les fonds de section : le **tressage de la
+feuille de palme**, celui du panier du canang sari. Opacité 3,6 à 4,2 % — elle
+se lit comme un grain de papier, pas comme un décor. Un **filigrane de jepun**
+occupe l'angle vide des grandes cartes de chemins.
+
+**Trois règles à tenir :**
+
+1. **Le motif est sur le fond de section, jamais sous un bloc de texte.** Les
+   cartes gardent leur surface pleine. C'est là que la lisibilité meurt, et
+   c'est aussi un angle mort de l'outil : **l'audit de contraste ne sait
+   mesurer qu'une couleur de fond, pas une image**. Un motif sous du texte ne
+   serait donc surveillé par personne.
+2. **Pas de poleng.** Le damier noir et blanc a été essayé au début du projet
+   et rejeté — « ça fait course automobile ». Ne pas y revenir.
+3. **Pas de filigrane sur les petites cartes.** Essayé sur les cartes
+   d'activités (84 px de haut) : invisible, et il frôlait le texte. Retiré.
+
+### La présentation : un brief, puis une fiche
+
+`components/AboutAgus.jsx` sépare les deux registres. Le **brief** donne envie
+— portrait, citation, un paragraphe, le canang sari. La **fiche** (« En bref »)
+donne les faits qui lèvent le doute : diplôme, ancienneté, langues, union,
+véhicules. Ces données existaient dans `AGUS` sans être affichées nulle part.
+
+**Pourquoi pas une page `/agus`** : ces faits sont exactement ce qui rassure un
+voyageur qui s'apprête à confier quinze jours à un inconnu. Les envoyer sur une
+page à part, c'est les mettre là où personne ne va. Ils restent là où naît la
+question.
+
 ### Les emplacements photo
 
 `components/Photo.jsx` tient la place des vraies images. Deux partis pris :
@@ -225,6 +271,16 @@ disparu.** Il redisait en quatre lignes ce que les fiches circuits montrent déj
 — le marionnettiste, la cuisine chez l'habitant, la marche vers Tenganan, la
 pirogue de Tamblingan — juste après les avoir montrées. Une récapitulation
 n'apporte rien à qui vient de lire.
+
+La page `/tarifs` porte un **sommaire** en tête — trois ancres vers la grille,
+l'inclus/exclus et le « bon à savoir ». Attention au décalage : `html` porte
+déjà `scroll-padding-top: 5rem`, qui dégage la navbar ; ajouter un
+`scroll-margin` sur les cibles **double** l'écart et fait atterrir à 176 px au
+lieu de 80. Ne pas cumuler les deux.
+
+Les autres îles ne sont plus mentionnées dans les tarifs : les détailler là
+rouvrirait une porte que le parcours a fermée. Une ligne renvoie à un échange
+de vive voix.
 
 **Les tarifs ont quitté la page d'accueil** pour `app/tarifs/page.js`. Ils y
 étaient trop longs (2,4 écrans sur mobile) et surtout trop flous : la grille au

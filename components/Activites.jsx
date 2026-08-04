@@ -43,11 +43,11 @@ export default function Activites() {
       <div className="shell">
         <SectionHead
           eyebrow="Vos envies"
-          title="Cochez, il en fait un itinéraire."
+          title="Cochez, j&apos;en fais un itinéraire."
         >
           Rien ici n&apos;est une commande. Ce que vous cochez part dans votre
-          message, et Agus construit le circuit autour — c&apos;est lui qui sait
-          ce qui s&apos;enchaîne bien et ce qui se dilue.
+          message, et je construis le circuit autour — c&apos;est mon métier de
+          savoir ce qui s&apos;enchaîne bien et ce qui se dilue.
         </SectionHead>
 
         <Reveal>

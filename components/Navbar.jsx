@@ -8,7 +8,7 @@ import { Menu, X, Mail } from "lucide-react";
    de l'accueil. Depuis /tarifs, une ancre nue ne mène nulle part — d'où
    le préfixe « / » ajouté hors accueil par hrefFor(). */
 const LINKS = [
-  { href: "#esprit", label: "L'Esprit" },
+  { href: "#esprit", label: "Qui je suis" },
   { href: "#chemins", label: "Par où commencer" },
   { href: "#circuit", label: "Le circuit" },
   { href: "#envies", label: "Vos envies" },
