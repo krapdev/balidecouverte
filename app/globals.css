@@ -337,8 +337,55 @@
   }
 }
 
+/* ------------------------------------------------------------------
+   Les apparitions au défilement, en CSS.
+
+   Elles étaient faites par framer-motion : soixante frontières client
+   sur l'accueil, et 74 ko de JavaScript, pour une transition d'opacité.
+   Un seul IntersectionObserver (components/RevealObserver.jsx) pose
+   `data-in` et la transition part.
+
+   ⚠️ Ces éléments partent invisibles. Trois filets : le `<noscript>` de
+   RevealObserver, le repli si IntersectionObserver manque, et la règle
+   « mouvement réduit » ci-dessous. Ne pas retirer le premier en croyant
+   que le troisième suffit — ils ne couvrent pas le même cas.
+   ------------------------------------------------------------------ */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.55s ease,
+    transform 0.55s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+.reveal[data-in="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* L'entrée en cascade du hero — même geste, mais à l'affichage et non
+   au défilement : le hero est déjà à l'écran. Le retard est posé en
+   ligne, un cran par enfant. */
+@keyframes monte {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+.monte {
+  animation: monte 0.55s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .reveal,
+  .reveal[data-in="true"] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .monte {
+    animation: none;
   }
 }

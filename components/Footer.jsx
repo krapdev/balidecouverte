@@ -21,7 +21,12 @@ export default function Footer() {
       <div className="shell grid gap-8 md:grid-cols-[1.2fr_1fr_1fr]">
         <div>
           <p className="label mb-3 text-soleil-pale">Om Swastiastu</p>
-          <h3 className="mb-2 text-[1.375rem]">Bali Découverte</h3>
+          {/* Pas un titre de document : la marque en pied de page n'ouvre
+              aucune section, et en `h3` elle apparaissait dans le plan de
+              la page entre deux sections sans rapport. */}
+          <p className="mb-2 font-display text-[1.375rem] font-medium leading-tight">
+            Bali Découverte
+          </p>
           <p className="text-sm text-on-immersive-soft">
             Voyages privés sur-mesure conçus et guidés en français par Agus
             Yudiarta, guide diplômé francophone à Denpasar. {AGUS.territoires}.

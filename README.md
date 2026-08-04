@@ -786,6 +786,125 @@ image ou d'une illustration exige un fond plein.**
 > **nocturne** où la page suivait la montée du jour — belle, mais trop grave
 > pour le propos.
 
+## Référencement
+
+**Le canonical est le seul réglage qui demande une confirmation d'Agus.**
+`lib/site.js` porte `ORIGINE`, surchargeable par `NEXT_PUBLIC_SITE_URL`. La
+valeur par défaut est `https://www.balidecouverte.fr` — **à vérifier** : un
+canonical qui désigne un hôte différent de celui qui répond (www contre apex,
+http contre https) est pire que pas de canonical du tout, il envoie Google
+indexer une URL qui redirige.
+
+Ce qui a été trouvé cassé, et qui l'était vraiment :
+
+- **`colorScheme: "dark"` et `themeColor: "#061520"`** dans le layout —
+  vestiges de la direction nocturne abandonnée en cours de route, sur un site
+  qui déclare `color-scheme: light`. Ce n'était pas cosmétique : `color-scheme:
+  dark` fait rendre au navigateur ses **propres** contrôles en sombre, donc les
+  `<select>` du configurateur et l'ascenseur, et colorait la barre du navigateur
+  mobile en bleu nuit au-dessus d'une page ivoire.
+- **La description annonçait « devis en direct sur WhatsApp »** alors que le
+  canal est devenu l'e-mail. Une description périmée n'est pas un détail : c'est
+  la promesse affichée dans les résultats de recherche.
+- **Le favicon était celui du gabarit Next.js.** L'onglet du navigateur
+  affichait le logo de Next sur le site d'Agus.
+- **`/tarifs` n'avait aucun `h1`** : la page démarrait en `h2`.
+- **Aucun `metadataBase`**, donc aucune URL absolue possible pour les
+  canoniques et les images de partage.
+- **Ni `robots.txt`, ni `sitemap.xml`, ni données structurées, ni image de
+  partage.**
+
+> **Piège Next à connaître : déclarer `openGraph` dans une page *remplace*
+> celui du layout, il ne le complète pas.** La page tarifs a ainsi perdu son
+> `og:type` et son `og:image` au moment même où on lui donnait ses propres
+> titre et description — vérifié, les deux étaient tombés à `null`. Il faut
+> redonner `type`, `siteName`, `locale` et `images`. Même chose pour `twitter`,
+> qui retombait en `summary` au lieu de `summary_large_image`.
+
+### Les données structurées
+
+`components/DonneesStructurees.jsx` émet un graphe JSON-LD :
+`TravelAgency` + `LocalBusiness`, `Person` (Agus), `WebSite`. C'est le gain le
+plus direct pour un guide local — ça dit à Google **ce qu'est** Agus, **où** il
+exerce, **dans quelles langues** et **à quel prix**, au lieu de le lui laisser
+deviner.
+
+> **Aucun `aggregateRating`, et ce n'est pas un oubli.** Nous n'avons aucune
+> note. En inventer une est à la fois un mensonge et une infraction aux règles
+> de Google, sanctionnée par la perte des résultats enrichis. Le jour où le
+> livre d'or arrivera, les avis viendront ici en `Review`, un par témoignage
+> réel.
+
+Deuxième règle : **rien qui ne soit visible sur la page.** Google exige que le
+balisage décrive un contenu réellement affiché. Les prix, les langues,
+l'adresse et la zone desservie le sont tous.
+
+### L'image de partage
+
+`app/opengraph-image.png` (1200 × 630), fabriquée une fois par un script qui
+réutilise les polices déjà embarquées dans la maquette. Un PNG figé plutôt que
+`next/og` : l'image ne change jamais, et la génération à la volée demanderait
+de charger les polices à l'exécution.
+
+Elle compte : ce site va circuler sur Facebook, Instagram et WhatsApp, où Agus
+publie déjà. Un lien sans image de partage y est un rectangle gris.
+
+## Performance
+
+Mesures faites en local, `next start`, gzip actif, sur `encodedDataLength`
+— **et non sur `content-length` lu côté Playwright, qui rend la taille
+décompressée et triple les chiffres.** Mobile bridé : 390 × 844, 4G lente
+(1,6 Mb/s, 150 ms de latence), CPU divisé par quatre.
+
+| | avant | après |
+| --- | --- | --- |
+| JavaScript sur le fil | 216 ko | **170 ko** |
+| Total sur le fil (accueil) | 341 ko | **275 ko** |
+| LCP mobile bridé (accueil) | 2 776 ms | **1 316 ms** |
+| Tâches longues (accueil) | 916 ms | 814 ms |
+| CLS | 0 | 0 |
+
+**Le gain vient d'un seul retrait : la bibliothèque d'animation.** Elle servait
+quatre choses — les apparitions au défilement, la cascade d'entrée du hero, la
+barre mobile, la liste du panier. Les trois premières sont exactement ce que la
+maquette faisait déjà en CSS depuis le début.
+
+Ce que ça change au-delà des octets :
+
+- `Reveal` était un **composant client**, et il y en a une soixantaine sur
+  l'accueil : autant de frontières d'hydratation pour une transition
+  d'opacité. C'est maintenant un composant serveur, plus **un seul**
+  `IntersectionObserver` monté une fois (`RevealObserver`).
+- `Hero` est redevenu un **composant serveur**. Sa cascade part à l'affichage
+  et non à l'hydratation : elle est donc plus tôt, et elle ne dépend plus du
+  JavaScript. C'est ce qui explique la moitié du LCP gagné.
+
+> **Les `.reveal` partent à `opacity: 0` : si le script ne s'exécute pas, la
+> page reste blanche.** Trois filets, et ils ne couvrent pas le même cas — ne
+> pas en retirer un en croyant qu'un autre suffit : un `<noscript>` qui
+> neutralise la classe, un repli si `IntersectionObserver` manque, et la règle
+> `prefers-reduced-motion`.
+
+Seul recul assumé : **le retrait d'une ligne du panier n'est plus animé.** Une
+transition CSS ne sait pas animer ce qu'on retire de l'arbre. L'entrée l'est
+toujours.
+
+### Ce qui reste, et ce qui n'en vaut pas la peine
+
+- **L'accueil pèse 202 ko de HTML brut** (37,8 ko une fois compressé) et
+  1 654 nœuds, à cause des paysages SVG dessinés à la main : chaque vignette
+  d'activité porte les siens, gradients compris. **Ça se résoudra tout seul le
+  jour où les vraies photos arriveront** — ne pas optimiser des placeholders.
+- **Les deux polices pèsent 55,5 ko** et sont toutes deux utilisées. Rien à
+  gagner sans en supprimer une.
+- **Depuis `/tarifs`, 15,8 ko de préchargement** du contenu de l'accueil : c'est
+  le lien de retour qui prépare la navigation attendue. Le coût est assumé, il
+  achète un retour instantané.
+- Il reste **814 ms de tâches longues** sur mobile bridé : c'est l'hydratation
+  de React et du configurateur. Descendre plus bas voudrait dire rendre le
+  configurateur non interactif tant qu'il n'est pas visible, ce qui est un
+  chantier à part.
+
 ## Architecture
 
 ```
@@ -810,14 +929,22 @@ components/
   TripBuilder.jsx    configurateur + rédaction de l'e-mail
   MobileBar.jsx      rappel du voyage en cours, sur mobile
   Scene.jsx          paysages SVG + ornements (jepun, puce jepun, canang, séparateur)
-  Reveal.jsx         apparition au scroll
+  Reveal.jsx         apparition au scroll (serveur, pure CSS)
+  RevealObserver.jsx l'unique IntersectionObserver, monté par page
+  DonneesStructurees.jsx  le graphe JSON-LD
   SectionHead.jsx    en-tête de section
 lib/
   data.js            données de démonstration, îles sœurs, notes de saison
   trip-store.jsx     état partagé (Context + useReducer)
   message.js         objet, corps et lien mailto:
   retours.js         d'où l'on vient, et comment y retourner
+  site.js            origine canonique, titre, description
 ```
+
+`app/` porte aussi les conventions de fichiers de Next : `robots.js`,
+`sitemap.js`, `icon.svg`, `apple-icon.png` et `opengraph-image.png`. Aucune
+n'a besoin d'être déclarée dans les métadonnées, Next les ramasse et injecte
+les balises.
 
 > **`lib/data.js` ne se modifie pas au script sans vérifier après.** Une
 > réécriture par tranche (`s[:i] + bloc + s[j:]`) a **avalé `HEBERGEMENT`** au
@@ -877,7 +1004,15 @@ plein cadre pour le hero) sont déjà posées, rien d'autre ne bouge.
 
 ## Reste à faire avant une mise en production
 
-- Photos réelles d'Agus et des journées.
-- Contenus définitifs : tarifs, disponibilités, mentions légales, RGPD.
-- Pages de détail par circuit.
-- Suivi de conversion sur le clic WhatsApp.
+- **Confirmer l'origine canonique** (`www.balidecouverte.fr` ou l'apex ?) et la
+  poser dans `NEXT_PUBLIC_SITE_URL`. Tant que ce n'est pas fait, les canoniques,
+  le sitemap et le JSON-LD désignent une valeur supposée.
+- **Confirmer laquelle des deux adresses e-mail est publique** — elle est dans
+  le JSON-LD et dans le lien du configurateur.
+- Photos réelles d'Agus et des journées (42 briefs sont prêts).
+- Le **livre d'or** : des témoignages réels, qui deviendront des `Review` dans
+  les données structurées. Aucune note tant qu'il n'y en a pas.
+- Contenus définitifs : mentions légales, CGV, politique de confidentialité,
+  conditions d'annulation. À ajouter au `sitemap.js` en même temps.
+- Faire relire à Agus les 14 récits d'activités et la citation de travail.
+- Suivi de conversion sur l'envoi du mail.

@@ -9,6 +9,8 @@ import Usages from "@/components/Usages";
 import TripBuilder from "@/components/TripBuilder";
 import MobileBar from "@/components/MobileBar";
 import Footer from "@/components/Footer";
+import DonneesStructurees from "@/components/DonneesStructurees";
+import RevealObserver from "@/components/RevealObserver";
 import { Divider } from "@/components/Scene";
 
 /**
@@ -25,6 +27,8 @@ import { Divider } from "@/components/Scene";
 export default function Home() {
   return (
     <TripProvider>
+      <DonneesStructurees />
+      <RevealObserver />
       <Navbar />
       <main className="flex-1">
         <Hero />

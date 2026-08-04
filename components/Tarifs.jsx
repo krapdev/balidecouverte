@@ -29,7 +29,8 @@ export default function Tarifs() {
   return (
     <section id="tarifs" className="ground-ivoire band">
       <div className="shell">
-        <SectionHead eyebrow="Tarifs" title="Au jour, et par véhicule.">
+        {/* niveau 1 : cette page n'a pas de hero, ce titre est son h1. */}
+        <SectionHead eyebrow="Tarifs" title="Au jour, et par véhicule." niveau={1}>
           Vous ne payez pas par personne : vous payez ma journée et ma
           voiture. La même journée revient à 40 € par personne quand vous
           êtes deux, et à 20 € quand vous êtes cinq — c&apos;est ce qui rend
@@ -64,9 +65,9 @@ export default function Tarifs() {
 
         {/* ---------- 1. De quoi parle-t-on ---------- */}
         <Reveal>
-          <h3 id="formules" className="text-xl">
+          <h2 id="formules" className="text-xl">
             Trois façons de compter
-          </h3>
+          </h2>
           <p className="mt-2 max-w-[62ch] text-sm leading-relaxed text-soft">
             Elles ne se mélangent pas, et c&apos;est la première chose à
             savoir avant de lire un chiffre.
@@ -94,7 +95,7 @@ export default function Tarifs() {
           <div className="mt-14 flex items-start gap-4 border-t border-rule pt-8">
             <Symbole nom="tedung" size={38} className="mt-1 hidden shrink-0 text-accent sm:block" />
             <div>
-              <h3 id="grille">La journée, par saison</h3>
+              <h2 id="grille">La journée, par saison</h2>
               <p className="mt-2 max-w-[62ch] text-sm leading-relaxed text-soft">
                 {TARIFS.grilleNote}
               </p>
@@ -248,9 +249,9 @@ export default function Tarifs() {
         {/* ---------- 5. Compris / à régler sur place ---------- */}
         <div className="mt-14 grid gap-8 border-t border-rule pt-8 sm:grid-cols-2">
           <Reveal delay={0.06}>
-            <h3 id="compris" className="mb-4 text-xl">
+            <h2 id="compris" className="mb-4 text-xl">
               Compris dans la journée
-            </h3>
+            </h2>
             <ul className="m-0 flex list-none flex-col gap-2.5 p-0">
               {TARIFS.inclus.map((t) => (
                 <li key={t} className="flex gap-3 text-sm leading-relaxed">
@@ -266,7 +267,7 @@ export default function Tarifs() {
           </Reveal>
 
           <Reveal delay={0.12}>
-            <h3 className="mb-4 text-xl">À régler sur place</h3>
+            <h2 className="mb-4 text-xl">À régler sur place</h2>
             <ul className="m-0 flex list-none flex-col gap-2.5 p-0">
               {TARIFS.exclus.map((t) => (
                 <li
@@ -285,7 +286,7 @@ export default function Tarifs() {
         <Reveal delay={0.1}>
           <div className="mt-14 flex items-start gap-4 border-t border-rule pt-8">
             <Symbole nom="gong" size={38} className="mt-1 hidden shrink-0 text-accent sm:block" />
-            <h3 id="savoir">Les deux autres formules</h3>
+            <h2 id="savoir">Les deux autres formules</h2>
           </div>
 
           <div className="mt-6 grid gap-3 lg:grid-cols-2">

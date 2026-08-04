@@ -1,12 +1,41 @@
+import { NOM_SITE } from "@/lib/site";
 import Navbar from "@/components/Navbar";
 import Tarifs from "@/components/Tarifs";
 import RetourLien from "@/components/RetourLien";
 import Footer from "@/components/Footer";
+import DonneesStructurees from "@/components/DonneesStructurees";
+import RevealObserver from "@/components/RevealObserver";
+
+const DESCRIPTION_TARIFS =
+  "Le tarif d'Agus Yudiarta, guide privé francophone à Bali : à la journée et par véhicule, en circuit, ou à Nusa Penida. Ce qui est compris, ce qui ne l'est pas.";
 
 export const metadata = {
-  title: "Tarifs — Bali Découverte",
-  description:
-    "Le tarif d'Agus Yudiarta, guide privé francophone à Bali : au jour et par véhicule, par saison, ce qui est compris et ce qui ne l'est pas.",
+  /* Titre court : le gabarit du layout ajoute la marque. */
+  title: "Tarifs",
+  description: DESCRIPTION_TARIFS,
+  alternates: { canonical: "/tarifs" },
+  /* Sans ce bloc, la page héritait des Open Graph de l'accueil : un lien
+     vers les tarifs partagé sur Facebook ou WhatsApp annonçait « Guide
+     privé francophone à Bali » et la description de l'accueil.
+     ⚠️ Déclarer `openGraph` ici **remplace** celui du layout au lieu de
+     le compléter : `type` et `images` doivent être redonnés, sinon la
+     page perd son type et son image de partage — vérifié, ils étaient
+     bien tombés à `null`. */
+  openGraph: {
+    type: "website",
+    locale: "fr_FR",
+    url: "/tarifs",
+    siteName: NOM_SITE,
+    title: "Tarifs — Bali Découverte",
+    description: DESCRIPTION_TARIFS,
+    images: ["/opengraph-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Tarifs — Bali Découverte",
+    description: DESCRIPTION_TARIFS,
+    images: ["/opengraph-image.png"],
+  },
 };
 
 /**
@@ -27,6 +56,8 @@ export const metadata = {
 export default function TarifsPage() {
   return (
     <>
+      <DonneesStructurees />
+      <RevealObserver />
       <Navbar />
       <main className="flex-1">
         <div className="shell pt-[clamp(5.5rem,12vw,7rem)]">

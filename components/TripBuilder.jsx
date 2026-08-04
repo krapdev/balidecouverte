@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import {
   X,
   Minus,
@@ -135,17 +134,14 @@ export default function TripBuilder() {
                     : "Rien de coché pour l'instant — remontez choisir, ou envoyez votre demande telle quelle : je vous proposerai un itinéraire complet."}
                 </p>
               ) : (
-                <AnimatePresence initial={false}>
-                  {trip.activites.map((a, i) => (
-                    <motion.div
-                      key={a.id}
-                      layout
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.22 }}
-                      className="overflow-hidden"
-                    >
+                /* L'ancienne version animait aussi la sortie d'une
+                   ligne. Une transition CSS ne sait pas animer ce qu'on
+                   retire de l'arbre : l'entrée reste animée, le retrait
+                   est immédiat. C'est le seul recul du retrait de la
+                   bibliothèque d'animation, et il ne se remarque pas —
+                   on retire une ligne en sachant ce qu'on fait. */
+                trip.activites.map((a, i) => (
+                    <div key={a.id} className="monte overflow-hidden">
                       <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3.5 border-b border-rule py-3">
                         <span className="font-sans text-[0.6875rem] tabular-nums text-eyebrow">
                           {String(i + 1).padStart(2, "0")}
@@ -169,9 +165,8 @@ export default function TripBuilder() {
                           <X size={16} />
                         </button>
                       </div>
-                    </motion.div>
-                  ))}
-                </AnimatePresence>
+                    </div>
+                  ))
               )}
             </div>
 
