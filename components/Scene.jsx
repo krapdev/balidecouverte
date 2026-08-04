@@ -11,8 +11,10 @@
  * dans Hero.jsx et ExperienceCard.jsx — les proportions sont déjà posées.
  */
 
-/* Lumière du jour, franche mais douce. Le lagon et le jade portent les
-   paysages, le soleil éclaire, le bougainvillier ne sert qu'aux détails. */
+/* Lumière du jour, franche mais douce. Le bambou et le lagon portent les
+   paysages, le soleil éclaire, le bougainvillier ne sert qu'aux détails.
+   Les verts sont chauds comme la palette de la page ; le lagon reste
+   froid, sinon la mer et les lacs sonnent faux. */
 const C = {
   cielHaut: "#bfe3e4",
   cielBas: "#eaf3ea",
@@ -22,9 +24,9 @@ const C = {
   lagon: "#189aa4",
   lagonPale: "#7fc9cd",
   lagonProfond: "#0d6570",
-  jade: "#0f6b5c",
-  jadeSombre: "#084a40",
-  jadeClair: "#3f9a7f",
+  bambou: "#4a7038",
+  bambouSombre: "#2f4720",
+  bambouClair: "#7ba85e",
   padi: "#7fa64a",
   padiClair: "#a8c46a",
   brique: "#b5674a",
@@ -229,9 +231,9 @@ function Terraces({ w, h, ns }) {
             Q ${w * 0.26} ${h * 0.46} ${w * 0.36} ${h * 0.26}
             Q ${w * 0.4} ${h * 0.21} ${w * 0.45} ${h * 0.27}
             Q ${w * 0.56} ${h * 0.47} ${w * 0.72} ${h * 0.66} Z`}
-        fill={C.jadeSombre}
+        fill={C.bambouSombre}
       />
-      <path d={band(h * 0.68, h * 0.045, w, h, 2.1)} fill={C.jade} />
+      <path d={band(h * 0.68, h * 0.045, w, h, 2.1)} fill={C.bambou} />
       <path d={band(h * 0.78, h * 0.04, w, h, 3.3)} fill={C.padi} />
       <path d={band(h * 0.88, h * 0.03, w, h, 1.2)} fill={C.rocheSombre} />
       {/* L'eau des terrasses attrape la lueur : le subak en miroir */}
@@ -259,7 +261,7 @@ function Spring({ w, h, ns }) {
     <>
       <ellipse cx={cx} cy={h * 0.5} rx={w * 0.34} ry={h * 0.34} fill={`url(#halo-${ns})`} />
       <circle cx={cx} cy={h * 0.42} r={h * 0.12} fill={C.soleilPale} opacity=".9" />
-      <path d={band(h * 0.58, h * 0.035, w, h, 1.9)} fill={C.jadeSombre} />
+      <path d={band(h * 0.58, h * 0.035, w, h, 1.9)} fill={C.bambouSombre} />
       {[-1, 1].map((side) => (
         <g key={side}>
           <path
@@ -290,7 +292,7 @@ function Spring({ w, h, ns }) {
       <Tedung x={cx - 168} y={gy} s={h / 620} tone={C.soleil} />
       <Tedung x={cx + 168} y={gy} s={h / 620} tone={C.clair} />
       {/* Le bassin, et la lueur qui s'y couche */}
-      <rect y={gy} width={w} height={h - gy} fill={C.jadeSombre} />
+      <rect y={gy} width={w} height={h - gy} fill={C.bambouSombre} />
       <rect y={gy} width={w} height={h - gy} fill={`url(#mist-${ns})`} opacity=".5" />
       {Array.from({ length: 5 }, (_, j) => (
         <path
@@ -356,7 +358,7 @@ function Canyon({ w, h, ns }) {
         fill={C.padiClair}
         opacity=".8"
       />
-      <rect y={h * 0.84} width={w} height={h * 0.16} fill={C.jade} />
+      <rect y={h * 0.84} width={w} height={h * 0.16} fill={C.bambou} />
       {Array.from({ length: 3 }, (_, k) => (
         <ellipse
           key={k}
@@ -391,7 +393,7 @@ function Plantation({ w, h, ns }) {
       <ellipse cx={w * 0.76} cy={h * 0.2} rx={w * 0.16} ry={h * 0.24} fill={`url(#halo-${ns})`} opacity=".7" />
       <circle cx={w * 0.78} cy={h * 0.2} r={h * 0.095} fill={C.soleilPale} />
       <circle cx={w * 0.74} cy={h * 0.175} r={h * 0.088} fill={C.cielHaut} />
-      <path d={band(h * 0.6, h * 0.05, w, h, 0.9)} fill={C.jadeSombre} />
+      <path d={band(h * 0.6, h * 0.05, w, h, 0.9)} fill={C.bambouSombre} />
       <path d={band(h * 0.74, h * 0.04, w, h, 2.4)} fill={C.rocheSombre} />
       {Array.from({ length: 20 }, (_, c) => (
         <path
@@ -478,7 +480,7 @@ function Rinjani({ w, h, ns }) {
             Q ${w * 0.26} ${h * 0.42} ${w * 0.38} ${h * 0.16}
             L${w * 0.5} ${h * 0.2} L${w * 0.56} ${h * 0.14}
             Q ${w * 0.74} ${h * 0.44} ${w * 0.96} ${h * 0.72} Z`}
-        fill={C.jadeSombre}
+        fill={C.bambouSombre}
       />
       <path
         d={`M${w * 0.38} ${h * 0.16} L${w * 0.5} ${h * 0.2} L${w * 0.56} ${h * 0.14}
@@ -514,12 +516,12 @@ function Komodo({ w, h, ns }) {
       <path
         d={`M${w * 0.34} ${h} Q ${w * 0.46} ${h * 0.46} ${w * 0.62} ${h * 0.54}
             Q ${w * 0.72} ${h * 0.6} ${w * 0.68} ${h} Z`}
-        fill={C.jade}
+        fill={C.bambou}
       />
       <path
         d={`M${w * 0.66} ${h} Q ${w * 0.8} ${h * 0.54} ${w * 1.05} ${h * 0.62}
             L${w * 1.05} ${h} Z`}
-        fill={C.jadeSombre}
+        fill={C.bambouSombre}
       />
       {/* Le liseré de plage, dont l'une est rose */}
       <path
@@ -551,7 +553,7 @@ function Komodo({ w, h, ns }) {
 function Kelimutu({ w, h, ns }) {
   const lacs = [
     { cx: 0.24, cy: 0.72, rx: 0.13, ry: 0.06, fill: C.lagon },
-    { cx: 0.52, cy: 0.66, rx: 0.15, ry: 0.07, fill: C.jade },
+    { cx: 0.52, cy: 0.66, rx: 0.15, ry: 0.07, fill: C.bambou },
     { cx: 0.8, cy: 0.74, rx: 0.12, ry: 0.055, fill: C.brique },
   ];
   return (
@@ -559,7 +561,7 @@ function Kelimutu({ w, h, ns }) {
       <ellipse cx={w * 0.5} cy={h * 0.26} rx={w * 0.36} ry={h * 0.28} fill={`url(#halo-${ns})`} />
       <circle cx={w * 0.5} cy={h * 0.22} r={h * 0.07} fill={C.soleilPale} />
       {/* Les crêtes du massif, en trois plans */}
-      <path d={band(h * 0.46, h * 0.05, w, h, 1.1)} fill={C.jadeSombre} />
+      <path d={band(h * 0.46, h * 0.05, w, h, 1.1)} fill={C.bambouSombre} />
       <path
         d={`M0 ${h * 0.62} L${w * 0.18} ${h * 0.5} L${w * 0.4} ${h * 0.58}
             L${w * 0.6} ${h * 0.48} L${w * 0.82} ${h * 0.58} L${w} ${h * 0.52}
@@ -768,7 +770,7 @@ export function PortraitAgus({ className = "" }) {
       {/* Le jour se lève derrière lui : la silhouette est à contre-jour */}
       <ellipse cx="300" cy="300" rx="280" ry="220" fill="url(#portrait-halo)" />
       <circle cx="316" cy="248" r="58" fill={C.soleilPale} opacity=".95" />
-      <path d="M0 300 Q120 262 246 302 T460 288 L460 560 L0 560 Z" fill={C.jadeSombre} />
+      <path d="M0 300 Q120 262 246 302 T460 288 L460 560 L0 560 Z" fill={C.bambouSombre} />
       <path d="M0 360 Q140 322 262 370 T460 358 L460 560 L0 560 Z" fill={C.padi} />
       <path d="M0 420 Q150 386 268 428 T460 416 L460 560 L0 560 Z" fill={C.rocheSombre} />
 

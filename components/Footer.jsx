@@ -1,5 +1,6 @@
 import { WHATSAPP_DISPLAY, WHATSAPP_NUMBER, CONTACT, AGUS } from "@/lib/data";
 import { Canang } from "./Scene";
+import LienTarifs from "./LienTarifs";
 
 /* Le pied de page s'affiche aussi sur /tarifs : les ancres sont donc
    ancrées à la racine. Depuis l'accueil, « /#esprit » reste une simple
@@ -9,13 +10,14 @@ const LINKS = [
   { href: "/#chemins", label: "Par où commencer" },
   { href: "/#circuit", label: "Le circuit" },
   { href: "/#envies", label: "Vos envies" },
+  { href: "/#usages", label: "Us et coutumes" },
   { href: "/tarifs", label: "Tarifs" },
   { href: "/#sur-mesure", label: "Sur-Mesure" },
 ];
 
 export default function Footer() {
   return (
-    <footer className="ground-jade pb-28 pt-[clamp(2.5rem,7vw,4rem)] lg:pb-16">
+    <footer className="ground-bambou pb-28 pt-[clamp(2.5rem,7vw,4rem)] lg:pb-16">
       <div className="shell grid gap-8 md:grid-cols-[1.2fr_1fr_1fr]">
         <div>
           <p className="label mb-3 text-soleil-pale">Om Swastiastu</p>
@@ -28,15 +30,19 @@ export default function Footer() {
 
         <nav className="flex flex-col gap-2" aria-label="Pied de page">
           <p className="label mb-1 text-soleil-pale">Explorer</p>
-          {LINKS.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="flex min-h-11 items-center text-sm text-on-immersive-soft no-underline transition-colors hover:text-on-immersive"
-            >
-              {l.label}
-            </a>
-          ))}
+          {LINKS.map((l) => {
+            const cls =
+              "flex min-h-11 items-center text-sm text-on-immersive-soft no-underline transition-colors hover:text-on-immersive";
+            return l.href === "/tarifs" ? (
+              <LienTarifs key={l.href} className={cls}>
+                {l.label}
+              </LienTarifs>
+            ) : (
+              <a key={l.href} href={l.href} className={cls}>
+                {l.label}
+              </a>
+            );
+          })}
         </nav>
 
         <div className="flex flex-col gap-2">

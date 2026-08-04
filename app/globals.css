@@ -7,14 +7,22 @@
    d'air, et une couleur qui chante sans crier.
 
    La palette vient des choses qu'on voit vraiment sur l'île :
-     jade      — le vert laqué des temples et des rizières mûres
-     lagon     — le turquoise des passes et du lac d'Ijen
+     bambou    — le vert de la canne mûre, chaud, presque jaune
+     pousse    — le bambou jeune, plus clair
+     lagon     — le turquoise des passes et des lagons du nord
      soleil    — le safran des ombrelles et des offrandes
      bougainv. — le rose des murs de Sanur, la touche de joie
 
-   Discipline : le jade porte les actions et les panneaux pleins,
+   Discipline : le bambou porte les actions et les panneaux pleins,
    le soleil éclaire, le bougainvillier ne sert qu'aux étiquettes.
    Le lagon vit dans les illustrations.
+
+   Le bambou a remplacé un jade froid (#0f6b5c). Le remplacement
+   s'est fait **à valeur égale**, pas à l'œil : 6,10 sur l'ivoire
+   contre 5,99 pour le jade, 5,05 pour le texte pâle des panneaux
+   contre 4,89. Rien n'a bougé côté lisibilité, seule la teinte est
+   passée du côté chaud. Le lagon reste froid et c'est voulu : sans
+   lui la page virerait au monochrome tiède, et la mer serait fausse.
 
    Monde clair unique et assumé : pas de variante nocturne. La
    direction est solaire, elle n'a pas d'envers.
@@ -23,18 +31,18 @@
   color-scheme: light;
 
   /* Palette de marque */
-  --jade: #0f6b5c;
-  --jade-deep: #084a40;
-  --jade-soft: #2d8d7b;
-/* Le bambou : plus clair et plus jaune que le jade, pour les gestes de
-     sélection qui doivent respirer plutôt que trancher. La puce est une
-     icône (jepun), donc seuil 3:1 — WCAG 1.4.11, contenu graphique.
-     Mesuré à 3,44 sur son fond pâle et 3,63 sur l'ivoire. Ne pas
-     l'éclaircir sans remesurer : #6f9662 tombe à 2,99, sous le seuil.
-     Et si la puce redevenait un caractère, le seuil repasserait à 4,5 —
-     il faudrait alors revenir à #628c56 assombri. */
-  --bambou: #628c56;
-  --bambou-pale: #eef3e6;
+  --bambou: #476635;
+  --bambou-deep: #2f4720;
+  --bambou-soft: #6f9c52;
+  /* La pousse : le bambou jeune. Elle ne porte qu'un geste, celui de
+     cueillir — la puce jepun des activités. Étant une icône et non un
+     caractère, son seuil est celui des objets graphiques (3:1, WCAG
+     1.4.11) : mesurée à 3,44 sur son fond pâle et 3,63 sur l'ivoire.
+     Ne pas l'éclaircir sans remesurer : #6f9662 tombe à 2,99. Et si la
+     puce redevenait un caractère, le seuil repasserait à 4,5 — il
+     faudrait alors l'assombrir. */
+  --pousse: #628c56;
+  --pousse-pale: #eef3e6;
   --lagon: #189aa4;
   --lagon-pale: #7fc9cd;
   --soleil: #f2b134;
@@ -53,12 +61,12 @@
   --text: #22302b;
   --text-soft: #505f58;
   --text-faint: #5d6c64; /* relevé par l'audit : 4,02 sur le sable */
-  --immersive: #0f6b5c;
-  --immersive-deep: #084a40;
+  --immersive: #476635;
+  --immersive-deep: #2f4720;
   --on-immersive: #f4f8f3;
-  --on-immersive-soft: #cfe6df; /* relevé : 3,97 sur le jade */
-  --accent: #0f6b5c; /* le jade porte l'action */
-  --accent-hi: #14806e;
+  --on-immersive-soft: #d7e8c6; /* 5,05 sur le bambou */
+  --accent: #476635; /* le bambou porte l'action */
+  --accent-hi: #567c3f;
   --accent-ink: #fbf7ee;
   --eyebrow: #ad3550; /* le bougainvillier, lisible en petit corps */
   --tint: #fdeecf;
@@ -70,11 +78,11 @@
 }
 
 @theme inline {
-  --color-jade: var(--jade);
-  --color-jade-deep: var(--jade-deep);
-  --color-jade-soft: var(--jade-soft);
   --color-bambou: var(--bambou);
-  --color-bambou-pale: var(--bambou-pale);
+  --color-bambou-deep: var(--bambou-deep);
+  --color-bambou-soft: var(--bambou-soft);
+  --color-pousse: var(--pousse);
+  --color-pousse-pale: var(--pousse-pale);
   --color-lagon: var(--lagon);
   --color-lagon-pale: var(--lagon-pale);
   --color-soleil: var(--soleil);
@@ -142,7 +150,7 @@
     color: var(--encre);
   }
   :focus-visible {
-    outline: 2px solid var(--jade);
+    outline: 2px solid var(--bambou);
     outline-offset: 3px;
   }
 }
@@ -166,7 +174,7 @@
     padding-block: clamp(4.5rem, 12vw, 8rem);
   }
 
-  /* Deux surfaces de lecture qui alternent, et un panneau plein jade.
+  /* Deux surfaces de lecture qui alternent, et une bande pleine bambou.
      Chacune porte une sérigraphie très pâle — le tressage de la feuille
      de palme, celui du panier du canang sari. Elle se lit comme un grain
      de papier, pas comme un décor.
@@ -178,13 +186,13 @@
      Un motif sous du texte serait un angle mort. */
   .ground-ivoire {
     background-color: var(--page);
-    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22rgba%2815%2C107%2C92%2C0.042%29%22%20stroke-width%3D%221.4%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M-6%2034%2034%20-6M6%2046%2046%206M18%2058%2058%2018M-6%2022%2022%20-6M6%2034%2034%206M18%2046%2046%2018M30%2058%2058%2030%22%2F%3E%3Cpath%20d%3D%22M-6%2022%2022%2050M6%2010%2034%2038M18%20-2%2046%2026M30%20-6%2058%2022M-6%2034%2010%2050M42%20-6%2058%2010%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22rgba%2871%2C102%2C53%2C0.042%29%22%20stroke-width%3D%221.4%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M-6%2034%2034%20-6M6%2046%2046%206M18%2058%2058%2018M-6%2022%2022%20-6M6%2034%2034%206M18%2046%2046%2018M30%2058%2058%2030%22%2F%3E%3Cpath%20d%3D%22M-6%2022%2022%2050M6%2010%2034%2038M18%20-2%2046%2026M30%20-6%2058%2022M-6%2034%2010%2050M42%20-6%2058%2010%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
   }
   .ground-sable {
     background-color: var(--surface-alt);
-    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22rgba%2815%2C107%2C92%2C0.036%29%22%20stroke-width%3D%221.4%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M-6%2034%2034%20-6M6%2046%2046%206M18%2058%2058%2018M-6%2022%2022%20-6M6%2034%2034%206M18%2046%2046%2018M30%2058%2058%2030%22%2F%3E%3Cpath%20d%3D%22M-6%2022%2022%2050M6%2010%2034%2038M18%20-2%2046%2026M30%20-6%2058%2022M-6%2034%2010%2050M42%20-6%2058%2010%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22rgba%2871%2C102%2C53%2C0.036%29%22%20stroke-width%3D%221.4%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M-6%2034%2034%20-6M6%2046%2046%206M18%2058%2058%2018M-6%2022%2022%20-6M6%2034%2034%206M18%2046%2046%2018M30%2058%2058%2030%22%2F%3E%3Cpath%20d%3D%22M-6%2022%2022%2050M6%2010%2034%2038M18%20-2%2046%2026M30%20-6%2058%2022M-6%2034%2010%2050M42%20-6%2058%2010%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
   }
-  .ground-jade {
+  .ground-bambou {
     background-color: var(--immersive);
     background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22rgba%28251%2C247%2C238%2C0.05%29%22%20stroke-width%3D%221.4%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M-6%2034%2034%20-6M6%2046%2046%206M18%2058%2058%2018M-6%2022%2022%20-6M6%2034%2034%206M18%2046%2046%2018M30%2058%2058%2030%22%2F%3E%3Cpath%20d%3D%22M-6%2022%2022%2050M6%2010%2034%2038M18%20-2%2046%2026M30%20-6%2058%2022M-6%2034%2010%2050M42%20-6%2058%2010%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
     color: var(--on-immersive);
@@ -199,7 +207,7 @@
     bottom: -10px;
     width: 78px;
     height: 78px;
-    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22120%22%20height%3D%22120%22%20viewBox%3D%220%200%20120%20120%22%3E%3Cg%20fill%3D%22rgba%2815%2C107%2C92%2C0.07%29%22%3E%3Cpath%20transform%3D%22rotate%280%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%2872%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28144%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28216%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28288%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%280%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3Cpath%20transform%3D%22rotate%2872%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28144%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28216%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28288%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22120%22%20height%3D%22120%22%20viewBox%3D%220%200%20120%20120%22%3E%3Cg%20fill%3D%22rgba%2871%2C102%2C53%2C0.07%29%22%3E%3Cpath%20transform%3D%22rotate%280%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%2872%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28144%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28216%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28288%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%280%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3Cpath%20transform%3D%22rotate%2872%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28144%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28216%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28288%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
     background-size: contain;
     background-repeat: no-repeat;
     pointer-events: none;
@@ -223,7 +231,7 @@
     background: linear-gradient(
       to right,
       transparent,
-      color-mix(in srgb, var(--jade) 32%, transparent),
+      color-mix(in srgb, var(--bambou) 32%, transparent),
       transparent
     );
   }
@@ -272,7 +280,7 @@
   }
   .btn-accent:hover {
     background: var(--accent-hi);
-    box-shadow: 0 10px 26px -12px color-mix(in srgb, var(--jade) 70%, transparent);
+    box-shadow: 0 10px 26px -12px color-mix(in srgb, var(--bambou) 70%, transparent);
   }
   .btn-sun {
     background: var(--soleil);
@@ -313,7 +321,7 @@
     appearance: none;
   }
   .field-input:hover {
-    border-color: color-mix(in srgb, var(--jade) 45%, var(--rule));
+    border-color: color-mix(in srgb, var(--bambou) 45%, var(--rule));
   }
   select.field-input {
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%235d6c64' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");

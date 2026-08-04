@@ -10,6 +10,7 @@ import {
   Heart,
 } from "lucide-react";
 import { PortraitAgus, Canang, Jepun } from "./Scene";
+import { Symbole } from "./Symboles";
 import Photo from "./Photo";
 import SectionHead from "./SectionHead";
 import Reveal from "./Reveal";
@@ -36,7 +37,7 @@ import { AGUS, VALEURS } from "@/lib/data";
  * personne ne clique sur tout.
  *
  * **Deux registres, deux traitements.** Les valeurs sont visibles, sur
- * un panneau jade : elles créent la préférence, elles doivent être lues.
+ * un panneau bambou : elles créent la préférence, elles doivent être lues.
  * Les faits sont repliés : ils lèvent le doute, on les consulte quand la
  * question se pose. Remplacer les uns par les autres perdrait la moitié
  * du travail — qui ne fait pas confiance ne sera pas ému par des
@@ -200,16 +201,28 @@ export default function AboutAgus() {
           </div>
         </div>
 
-        {/* ---------- Les valeurs : visibles, sur panneau jade ----------
+        {/* ---------- Les valeurs : visibles, sur panneau bambou ----------
             Ce bloc était une section à part avant le configurateur. Le
             panneau garde la respiration visuelle qu'on perdrait à
-            supprimer la bande, sans coûter une section de plus. */}
+            supprimer la bande, sans coûter une section de plus.
+
+            Le padma en filigrane dans l'angle : le lotus à huit pétales
+            est l'assise du dieu suprême, le sanctuaire vers lequel tout
+            temple est orienté. En filigrane et non en icône — un
+            symbole affiché en clair demande à être expliqué, une
+            texture non. Il est posé là où aucun texte ne passe. */}
         <Reveal delay={0.1}>
           <div
             id="valeurs"
-            className="mt-[clamp(3rem,8vw,4.5rem)] rounded-[18px] bg-immersive px-[clamp(1.5rem,5vw,3rem)] py-[clamp(2rem,6vw,3rem)] text-on-immersive"
+            className="relative mt-[clamp(3rem,8vw,4.5rem)] overflow-hidden rounded-[18px] bg-immersive px-[clamp(1.5rem,5vw,3rem)] py-[clamp(2rem,6vw,3rem)] text-on-immersive"
           >
-            <h3 className="max-w-[22ch] text-[clamp(1.5rem,4.5vw,2rem)] leading-tight">
+            <Symbole
+              nom="padma"
+              size={230}
+              strokeWidth={0.5}
+              className="pointer-events-none absolute -right-14 -top-16 text-on-immersive opacity-[0.13]"
+            />
+            <h3 className="relative max-w-[22ch] text-[clamp(1.5rem,4.5vw,2rem)] leading-tight">
               {VALEURS.titre}
             </h3>
             <p className="mt-4 max-w-[62ch] leading-relaxed text-on-immersive-soft">

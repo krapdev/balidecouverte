@@ -339,7 +339,11 @@ de vive voix.
 jour et par véhicule cohabitait avec les forfaits de circuit par personne, sans
 que rien ne dise que ce sont deux modèles différents.
 
-La page d'accueil est passée de **23,6 à 14,7 écrans sur mobile**.
+La page d'accueil est passée de **23,6 à 14,7 écrans sur mobile** au moment de
+ce dégraissage. Elle est remontée à **17,7** depuis, avec l'ajout des « Us et
+coutumes » — c'est le prix d'une section entière, et il est assumé ; mais le
+compteur est là pour qu'on le voie, pas pour qu'on l'oublie. Le mesurer à
+chaque ajout (390 × 844).
 
 ### Le prix d'un circuit ne se lit jamais seul
 
@@ -349,6 +353,102 @@ comprend pas les nuits d'hôtel, soit quatorze nuits pour le circuit de 15 jours
 La condition est collée au chiffre, et la fiche renvoie vers `/tarifs` par un
 lien « Ce que comprend ce prix ». **Ne jamais afficher le montant sans sa
 condition.**
+
+### Les tarifs : trois façons de compter, annoncées avant les chiffres
+
+Le reproche fait à cette page — « le détail sur le tarif n'est pas très
+clair » — était le bon, et le diagnostic tient en une phrase : **trois modèles
+de prix cohabitaient sans être annoncés.** La journée au véhicule (80 €), le
+forfait de circuit au voyageur (1 210 €), le forfait Nusa Penida (230 € pour
+deux). Le lecteur voyait ces montants sur le même écran et n'avait aucun moyen
+de les rapprocher.
+
+L'ordre de la page est désormais **quelles formules existent → laquelle vous
+concerne → combien ça fait, en toutes lettres → ce qui s'ajoute** :
+
+1. **`TARIFS.formules`** — trois cartes, avant le premier chiffre. C'est le
+   bloc qui règle le malentendu ; ne pas le déplacer sous la grille.
+2. **La grille**, avec sa légende (`grilleNote`). Les colonnes disent
+   « 1 à 3 voyageurs » et non « 1 à 3 personnes » ; la légende répète que
+   **le prix est du véhicule, pas de la tête**. Sans elle, l'en-tête se lit
+   comme une tranche de prix par personne, soit l'inverse du modèle d'Agus.
+3. **`TARIFS.exemple`** — le calcul posé : deux voyageurs, février, Ubud,
+   trois journées, 240 €, soit 40 € par personne et par jour. **Un total en
+   toutes lettres vaut mieux que trois paragraphes de méthode.** Ubud est
+   choisi exprès : la région n'ouvre pas le supplément de nuitée, l'exemple
+   reste donc un total complet.
+4. **`TARIFS.supplement`** — sorti du « bon à savoir ». C'est le seul poste
+   qui fait monter l'addition sans figurer au tableau ; enfoui dans une liste,
+   il ressemblait à un détail, et une addition qui grimpe après coup est ce
+   qui abîme le plus la confiance.
+
+Le chapô ne dit plus « à deux comme à cinq, le tarif bouge à peine » — c'était
+faux au sens strict (80 € contre 100 €). Il dit ce qui est à la fois vrai et
+plus fort : **40 € par personne à deux, 20 € à cinq.**
+
+**Sur mobile, la grille n'est plus un tableau qui défile latéralement.** Un
+tableau de prix qu'il faut pousser du doigt pour voir la seconde colonne cache
+exactement l'information qu'on est venu chercher. Sous 640 px, chaque saison
+devient une carte où les deux prix sont côte à côte ; le `<table>` réapparaît
+dès qu'il y a la place.
+
+Coût assumé : la page passe de 4,4 à **7,0 écrans sur mobile**. C'est une page
+de référence qu'on consulte avec un sommaire, pas une page d'accroche — la
+clarté valait les deux écrans et demi.
+
+### La navigation retour, et pourquoi ce n'est pas `history.back()`
+
+Le lien « Retour à l'accueil » des tarifs renvoyait à `/`, c'est-à-dire **tout
+en haut**. Quelqu'un qui consultait le prix depuis la fiche du circuit, à sept
+écrans de défilement, se retrouvait devant le hero et devait tout refaire.
+
+Le trajet aller mémorise donc sa section de départ — `/tarifs?de=circuit` — et
+le retour ramène à cette ancre, avec le libellé qui va avec (« Retour au
+circuit »). Le paramètre est posé au clic par `urlTarifs()`, qui lit la
+section sous les yeux ; l'attribut `href` reste `/tarifs` tout court pour que
+le clic milieu, « copier le lien » et les robots trouvent une URL propre.
+
+> **Pourquoi pas `history.back()`**, qui restaurerait pourtant le défilement au
+> pixel près : avec la navigation client de l'App Router, `document.referrer`
+> garde la valeur du **chargement du document**, pas du dernier écran vu. Le
+> test « d'où vient-on ? » y est donc faux précisément dans le cas courant —
+> arrivée sur `/`, puis navigation douce vers `/tarifs`. Une ancre, elle, est
+> vraie partout, se partage et survit à un rechargement.
+
+Le retour est répété **en bas de page** : à sept écrans, remonter pour repartir
+est le même défaut sous une autre forme.
+
+`useSearchParams` fait basculer en rendu client tout ce qui se trouve sous la
+frontière `<Suspense>` la plus proche, et sur une route prérendue **son absence
+fait échouer le build**. `RetourLien` porte donc sa propre frontière, et son
+repli n'est pas un squelette gris mais le lien correct par défaut : « Retour à
+l'accueil » est vrai dans tous les cas où l'origine est inconnue.
+
+### Us et coutumes — de l'immersion qui sert le jour même
+
+Six usages balinais, entre « Vos envies » et la demande. La règle qui les
+qualifie : **chaque entrée doit être immersive et utile le même jour.** Savoir
+qu'on enjambe une offrande évite de la piétiner ; savoir pourquoi trois
+personnes s'appellent Wayan évite de croire à un malentendu ; savoir que Nyepi
+ferme l'aéroport change une date de billet. Une rubrique « culture » qui ne
+sert à rien le jour même serait un dépliant d'agence.
+
+C'est aussi le seul endroit où la culture travaille pour la conversion : le
+nœud du selendang, les dates de Galungan, la préparation de Nyepi sont
+exactement des choses qu'un guide règle et qu'une agence oublie.
+
+Deux règles de rédaction :
+
+1. **Ce sont des usages, pas des règles à faire respecter.** On dit ce qui se
+   fait, jamais ce qu'il « faut » faire — personne n'a envie d'être corrigé
+   avant d'avoir décollé.
+2. **Rien qui engage Agus sur une date.** Galungan suit le cycle pawukon de
+   210 jours, Nyepi le calendrier saka : les deux se déplacent chaque année.
+   On dit ce que c'est et on renvoie à lui pour quand — même prudence que
+   `periodNote()`.
+
+La section est une **bande pleine bambou** : c'est la seule pause de la page,
+et le trait fin des symboles tient mieux sur vert profond que sur ivoire.
 
 ### « Pas trop de détails » — la règle de la section Envies
 
@@ -466,13 +566,29 @@ couleur qui chante sans crier.
 
 | Jeton | Couleur | Origine | Rôle |
 | --- | --- | --- | --- |
-| `--jade` | `#0f6b5c` | Le vert laqué des temples et des rizières mûres | **Toutes les actions** + les panneaux pleins |
-| `--soleil` | `#f2b134` | Le safran des ombrelles et des offrandes | Éclaire — CTA du hero |
-| `--bambou` | `#628c56` | Le vert de la jeune pousse | **Les gestes de cueillette** : la puce jepun des activités |
+| `--bambou` | `#476635` | Le vert de la canne mûre | **Toutes les actions** + les bandes pleines |
+| `--bambou-deep` | `#2f4720` | La canne à l'ombre | Fonds les plus profonds |
+| `--pousse` | `#628c56` | Le bambou jeune | **Le geste de cueillette** : la puce jepun des activités |
+| `--soleil` | `#f2b134` | Le safran des ombrelles et des offrandes | Éclaire — CTA du hero, symboles sur bande pleine |
+| `--lagon` | `#189aa4` | Le turquoise des passes et des lagons du nord | Illustrations |
+| `--bougain` | `#c8455f` | Le rose des murs de Sanur | Étiquettes uniquement |
+| `--ivoire` / `--sable` | `#fbf7ee` / `#f2e9d8` | Pierre et sable | Surfaces de lecture, en alternance |
+| `--encre` | `#22302b` | | Texte |
 
-**Le bambou choisit, le jade agit.** Deux verts, deux rôles : le jade porte les
-actions de la page (boutons, liens, base de circuit), le bambou les gestes de
-sélection — plus clair, plus jaune, il sélectionne sans trancher.
+**Le bambou a remplacé un jade froid** (`#0f6b5c`). Le remplacement s'est fait
+**à valeur égale, pas à l'œil** : 6,10 sur l'ivoire contre 5,99 pour le jade,
+5,05 pour le texte pâle des bandes pleines contre 4,89. Rien n'a bougé côté
+lisibilité, seule la teinte est passée du côté chaud.
+
+> **Le lagon, lui, reste froid, et c'est une décision.** Sans lui la page
+> virerait au monochrome tiède, et surtout la mer serait fausse : un lagon vert
+> chaud ne ressemble à rien de ce qu'on voit à Bali. Ne pas « harmoniser » le
+> lagon avec le bambou.
+
+**La pousse choisit, le bambou agit.** Deux tons du même végétal, deux rôles :
+le bambou mûr porte les actions de la page (boutons, liens, base de circuit),
+la jeune pousse le seul geste de cueillette — plus claire, elle sélectionne
+sans trancher.
 
 **Ce n'est plus un « + », c'est une fleur.** Le bouton de sélection porte une
 **puce jepun** (`JepunPuce`, dans `components/Scene.jsx`) : cinq pétales,
@@ -489,12 +605,8 @@ l'oreille d'Agus et dans le séparateur.
 > autorise enfin un vert assez clair pour être zen. `#628c56` donne **3,44** sur
 > le fond pâle et **3,63** sur l'ivoire. **Ne pas l'éclaircir sans remesurer** :
 > `#6f9662` tombe à 2,99 et échoue.
-| `--lagon` | `#189aa4` | Le turquoise des passes et du lac d'Ijen | Illustrations |
-| `--bougain` | `#c8455f` | Le rose des murs de Sanur | Étiquettes uniquement |
-| `--ivoire` / `--sable` | `#fbf7ee` / `#f2e9d8` | Pierre et sable | Surfaces de lecture, en alternance |
-| `--encre` | `#22302b` | | Texte |
 
-Discipline : le jade porte l'action, le soleil éclaire, le bougainvillier ne
+Discipline : le bambou porte l'action, le soleil éclaire, le bougainvillier ne
 sert qu'aux étiquettes, le lagon vit dans les illustrations. Aucune de ces
 couleurs n'est décorative.
 
@@ -513,12 +625,55 @@ page** au recentrage : c'était la partie la plus conceptuelle, et l'une des
 trois redisait le panneau des valeurs. Le repère reste noté ici, il est bon à
 reprendre si la présentation regagne de la place.
 
+### La famille de symboles
+
+`components/Symboles.jsx` porte neuf dessins balinais — tedung, penjor, candi
+bentar, gong, poleng, padma, canang, rangs, nyepi. Ils suivent la règle ouverte
+par la puce jepun : **un trait, la couleur héritée, aucun remplissage.** Ils se
+posent donc partout où va une icône, prennent la couleur du texte qui les
+entoure, et se mesurent comme des objets graphiques (3:1) et non comme du
+texte.
+
+Ils ne sont pas interchangeables : chacun désigne une chose précise, et chaque
+endroit où l'un apparaît est un endroit où cette chose est **nommée dans le
+texte**. Un symbole qu'on ne peut pas expliquer au lecteur est un motif de
+brochure.
+
+> **Un symbole qui a besoin de sa légende n'est pas un symbole, c'est une
+> énigme.** Trois versions d'un « sarong » ont été dessinées puis jetées — le
+> trapèze porté lisait un abat-jour, l'écharpe nouée un bonhomme bras écartés,
+> le tissu drapé une jupe. Un vêtement porté ne tient pas dans 24 px de trait.
+> L'usage qui en parle emprunte le candi bentar : c'est bien la porte qu'on
+> s'habille pour franchir, et elle, elle se reconnaît. Mieux vaut neuf symboles
+> qui parlent que dix dont un bafouille.
+>
+> Deux autres avaient le même défaut et ont été redessinés plutôt que jetés :
+> les quatre rangs de naissance en barres croissantes donnaient un **graphique
+> de statistiques** (ils sont devenus un cycle de quatre perles, ce qui dit en
+> plus le retour à Wayan au cinquième enfant), et le tedung sans les festons de
+> son bord donnait une **antenne**.
+
+La vérification : les rendre à 150 px sur une planche de contact, puis à leur
+taille réelle. Un dessin qui ne se lit qu'en grand n'est pas fini.
+
+**La maquette les reçoit par extraction, jamais par recopie.** Le script de
+portage lit `components/Symboles.jsx` et regénère le bloc `SYMBOLES` de
+`design/prototype.html` entre deux marqueurs. Les deux fichiers ont déjà
+divergé une fois sur les données d'activités, et ça ne se voit pas à la
+relecture.
+
 **Ornements balinais**, toujours expliqués au lecteur : le **jepun**
 (frangipanier) derrière l'oreille d'Agus et en séparateur, une **branche de
 jepun** qui déborde en haut du hero, le **canang sari** (l'offrande du matin),
 le **tedung** (l'ombrelle à étages), le **candi bentar** et ses assises de
 brique. Le vocabulaire suit — *subak*, *melukat*, *bumbu*, *songket*, *warung*,
 et le *Om Swastiastu* du pied de page.
+
+**L'alternance des fonds est une règle, pas un caprice** : ivoire, sable,
+ivoire, sable, bambou, ivoire. Deux sections de même fond qui se touchent se
+lisent comme une seule, très longue — c'est arrivé deux fois dans ce projet, à
+chaque fois qu'une bande a été déplacée. Vérifier l'ordre dans `app/page.js`
+après tout ajout ou retrait de section.
 
 **La grille est cassée**, mais jamais au point de faire collision : la seconde
 colonne de journées descend d'un cran, la colonne de texte d'Agus est poussée
@@ -559,6 +714,28 @@ mesurées, toutes à zéro défaut aujourd'hui :
   obligatoire sur les cibles d'une barre flexible.
 - Une règle `font-size` ajoutée **au-dessus** d'une autre dans le même bloc est
   écrasée par celle du dessous. Vérifier l'ordre, pas seulement la présence.
+- **À 320 px, la barre du haut ne tient pas** avec logo + titre + sous-titre +
+  bouton « Devis » + burger : 360 px de contenu dans 280 px utiles, et le
+  burger sortait de l'écran. Les écarts se resserrent sous 640 px, le
+  sous-titre « Guide francophone » disparaît sous 640 et le mot « Devis » sous
+  380 — l'`aria-label` porte le sens, la cible reste 44 × 44. Le sous-titre est
+  **masqué et non tronqué** : « GUIDE FRANCOPH… » a l'air d'un bug, l'absence
+  non.
+- **Une adresse e-mail est un mot insécable.** `agus.yudiarta@balidecouverte.fr`
+  en petites capitales espacées fait **349 px** à lui seul : il poussait la
+  colonne du configurateur hors de l'écran à 320 et 360 px, et c'était la
+  dernière cause de débordement horizontal. Il lui faut `break-all` — et non
+  `break-words`, qui **n'affecte pas le calcul de min-content** et ne change
+  donc rien à un débordement de grille.
+
+> **Comment trouver ce qui déborde**, parce que le repérage naïf ne marche pas.
+> Lister les éléments dont le bord droit dépasse la fenêtre donne surtout des
+> **faux positifs SVG** : les enfants d'un `<svg>` rapportent leur géométrie en
+> espace utilisateur, et une branche de jepun qui déborde exprès sous un
+> conteneur clippé apparaît dans la liste sans rien casser. La méthode qui
+> marche : masquer chaque élément à tour de rôle et regarder si
+> `document.documentElement.scrollWidth` diminue. Elle désigne le coupable
+> réel, pas ses parents ni ses voisins.
 
 **Le sur-mesure est à onze écrans de défilement.** Un bouton « Devis » compact
 est donc visible dans la barre mobile en permanence : sans lui, quelqu'un qui
@@ -623,7 +800,11 @@ components/
   Chemins.jsx        la fourche : partir du circuit, ou de ses envies
   Circuit.jsx        le circuit de 15 jours, déplié d'emblée
   Activites.jsx      classiques et places secrètes, cochables
-  Tarifs.jsx         grille saisonnière, inclus et à régler sur place
+  Tarifs.jsx         trois formules, grille, exemple chiffré, supplément
+  Usages.jsx         six usages balinais, sur bande pleine
+  Symboles.jsx       les neuf symboles balinais au trait
+  RetourLien.jsx     le retour des tarifs, vers la section d'origine
+  LienTarifs.jsx     le lien vers les tarifs, lesté de sa provenance
   Photo.jsx          emplacement photo — placeholder porteur du brief
   Lightbox.jsx       visionneuse plein écran, swipe et clavier
   TripBuilder.jsx    configurateur + rédaction de l'e-mail
@@ -635,6 +816,7 @@ lib/
   data.js            données de démonstration, îles sœurs, notes de saison
   trip-store.jsx     état partagé (Context + useReducer)
   message.js         objet, corps et lien mailto:
+  retours.js         d'où l'on vient, et comment y retourner
 ```
 
 > **`lib/data.js` ne se modifie pas au script sans vérifier après.** Une

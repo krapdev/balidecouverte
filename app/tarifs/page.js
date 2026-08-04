@@ -1,7 +1,6 @@
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Tarifs from "@/components/Tarifs";
+import RetourLien from "@/components/RetourLien";
 import Footer from "@/components/Footer";
 
 export const metadata = {
@@ -21,6 +20,9 @@ export const metadata = {
  *
  * Les valeurs ont rejoint la présentation d'Agus : « pourquoi lui »
  * appartient à la personne, pas à une bande posée avant un formulaire.
+ *
+ * Le retour ramène à la section d'où l'on vient, pas en haut de
+ * l'accueil — voir lib/retours.js. Il est répété en bas de page.
  */
 export default function TarifsPage() {
   return (
@@ -28,15 +30,14 @@ export default function TarifsPage() {
       <Navbar />
       <main className="flex-1">
         <div className="shell pt-[clamp(5.5rem,12vw,7rem)]">
-          <Link
-            href="/"
-            className="label inline-flex min-h-11 items-center gap-2 text-accent no-underline"
-          >
-            <ArrowLeft size={14} />
-            Retour à l&apos;accueil
-          </Link>
+          <RetourLien />
         </div>
         <Tarifs />
+        {/* Le même retour en bas. La page fait quatre écrans sur
+            mobile : sans lui, il faut tout remonter pour repartir. */}
+        <div className="shell pb-[clamp(3rem,8vw,4.5rem)]">
+          <RetourLien />
+        </div>
       </main>
       <Footer />
     </>

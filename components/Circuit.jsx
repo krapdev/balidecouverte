@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { MoonStar, Check } from "lucide-react";
 import Photo from "./Photo";
 import SectionHead from "./SectionHead";
@@ -106,12 +107,14 @@ export default function Circuit() {
                   "Partir de ce circuit"
                 )}
               </button>
-              <a
+              {/* `?de=circuit` : le retour des tarifs ramènera ici,
+                  et non en haut de l'accueil. */}
+              <Link
                 className="flex min-h-11 items-center text-sm text-soft underline decoration-rule underline-offset-4 hover:text-ink"
-                href="/tarifs"
+                href="/tarifs?de=circuit"
               >
                 Ce que comprend ce prix
-              </a>
+              </Link>
             </div>
 
             {base && (

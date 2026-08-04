@@ -23,12 +23,13 @@
      et une couleur qui chante sans crier.
 
      La palette vient des choses qu'on voit vraiment sur l'île :
-       jade      — le vert laqué des temples et des rizières mûres
+       bambou    — le vert de la canne mûre, chaud, presque jaune
+       pousse    — le bambou jeune, plus clair
        lagon     — le turquoise des passes et du lac d'Ijen
        soleil    — le safran des ombrelles et des offrandes
        bougainv. — le rose des murs de Sanur, la touche de joie
 
-     Discipline : le jade porte les actions et les panneaux pleins, le
+     Discipline : le bambou porte les actions et les panneaux pleins, le
      soleil éclaire, le bougainvillier ne sert qu'aux étiquettes, le
      lagon vit dans les illustrations.
 
@@ -38,14 +39,17 @@
   :root {
     color-scheme: light;
 
-    --jade:        #0f6b5c;
-    --jade-deep:   #084a40;
-    /* Le bambou : plus clair et plus jaune que le jade, pour les gestes
-       de sélection. Mesuré à 4,82 sur son propre fond
-       pâle et 5,09 sur l'ivoire — c'est le glyphe « + », lu comme du
-       texte, qui fixe la borne. Ne pas l'éclaircir sans remesurer. */
-    --bambou:      #628c56;
-    --bambou-pale: #eef3e6;
+    /* Le bambou a remplacé un jade froid (#0f6b5c), à valeur égale et
+       non à l'œil : 6,10 sur l'ivoire contre 5,99, 5,05 pour le texte
+       pâle des panneaux contre 4,89. Même lisibilité, teinte chaude. */
+    --bambou:      #476635;
+    --bambou-deep: #2f4720;
+    /* La pousse : le bambou jeune, pour le seul geste de cueillette —
+       la puce jepun. Icône et non caractère, donc seuil 3:1 (WCAG
+       1.4.11) : 3,44 sur son fond pâle. Ne pas l'éclaircir sans
+       remesurer, #6f9662 tombe à 2,99. */
+    --pousse:      #628c56;
+    --pousse-pale: #eef3e6;
     --lagon:       #189aa4;
     --soleil:      #f2b134;
     --soleil-pale: #fbe0a5;
@@ -61,12 +65,12 @@
     --text:        #22302b;
     --text-soft:   #505f58;
     --text-faint:  #5d6c64;
-    --immersive:   #0f6b5c;
-    --immersive-2: #084a40;
+    --immersive:   #476635;
+    --immersive-2: #2f4720;
     --on-immersive:      #f4f8f3;
-    --on-immersive-soft: #cfe6df;
-    --accent:      #0f6b5c;   /* le jade porte l'action */
-    --accent-hi:   #14806e;
+    --on-immersive-soft: #d7e8c6;
+    --accent:      #476635;   /* le bambou porte l'action */
+    --accent-hi:   #567c3f;
     --accent-ink:  #fbf7ee;
     --eyebrow:     #ad3550;   /* le bougainvillier, lisible en petit corps */
     --tint:        #fdeecf;
@@ -152,16 +156,16 @@
   .btn-wa:hover { background: var(--whatsapp-hi); box-shadow: 0 0 34px -6px color-mix(in srgb, var(--whatsapp) 70%, transparent); }
   .btn-lg { padding: 1.15em 2em; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.13em; }
 
-  /* Deux surfaces de lecture qui alternent, et un panneau plein jade */
+  /* Deux surfaces de lecture qui alternent, et une bande pleine bambou */
   /* Sérigraphie très pâle : le tressage de la feuille de palme, celui du
      panier du canang sari. Elle se lit comme un grain de papier.
      ⚠️ Sur le FOND DE SECTION, jamais sous un bloc de texte : les cartes
      gardent leur surface pleine. Le texte sur motif est là où la
      lisibilité meurt, et l'audit de contraste ne mesure qu'une couleur
      de fond, pas une image. */
-  .ground-ivoire { background-color: var(--page); background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22rgba%2815%2C107%2C92%2C0.042%29%22%20stroke-width%3D%221.4%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M-6%2034%2034%20-6M6%2046%2046%206M18%2058%2058%2018M-6%2022%2022%20-6M6%2034%2034%206M18%2046%2046%2018M30%2058%2058%2030%22%2F%3E%3Cpath%20d%3D%22M-6%2022%2022%2050M6%2010%2034%2038M18%20-2%2046%2026M30%20-6%2058%2022M-6%2034%2010%2050M42%20-6%2058%2010%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"); }
-  .ground-sable  { background-color: var(--surface-alt); background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22rgba%2815%2C107%2C92%2C0.036%29%22%20stroke-width%3D%221.4%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M-6%2034%2034%20-6M6%2046%2046%206M18%2058%2058%2018M-6%2022%2022%20-6M6%2034%2034%206M18%2046%2046%2018M30%2058%2058%2030%22%2F%3E%3Cpath%20d%3D%22M-6%2022%2022%2050M6%2010%2034%2038M18%20-2%2046%2026M30%20-6%2058%2022M-6%2034%2010%2050M42%20-6%2058%2010%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"); }
-  .ground-jade   { background-color: var(--immersive); background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22rgba%28251%2C247%2C238%2C0.05%29%22%20stroke-width%3D%221.4%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M-6%2034%2034%20-6M6%2046%2046%206M18%2058%2058%2018M-6%2022%2022%20-6M6%2034%2034%206M18%2046%2046%2018M30%2058%2058%2030%22%2F%3E%3Cpath%20d%3D%22M-6%2022%2022%2050M6%2010%2034%2038M18%20-2%2046%2026M30%20-6%2058%2022M-6%2034%2010%2050M42%20-6%2058%2010%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"); color: var(--on-immersive); }
+  .ground-ivoire { background-color: var(--page); background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22rgba%2871%2C102%2C53%2C0.042%29%22%20stroke-width%3D%221.4%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M-6%2034%2034%20-6M6%2046%2046%206M18%2058%2058%2018M-6%2022%2022%20-6M6%2034%2034%206M18%2046%2046%2018M30%2058%2058%2030%22%2F%3E%3Cpath%20d%3D%22M-6%2022%2022%2050M6%2010%2034%2038M18%20-2%2046%2026M30%20-6%2058%2022M-6%2034%2010%2050M42%20-6%2058%2010%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"); }
+  .ground-sable  { background-color: var(--surface-alt); background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22rgba%2871%2C102%2C53%2C0.036%29%22%20stroke-width%3D%221.4%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M-6%2034%2034%20-6M6%2046%2046%206M18%2058%2058%2018M-6%2022%2022%20-6M6%2034%2034%206M18%2046%2046%2018M30%2058%2058%2030%22%2F%3E%3Cpath%20d%3D%22M-6%2022%2022%2050M6%2010%2034%2038M18%20-2%2046%2026M30%20-6%2058%2022M-6%2034%2010%2050M42%20-6%2058%2010%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"); }
+  .ground-bambou   { background-color: var(--immersive); background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22rgba%28251%2C247%2C238%2C0.05%29%22%20stroke-width%3D%221.4%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M-6%2034%2034%20-6M6%2046%2046%206M18%2058%2058%2018M-6%2022%2022%20-6M6%2034%2034%206M18%2046%2046%2018M30%2058%2058%2030%22%2F%3E%3Cpath%20d%3D%22M-6%2022%2022%2050M6%2010%2034%2038M18%20-2%2046%2026M30%20-6%2058%2022M-6%2034%2010%2050M42%20-6%2058%2010%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"); color: var(--on-immersive); }
 
   /* Filigrane de jepun, dans l'angle vide des grandes cartes. */
   .filigrane { position: relative; overflow: hidden; }
@@ -169,10 +173,10 @@
     content: ""; position: absolute; right: -8px; bottom: -10px;
     width: 78px; height: 78px; background-size: contain;
     background-repeat: no-repeat; pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22120%22%20height%3D%22120%22%20viewBox%3D%220%200%20120%20120%22%3E%3Cg%20fill%3D%22rgba%2815%2C107%2C92%2C0.07%29%22%3E%3Cpath%20transform%3D%22rotate%280%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%2872%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28144%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28216%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28288%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%280%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3Cpath%20transform%3D%22rotate%2872%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28144%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28216%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28288%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22120%22%20height%3D%22120%22%20viewBox%3D%220%200%20120%20120%22%3E%3Cg%20fill%3D%22rgba%2871%2C102%2C53%2C0.07%29%22%3E%3Cpath%20transform%3D%22rotate%280%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%2872%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28144%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28216%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28288%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%280%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3Cpath%20transform%3D%22rotate%2872%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28144%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28216%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28288%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
   }
-  .ground-jade .sec-head p { color: var(--on-immersive-soft); }
-  .ground-jade .sec-eyebrow { color: var(--soleil-pale); }
+  .ground-bambou .sec-head p { color: var(--on-immersive-soft); }
+  .ground-bambou .sec-eyebrow { color: var(--soleil-pale); }
 
   /* La lumière reste une matière, mais elle est solaire. */
   .glow {
@@ -182,7 +186,7 @@
   }
   .horizon {
     height: 1px;
-    background: linear-gradient(to right, transparent, color-mix(in srgb, var(--jade) 32%, transparent), transparent);
+    background: linear-gradient(to right, transparent, color-mix(in srgb, var(--bambou) 32%, transparent), transparent);
   }
   .btn-sun { background: var(--soleil); color: var(--encre); }
   .btn-sun:hover { background: #ffc551; box-shadow: 0 10px 26px -12px color-mix(in srgb, var(--soleil) 80%, transparent); }
@@ -209,7 +213,10 @@
   .brand { display: flex; align-items: center; min-height: 44px; gap: 0.7rem; text-decoration: none; margin-right: auto; }
   .brand-mark { width: 34px; height: 34px; flex: none; }
   .brand-name { font-family: var(--display); font-size: var(--t-lg); font-weight: 600; letter-spacing: -0.01em; line-height: 1.05; }
-  .brand-sub { font-family: var(--util); font-size: 0.625rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-faint); }
+  /* Masquée sous 640 px plutôt que tronquée : « GUIDE FRANCOPH… » a
+     l'air d'un bug, l'absence non. */
+  .brand-sub { display: none; font-family: var(--util); font-size: 0.625rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-faint); }
+  @media (min-width: 640px) { .brand-sub { display: block; } }
   .nav-links { display: none; gap: 1.6rem; }
   .nav-links a {
     display: inline-flex; align-items: center; min-height: 44px;
@@ -477,7 +484,7 @@
     border: 1px solid var(--rule); border-radius: 14px; background: var(--surface);
     transition: border-color .2s;
   }
-  .journee-carte:hover { border-color: color-mix(in srgb, var(--jade) 40%, var(--rule)); }
+  .journee-carte:hover { border-color: color-mix(in srgb, var(--bambou) 40%, var(--rule)); }
   .journee-carte[data-on="true"] { border-color: var(--accent); background: var(--tint); }
   .journee-corps {
     display: flex; align-items: stretch; gap: 0.75rem; flex: 1; min-width: 0;
@@ -501,12 +508,12 @@
   .journee-plus {
     flex: none; align-self: center; width: 44px; height: 44px;
     display: grid; place-items: center; border-radius: 999px;
-    border: 2px solid var(--bambou); background: var(--bambou-pale);
-    color: var(--bambou); line-height: 0; cursor: pointer;
+    border: 2px solid var(--pousse); background: var(--pousse-pale);
+    color: var(--pousse); line-height: 0; cursor: pointer;
     transition: background-color .2s, color .2s;
   }
-  .journee-plus:hover { background: color-mix(in srgb, var(--bambou) 18%, var(--bambou-pale)); }
-  .journee-carte[data-on="true"] .journee-plus { background: var(--bambou); color: var(--page); }
+  .journee-plus:hover { background: color-mix(in srgb, var(--pousse) 18%, var(--pousse-pale)); }
+  .journee-carte[data-on="true"] .journee-plus { background: var(--pousse); color: var(--page); }
   @media (min-width: 640px) { .journee-vignette { width: 96px; } }
   .journee-vignette > svg { width: 100%; height: 100%; }
   .journee-compte {
@@ -583,7 +590,7 @@
     padding: 1.25rem; text-align: left; cursor: pointer; font: inherit; color: inherit;
     transition: border-color .2s ease, background-color .2s ease;
   }
-  .journee:hover { border-color: color-mix(in srgb, var(--jade) 40%, var(--rule)); }
+  .journee:hover { border-color: color-mix(in srgb, var(--bambou) 40%, var(--rule)); }
   .journee[aria-pressed="true"] { border-color: var(--accent); background: var(--tint); }
   .journee .puce {
     flex: none; margin-top: 0.15rem; width: 24px; height: 24px; border-radius: 50%;
@@ -605,7 +612,7 @@
     overflow: hidden; border-radius: 18px; border: 1px solid var(--rule);
     background: var(--surface); transition: border-color .3s ease;
   }
-  .circuit[data-open="true"] { border-color: color-mix(in srgb, var(--jade) 45%, var(--rule)); }
+  .circuit[data-open="true"] { border-color: color-mix(in srgb, var(--bambou) 45%, var(--rule)); }
   .circuit[data-base="true"] { border-color: var(--accent); }
   .circuit-head {
     display: grid; grid-template-columns: auto 1fr; gap: 1.25rem;
@@ -646,7 +653,7 @@
   .fiche-actions a { display: inline-flex; align-items: center; min-height: 44px; font-size: var(--t-sm); color: var(--text-soft); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--rule); }
   .fiche-note { display: flex; gap: 0.6rem; margin-top: 1rem; font-size: var(--t-sm); color: var(--text-soft); }
   /* Les valeurs, à l'intérieur de la présentation d'Agus. C'était une
-     bande jade à part ; le panneau garde la respiration visuelle sans
+     bande pleine à part ; le panneau garde la respiration visuelle sans
      coûter une section de plus, et surtout il rattache les valeurs à la
      personne — « pourquoi lui » n'appartient pas à une bande posée
      avant un formulaire. */
@@ -667,6 +674,72 @@
     padding-left: 1.5rem; font-family: var(--display);
     font-size: clamp(1.15rem, 3vw, 1.45rem); line-height: 1.35;
   }
+
+  /* ---- Tarifs : trois formules, une grille, un exemple chiffré ---- */
+  .formules { list-style: none; margin: 1.5rem 0 0; padding: 0; display: grid; gap: 0.75rem; }
+  @media (min-width: 1000px) { .formules { grid-template-columns: repeat(3, 1fr); } }
+  .formules li { display: flex; flex-direction: column; gap: 0.5rem; border: 1px solid var(--rule); border-radius: 14px; background: var(--surface); padding: 1.25rem; }
+  .formules .label { color: var(--eyebrow); }
+  .formules .resume { font-family: var(--display); font-size: 1.15rem; line-height: 1.3; }
+  .formules p { font-size: var(--t-sm); color: var(--text-soft); line-height: 1.6; }
+
+  .tarifs-tete { display: flex; align-items: flex-start; gap: 1rem; border-top: 1px solid var(--rule); margin-top: 3.5rem; padding-top: 2rem; }
+  .tarifs-symbole { flex: none; color: var(--accent); margin-top: 0.25rem; display: none; }
+  @media (min-width: 640px) { .tarifs-symbole { display: block; } }
+  .tarifs-tete p { margin-top: 0.5rem; max-width: 62ch; font-size: var(--t-sm); color: var(--text-soft); line-height: 1.6; }
+
+  /* Cartes sous 640 px : un tableau de prix qu'il faut pousser du doigt
+     pour voir la seconde colonne cache ce qu'on est venu chercher. */
+  .saisons-cartes { list-style: none; margin: 1.5rem 0 0; padding: 0; display: grid; gap: 0.75rem; }
+  .saisons-cartes li { border: 1px solid var(--rule); border-radius: 14px; background: var(--surface); padding: 1rem; }
+  .saisons-cartes .saison { display: block; font-family: var(--display); font-size: var(--t-xl); line-height: 1.2; }
+  .saisons-cartes .mois { display: block; margin-top: 0.15rem; font-size: var(--t-sm); color: var(--text-soft); }
+  .saisons-cartes .prix { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; border-top: 1px solid var(--rule); margin-top: 0.75rem; padding-top: 0.75rem; }
+  .saisons-cartes .prix .label { display: block; color: var(--text-faint); }
+  .saisons-cartes .prix b { font-family: var(--display); font-weight: 500; font-size: 1.6rem; font-variant-numeric: tabular-nums; }
+  .saisons-cartes .prix small { font-size: var(--t-sm); color: var(--text-soft); margin-left: 0.25rem; }
+  .tarifs-table { display: none; margin-top: 1.5rem; }
+  @media (min-width: 640px) { .saisons-cartes { display: none; } .tarifs-table { display: block; } }
+
+  .exemple { margin-top: 2rem; border: 1px solid var(--accent); border-radius: 14px; background: var(--pousse-pale); padding: clamp(1.25rem, 4vw, 1.75rem); }
+  .exemple > .label { display: block; color: var(--accent); margin-bottom: 1rem; }
+  .exemple dl { margin: 0; }
+  .exemple .ligne { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.25rem 1.5rem; padding: 0.625rem 0; border-top: 1px solid color-mix(in srgb, var(--accent) 22%, transparent); }
+  .exemple .ligne:first-child { border-top: 0; }
+  .exemple dt { font-size: var(--t-sm); line-height: 1.35; }
+  .exemple .ligne.tete dt { font-weight: 700; }
+  .exemple dd { margin: 0; font-family: var(--display); font-size: var(--t-lg); font-variant-numeric: tabular-nums; }
+  .exemple .ligne.total dd { font-size: 1.6rem; color: var(--accent); }
+  .exemple .ligne.parpers dd { font-size: 1.25rem; color: var(--accent); }
+  .exemple .chute { margin-top: 1rem; font-size: var(--t-sm); color: var(--text-soft); line-height: 1.6; }
+
+  .supplement { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; border: 1px solid var(--rule); border-radius: 14px; background: var(--tint); padding: clamp(1.25rem, 4vw, 1.75rem); }
+  @media (min-width: 640px) { .supplement { flex-direction: row; align-items: flex-start; gap: 1.5rem; } }
+  .supplement svg { flex: none; color: var(--tint-ink); }
+  .supplement .tete { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.75rem; }
+  .supplement .tete b { font-family: var(--display); font-weight: 500; font-size: var(--t-xl); line-height: 1.2; }
+  .supplement .tete .montant { font-family: var(--display); font-size: var(--t-xl); color: var(--tint-ink); font-variant-numeric: tabular-nums; }
+  .supplement p { margin-top: 0.5rem; max-width: 62ch; font-size: var(--t-sm); color: var(--text-soft); line-height: 1.6; }
+  .supplement ul { list-style: none; margin: 0.75rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.35rem; font-size: var(--t-sm); line-height: 1.35; }
+
+  .autres-formules { display: grid; gap: 0.75rem; margin-top: 1.5rem; }
+  @media (min-width: 1000px) { .autres-formules { grid-template-columns: 1fr 1fr; } }
+  .autres-formules > div { border: 1px solid var(--rule); border-radius: 14px; background: var(--surface); padding: 1.25rem; }
+  .autres-formules .tete { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.75rem; }
+  .autres-formules .tete svg { color: var(--accent); align-self: center; }
+  .autres-formules .tete b { font-family: var(--display); font-weight: 500; font-size: var(--t-lg); }
+  .autres-formules .tete .montant { font-family: var(--display); font-size: var(--t-lg); color: var(--accent); font-variant-numeric: tabular-nums; }
+  .autres-formules p { margin-top: 0.5rem; font-size: var(--t-sm); color: var(--text-soft); line-height: 1.6; }
+  .vehicules { margin-top: 1.5rem; border: 1px solid var(--rule); border-radius: 14px; background: var(--surface-alt); padding: clamp(1.25rem, 4vw, 1.75rem); }
+  .vehicules-ailleurs { border-top: 1px solid var(--rule); margin-top: 1rem; padding-top: 1rem; font-size: var(--t-sm); color: var(--text-soft); line-height: 1.6; }
+
+  /* ---- Us et coutumes ---- */
+  .usages { list-style: none; margin: 0; padding: 0; display: grid; gap: 0 clamp(2rem, 5vw, 3.5rem); }
+  @media (min-width: 1000px) { .usages { grid-template-columns: 1fr 1fr; } }
+  .usages li { display: flex; align-items: flex-start; gap: 1rem; border-top: 1px solid color-mix(in srgb, var(--on-immersive) 24%, transparent); padding-block: 1.25rem; }
+  .usages svg { flex: none; color: var(--soleil); margin-top: 0.15rem; }
+  .usages h3 { font-family: var(--display); font-size: 1.15rem; line-height: 1.3; }
+  .usages p { margin-top: 0.35rem; font-size: var(--t-sm); color: var(--on-immersive-soft); line-height: 1.6; }
 
   /* Grille tarifaire : le prix est au jour et par véhicule. */
   .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
@@ -768,7 +841,14 @@
     background-image: linear-gradient(to bottom, transparent 27px, color-mix(in srgb, var(--rule) 45%, transparent) 27px, transparent 28px);
     background-size: 100% 28px;
   }
-  .preview-head { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.9rem; color: var(--text-faint); }
+  /* `align-items: flex-start` + `word-break: break-all` sur l'adresse :
+     une adresse e-mail est un mot insécable, et celle-ci fait à elle
+     seule 349 px en petites capitales espacées. Elle poussait la colonne
+     du configurateur hors de l'écran à 320 px. */
+  .preview-head { display: flex; align-items: flex-start; gap: 0.6rem; margin-bottom: 0.9rem; color: var(--text-faint); }
+  .preview-head svg { flex: none; margin-top: 0.15rem; }
+  .preview-head .label { min-width: 0; }
+  .preview-head .adresse { word-break: break-all; }
   .preview-body {
     font-family: var(--util); font-size: var(--t-sm); line-height: 28px;
     white-space: pre-wrap; word-break: break-word; margin: 0; color: var(--text);
@@ -844,10 +924,13 @@
       </span>
     </a>
     <nav class="nav-links" aria-label="Navigation principale">
+      <!-- « Par où commencer » n'est que dans le pied de page : sept
+           entrées ne tiennent pas sur une ligne à 1280 px. La fourche est
+           de toute façon la deuxième chose qu'on voit en descendant. -->
       <a href="#esprit">Qui je suis</a>
-      <a href="#chemins">Par où commencer</a>
       <a href="#circuit">Le circuit</a>
       <a href="#envies">Vos envies</a>
+      <a href="#usages">Us et coutumes</a>
       <a href="#tarifs" data-goto="tarifs">Tarifs</a>
       <a href="#sur-mesure">Sur-Mesure</a>
     </nav>
@@ -960,7 +1043,7 @@
       </div>
     </div>
 
-    <!-- Les valeurs : visibles, sur panneau jade. Les faits sont repliés
+    <!-- Les valeurs : visibles, sur panneau bambou. Les faits sont repliés
          juste au-dessus — ils lèvent le doute, on les consulte quand la
          question se pose ; les valeurs, elles, créent la préférence,
          donc elles se lisent sans qu'on ait à cliquer. -->
@@ -1056,8 +1139,11 @@
 
 <!-- ============================ TARIFS ============================ -->
 <div class="shell back-home view-tarifs">
-  <a href="#top" class="label" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
-    &larr; Retour à l'accueil
+  <!-- Le retour ramène à la section d'où l'on vient, pas en haut de
+       page : consulter le prix depuis la fiche circuit et se retrouver
+       devant le hero, c'est ce qui fait fermer l'onglet. -->
+  <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
+    &larr; <span class="retour-libelle">Retour à l'accueil</span>
   </a>
 </div>
 
@@ -1066,94 +1152,100 @@
     <div class="sec-head reveal">
       <p class="label sec-eyebrow">Tarifs</p>
       <h2>Au jour, et par véhicule.</h2>
-      <p>Vous ne payez pas par personne : vous payez ma journée et ma
-      voiture. À deux comme à cinq, le tarif bouge à peine — c'est ce qui rend le
-      guide privé abordable en famille ou entre amis.</p>
+      <p>Vous ne payez pas par personne : vous payez ma journée et ma voiture.
+      La même journée revient à 40 € par personne quand vous êtes deux, et à
+      20 € quand vous êtes cinq — c'est ce qui rend le guide privé abordable en
+      famille ou entre amis.</p>
     </div>
 
-    <!-- Trois blocs, trois ancres : on doit pouvoir aller droit à
-         « ce qui est compris » sans relire la grille. -->
+    <!-- Le sommaire : quatre écrans sur mobile, on doit pouvoir aller
+         droit au chiffre sans relire la méthode. -->
     <nav class="tarifs-sommaire reveal" aria-label="Sommaire des tarifs">
-      <a href="#grille">La grille par saison</a>
+      <a href="#formules">Les trois formules</a>
+      <a href="#grille">Le prix de la journée</a>
       <a href="#compris">Ce qui est compris</a>
-      <a href="#savoir">Bon à savoir</a>
     </nav>
 
-    <div class="reveal" id="grille" style="overflow-x: auto">
-      <table class="tarifs">
-        <caption class="sr-only">Tarifs des excursions à la journée, par jour et par véhicule</caption>
-        <thead>
-          <tr>
-            <th scope="col" class="label">Saison</th>
-            <th scope="col" class="label">1 à 3 personnes</th>
-            <th scope="col" class="label">4 à 5 personnes</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row"><span class="saison">Basse saison</span><span class="mois">Janvier, février, mars, novembre, décembre</span></th>
-            <td>80 €<small>/ jour</small></td><td>90 €<small>/ jour</small></td>
-          </tr>
-          <tr>
-            <th scope="row"><span class="saison">Haute saison</span><span class="mois">Avril, mai, juin, octobre</span></th>
-            <td>90 €<small>/ jour</small></td><td>100 €<small>/ jour</small></td>
-          </tr>
-          <tr>
-            <th scope="row"><span class="saison">Saison estivale</span><span class="mois">Juillet, août, septembre</span></th>
-            <td>100 €<small>/ jour</small></td><td>120 €<small>/ jour</small></td>
-          </tr>
-        </tbody>
-      </table>
+    <!-- 1. De quoi parle-t-on. Trois façons de compter cohabitaient sans
+         être annoncées : on voyait « 80 € » et « 1 210 € » sur le même
+         écran sans pouvoir les rapprocher. -->
+    <div class="reveal">
+      <h3 id="formules" style="font-size: var(--t-xl)">Trois façons de compter</h3>
+      <p style="margin-top: 0.5rem; max-width: 62ch; font-size: var(--t-sm); color: var(--text-soft); line-height: 1.6">
+        Elles ne se mélangent pas, et c'est la première chose à savoir avant de
+        lire un chiffre.</p>
+      <ul class="formules" id="formulesList"></ul>
     </div>
-    <p class="reveal" style="font-size: var(--t-sm); color: var(--text-soft); margin-top: 1rem">
-      Au-delà de 5 personnes, je vous établis un devis.
-    </p>
 
+    <!-- 2. La grille de la journée -->
+    <div class="reveal tarifs-tete">
+      <span class="tarifs-symbole" id="symTedung"></span>
+      <div>
+        <h3 id="grille">La journée, par saison</h3>
+        <p id="grilleNote"></p>
+      </div>
+    </div>
+    <ul class="saisons-cartes" id="saisonsCartes"></ul>
+    <div class="tarifs-table"><table class="tarifs" id="tarifsTable"></table></div>
+    <p class="reveal" id="auDela" style="font-size: var(--t-sm); color: var(--text-soft); margin-top: 1rem"></p>
+
+    <!-- 3. Le calcul, en toutes lettres -->
+    <div class="reveal exemple" id="exemple"></div>
+
+    <!-- 4. Ce qui s'ajoute — sorti du « bon à savoir » : c'est le seul
+         poste qui fait monter l'addition. -->
+    <div class="reveal supplement" id="supplement"></div>
+
+    <!-- 5. Compris / à régler sur place -->
     <div class="tarifs-cols">
       <div class="reveal">
-        <h3 id="compris" style="font-size: var(--t-xl); margin-bottom: 1rem">Compris dans le tarif</h3>
-        <ul class="tarifs-list">
-          <li>La location du véhicule climatisé</li>
-          <li>Le carburant et l'assurance du véhicule</li>
-          <li>Les frais de parking</li>
-          <li>Les honoraires du chauffeur-guide francophone</li>
-        </ul>
+        <h3 id="compris" style="font-size: var(--t-xl); margin-bottom: 1rem">Compris dans la journée</h3>
+        <ul class="tarifs-list" id="inclusList"></ul>
       </div>
       <div class="reveal">
         <h3 style="font-size: var(--t-xl); margin-bottom: 1rem">À régler sur place</h3>
-        <ul class="tarifs-list tarifs-out">
-          <li>Les entrées des sites : temples, sites archéologiques, palais, rizières, plages payantes</li>
-          <li>Les activités payantes inscrites au programme</li>
-          <li>L'hébergement, que vous réservez vous-même</li>
-          <li>Les repas</li>
-          <li>L'assurance voyage</li>
-        </ul>
+        <ul class="tarifs-list tarifs-out" id="exclusList"></ul>
       </div>
     </div>
 
-    <div class="reveal period" style="margin-top: 2.5rem">
-      <span class="label" id="savoir" style="display: block; margin-bottom: 0.75rem">Bon à savoir</span>
-      <ul class="savoir">
-        <li>Si vous logez dans l'est (Candidasa, Sidemen, Amed, Tulamben), le
-        nord-centre (Jatiluwih, Munduk, Kintamani) ou le nord et nord-ouest
-        (Lovina, Pemuteran), comptez 15 € par nuit pour l'hébergement et les
-        mes repas sur place.</li>
-        <li>Nusa Penida à la journée est un forfait à part : 230 € pour deux
-        personnes de novembre à mars, bateau rapide aller-retour depuis Sanur,
-        voiture et chauffeur des deux côtés, entrées des plages comprises.</li>
-        <li>Sur un circuit de plusieurs jours, activités, entrées, transport et
-        chauffeur-guide sont réunis dans un forfait global — quinze jours
-        reviennent à 2 420 € pour deux personnes.</li>
-        <li>Au-delà de Bali — Java, Lombok, Sumbawa, Flores, Komodo —
-        j'organise aussi, mais ça se discute de vive voix : écrivez-moi.</li>
-      </ul>
-      <span class="label" style="display: block; margin: 1.5rem 0 0.75rem">Le véhicule, selon le nombre</span>
-      <ul class="savoir">
-        <li>Toyota Avanza — 4 personnes chauffeur-guide compris, avec bagages</li>
-        <li>Suzuki APV — 5 personnes chauffeur-guide compris, avec bagages</li>
-        <li>Minibus — au-delà de 6 personnes, 11 places maximum</li>
-      </ul>
+    <!-- 6. Les deux autres formules, et le véhicule -->
+    <div class="reveal tarifs-tete">
+      <span class="tarifs-symbole" id="symGong"></span>
+      <h3 id="savoir">Les deux autres formules</h3>
     </div>
+    <div class="autres-formules" id="autresFormules"></div>
+
+    <div class="reveal vehicules">
+      <p class="label" style="color: var(--eyebrow); margin-bottom: 0.75rem">Le véhicule, selon le nombre</p>
+      <ul class="savoir" id="vehiculesList"></ul>
+      <p class="vehicules-ailleurs" id="ailleurs"></p>
+    </div>
+  </div>
+</section>
+
+<!-- Le même retour en bas : la page fait quatre écrans sur mobile. -->
+<div class="shell back-home view-tarifs" style="padding-bottom: clamp(3rem, 8vw, 4.5rem)">
+  <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
+    &larr; <span class="retour-libelle">Retour à l'accueil</span>
+  </a>
+</div>
+
+<!-- ============================ US ET COUTUMES ============================
+     Placée après « Vos envies » et avant la demande : on vient de
+     choisir quoi voir, il reste à donner envie du pays. C'est aussi le
+     seul endroit où la culture travaille pour la conversion — le nœud du
+     selendang, les dates de Galungan, la préparation de Nyepi sont des
+     choses qu'un guide règle et qu'une agence oublie.
+     Bande pleine : c'est la seule pause de la page, et le trait fin des
+     symboles tient mieux sur vert profond que sur ivoire. -->
+<section class="band ground-bambou view-home" id="usages">
+  <div class="shell">
+    <div class="sec-head reveal">
+      <p class="label sec-eyebrow" style="color: var(--soleil-pale)">Us et coutumes</p>
+      <h2 id="usagesTitre"></h2>
+      <p id="usagesChapo" style="color: var(--on-immersive-soft)"></p>
+    </div>
+    <ul class="usages" id="usagesList"></ul>
   </div>
 </section>
 
@@ -1237,7 +1329,7 @@
           <div class="preview">
             <div class="preview-head">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg>
-              <span class="label">Aperçu — e-mail à agus.yudiarta@balidecouverte.fr</span>
+              <span class="label">Aperçu — e-mail à <span class="adresse">agus.yudiarta@balidecouverte.fr</span></span>
             </div>
             <p class="preview-objet"><span class="label">Objet</span><br><b id="previewObjet"></b></p>
             <pre class="preview-body" id="previewBody"></pre>
@@ -1260,7 +1352,7 @@
 </section>
 
 <!-- ============================ FOOTER ============================ -->
-<footer class="footer ground-jade">
+<footer class="footer ground-bambou">
   <div class="shell footer-in">
     <div class="footer-col">
       <p class="label" style="color: var(--soleil-pale); margin-bottom: 0.6rem">Om Swastiastu</p>
@@ -1275,6 +1367,7 @@
       <a href="#chemins">Par où commencer</a>
       <a href="#circuit">Le circuit</a>
       <a href="#envies">Vos envies</a>
+      <a href="#usages">Us et coutumes</a>
       <a href="#tarifs" data-goto="tarifs">Tarifs</a>
       <a href="#sur-mesure">Sur-Mesure</a>
     </div>
@@ -1512,6 +1605,158 @@
 
   var EPIGRAPHE = "Être en vacances, c'est n'avoir rien à faire et avoir toute la journée pour le faire.";
 
+  /* <<< USAGES — généré par port-tmp.mjs, ne pas retoucher */
+  var USAGES = {
+  titre: "Six choses qu'on comprend en arrivant",
+  chapo:
+    "Rien à réviser : je vous les raconte en route. Elles sont ici pour que le pays ne soit pas une surprise muette.",
+  liste: [
+    {
+      symbole: "canang",
+      titre: "Les offrandes au sol",
+      texte:
+        "Seuil de boutique, tableau de bord, capot de scooter : le canang sari se dépose partout, plusieurs fois par jour. On l'enjambe, on ne la ramasse pas.",
+    },
+    {
+      symbole: "rangs",
+      titre: "Wayan, Made, Nyoman, Ketut",
+      texte:
+        "Ce ne sont pas des prénoms mais des rangs de naissance, et au cinquième enfant on repart à Wayan. D'où les trois Wayan de votre journée.",
+    },
+    {
+
+      symbole: "candi",
+      titre: "Le sarong et le selendang",
+      texte:
+        "On entre au temple les jambes couvertes et la taille ceinte d'une écharpe. Je les ai dans la voiture, en plusieurs tailles : rien à acheter à l'entrée.",
+    },
+    {
+      symbole: "poleng",
+      titre: "Le damier noir et blanc",
+      texte:
+        "Le poleng habille statues, arbres et pierres de gardien. Noir et blanc à parts égales : le bien et le mal tenus ensemble, et non l'un contre l'autre.",
+    },
+    {
+      symbole: "penjor",
+      titre: "Les bambous arqués de Galungan",
+      texte:
+        "Tous les 210 jours, chaque maison courbe devant sa porte un bambou de cinq mètres chargé d'offrandes. Les routes en sont bordées dix jours durant.",
+    },
+    {
+      symbole: "nyepi",
+      titre: "Nyepi, le jour du silence",
+      texte:
+        "Une fois l'an, l'île s'arrête vingt-quatre heures : ni circulation, ni lumière, aéroport fermé. Rare et magnifique, mais ça se prépare — parlons-en.",
+    },
+  ],
+};
+  /* USAGES >>> */
+
+  /* <<< TARIFS — généré par port-tmp.mjs, ne pas retoucher */
+  var TARIFS = {
+
+  formules: [
+    {
+      cle: "journee",
+      titre: "À la journée",
+      resume: "Vous payez ma journée et mon véhicule.",
+      texte:
+        "Le prix ne dépend pas du nombre de voyageurs mais du véhicule : le même tarif que vous soyez deux ou trois. Vous réglez à part les entrées des sites, vos repas et votre hôtel. C'est la formule des excursions au départ de votre lieu de séjour.",
+    },
+    {
+      cle: "circuit",
+      titre: "En circuit, sur plusieurs jours",
+      resume: "Un forfait global, par personne.",
+      texte:
+        "Transport, chauffeur-guide, activités et entrées sont réunis dans un seul prix : vous ne sortez plus votre porte-monnaie à chaque site. C'est la formule des itinéraires d'une semaine et plus.",
+    },
+    {
+      cle: "penida",
+      titre: "Nusa Penida à la journée",
+      resume: "Un forfait à part, pour deux.",
+      texte:
+        "L'île se rejoint en bateau : la journée forme un tout indissociable — traversée, voiture et chauffeur des deux côtés, entrées des plages — et se compte donc à part du reste.",
+    },
+  ],
+  colonnes: ["1 à 3 voyageurs", "4 à 5 voyageurs"],
+  saisons: [
+    {
+      nom: "Basse saison",
+      mois: "Janvier, février, mars, novembre, décembre",
+      prix: ["80 €", "90 €"],
+    },
+    {
+      nom: "Haute saison",
+      mois: "Avril, mai, juin, octobre",
+      prix: ["90 €", "100 €"],
+    },
+    {
+      nom: "Saison estivale",
+      mois: "Juillet, août, septembre",
+      prix: ["100 €", "120 €"],
+    },
+  ],
+
+  grilleNote:
+    "Un prix par journée et par véhicule, chauffeur-guide compris — pas par personne. À trois, la journée coûte le même prix qu'à un.",
+  auDela: "Au-delà de 5 personnes, je vous établis un devis.",
+
+  exemple: {
+    titre: "Un exemple, pour fixer les idées",
+    lignes: [
+      ["Vous êtes deux, en février, logés à Ubud.", ""],
+      ["Trois journées d'excursion, basse saison", "3 × 80 €"],
+      ["Total du véhicule et du chauffeur-guide", "240 €"],
+      ["Soit, par personne et par jour", "40 €"],
+    ],
+    chute:
+      "S'y ajoutent les entrées des sites, vos repas et votre hôtel — comptez-les comme un voyage ordinaire. Depuis Ubud, aucun supplément de nuitée : je rentre dormir chez moi.",
+  },
+  inclus: [
+    "La location du véhicule climatisé",
+    "Le carburant et l'assurance du véhicule",
+    "Les frais de parking",
+    "Les honoraires du chauffeur-guide francophone",
+  ],
+  exclus: [
+    "Les entrées des sites : temples, sites archéologiques, palais, rizières, plages payantes",
+    "Les activités payantes inscrites au programme",
+    "L'hébergement, que vous réservez vous-même",
+    "Les repas",
+    "L'assurance voyage",
+  ],
+
+  supplement: {
+    titre: "Si vous logez loin de Denpasar",
+    montant: "15 € par nuit",
+    texte:
+      "Je dors et je mange sur place plutôt que de faire la route deux fois. C'est le seul poste qui s'ajoute à la grille, et je préfère l'annoncer maintenant.",
+    regions: [
+      "L'est — Candidasa, Sidemen, Amed, Tulamben",
+      "Le nord-centre — Jatiluwih, Munduk, Kintamani",
+      "Le nord et le nord-ouest — Lovina, Pemuteran",
+    ],
+  },
+  nusaPenida: {
+    montant: "230 € pour deux",
+    periode: "De novembre à mars",
+    texte:
+      "Bateau rapide aller-retour depuis Sanur, voiture et chauffeur des deux côtés de la traversée, entrées des plages comprises.",
+  },
+  circuits:
+    "Sur un circuit de plusieurs jours, la formule change : activités, entrées, transport et chauffeur-guide sont réunis dans un forfait global.",
+
+  ailleurs:
+    "Au-delà de Bali — Java, Lombok, Sumbawa, Flores, Komodo — j'organise aussi, mais ça se discute de vive voix : écrivez-moi.",
+};
+  /* TARIFS >>> */
+
+  var AGUS_VEHICULES = [
+    "Toyota Avanza — 4 personnes chauffeur-guide compris, avec bagages",
+    "Suzuki APV — 5 personnes chauffeur-guide compris, avec bagages",
+    "Minibus — au-delà de 6 personnes, 11 places maximum"
+  ];
+
   var ACTIVITES_RESTE = "Trois journées ou quinze, c'est vous qui voyez : je viens vous chercher à votre hôtel pour une seule journée, ou je construis le circuit entier. Et cette liste n'est pas fermée — il y en a d'autres, par région : le sud et la presqu'île de Bukit, l'est et Tirta Gangga, le centre-nord et Tamblingan, le sud-ouest et Tanah Lot. Je vous propose celles qui collent à l'endroit où vous logez.";
 
   var STYLES = ["Nature", "Culture", "Aventure", "Détente", "Famille", "Gastronomie"];
@@ -1520,13 +1765,13 @@
      SCÈNES SVG — illustrations duotone maison
      Remplaçables par de vraies photos (voir README).
      ============================================================ */
-  /* Lumière du jour, franche mais douce. Le lagon et le jade portent les
+  /* Lumière du jour, franche mais douce. Le bambou et le lagon portent les
      paysages, le soleil éclaire, le bougainvillier ne sert qu'aux détails. */
   var C = {
     cielHaut: "#bfe3e4", cielBas: "#eaf3ea", cielChaud: "#fdf0d2",
     soleil: "#f2b134", soleilPale: "#fbe0a5",
     lagon: "#189aa4", lagonPale: "#7fc9cd", lagonProfond: "#0d6570",
-    jade: "#0f6b5c", jadeSombre: "#084a40", jadeClair: "#3f9a7f",
+    bambou: "#4a7038", bambouSombre: "#2f4720", bambouClair: "#7ba85e",
     padi: "#7fa64a", padiClair: "#a8c46a",
     brique: "#b5674a", briqueSombre: "#8c4733",
     roche: "#5c5a52", rocheSombre: "#3c3a34",
@@ -1623,6 +1868,28 @@
     return s + '<circle r="' + (plein ? 7 : 5) + '" fill="currentColor" stroke="none"/></svg>';
   }
 
+  /* <<< SYMBOLES — généré par port-tmp.mjs, ne pas retoucher */
+  var SYMBOLES = {
+      "tedung": "<circle cx=\"12\" cy=\"2.2\" r=\".9\"/><path d=\"M12 3.1V21\"/><path d=\"M7 8.6Q12 3.7 17 8.6\"/><path d=\"M7 8.6q1.25 1.5 2.5 0 1.25 1.5 2.5 0 1.25 1.5 2.5 0 1.25 1.5 2.5 0\"/><path d=\"M4 14.4Q12 7.7 20 14.4\"/><path d=\"M4 14.4q2 1.7 4 0 2 1.7 4 0 2 1.7 4 0 2 1.7 4 0\"/>",
+      "penjor": "<path d=\"M4.4 21C4.4 13 6 6.2 12.6 4.2c3.9-1.1 6.2.2 6.6 2.4\"/><path d=\"M19.2 6.6v2.1\"/><path d=\"M17.5 8.7h3.4v3l-1.7 1.9-1.7-1.9z\"/><path d=\"M6.6 15.1v2.6M8.7 10.9v2.6M12.2 7.9v2.6\"/>",
+      "candi": "<path d=\"M2.5 21h19\"/><path d=\"M3.6 21V10L6.2 4h2.6v17\"/><path d=\"M20.4 21V10L17.8 4h-2.6v17\"/><path d=\"M4.6 9h4.2M4.1 13h4.7M3.7 17h5.1\"/><path d=\"M19.4 9h-4.2M19.9 13h-4.7M20.3 17h-5.1\"/>",
+      "gong": "<path d=\"M4.6 3.4h14.8\"/><path d=\"M8.8 3.4v3.4M15.2 3.4v3.4\"/><circle cx=\"12\" cy=\"13.4\" r=\"5.9\"/><circle cx=\"12\" cy=\"13.4\" r=\"1.8\"/>",
+      "poleng": "<rect x=\"4\" y=\"4\" width=\"16\" height=\"16\" rx=\"1.4\"/><path d=\"M9.33 4v16M14.67 4v16M4 9.33h16M4 14.67h16\"/><path d=\"M4 4h5.33v5.33H4zM14.67 4H20v5.33h-5.33zM9.33 9.33h5.34v5.34H9.33zM4 14.67h5.33V20H4zM14.67 14.67H20V20h-5.33z\" fill=\"currentColor\" stroke=\"none\"/>",
+      "padma": "<path transform=\"rotate(0 12 12)\" d=\"M12 12c-1.9-2.5-1.9-5.9 0-8.4 1.9 2.5 1.9 5.9 0 8.4Z\"/><path transform=\"rotate(45 12 12)\" d=\"M12 12c-1.9-2.5-1.9-5.9 0-8.4 1.9 2.5 1.9 5.9 0 8.4Z\"/><path transform=\"rotate(90 12 12)\" d=\"M12 12c-1.9-2.5-1.9-5.9 0-8.4 1.9 2.5 1.9 5.9 0 8.4Z\"/><path transform=\"rotate(135 12 12)\" d=\"M12 12c-1.9-2.5-1.9-5.9 0-8.4 1.9 2.5 1.9 5.9 0 8.4Z\"/><path transform=\"rotate(180 12 12)\" d=\"M12 12c-1.9-2.5-1.9-5.9 0-8.4 1.9 2.5 1.9 5.9 0 8.4Z\"/><path transform=\"rotate(225 12 12)\" d=\"M12 12c-1.9-2.5-1.9-5.9 0-8.4 1.9 2.5 1.9 5.9 0 8.4Z\"/><path transform=\"rotate(270 12 12)\" d=\"M12 12c-1.9-2.5-1.9-5.9 0-8.4 1.9 2.5 1.9 5.9 0 8.4Z\"/><path transform=\"rotate(315 12 12)\" d=\"M12 12c-1.9-2.5-1.9-5.9 0-8.4 1.9 2.5 1.9 5.9 0 8.4Z\"/>",
+      "canang": "<path d=\"M2.8 14.4h18.4l-1 5.6H3.8z\"/><path d=\"M7.4 16.4v3.6M12 16.4v3.6M16.6 16.4v3.6\"/><circle cx=\"8\" cy=\"11.8\" r=\"2.1\"/><circle cx=\"12.2\" cy=\"10.6\" r=\"2.4\"/><circle cx=\"16.4\" cy=\"11.8\" r=\"2.1\"/><path d=\"M13.8 8.8q2.7-3 5.6-2.7-2.2 1.6-2.8 3.7\"/>",
+      "rangs": "<path d=\"M12 3.6a8.4 8.4 0 1 1-5.9 2.4\"/><path d=\"M6.1 6 5.4 2.6l3.4.6\"/><circle cx=\"12\" cy=\"3.6\" r=\"1.9\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"20.4\" cy=\"12\" r=\"1.5\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"12\" cy=\"20.4\" r=\"1.5\" fill=\"currentColor\" stroke=\"none\"/><circle cx=\"3.6\" cy=\"12\" r=\"1.5\" fill=\"currentColor\" stroke=\"none\"/>",
+      "nyepi": "<path d=\"M20 14.8A8.4 8.4 0 0 1 9.2 4a8.6 8.6 0 1 0 10.8 10.8Z\"/><path d=\"M17.6 3.2l.7 1.7 1.7.7-1.7.7-.7 1.7-.7-1.7-1.7-.7 1.7-.7z\"/><path d=\"M13.4 8.6l.4 1 1 .4-1 .4-.4 1-.4-1-1-.4 1-.4z\"/>"
+  };
+
+  function symbole(nom, size, epaisseur) {
+    var d = SYMBOLES[nom];
+    if (!d) return "";
+    return '<svg viewBox="0 0 24 24" width="' + (size || 28) + '" height="' + (size || 28) +
+      '" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="' + (epaisseur || 1.6) +
+      '" stroke-linecap="round" stroke-linejoin="round">' + d + '</svg>';
+  }
+  /* SYMBOLES >>> */
+
   function photo(o) {
     if (o.src) return '<img src="' + o.src + '" alt="' + (o.alt || "") + '" class="photo-img">';
     return scene(o.scene, 800, 550, o.uid) +
@@ -1662,8 +1929,8 @@
            ' Q ' + (w * 0.26) + ' ' + (h * 0.46) + ' ' + (w * 0.36) + ' ' + (h * 0.26) +
            ' Q ' + (w * 0.4) + ' ' + (h * 0.21) + ' ' + (w * 0.45) + ' ' + (h * 0.27) +
            ' Q ' + (w * 0.56) + ' ' + (h * 0.47) + ' ' + (w * 0.72) + ' ' + (h * 0.66) +
-           ' Z" fill="' + C.jadeSombre + '"/>';
-      s += '<path d="' + band(h * 0.68, h * 0.045, w, h, 2.1) + '" fill="' + C.jade + '"/>';
+           ' Z" fill="' + C.bambouSombre + '"/>';
+      s += '<path d="' + band(h * 0.68, h * 0.045, w, h, 2.1) + '" fill="' + C.bambou + '"/>';
       s += '<path d="' + band(h * 0.78, h * 0.04, w, h, 3.3) + '" fill="' + C.padi + '"/>';
       s += '<path d="' + band(h * 0.88, h * 0.03, w, h, 1.2) + '" fill="' + C.rocheSombre + '"/>';
       // L'eau des terrasses attrape la lueur : le subak en miroir
@@ -1678,7 +1945,7 @@
       var cx = w * 0.5, gy = h * 0.68;
       s += '<ellipse cx="' + cx + '" cy="' + (h * 0.5) + '" rx="' + (w * 0.34) + '" ry="' + (h * 0.34) + '" fill="url(#halo-' + ns + ')"/>';
       s += '<circle cx="' + cx + '" cy="' + (h * 0.42) + '" r="' + (h * 0.12) + '" fill="' + C.soleilPale + '" opacity=".9"/>';
-      s += '<path d="' + band(h * 0.58, h * 0.035, w, h, 1.9) + '" fill="' + C.jadeSombre + '"/>';
+      s += '<path d="' + band(h * 0.58, h * 0.035, w, h, 1.9) + '" fill="' + C.bambouSombre + '"/>';
       [-1, 1].forEach(function (side) {
         s += '<path d="M' + (cx + side * 126) + ' ' + gy +
              ' L' + (cx + side * 110) + ' ' + (gy - h * 0.11) +
@@ -1697,7 +1964,7 @@
       });
       s += tedung(cx - 168, gy, h / 620, C.soleil);
       s += tedung(cx + 168, gy, h / 620, C.clair);
-      s += '<rect y="' + gy + '" width="' + w + '" height="' + (h - gy) + '" fill="' + C.jadeSombre + '"/>';
+      s += '<rect y="' + gy + '" width="' + w + '" height="' + (h - gy) + '" fill="' + C.bambouSombre + '"/>';
       s += '<rect y="' + gy + '" width="' + w + '" height="' + (h - gy) + '" fill="url(#mist-' + ns + ')" opacity=".5"/>';
       for (var j = 0; j < 5; j++) {
         s += '<path d="M' + (cx - 56 + j * 28) + ' ' + (gy - 4) + ' q 3 20 0 36" stroke="' + C.soleilPale +
@@ -1718,7 +1985,7 @@
       s += '<path d="M' + w + ' ' + (h * 0.04) + ' L' + (w * 0.64) + ' ' + (h * 0.28) + ' L' + (w * 0.7) + ' ' + h + ' L' + w + ' ' + h + ' Z" fill="' + C.rocheSombre + '"/>';
       s += '<path d="M0 ' + (h * 0.08) + ' L' + (w * 0.36) + ' ' + (h * 0.26) + ' L' + (w * 0.34) + ' ' + (h * 0.34) + ' L0 ' + (h * 0.18) + ' Z" fill="' + C.padiClair + '" opacity=".8"/>';
       s += '<path d="M' + w + ' ' + (h * 0.04) + ' L' + (w * 0.64) + ' ' + (h * 0.28) + ' L' + (w * 0.66) + ' ' + (h * 0.36) + ' L' + w + ' ' + (h * 0.14) + ' Z" fill="' + C.padiClair + '" opacity=".8"/>';
-      s += '<rect y="' + (h * 0.84) + '" width="' + w + '" height="' + (h * 0.16) + '" fill="' + C.jade + '"/>';
+      s += '<rect y="' + (h * 0.84) + '" width="' + w + '" height="' + (h * 0.16) + '" fill="' + C.bambou + '"/>';
       for (var q = 0; q < 3; q++) {
         s += '<ellipse cx="' + (w * 0.5) + '" cy="' + (h * 0.92) + '" rx="' + (50 + q * 66) + '" ry="' + (6 + q * 4) +
              '" fill="none" stroke="' + C.lagon + '" stroke-width="2" opacity="' + (0.85 - q * 0.24) + '"/>';
@@ -1733,7 +2000,7 @@
       s += '<ellipse cx="' + (w * 0.76) + '" cy="' + (h * 0.2) + '" rx="' + (w * 0.16) + '" ry="' + (h * 0.24) + '" fill="url(#halo-' + ns + ')" opacity=".7"/>';
       s += '<circle cx="' + (w * 0.78) + '" cy="' + (h * 0.2) + '" r="' + (h * 0.095) + '" fill="' + C.soleilPale + '"/>';
       s += '<circle cx="' + (w * 0.74) + '" cy="' + (h * 0.175) + '" r="' + (h * 0.088) + '" fill="' + C.cielHaut + '"/>';
-      s += '<path d="' + band(h * 0.6, h * 0.05, w, h, 0.9) + '" fill="' + C.jadeSombre + '"/>';
+      s += '<path d="' + band(h * 0.6, h * 0.05, w, h, 0.9) + '" fill="' + C.bambouSombre + '"/>';
       s += '<path d="' + band(h * 0.74, h * 0.04, w, h, 2.4) + '" fill="' + C.rocheSombre + '"/>';
       for (var c = 0; c < 20; c++) {
         s += '<path d="M' + (20 + c * (w / 19)) + ' ' + (h * 0.88 + (c % 3) * 12) +
@@ -1775,7 +2042,7 @@
       s += '<path d="M' + (w * 0.04) + ' ' + (h * 0.72) +
            ' Q ' + (w * 0.26) + ' ' + (h * 0.42) + ' ' + (w * 0.38) + ' ' + (h * 0.16) +
            ' L' + (w * 0.5) + ' ' + (h * 0.2) + ' L' + (w * 0.56) + ' ' + (h * 0.14) +
-           ' Q ' + (w * 0.74) + ' ' + (h * 0.44) + ' ' + (w * 0.96) + ' ' + (h * 0.72) + ' Z" fill="' + C.jadeSombre + '"/>';
+           ' Q ' + (w * 0.74) + ' ' + (h * 0.44) + ' ' + (w * 0.96) + ' ' + (h * 0.72) + ' Z" fill="' + C.bambouSombre + '"/>';
       s += '<path d="M' + (w * 0.38) + ' ' + (h * 0.16) + ' L' + (w * 0.5) + ' ' + (h * 0.2) + ' L' + (w * 0.56) + ' ' + (h * 0.14) +
            ' L' + (w * 0.5) + ' ' + (h * 0.1) + ' Z" fill="' + C.rocheSombre + '"/>';
       // Segara Anak, le lac en croissant dans la caldeira
@@ -1824,12 +2091,12 @@
     if (kind === "kelimutu") {
       s += '<ellipse cx="' + (w * 0.5) + '" cy="' + (h * 0.26) + '" rx="' + (w * 0.36) + '" ry="' + (h * 0.28) + '" fill="url(#halo-' + ns + ')"/>';
       s += '<circle cx="' + (w * 0.5) + '" cy="' + (h * 0.22) + '" r="' + (h * 0.07) + '" fill="' + C.soleilPale + '"/>';
-      s += '<path d="' + band(h * 0.46, h * 0.05, w, h, 1.1) + '" fill="' + C.jadeSombre + '"/>';
+      s += '<path d="' + band(h * 0.46, h * 0.05, w, h, 1.1) + '" fill="' + C.bambouSombre + '"/>';
       s += '<path d="M0 ' + (h * 0.62) + ' L' + (w * 0.18) + ' ' + (h * 0.5) + ' L' + (w * 0.4) + ' ' + (h * 0.58) +
            ' L' + (w * 0.6) + ' ' + (h * 0.48) + ' L' + (w * 0.82) + ' ' + (h * 0.58) + ' L' + w + ' ' + (h * 0.52) +
            ' L' + w + ' ' + h + ' L0 ' + h + ' Z" fill="' + C.roche + '"/>';
       // Les trois lacs — c'est leur couleur qui fait monter les gens
-      [[0.24, 0.72, 0.13, 0.06, C.lagon], [0.52, 0.66, 0.15, 0.07, C.jade], [0.8, 0.74, 0.12, 0.055, C.brique]].forEach(function (l) {
+      [[0.24, 0.72, 0.13, 0.06, C.lagon], [0.52, 0.66, 0.15, 0.07, C.bambou], [0.8, 0.74, 0.12, 0.055, C.brique]].forEach(function (l) {
         s += '<ellipse cx="' + (w * l[0]) + '" cy="' + (h * l[1]) + '" rx="' + (w * l[2]) + '" ry="' + (h * l[3]) + '" fill="' + C.rocheSombre + '"/>';
         s += '<ellipse cx="' + (w * l[0]) + '" cy="' + (h * l[1]) + '" rx="' + (w * l[2] * 0.86) + '" ry="' + (h * l[3] * 0.8) + '" fill="' + l[4] + '"/>';
       });
@@ -1843,9 +2110,9 @@
       s += '<path d="M' + (-w * 0.05) + ' ' + h + ' Q ' + (w * 0.1) + ' ' + (h * 0.52) + ' ' + (w * 0.3) + ' ' + (h * 0.6) +
            ' Q ' + (w * 0.42) + ' ' + (h * 0.66) + ' ' + (w * 0.36) + ' ' + h + ' Z" fill="' + C.padi + '"/>';
       s += '<path d="M' + (w * 0.34) + ' ' + h + ' Q ' + (w * 0.46) + ' ' + (h * 0.46) + ' ' + (w * 0.62) + ' ' + (h * 0.54) +
-           ' Q ' + (w * 0.72) + ' ' + (h * 0.6) + ' ' + (w * 0.68) + ' ' + h + ' Z" fill="' + C.jade + '"/>';
+           ' Q ' + (w * 0.72) + ' ' + (h * 0.6) + ' ' + (w * 0.68) + ' ' + h + ' Z" fill="' + C.bambou + '"/>';
       s += '<path d="M' + (w * 0.66) + ' ' + h + ' Q ' + (w * 0.8) + ' ' + (h * 0.54) + ' ' + (w * 1.05) + ' ' + (h * 0.62) +
-           ' L' + (w * 1.05) + ' ' + h + ' Z" fill="' + C.jadeSombre + '"/>';
+           ' L' + (w * 1.05) + ' ' + h + ' Z" fill="' + C.bambouSombre + '"/>';
       // Le liseré de plage, dont l'une est rose
       s += '<path d="M' + (w * 0.3) + ' ' + (h * 0.6) + ' Q ' + (w * 0.42) + ' ' + (h * 0.66) + ' ' + (w * 0.36) + ' ' + (h * 0.74) +
            '" fill="none" stroke="' + C.bougain + '" stroke-width="5" opacity=".55" stroke-linecap="round"/>';
@@ -1879,7 +2146,7 @@
       // Le jour se lève derrière lui : la silhouette est à contre-jour
       '<ellipse cx="300" cy="300" rx="280" ry="220" fill="url(#ph)"/>' +
       '<circle cx="316" cy="248" r="58" fill="' + C.soleilPale + '" opacity=".95"/>' +
-      '<path d="M0 300 Q120 262 246 302 T460 288 L460 560 L0 560 Z" fill="' + C.jadeSombre + '"/>' +
+      '<path d="M0 300 Q120 262 246 302 T460 288 L460 560 L0 560 Z" fill="' + C.bambouSombre + '"/>' +
       '<path d="M0 360 Q140 322 262 370 T460 358 L460 560 L0 560 Z" fill="' + C.padi + '"/>' +
       '<path d="M0 420 Q150 386 268 428 T460 416 L460 560 L0 560 Z" fill="' + C.rocheSombre + '"/>' +
       '<path d="M96 560 c0-118 46-176 134-176 s134 58 134 176 z" fill="' + C.rocheSombre + '"/>' +
@@ -1914,6 +2181,30 @@
   };
 
   var $ = function (id) { return document.getElementById(id); };
+
+  /* D'où l'on part vers les tarifs, pour savoir où revenir. */
+  var SECTIONS_RETOUR = {
+    top: "Retour à l'accueil",
+    esprit: "Retour à la présentation",
+    chemins: "Retour aux deux chemins",
+    circuit: "Retour au circuit",
+    envies: "Retour à mes envies",
+    usages: "Retour aux us et coutumes",
+    "sur-mesure": "Retour à ma demande"
+  };
+  var retourDepuis = "top";
+
+  /* Le seuil de 140 px, c'est la barre collante (68) plus une marge :
+     sans lui, la section qui vient d'entrer par le bas serait déclarée
+     courante. */
+  function sectionCourante() {
+    var courante = "top";
+    Object.keys(SECTIONS_RETOUR).forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top <= 140) courante = id;
+    });
+    return courante;
+  }
 
   document.body.dataset.view = "home";
 
@@ -2022,6 +2313,84 @@
         }).join("") + '</ul>' +
       '</div>';
     }).join("");
+    observeReveals();
+  }
+
+  /* ---------- Rendu : us et coutumes ---------- */
+  function renderUsages() {
+    $("usagesTitre").textContent = USAGES.titre;
+    $("usagesChapo").textContent = USAGES.chapo;
+    $("usagesList").innerHTML = USAGES.liste.map(function (u) {
+      return '<li class="reveal">' + symbole(u.symbole, 30) +
+        '<div><h3>' + u.titre + '</h3><p>' + u.texte + '</p></div></li>';
+    }).join("");
+    observeReveals();
+  }
+
+  /* ---------- Rendu : tarifs ---------- */
+  function renderTarifs() {
+    $("symTedung").innerHTML = symbole("tedung", 38);
+    $("symGong").innerHTML = symbole("gong", 38);
+    $("grilleNote").textContent = TARIFS.grilleNote;
+    $("auDela").textContent = TARIFS.auDela;
+
+    $("formulesList").innerHTML = TARIFS.formules.map(function (f) {
+      return '<li class="reveal"><span class="label">' + f.titre + '</span>' +
+        '<span class="resume">' + f.resume + '</span><p>' + f.texte + '</p></li>';
+    }).join("");
+
+    $("saisonsCartes").innerHTML = TARIFS.saisons.map(function (s) {
+      return '<li class="reveal"><span class="saison">' + s.nom + '</span>' +
+        '<span class="mois">' + s.mois + '</span><div class="prix">' +
+        s.prix.map(function (px, i) {
+          return '<p><span class="label">' + TARIFS.colonnes[i] + '</span>' +
+            '<b>' + px + '</b><small>/ jour</small></p>';
+        }).join("") + '</div></li>';
+    }).join("");
+
+    $("tarifsTable").innerHTML =
+      '<caption class="sr-only">Tarifs des excursions à la journée, par jour et par véhicule</caption>' +
+      '<thead><tr><th scope="col" class="label">Saison</th>' +
+      TARIFS.colonnes.map(function (c) { return '<th scope="col" class="label">' + c + '</th>'; }).join("") +
+      '</tr></thead><tbody>' + TARIFS.saisons.map(function (s) {
+        return '<tr><th scope="row"><span class="saison">' + s.nom + '</span>' +
+          '<span class="mois">' + s.mois + '</span></th>' +
+          s.prix.map(function (px) { return '<td>' + px + '<small>/ jour</small></td>'; }).join("") +
+        '</tr>';
+      }).join("") + '</tbody>';
+
+    var n = TARIFS.exemple.lignes.length;
+    $("exemple").innerHTML = '<span class="label">' + TARIFS.exemple.titre + '</span><dl>' +
+      TARIFS.exemple.lignes.map(function (l, i) {
+        var classe = !l[1] ? "tete" : i === n - 2 ? "total" : i === n - 1 ? "parpers" : "";
+        return '<div class="ligne ' + classe + '"><dt>' + l[0] + '</dt>' +
+          (l[1] ? '<dd>' + l[1] + '</dd>' : "") + '</div>';
+      }).join("") + '</dl><p class="chute">' + TARIFS.exemple.chute + '</p>';
+
+    var sup = TARIFS.supplement;
+    $("supplement").innerHTML =
+      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>' +
+      '<div><p class="tete"><b>' + sup.titre + '</b><span class="montant">' + sup.montant + '</span></p>' +
+      '<p>' + sup.texte + '</p><ul>' +
+      sup.regions.map(function (r) { return "<li>" + r + "</li>"; }).join("") + '</ul></div>';
+
+    $("inclusList").innerHTML = TARIFS.inclus.map(function (t) { return "<li>" + t + "</li>"; }).join("");
+    $("exclusList").innerHTML = TARIFS.exclus.map(function (t) { return "<li>" + t + "</li>"; }).join("");
+
+    var np = TARIFS.nusaPenida, c = CIRCUITS[0];
+    $("autresFormules").innerHTML =
+      '<div class="reveal"><p class="tete">' +
+        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></svg>' +
+        '<b>En circuit</b><span class="montant">' + c.prixPers + ' / personne</span></p>' +
+        '<p>' + TARIFS.circuits + ' Le circuit Bali de ' + c.jours +
+        ' jours revient à ce prix-là, tout compris hors hôtel et repas.</p></div>' +
+      '<div class="reveal"><p class="tete">' +
+        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.5 0 2.5 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M19.38 20A11.6 11.6 0 0 0 21 14l-9-4-9 4c0 2.9.94 5.34 2.81 7.76"/><path d="M12 10v4M12 2v3"/></svg>' +
+        '<b>Nusa Penida</b><span class="montant">' + np.montant + '</span></p>' +
+        '<p>' + np.periode + '. ' + np.texte + '</p></div>';
+
+    $("vehiculesList").innerHTML = AGUS_VEHICULES.map(function (v) { return "<li>" + v + "</li>"; }).join("");
+    $("ailleurs").textContent = TARIFS.ailleurs;
     observeReveals();
   }
 
@@ -2174,6 +2543,8 @@
     renderChemins();
     renderCircuit();
     renderActivites();
+    renderUsages();
+    renderTarifs();
     renderPeriod();
     renderCart();
     renderMessage();
@@ -2284,13 +2655,29 @@
       return;
     }
     /* Les tarifs ont leur propre page dans l'application ; ici, une vue.
-       On bascule, puis on remonte en haut — comme le ferait une
-       navigation réelle. */
+       On bascule — et en partant vers les tarifs, on retient la section
+       d'où l'on vient, pour que le retour n'atterrisse pas en haut de
+       l'accueil. L'application fait la même chose avec `?de=` : voir
+       lib/retours.js. */
     var goto = ev.target.closest("[data-goto]");
     if (goto) {
       ev.preventDefault();
-      document.body.dataset.view = goto.dataset.goto;
-      window.scrollTo({ top: 0, behavior: "instant" });
+      var vue = goto.dataset.goto;
+      if (vue === "tarifs") {
+        retourDepuis = sectionCourante();
+        var lib = SECTIONS_RETOUR[retourDepuis] || SECTIONS_RETOUR.top;
+        [].forEach.call(document.querySelectorAll(".retour-libelle"), function (el) {
+          el.textContent = lib;
+        });
+      }
+      document.body.dataset.view = vue;
+      if (vue === "home" && retourDepuis !== "top") {
+        var cible = document.getElementById(retourDepuis);
+        window.scrollTo({ top: 0, behavior: "instant" });
+        if (cible) cible.scrollIntoView({ behavior: "instant", block: "start" });
+      } else {
+        window.scrollTo({ top: 0, behavior: "instant" });
+      }
       observeReveals();
       return;
     }

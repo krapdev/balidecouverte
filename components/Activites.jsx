@@ -85,7 +85,7 @@ export default function Activites() {
                         className={`flex h-full items-stretch gap-1 overflow-hidden rounded-[14px] border p-2.5 transition-colors duration-200 ${
                           on
                             ? "border-accent bg-tint"
-                            : "border-rule bg-surface hover:border-[color-mix(in_srgb,var(--jade)_40%,var(--rule))]"
+                            : "border-rule bg-surface hover:border-[color-mix(in_srgb,var(--bambou)_40%,var(--rule))]"
                         }`}
                       >
                         {/* Toute la carte ouvre le détail : c'est le geste
@@ -142,8 +142,8 @@ export default function Activites() {
                           }
                           className={`grid h-11 w-11 shrink-0 cursor-pointer self-center place-items-center rounded-full border-2 transition-colors duration-200 ${
                             on
-                              ? "border-bambou bg-bambou text-page"
-                              : "border-bambou bg-bambou-pale text-bambou hover:bg-[color-mix(in_srgb,var(--bambou)_18%,var(--bambou-pale))]"
+                              ? "border-pousse bg-pousse text-page"
+                              : "border-pousse bg-pousse-pale text-pousse hover:bg-[color-mix(in_srgb,var(--pousse)_18%,var(--pousse-pale))]"
                           }`}
                         >
                           <JepunPuce size={20} plein={on} />

@@ -1,17 +1,29 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Menu, X, Mail } from "lucide-react";
+import { urlTarifs } from "@/lib/retours";
 
 /* Les tarifs vivent sur leur propre page ; tout le reste est une ancre
    de l'accueil. Depuis /tarifs, une ancre nue ne mène nulle part — d'où
-   le préfixe « / » ajouté hors accueil par hrefFor(). */
+   le préfixe « / » ajouté hors accueil par hrefFor().
+
+   Le lien Tarifs emporte la section d'où l'on part (`?de=`), pour que
+   le retour ne renvoie pas en haut de page. L'attribut href reste
+   `/tarifs` tout court : le clic milieu, la copie de lien et les robots
+   ne passent pas par le gestionnaire. */
 const LINKS = [
   { href: "#esprit", label: "Qui je suis" },
-  { href: "#chemins", label: "Par où commencer" },
+  /* Absent de la barre du haut, présent dans le menu : sept entrées ne
+     tiennent pas sur une ligne à 1280 px — elles passaient à la ligne et
+     cassaient la hauteur de la barre. La fourche est de toute façon la
+     deuxième chose qu'on voit en descendant, c'est elle qui coûte le
+     moins à retirer. */
+  { href: "#chemins", label: "Par où commencer", menuSeul: true },
   { href: "#circuit", label: "Le circuit" },
   { href: "#envies", label: "Vos envies" },
+  { href: "#usages", label: "Us et coutumes" },
   { href: "/tarifs", label: "Tarifs" },
   { href: "#sur-mesure", label: "Sur-Mesure" },
 ];
@@ -42,8 +54,16 @@ function Logo() {
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const router = useRouter();
   const home = usePathname() === "/";
   const hrefFor = (h) => (home || !h.startsWith("#") ? h : `/${h}`);
+
+  function versTarifs(e) {
+    if (!home || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+    e.preventDefault();
+    setOpen(false);
+    router.push(urlTarifs());
+  }
 
   // Le menu plein écran ne doit pas laisser la page défiler derrière lui.
   useEffect(() => {
@@ -55,22 +75,34 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-rule bg-[color-mix(in_srgb,var(--page)_88%,transparent)] backdrop-blur-lg backdrop-saturate-150">
-      <div className="shell flex h-[68px] items-center gap-6">
-        <a href={home ? "#top" : "/"} className="mr-auto flex min-h-11 items-center gap-3 no-underline">
+      {/* Les écarts se resserrent sous 640 px. À 320 — le plus petit
+          écran que le site prétend tenir — logo + titre + « Devis » +
+          burger faisaient 360 px de large dans 280 px utiles, et le
+          burger sortait de l'écran de 40 px. */}
+      <div className="shell flex h-[68px] items-center gap-3 sm:gap-6">
+        <a
+          href={home ? "#top" : "/"}
+          className="mr-auto flex min-h-11 min-w-0 items-center gap-2.5 no-underline sm:gap-3"
+        >
           <Logo />
-          <span className="leading-tight">
-            <span className="block font-display text-lg font-semibold tracking-tight">
+          <span className="min-w-0 leading-tight">
+            <span className="block truncate font-display text-base font-semibold tracking-tight min-[380px]:text-lg">
               Bali Découverte
             </span>
-            <span className="label block text-faint">Guide francophone</span>
+            {/* Masquée sous 640 px plutôt que tronquée : « GUIDE
+                FRANCOPH… » a l'air d'un bug, l'absence non. */}
+            <span className="label hidden truncate text-faint sm:block">
+              Guide francophone
+            </span>
           </span>
         </a>
 
-        <nav className="hidden gap-7 lg:flex" aria-label="Navigation principale">
-          {LINKS.map((l) => (
+        <nav className="hidden gap-6 lg:flex" aria-label="Navigation principale">
+          {LINKS.filter((l) => !l.menuSeul).map((l) => (
             <a
               key={l.href}
               href={hrefFor(l.href)}
+              onClick={l.href === "/tarifs" ? versTarifs : undefined}
               className="inline-flex min-h-11 items-center border-b border-transparent text-sm text-soft no-underline transition-colors hover:border-accent hover:text-ink"
             >
               {l.label}
@@ -87,12 +119,14 @@ export default function Navbar() {
             rien n'a aucune porte de sortie avant onze écrans de défilement
             — la barre du bas ne sort qu'une fois une envie choisie. */}
         <a
-          className="btn btn-accent h-11 shrink-0 px-3.5 lg:hidden"
+          className="btn btn-accent h-11 w-11 shrink-0 px-0 min-[380px]:w-auto min-[380px]:px-3.5 lg:hidden"
           href={hrefFor("#sur-mesure")}
           aria-label="Demander un devis"
         >
           <Mail size={16} />
-          <span className="text-sm">Devis</span>
+          {/* Le mot tombe sous 380 px ; l'aria-label porte le sens, et
+              la cible reste 44 × 44. */}
+          <span className="hidden text-sm min-[380px]:inline">Devis</span>
         </a>
 
         <button
@@ -113,7 +147,10 @@ export default function Navbar() {
               <a
                 key={l.href}
                 href={hrefFor(l.href)}
-                onClick={() => setOpen(false)}
+                onClick={(e) => {
+                  setOpen(false);
+                  if (l.href === "/tarifs") versTarifs(e);
+                }}
                 className="border-b border-rule py-4 font-display text-2xl no-underline"
               >
                 {l.label}

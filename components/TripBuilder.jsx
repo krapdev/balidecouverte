@@ -80,9 +80,10 @@ export default function TripBuilder() {
   return (
     <section
       id="sur-mesure"
-      /* Ivoire, pas sable : la bande jade de l'engagement séparait
-         « Vos envies » du configurateur, elle est passée dans la
-         présentation d'Agus. Sans elle, deux sables se touchaient. */
+      /* Ivoire : la section précédente (« Us et coutumes ») est une
+         bande bambou pleine. L'alternance de la page se lit dans
+         app/page.js — deux fonds identiques qui se touchent forment
+         un seul bloc interminable. */
       className="ground-ivoire band"
     >
       <div className="shell">
@@ -306,9 +307,17 @@ export default function TripBuilder() {
 
             {/* Fond réglé comme une page de carnet */}
             <div className="rounded border border-rule bg-surface bg-[linear-gradient(to_bottom,transparent_27px,color-mix(in_srgb,var(--rule)_60%,transparent)_27px,transparent_28px)] bg-[length:100%_28px] px-5 pb-6 pt-5">
-              <div className="mb-3.5 flex items-center gap-2.5 text-faint">
-                <MessageSquare size={15} strokeWidth={1.7} />
-                <span className="label">Aperçu — e-mail à {CONTACT.email}</span>
+              {/* `break-all` sur l'adresse : une adresse e-mail est un
+                  mot insécable, et celle-ci fait à elle seule 349 px en
+                  petites capitales espacées. Elle poussait la colonne du
+                  configurateur hors de l'écran à 320 et 360 px — c'était
+                  la seule cause du débordement horizontal restant. */}
+              <div className="mb-3.5 flex items-start gap-2.5 text-faint">
+                <MessageSquare size={15} strokeWidth={1.7} className="mt-0.5 shrink-0" />
+                <span className="label min-w-0">
+                  Aperçu — e-mail à{" "}
+                  <span className="break-all">{CONTACT.email}</span>
+                </span>
               </div>
               <p className="mb-3 border-b border-rule pb-3 text-sm">
                 <span className="label text-faint">Objet</span>
