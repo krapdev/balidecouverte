@@ -33,7 +33,7 @@ export default function Footer() {
             <a
               key={l.href}
               href={l.href}
-              className="text-sm text-on-immersive-soft no-underline transition-colors hover:text-on-immersive"
+              className="flex min-h-11 items-center text-sm text-on-immersive-soft no-underline transition-colors hover:text-on-immersive"
             >
               {l.label}
             </a>
@@ -44,7 +44,7 @@ export default function Footer() {
           <p className="label mb-1 text-soleil-pale">Contact direct</p>
           <a
             href={`mailto:${CONTACT.email}`}
-            className="text-sm text-on-immersive-soft no-underline transition-colors hover:text-on-immersive"
+            className="flex min-h-11 items-center text-sm text-on-immersive-soft no-underline transition-colors hover:text-on-immersive"
           >
             {CONTACT.email}
           </a>
@@ -52,7 +52,7 @@ export default function Footer() {
             href={`https://wa.me/${WHATSAPP_NUMBER}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm text-on-immersive-soft no-underline transition-colors hover:text-on-immersive"
+            className="flex min-h-11 items-center text-sm text-on-immersive-soft no-underline transition-colors hover:text-on-immersive"
           >
             WhatsApp · {WHATSAPP_DISPLAY}
           </a>
@@ -60,7 +60,7 @@ export default function Footer() {
             href={CONTACT.facebook}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm text-on-immersive-soft no-underline transition-colors hover:text-on-immersive"
+            className="flex min-h-11 items-center text-sm text-on-immersive-soft no-underline transition-colors hover:text-on-immersive"
           >
             Facebook · {CONTACT.pseudo}
           </a>
@@ -68,7 +68,7 @@ export default function Footer() {
             href={CONTACT.instagram}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm text-on-immersive-soft no-underline transition-colors hover:text-on-immersive"
+            className="flex min-h-11 items-center text-sm text-on-immersive-soft no-underline transition-colors hover:text-on-immersive"
           >
             Instagram · {CONTACT.pseudo}
           </a>

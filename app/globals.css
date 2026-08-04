@@ -224,12 +224,18 @@
 
   .btn {
     display: inline-flex;
+    /* 44px : le seuil de la cible tactile confortable. Le padding seul
+       donnait 43px — un pixel sous, mais sous quand même. */
+    min-height: 44px;
     align-items: center;
     justify-content: center;
     gap: 0.55em;
     border: 1px solid transparent;
     border-radius: var(--radius);
     padding: 0.85em 1.5em;
+    /* 44px : le minimum confortable au pouce. 43, ce n'est pas une
+       erreur d'arrondi — c'est un doigt qui rate. */
+    min-height: 44px;
     font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
     font-size: 0.875rem;
     font-weight: 600;
@@ -284,7 +290,9 @@
 
   .field-input {
     font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
-    font-size: 0.9375rem;
+    /* 16px exactement : en dessous, iOS zoome à la mise au point du
+       champ et recadre la page. Ne jamais redescendre à 0.9375rem. */
+    font-size: 16px;
     color: var(--text);
     background: var(--surface);
     border: 1px solid var(--rule);

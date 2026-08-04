@@ -33,7 +33,7 @@ function Counter({ label, field, value, onStep }) {
         <button
           type="button"
           onClick={() => onStep(field, -1)}
-          className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded border border-rule bg-surface text-soft transition-colors hover:border-eyebrow hover:text-eyebrow"
+          className="grid h-11 w-11 shrink-0 place-items-center rounded border border-rule bg-surface text-soft transition-colors hover:border-eyebrow hover:text-eyebrow"
           aria-label={`Retirer un ${label.toLowerCase().replace(/s$/, "")}`}
         >
           <Minus size={15} />
@@ -44,7 +44,7 @@ function Counter({ label, field, value, onStep }) {
         <button
           type="button"
           onClick={() => onStep(field, 1)}
-          className="grid h-[34px] w-[34px] shrink-0 place-items-center rounded border border-rule bg-surface text-soft transition-colors hover:border-eyebrow hover:text-eyebrow"
+          className="grid h-11 w-11 shrink-0 place-items-center rounded border border-rule bg-surface text-soft transition-colors hover:border-eyebrow hover:text-eyebrow"
           aria-label={`Ajouter un ${label.toLowerCase().replace(/s$/, "")}`}
         >
           <Plus size={15} />
@@ -251,7 +251,7 @@ export default function TripBuilder() {
                         type="button"
                         aria-pressed={on}
                         onClick={() => trip.toggleStyle(s)}
-                        className={`rounded-full border px-4 py-2 text-sm transition-colors ${
+                        className={`min-h-11 rounded-full border px-4 py-2 text-sm transition-colors ${
                           on
                             ? "border-accent bg-tint font-semibold text-tint-ink"
                             : "border-rule bg-surface hover:border-faint"

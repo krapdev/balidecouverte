@@ -57,7 +57,7 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-rule bg-[color-mix(in_srgb,var(--page)_88%,transparent)] backdrop-blur-lg backdrop-saturate-150">
       <div className="shell flex h-[68px] items-center gap-6">
-        <a href={home ? "#top" : "/"} className="mr-auto flex items-center gap-3 no-underline">
+        <a href={home ? "#top" : "/"} className="mr-auto flex min-h-11 items-center gap-3 no-underline">
           <Logo />
           <span className="leading-tight">
             <span className="block font-display text-lg font-semibold tracking-tight">
@@ -84,10 +84,22 @@ export default function Navbar() {
           Demander un devis
         </a>
 
+        {/* Version courte pour mobile : sans elle, quelqu'un qui ne coche
+            rien n'a aucune porte de sortie avant onze écrans de défilement
+            — la barre du bas ne sort qu'une fois une envie choisie. */}
+        <a
+          className="btn btn-accent h-11 shrink-0 px-3.5 lg:hidden"
+          href={hrefFor("#sur-mesure")}
+          aria-label="Demander un devis"
+        >
+          <Mail size={16} />
+          <span className="text-sm">Devis</span>
+        </a>
+
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="grid h-10 w-10 place-items-center rounded border border-rule text-soft lg:hidden"
+          className="grid h-11 w-11 shrink-0 place-items-center rounded border border-rule text-soft lg:hidden"
           aria-expanded={open}
           aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
         >

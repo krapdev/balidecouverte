@@ -121,7 +121,7 @@ export default function Lightbox({ place, index, onClose, onIndex }) {
       </div>
 
       <div
-        className="flex flex-1 items-center gap-2 px-[clamp(0.5rem,3vw,2rem)] pb-6"
+        className="flex flex-1 items-center gap-2 overflow-y-auto px-[clamp(0.5rem,3vw,2rem)] pb-6"
         onTouchStart={debutTouche}
         onTouchMove={pendantTouche}
         onTouchEnd={finTouche}
@@ -138,7 +138,9 @@ export default function Lightbox({ place, index, onClose, onIndex }) {
         )}
 
         <figure
-          className="m-0 flex min-w-0 flex-1 flex-col justify-center"
+          /* Écran court (téléphone tourné) : la photo et le texte
+             passent côte à côte, sinon la légende sort de l'écran. */
+          className="m-0 flex min-w-0 flex-1 flex-col justify-center gap-4 [@media(max-height:560px)]:flex-row [@media(max-height:560px)]:items-center"
           style={{
             transform: `translateX(${glisse * 0.4}px)`,
             transition: glisse ? "none" : "transform .25s ease",
@@ -152,9 +154,9 @@ export default function Lightbox({ place, index, onClose, onIndex }) {
             brief={vue.brief}
             ratio="aspect-[3/2]"
             priority
-            className="w-full rounded-[14px]"
+            className="w-full rounded-[14px] [@media(max-height:560px)]:max-w-[52%]"
           />
-          <figcaption className="mt-4 text-on-immersive">
+          <figcaption className="text-on-immersive [@media(max-height:560px)]:flex-1">
             <p className="font-display text-[clamp(1.25rem,4vw,1.75rem)] leading-tight">
               {place.titre}
             </p>

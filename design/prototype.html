@@ -124,7 +124,10 @@
 
   /* ---------- Boutons ---------- */
   .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 0.55em;
+    display: inline-flex; align-items: center;
+    /* 44px : seuil de la cible tactile confortable. Le padding seul
+       donnait 43px — un pixel sous, mais sous quand même. */
+    min-height: 44px; justify-content: center; gap: 0.55em;
     border: 1px solid transparent; border-radius: var(--radius);
     padding: 0.85em 1.5em;
     font-family: var(--body);
@@ -197,14 +200,15 @@
     border-bottom: 1px solid var(--rule);
   }
   .nav-in { display: flex; align-items: center; gap: 1.5rem; height: 68px; }
-  .brand { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; margin-right: auto; }
+  .brand { display: flex; align-items: center; min-height: 44px; gap: 0.7rem; text-decoration: none; margin-right: auto; }
   .brand-mark { width: 34px; height: 34px; flex: none; }
   .brand-name { font-family: var(--display); font-size: var(--t-lg); font-weight: 600; letter-spacing: -0.01em; line-height: 1.05; }
   .brand-sub { font-family: var(--util); font-size: 0.625rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-faint); }
   .nav-links { display: none; gap: 1.6rem; }
   .nav-links a {
+    display: inline-flex; align-items: center; min-height: 44px;
     text-decoration: none; font-size: var(--t-sm); color: var(--text-soft);
-    padding-bottom: 2px; border-bottom: 1px solid transparent; transition: color .18s, border-color .18s;
+    border-bottom: 1px solid transparent; transition: color .18s, border-color .18s;
   }
   .nav-links a:hover { color: var(--text); border-color: var(--accent); }
   .nav-wa { display: none; }
@@ -493,13 +497,20 @@
     transition: border-color .2s, color .2s;
   }
   .lightbox-rond:hover { border-color: var(--soleil); color: var(--soleil); }
-  .lightbox-corps { flex: 1; display: flex; align-items: center; gap: 0.5rem; padding: 0 clamp(0.5rem, 3vw, 2rem) 1.5rem; }
+  .lightbox-corps { flex: 1; display: flex; align-items: center; gap: 0.5rem; overflow-y: auto; padding: 0 clamp(0.5rem, 3vw, 2rem) 1.5rem; }
   .lightbox-fleche { display: none; flex: none; width: 3rem; height: 3rem; }
   @media (min-width: 640px) { .lightbox-fleche { display: grid; } }
-  .lightbox-figure { margin: 0; flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; }
+  .lightbox-figure { margin: 0; flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 1rem; }
+  /* Écran court (téléphone tourné) : photo et texte côte à côte, sinon
+     la légende sort de l'écran et rien ne permet de l'atteindre. */
+  @media (max-height: 560px) {
+    .lightbox-figure { flex-direction: row; align-items: center; }
+    .lightbox-photo { max-width: 52%; flex: none; }
+    .lightbox-figure figcaption { flex: 1; }
+  }
   .lightbox-photo { position: relative; display: block; width: 100%; aspect-ratio: 3 / 2; overflow: hidden; border-radius: 14px; }
   .lightbox-photo > svg { width: 100%; height: 100%; }
-  .lightbox-titre { margin-top: 1rem; font-family: var(--display); font-size: clamp(1.25rem, 4vw, 1.75rem); line-height: 1.2; }
+  .lightbox-titre { font-family: var(--display); font-size: clamp(1.25rem, 4vw, 1.75rem); line-height: 1.2; }
   .lightbox-texte { margin-top: 0.4rem; max-width: 62ch; font-size: var(--t-sm); color: var(--on-immersive-soft); line-height: 1.6; }
   .lightbox-aide { padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px)); text-align: center; font-size: 0.6875rem; color: var(--on-immersive-soft); }
   @media (min-width: 640px) { .lightbox-aide { display: none; } }
@@ -595,7 +606,7 @@
   .secrets h4 { font-family: var(--display); font-size: var(--t-lg); font-weight: 500; line-height: 1.2; margin: 0; }
   .secrets p { margin-top: 0.25rem; font-size: var(--t-sm); color: var(--text-soft); line-height: 1.6; }
   .fiche-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; border-top: 1px solid var(--rule); margin-top: 1.5rem; padding-top: 1.25rem; }
-  .fiche-actions a { font-size: var(--t-sm); color: var(--text-soft); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--rule); }
+  .fiche-actions a { display: inline-flex; align-items: center; min-height: 44px; font-size: var(--t-sm); color: var(--text-soft); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--rule); }
   .fiche-note { display: flex; gap: 0.6rem; margin-top: 1rem; font-size: var(--t-sm); color: var(--text-soft); }
   /* L'engagement, juste après les tarifs — c'est là qu'il pèse : la
      grille pose la question « où va mon argent », la section y répond. */
@@ -668,7 +679,9 @@
   .field-wide { grid-column: 1 / -1; }
   .field label { font-size: var(--t-xs); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-soft); }
   .field select, .field input {
-    font: inherit; font-size: 0.9375rem; color: var(--text);
+    /* 16px exactement : en dessous, iOS zoome à la mise au point du
+       champ et recadre la page. Ne jamais redescendre. */
+    font: inherit; font-size: 16px; color: var(--text);
     background: var(--surface);
     border: 1px solid var(--rule); border-radius: var(--radius);
     padding: 0.7rem 0.8rem; width: 100%;
@@ -681,7 +694,7 @@
   }
   .counter { display: flex; align-items: center; gap: 0.5rem; }
   .counter button {
-    width: 34px; height: 34px; flex: none; border: 1px solid var(--rule); background: var(--surface);
+    width: 44px; height: 44px; flex: none; border: 1px solid var(--rule); background: var(--surface);
     border-radius: var(--radius); cursor: pointer; display: grid; place-items: center; color: var(--text-soft);
   }
   .counter button:hover { border-color: var(--eyebrow); color: var(--eyebrow); }
@@ -696,6 +709,7 @@
 
   .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
   .tag {
+    display: inline-flex; align-items: center; min-height: 44px;
     border: 1px solid var(--rule); background: var(--surface); border-radius: 100px;
     padding: 0.45rem 0.95rem; font-size: var(--t-sm); cursor: pointer;
     transition: background-color .16s, border-color .16s, color .16s;
@@ -730,6 +744,7 @@
   .footer p, .footer a { color: var(--on-immersive-soft); font-size: var(--t-sm); text-decoration: none; }
   .footer a:hover { color: var(--on-immersive); }
   .footer-col { display: flex; flex-direction: column; gap: 0.5rem; }
+  .footer-col a { display: flex; align-items: center; align-self: stretch; min-height: 44px; }
   .footer-col .label { color: var(--soleil-pale); margin-bottom: 0.3rem; }
   .footer-base { margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid color-mix(in srgb, var(--on-immersive) 22%, transparent); font-size: var(--t-xs); color: var(--on-immersive-soft); display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: space-between; }
   @media (min-width: 760px) { .footer-base { margin-top: 3rem; } }

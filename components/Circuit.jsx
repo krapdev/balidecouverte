@@ -107,7 +107,7 @@ export default function Circuit() {
                 )}
               </button>
               <a
-                className="text-sm text-soft underline decoration-rule underline-offset-4 hover:text-ink"
+                className="flex min-h-11 items-center text-sm text-soft underline decoration-rule underline-offset-4 hover:text-ink"
                 href="/tarifs"
               >
                 Ce que comprend ce prix

@@ -463,6 +463,45 @@ bien-être. L'antidote est la tension : imagerie apaisée d'un côté, faits dur
 l'autre — coordonnées GPS, dénivelé, « faisable dès 10 ans », accès et niveau
 pour chaque île, prix à la ligne, itinéraire jour par jour.
 
+### Mobile — les seuils à tenir
+
+Le site est vérifié à **320, 360, 390 et 414 px**. Quatre règles, toutes
+mesurées, toutes à zéro défaut aujourd'hui :
+
+| Règle | Seuil | Pourquoi |
+| --- | --- | --- |
+| Cibles tactiles | **44 × 44 px** | WCAG 2.5.5 / Apple HIG. Le minimum AA (2.5.8) est 24 px, mais 44 est le confort réel du pouce. |
+| Champs de saisie | **16 px exactement** | En dessous, **iOS zoome à la mise au point** et recadre la page. Un `0.9375rem` suffit à déclencher le zoom. |
+| Débordement horizontal | **0** | Un pixel de trop et la page se décale au moindre balayage. |
+| Contraste | seuils WCAG | Inchangé, motifs compris. |
+
+**Pièges rencontrés, à ne pas rejouer :**
+
+- `.btn` tombait à **43 px** — un pixel sous le seuil, mais sous quand même.
+  C'est `min-height: 44px` qui le garantit, pas le padding.
+- Les liens de listes (navigation, pied de page) faisaient **20 px de haut**.
+  L'exception « lien en ligne dans une phrase » de WCAG 2.5.8 **ne s'applique
+  pas** à une liste de navigation : il leur faut `min-h-11`.
+- Ajouter un bouton à côté du burger l'a **comprimé à 37 px** : `shrink-0` est
+  obligatoire sur les cibles d'une barre flexible.
+- Une règle `font-size` ajoutée **au-dessus** d'une autre dans le même bloc est
+  écrasée par celle du dessous. Vérifier l'ordre, pas seulement la présence.
+
+**Le sur-mesure est à onze écrans de défilement.** Un bouton « Devis » compact
+est donc visible dans la barre mobile en permanence : sans lui, quelqu'un qui
+ne coche rien n'a aucune porte de sortie, la barre du bas ne sortant qu'une
+fois une envie choisie.
+
+**La visionneuse en paysage** bascule photo et texte côte à côte sous 560 px de
+hauteur. Sans ça, la légende sortait de l'écran de 336 px, hors d'atteinte.
+
+> **Tester la maquette en mobile demande une précaution.** `design/prototype.html`
+> n'a **pas de `<head>`** — l'enveloppe de publication fournit la balise
+> `viewport`. En local avec émulation mobile, le navigateur retombe donc sur une
+> fenêtre de 980 px et **les requêtes média desktop se déclenchent**. Injecter
+> `<meta name="viewport" content="width=device-width, initial-scale=1">` avant
+> de mesurer, sinon les résultats sont faux.
+
 ### Contraste
 
 Un audit automatique parcourt chaque section, compare la couleur déclarée au
