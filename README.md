@@ -137,6 +137,18 @@ ancienneté, langues, union, **famille**, véhicules. La famille y a basculé
 depuis le récit : elle rassure comme une ligne d'état civil, elle diluait la
 promesse en paragraphe.
 
+**C'est un dépliant `<details>`, pas une modale ni une page.** Une modale
+volerait le focus pour une liste qu'on veut survoler ; une page éloignerait les
+faits de l'endroit où naît le doute. Le dépliant coûte un tap, se referme, et
+marche au clavier sans une ligne de JS. Il économise **455 px de défilement**
+sur mobile (99 px fermé contre 554 ouvert).
+
+> **Condition non négociable : le résumé porte l'essentiel même fermé.**
+> « Guide diplômé · 20 ans de métier · français et anglais » est lu par tous
+> ceux qui n'ouvriront jamais le dépliant — et sur mobile, personne n'ouvre
+> tout. Replier de la crédibilité derrière un clic sans résumé, c'est la
+> perdre.
+
 **Pourquoi pas une page `/agus`** : ces faits sont exactement ce qui rassure un
 voyageur qui s'apprête à confier quinze jours à un inconnu. Les envoyer sur une
 page à part, c'est les mettre là où personne ne va. Ils restent là où naît la
@@ -440,6 +452,18 @@ couleur qui chante sans crier.
 | --- | --- | --- | --- |
 | `--jade` | `#0f6b5c` | Le vert laqué des temples et des rizières mûres | **Toutes les actions** + les panneaux pleins |
 | `--soleil` | `#f2b134` | Le safran des ombrelles et des offrandes | Éclaire — CTA du hero |
+| `--bambou` | `#517339` | Le vert de la jeune pousse | **Les gestes de cueillette** : le « + » des activités |
+
+**Le bambou choisit, le jade agit.** Deux verts, deux rôles : le jade porte les
+actions de la page (boutons, liens, base de circuit), le bambou les gestes de
+sélection — plus clair, plus jaune, il sélectionne sans trancher.
+
+> **Sa valeur est fixée par la mesure, pas par l'œil.** Le glyphe « + » de la
+> maquette est un caractère, donc du **texte** : il lui faut 4,5:1. À `#55793a`
+> on tombe à 4,45 sur son propre fond pâle — quatre centièmes sous le seuil, et
+> l'audit l'a vu. `#517339` donne 4,82 sur le fond pâle et 5,09 sur l'ivoire.
+> **Ne pas l'éclaircir sans remesurer** : à `#6f9662`, qui paraît pourtant plus
+> zen, on tombe à 3,16.
 | `--lagon` | `#189aa4` | Le turquoise des passes et du lac d'Ijen | Illustrations |
 | `--bougain` | `#c8455f` | Le rose des murs de Sanur | Étiquettes uniquement |
 | `--ivoire` / `--sable` | `#fbf7ee` / `#f2e9d8` | Pierre et sable | Surfaces de lecture, en alternance |

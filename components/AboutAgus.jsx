@@ -1,4 +1,4 @@
-import { BadgeCheck, CalendarClock, Languages, Users, MapPin, Car } from "lucide-react";
+import { BadgeCheck, CalendarClock, Languages, Users, MapPin, Car, ChevronDown } from "lucide-react";
 import { PortraitAgus, Canang, Jepun } from "./Scene";
 import Photo from "./Photo";
 import SectionHead from "./SectionHead";
@@ -15,6 +15,15 @@ import { AGUS } from "@/lib/data";
  *
  * La famille a basculé dans la fiche. Elle rassure comme un fait dans
  * une ligne d'état civil ; en paragraphe, elle diluait la promesse.
+ *
+ * **La fiche est un dépliant, pas une modale ni une page.** Une modale
+ * volerait le focus pour une liste qu'on veut survoler ; une page
+ * éloignerait les faits de l'endroit où naît le doute. `<details>` coûte
+ * un tap, se referme, et marche au clavier sans une ligne de JS.
+ *
+ * Condition tenue : **le résumé porte l'essentiel même fermé.** Sans ça,
+ * on cacherait la crédibilité à qui ne clique pas — et sur mobile,
+ * personne ne clique sur tout.
  *
  * Pourquoi pas une page /agus : ces faits sont exactement ce qui lève le
  * doute, et les envoyer sur une page à part, c'est les mettre là où
@@ -111,9 +120,30 @@ export default function AboutAgus() {
 
             {/* ---------- La fiche : les faits, pas les adjectifs ---------- */}
             <Reveal delay={0.14}>
-              <div className="rounded-[14px] border border-rule bg-surface-alt p-5">
-                <p className="label mb-4 text-eyebrow">Fiche d&apos;identité</p>
-                <ul className="m-0 grid list-none gap-3.5 p-0 sm:grid-cols-2">
+              <details className="group rounded-[14px] border border-rule bg-surface-alt [&_summary::-webkit-details-marker]:hidden">
+                <summary className="flex min-h-11 cursor-pointer list-none items-center gap-3 p-5">
+                  <BadgeCheck
+                    size={17}
+                    className="shrink-0 text-accent"
+                    strokeWidth={1.7}
+                  />
+                  <span className="min-w-0 flex-1">
+                    <span className="label block text-eyebrow">
+                      Fiche d&apos;identité
+                    </span>
+                    {/* Ce résumé est lu par ceux qui n'ouvriront jamais le
+                        dépliant : il doit suffire à lui seul. */}
+                    <span className="mt-0.5 block text-sm leading-snug text-soft">
+                      Guide diplômé · 20 ans de métier · français et anglais
+                    </span>
+                  </span>
+                  <ChevronDown
+                    size={18}
+                    className="shrink-0 text-faint transition-transform duration-300 group-open:rotate-180"
+                    aria-hidden="true"
+                  />
+                </summary>
+                <ul className="m-0 grid list-none gap-3.5 border-t border-rule p-5 sm:grid-cols-2">
                   {FICHE.map(({ icon: Icon, label, valeur }) => (
                     <li key={label} className="flex items-start gap-3">
                       <Icon
@@ -144,7 +174,7 @@ export default function AboutAgus() {
                     </span>
                   </li>
                 </ul>
-              </div>
+              </details>
             </Reveal>
           </div>
         </div>

@@ -141,8 +141,8 @@ export default function Activites() {
                           }
                           className={`grid h-11 w-11 shrink-0 cursor-pointer self-center place-items-center rounded-full border-2 transition-colors duration-200 ${
                             on
-                              ? "border-accent bg-accent text-accent-ink"
-                              : "border-accent bg-surface text-accent hover:bg-tint"
+                              ? "border-bambou bg-bambou text-page"
+                              : "border-bambou bg-bambou-pale text-bambou hover:bg-[color-mix(in_srgb,var(--bambou)_18%,var(--bambou-pale))]"
                           }`}
                         >
                           {on ? (
