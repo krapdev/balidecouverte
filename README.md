@@ -119,12 +119,23 @@ occupe l'angle vide des grandes cartes de chemins.
 3. **Pas de filigrane sur les petites cartes.** Essayé sur les cartes
    d'activités (84 px de haut) : invisible, et il frôlait le texte. Retiré.
 
-### La présentation : un brief, puis une fiche
+### La présentation : une promesse, puis une fiche
 
-`components/AboutAgus.jsx` sépare les deux registres. Le **brief** donne envie
-— portrait, citation, un paragraphe, le canang sari. La **fiche** (« En bref »)
-donne les faits qui lèvent le doute : diplôme, ancienneté, langues, union,
-véhicules. Ces données existaient dans `AGUS` sans être affichées nulle part.
+L'argument n'est pas « voilà qui je suis » mais **« vous n'avez rien à
+organiser »**. C'est ce qu'achète quelqu'un qui part à 12 000 km : pas une
+biographie, la certitude qu'un professionnel diplômé prend tout en charge.
+
+> « Libérez-vous de l'organisation. Je m'occupe de tout — vous n'avez plus
+> qu'à profiter. »
+
+Le paragraphe qui suit **énumère** ce que « tout » recouvre — véhicule,
+carburant, assurances, parkings, entrées, guides de sentier obligatoires,
+horaires, hôtels sur demande. Une promesse sans liste n'est qu'un slogan.
+
+La **fiche d'identité** porte les faits qui lèvent le doute : certification,
+ancienneté, langues, union, **famille**, véhicules. La famille y a basculé
+depuis le récit : elle rassure comme une ligne d'état civil, elle diluait la
+promesse en paragraphe.
 
 **Pourquoi pas une page `/agus`** : ces faits sont exactement ce qui rassure un
 voyageur qui s'apprête à confier quinze jours à un inconnu. Les envoyer sur une
@@ -169,6 +180,17 @@ bout d'un geste. La visionneuse reçoit donc `place` (une place) et non `items`
 Sur une place à photo unique, les flèches et l'invitation au balayage
 disparaissent : `seule` les masque plutôt que de proposer une navigation qui ne
 mène nulle part.
+
+**Deux gestes, deux zones.** Toute la carte ouvre le plein écran — récit
+complet et défilé de photos. Un **« + » net à droite**, cerclé d'accent en
+44 × 44, ajoute l'activité à la demande et devient une coche pleine une fois
+choisie. C'est l'inverse de la version précédente, où la vignette ouvrait et le
+texte cochait : **on découvre bien plus souvent qu'on ne sélectionne**, donc le
+geste fréquent prend la grande surface et le geste rare une cible franche.
+
+Corollaire à tenir : les deux boutons sont **frères dans un `<article>`**,
+jamais imbriqués — un bouton dans un bouton est invalide et impraticable au
+clavier.
 
 **Une seule carte pour les deux familles.** Vignette carrée de 84 px, pastille
 du nombre de photos, titre, et le texte coupé à trois lignes — calé sur la

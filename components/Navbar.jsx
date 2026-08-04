@@ -72,7 +72,7 @@ export default function Navbar() {
             <a
               key={l.href}
               href={hrefFor(l.href)}
-              className="border-b border-transparent pb-0.5 text-sm text-soft no-underline transition-colors hover:border-accent hover:text-ink"
+              className="inline-flex min-h-11 items-center border-b border-transparent text-sm text-soft no-underline transition-colors hover:border-accent hover:text-ink"
             >
               {l.label}
             </a>

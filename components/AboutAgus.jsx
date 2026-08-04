@@ -1,4 +1,4 @@
-import { BadgeCheck, Users, Languages, MapPin, Car } from "lucide-react";
+import { BadgeCheck, CalendarClock, Languages, Users, MapPin, Car } from "lucide-react";
 import { PortraitAgus, Canang, Jepun } from "./Scene";
 import Photo from "./Photo";
 import SectionHead from "./SectionHead";
@@ -6,34 +6,36 @@ import Reveal from "./Reveal";
 import { AGUS } from "@/lib/data";
 
 /**
- * La présentation : un brief, puis une fiche.
+ * La présentation : une promesse professionnelle, puis une fiche.
  *
- * Le brief donne envie — un visage, une voix, deux détails concrets. La
- * fiche donne les faits qui lèvent le doute : diplôme, ancienneté,
- * langues, union, véhicules. Ces données existaient dans `AGUS` sans
- * être affichées nulle part ; les sortir raccourcit la section **et**
- * la rend plus crédible, parce que le doute d'un voyageur qui s'apprête
- * à confier quinze jours à un inconnu ne se lève pas avec des adjectifs.
+ * L'argument n'est plus « voilà qui je suis » mais **« vous n'avez rien
+ * à organiser »**. C'est ce qu'achète quelqu'un qui part à 12 000 km :
+ * pas une biographie, la certitude que tout est pris en charge par un
+ * professionnel diplômé.
  *
- * Pourquoi pas une page /agus : ces faits sont exactement ce qui rassure,
- * et les envoyer sur une page à part, c'est les mettre là où personne ne
- * va. Ils restent là où naît la question.
+ * La famille a basculé dans la fiche. Elle rassure comme un fait dans
+ * une ligne d'état civil ; en paragraphe, elle diluait la promesse.
+ *
+ * Pourquoi pas une page /agus : ces faits sont exactement ce qui lève le
+ * doute, et les envoyer sur une page à part, c'est les mettre là où
+ * personne ne va. Ils restent là où naît la question.
  */
 const FICHE = [
-  { icon: BadgeCheck, label: "Diplôme", valeur: AGUS.diplome },
-  { icon: Users, label: "Depuis", valeur: `Professionnel depuis ${AGUS.depuis}` },
+  { icon: BadgeCheck, label: "Certification", valeur: AGUS.diplome },
+  { icon: CalendarClock, label: "Métier", valeur: `Professionnel depuis ${AGUS.depuis}` },
   { icon: Languages, label: "Langues", valeur: `Je guide en ${AGUS.langues}` },
   { icon: MapPin, label: "Union", valeur: AGUS.union },
+  { icon: Users, label: "Famille", valeur: AGUS.famille },
 ];
 
 export default function AboutAgus() {
   return (
     <section id="esprit" className="ground-ivoire band">
       <div className="shell">
-        <SectionHead eyebrow="Qui je suis" title="Un Balinais, pas une agence.">
-          Derrière Bali Découverte, il n&apos;y a ni plateforme ni centrale de
-          réservation. Il y a moi, et je connais personnellement les gens chez
-          qui vous déjeunerez.
+        <SectionHead eyebrow="Votre guide" title="Laissez-vous guider.">
+          Guide diplômé, professionnel depuis 2005, je conduis moi-même et je
+          traduis moi-même. Vous n&apos;avez ni véhicule à louer, ni billets à
+          prendre, ni horaires à caler : je m&apos;occupe de tout.
         </SectionHead>
 
         <div className="grid items-start gap-[clamp(2rem,6vw,3.5rem)] md:grid-cols-[0.72fr_1.28fr]">
@@ -72,20 +74,25 @@ export default function AboutAgus() {
             <Reveal>
               {/* Citation de travail : à remplacer par les mots d'Agus. */}
               <blockquote className="border-l-3 border-accent pl-5 text-[clamp(1.25rem,3.6vw,1.6rem)] italic leading-snug text-pretty">
-                « Je ne vends pas un circuit. Je vous emmène là où
-                j&apos;emmènerais un ami, et je vous explique ce que vous
-                regardez. »
+                « Libérez-vous de l&apos;organisation. Je m&apos;occupe de
+                tout — vous n&apos;avez plus qu&apos;à profiter. »
               </blockquote>
             </Reveal>
 
             <Reveal delay={0.05}>
               <p className="max-w-[62ch] text-soft">
-                J&apos;ai quarante ans, je suis marié et père de trois enfants.
-                Je conduis moi-même, je traduis moi-même, et je construis chaque
-                itinéraire avec vous — au rythme de votre famille, pas de celui
-                d&apos;un autocar. Je suis aussi passionné d&apos;histoire
-                européenne, ce qui rend la conversation possible dans les deux
-                sens : je vous raconte mon île, vous me racontez la vôtre.
+                Le véhicule climatisé, le carburant, les assurances, les
+                parkings, les entrées, les guides de sentier obligatoires sur
+                certains chemins, les horaires qui s&apos;enchaînent sans temps
+                mort — tout cela est mon travail, et vous n&apos;avez pas à y
+                penser. Si vous le souhaitez, je choisis et je réserve aussi vos
+                hôtels.
+              </p>
+              <p className="mt-4 max-w-[62ch] text-soft">
+                Vingt ans de métier, ça sert surtout à ça : savoir ce qui
+                s&apos;enchaîne bien, quel jour éviter tel temple, à quelle
+                heure une route se vide. Vous découvrez, je m&apos;occupe du
+                reste.
               </p>
               <p className="mt-4 font-display text-xl">— Agus</p>
             </Reveal>
@@ -105,7 +112,7 @@ export default function AboutAgus() {
             {/* ---------- La fiche : les faits, pas les adjectifs ---------- */}
             <Reveal delay={0.14}>
               <div className="rounded-[14px] border border-rule bg-surface-alt p-5">
-                <p className="label mb-4 text-eyebrow">En bref</p>
+                <p className="label mb-4 text-eyebrow">Fiche d&apos;identité</p>
                 <ul className="m-0 grid list-none gap-3.5 p-0 sm:grid-cols-2">
                   {FICHE.map(({ icon: Icon, label, valeur }) => (
                     <li key={label} className="flex items-start gap-3">

@@ -110,7 +110,7 @@ export default function TripBuilder() {
                 <button
                   type="button"
                   onClick={() => trip.setBaseCircuit(null)}
-                  className="grid place-items-center rounded-sm p-1 text-faint transition-colors hover:text-eyebrow"
+                  className="grid h-11 w-11 shrink-0 place-items-center rounded-sm text-faint transition-colors hover:text-eyebrow"
                   aria-label="Repartir de zéro"
                 >
                   <X size={16} />
@@ -159,7 +159,7 @@ export default function TripBuilder() {
                         <button
                           type="button"
                           onClick={() => trip.removeActivite(a.id)}
-                          className="grid place-items-center rounded-sm p-1 text-faint transition-colors hover:text-eyebrow"
+                          className="grid h-11 w-11 shrink-0 place-items-center rounded-sm text-faint transition-colors hover:text-eyebrow"
                           aria-label={`Retirer ${a.titre}`}
                         >
                           <X size={16} />

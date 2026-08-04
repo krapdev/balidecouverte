@@ -26,10 +26,14 @@ import { useTrip } from "@/lib/trip-store";
  * gabarits auraient laissé croire que les classiques comptent moins,
  * alors qu'elles sont souvent ce qui décide du voyage.
  *
- * La carte est compacte et sert à choisir — vignette, titre, trois
- * lignes calées sur la hauteur de l'image. Le développement vit dans le
- * plein écran : c'est là qu'on lit le récit et qu'on fait défiler les
- * photos. On nomme et on donne envie, on ne publie ni adresse ni chemin.
+ * **Deux gestes, deux zones.** Le grand : toute la carte ouvre le plein
+ * écran — récit complet et défilé de photos. Le petit : un « + » net à
+ * droite ajoute l'activité à la demande. C'est l'inverse de la version
+ * précédente, où la vignette ouvrait et le texte cochait : on découvre
+ * bien plus souvent qu'on ne sélectionne, donc le geste fréquent prend
+ * la grande surface.
+ *
+ * On nomme et on donne envie, on ne publie ni adresse ni chemin.
  */
 export default function Activites() {
   const { isActiviteSelected, toggleActivite, count } = useTrip();
@@ -77,69 +81,75 @@ export default function Activites() {
                   return (
                     <Reveal as="li" key={a.id} delay={(i % 2) * 0.05}>
                       <article
-                        className={`flex h-full items-stretch gap-3 overflow-hidden rounded-[14px] border p-2.5 transition-colors duration-200 ${
+                        className={`flex h-full items-stretch gap-1 overflow-hidden rounded-[14px] border p-2.5 transition-colors duration-200 ${
                           on
                             ? "border-accent bg-tint"
                             : "border-rule bg-surface hover:border-[color-mix(in_srgb,var(--jade)_40%,var(--rule))]"
                         }`}
                       >
-                        {a.photos?.length > 0 && (
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setOuverte(a);
-                              setPhoto(0);
-                            }}
-                            className="group relative block shrink-0 cursor-zoom-in self-start"
-                            aria-label={`Voir ${a.titre} en grand`}
-                          >
-                            <Photo
-                              src={a.photos[0].src}
-                              alt={a.photos[0].alt}
-                              scene={a.photos[0].scene}
-                              uid={`act-${a.id}`}
-                              ratio="aspect-square"
-                              className="w-[84px] rounded-[10px] sm:w-[96px]"
-                            />
-                            <span className="absolute bottom-1.5 left-1.5 flex items-center gap-1 rounded-full bg-immersive-deep px-2 py-0.5 text-[0.625rem] text-on-immersive">
-                              <Images size={10} strokeWidth={2} />
-                              {a.photos.length}
-                            </span>
-                          </button>
-                        )}
-
+                        {/* Toute la carte ouvre le détail : c'est le geste
+                            qu'on fait le plus souvent. */}
                         <button
                           type="button"
-                          onClick={() => toggleActivite(a.id)}
-                          aria-pressed={on}
-                          className="flex flex-1 cursor-pointer items-start gap-3 p-1.5 text-left"
+                          onClick={() => {
+                            setOuverte(a);
+                            setPhoto(0);
+                          }}
+                          className="flex flex-1 cursor-pointer items-stretch gap-3 text-left"
+                          aria-label={`Voir ${a.titre} en détail`}
                         >
-                          <span
-                            className={`mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full border transition-colors ${
-                              on
-                                ? "border-accent bg-accent text-accent-ink"
-                                : "border-rule text-faint"
-                            }`}
-                            aria-hidden="true"
-                          >
-                            {on ? (
-                              <Check size={11} strokeWidth={3} />
-                            ) : (
-                              <Plus size={11} />
-                            )}
-                          </span>
-                          <span className="min-w-0">
+                          {a.photos?.length > 0 && (
+                            <span className="relative block shrink-0 self-start">
+                              <Photo
+                                src={a.photos[0].src}
+                                alt={a.photos[0].alt}
+                                scene={a.photos[0].scene}
+                                uid={`act-${a.id}`}
+                                ratio="aspect-square"
+                                className="w-[84px] rounded-[10px] sm:w-[96px]"
+                              />
+                              <span className="absolute bottom-1.5 left-1.5 flex items-center gap-1 rounded-full bg-immersive-deep px-2 py-0.5 text-[0.625rem] text-on-immersive">
+                                <Images size={10} strokeWidth={2} />
+                                {a.photos.length}
+                              </span>
+                            </span>
+                          )}
+                          <span className="min-w-0 flex-1 py-1.5">
                             <span className="block font-display text-[1.0625rem] leading-tight">
                               {a.titre}
                             </span>
                             {/* Trois lignes : le texte se cale sur la
                                 hauteur de la vignette, toutes les cartes
-                                font la même taille. La suite est dans le
-                                plein écran. */}
+                                font la même taille. */}
                             <span className="mt-1 line-clamp-3 text-[0.8125rem] leading-relaxed text-soft">
                               {a.texte}
                             </span>
                           </span>
+                        </button>
+
+                        {/* Le « + » : petite surface, geste rare, mais
+                            franchement visible — c'est lui qui construit
+                            la demande. */}
+                        <button
+                          type="button"
+                          onClick={() => toggleActivite(a.id)}
+                          aria-pressed={on}
+                          aria-label={
+                            on
+                              ? `Retirer ${a.titre} de ma demande`
+                              : `Ajouter ${a.titre} à ma demande`
+                          }
+                          className={`grid h-11 w-11 shrink-0 cursor-pointer self-center place-items-center rounded-full border-2 transition-colors duration-200 ${
+                            on
+                              ? "border-accent bg-accent text-accent-ink"
+                              : "border-accent bg-surface text-accent hover:bg-tint"
+                          }`}
+                        >
+                          {on ? (
+                            <Check size={18} strokeWidth={3} />
+                          ) : (
+                            <Plus size={18} strokeWidth={2.6} />
+                          )}
                         </button>
                       </article>
                     </Reveal>
