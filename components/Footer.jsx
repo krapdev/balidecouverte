@@ -11,6 +11,7 @@ const LINKS = [
   { href: "/#circuit", label: "Le circuit" },
   { href: "/#envies", label: "Vos envies" },
   { href: "/#usages", label: "Us et coutumes" },
+  { href: "/livre-d-or", label: "Livre d'or" },
   { href: "/tarifs", label: "Tarifs" },
   { href: "/#sur-mesure", label: "Sur-Mesure" },
 ];

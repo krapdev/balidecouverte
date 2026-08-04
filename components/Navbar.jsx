@@ -23,7 +23,8 @@ const LINKS = [
   { href: "#chemins", label: "Par où commencer", menuSeul: true },
   { href: "#circuit", label: "Le circuit" },
   { href: "#envies", label: "Vos envies" },
-  { href: "#usages", label: "Us et coutumes" },
+  { href: "#usages", label: "Us et coutumes", menuSeul: true },
+  { href: "#temoignages", label: "Livre d'or" },
   { href: "/tarifs", label: "Tarifs" },
   { href: "#sur-mesure", label: "Sur-Mesure" },
 ];

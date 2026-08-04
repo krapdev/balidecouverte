@@ -340,10 +340,10 @@ jour et par véhicule cohabitait avec les forfaits de circuit par personne, sans
 que rien ne dise que ce sont deux modèles différents.
 
 La page d'accueil est passée de **23,6 à 14,7 écrans sur mobile** au moment de
-ce dégraissage. Elle est remontée à **17,7** depuis, avec l'ajout des « Us et
-coutumes » — c'est le prix d'une section entière, et il est assumé ; mais le
-compteur est là pour qu'on le voie, pas pour qu'on l'oublie. Le mesurer à
-chaque ajout (390 × 844).
+ce dégraissage. Elle est remontée à **19,2** depuis, avec les « Us et
+coutumes » puis le livre d'or — c'est le prix de deux sections entières, et il
+est assumé ; mais le compteur est là pour qu'on le voie, pas pour qu'on
+l'oublie. Le mesurer à chaque ajout (390 × 844).
 
 ### Le prix d'un circuit ne se lit jamais seul
 
@@ -860,6 +860,82 @@ de charger les polices à l'exécution.
 Elle compte : ce site va circuler sur Facebook, Instagram et WhatsApp, où Agus
 publie déjà. Un lien sans image de partage y est un rectangle gris.
 
+## Le livre d'or
+
+Sept témoignages, enfin réels. Ils vivent dans `lib/temoignages.js`, s'affichent
+par trois sur l'accueil (`#temoignages`) et en entier sur `/livre-d-or`.
+
+### Ce qui a été trouvé dans le livre d'or actuel
+
+**Sur vingt-deux entrées, quinze étaient du spam.** Pas seulement du bruit :
+publicités pour de la fraude bancaire (« YesCard », « Clone Card »), pour de
+faux permis et de faux passeports, liens vers des places de marché du dark web,
+référencement russe, jeux d'argent. Le tout hébergé sur le site d'un guide dont
+le seul produit est la confiance, et lu par des voyageurs qui viennent
+justement vérifier qu'on peut lui confier quinze jours.
+
+Trois conséquences, dans l'ordre de gravité :
+
+1. **Réputationnelle.** Un futur client qui descend la page tombe sur des
+   annonces de faux papiers avant de tomber sur les avis.
+2. **De référencement.** Une page qui pointe vers des sites de fraude est
+   traitée comme telle par les moteurs, et elle contamine le domaine entier.
+3. **Juridique.** Héberger et diffuser des offres de services illicites
+   expose l'éditeur, en France comme ailleurs.
+
+### Pourquoi il n'y a plus de formulaire de dépôt
+
+Le formulaire du site actuel était ouvert à tous, sans modération ni
+vérification — c'est exactement pour ça qu'il s'est rempli tout seul. Ici les
+témoignages sont **des données du site**, et Agus ajoute ce qu'on lui envoie
+par courriel. C'est un geste manuel deux ou trois fois par an, et une page qui
+ne peut pas se retourner contre lui.
+
+Si un formulaire revient un jour, il lui faut trois choses, pas une : une
+modération **avant** publication, un anti-robot, et `rel="nofollow ugc"` sur
+tout lien sortant. Sans les trois, ne pas le remettre.
+
+### Les règles de reprise des textes
+
+- **L'attribution a été reconstituée entrée par entrée.** Dans l'export du
+  site, l'auteur figure *après* le texte auquel il correspond ; les quinze
+  entrées de spam intercalées décalent l'œil d'un cran et font attribuer chaque
+  avis au voisin. C'est le piège de cette extraction, et il est silencieux.
+- **Seules les fautes manifestes ont été corrigées** : accords de participe,
+  espaces manquantes autour des points d'exclamation, « Nous seulement » →
+  « Non seulement ». Aucun mot ajouté, retiré ni déplacé. Les émojis restent —
+  ils font partie de la voix des gens qui écrivent. Un témoignage réécrit
+  n'est plus un témoignage.
+- **Les extraits mis en exergue sont tirés mot pour mot.** Une citation entre
+  guillemets qui ne figure pas telle quelle dans le texte source est un faux,
+  même bien intentionné.
+- **Le paragraphage d'origine est conservé** : les gens écrivent par élans, et
+  coller leurs phrases en un seul bloc leur retire leur souffle.
+
+### Les avis dans les données structurées
+
+Les sept témoignages sont maintenant des `Review` dans le JSON-LD. **Toujours
+pas d'`aggregateRating`, et pas de `reviewRating` non plus** : ces témoignages
+sont des textes, personne n'a mis d'étoiles. En déduire « visiblement cinq sur
+cinq » du ton serait fabriquer une donnée que personne n'a produite.
+
+Conséquence assumée : **pas d'étoiles dans les résultats de recherche**, parce
+que Google les réserve aux avis notés. C'est le prix de l'honnêteté sur ce
+point, et il est faible comparé à celui d'un balisage trompeur — la sanction
+est la perte de tous les résultats enrichis du domaine.
+
+### Où ils sont placés, et pourquoi
+
+Juste avant le configurateur. **La preuve sociale travaille au moment du
+doute, pas au moment de la curiosité** : le voyageur vient de choisir ce qu'il
+veut voir et s'apprête à écrire à un inconnu à 12 000 km. C'est là, et
+seulement là, qu'il a besoin de lire que d'autres l'ont fait avant lui.
+
+Trois sur l'accueil et non sept : sept blocs de texte d'affilée ne se lisent
+pas, ils se survolent. Les trois retenus ne disent pas la même chose — l'un
+porte l'émotion, l'autre l'organisation sans imprévu, le troisième une
+expérience rare.
+
 ## Les pages légales
 
 Deux pages : `/mentions-legales` et `/cgv`. Elles sont **rédigées mais pas
@@ -1005,6 +1081,7 @@ components/
   Activites.jsx      classiques et places secrètes, cochables
   Tarifs.jsx         trois formules, grille, exemple chiffré, supplément
   Usages.jsx         six usages balinais, sur bande pleine
+  Temoignages.jsx    trois avis sur l'accueil, avant la demande
   Symboles.jsx       les neuf symboles balinais au trait
   RetourLien.jsx     le retour des tarifs, vers la section d'origine
   LienTarifs.jsx     le lien vers les tarifs, lesté de sa provenance
@@ -1025,6 +1102,7 @@ lib/
   retours.js         d'où l'on vient, et comment y retourner
   site.js            origine canonique, titre, description
   legal.js           identité, assurance, barèmes — et les trous
+  temoignages.js     les sept témoignages réels du livre d'or
 ```
 
 `app/` porte aussi les conventions de fichiers de Next : `robots.js`,
@@ -1094,8 +1172,9 @@ plein cadre pour le hero) sont déjà posées, rien d'autre ne bouge.
   l'apex, et vérifier que le certificat couvre l'apex. Le domaine canonique est
   tranché (voir `lib/site.js`), mais ces deux réglages-là vivent hors du dépôt.
 - Photos réelles d'Agus et des journées (42 briefs sont prêts).
-- Le **livre d'or** : des témoignages réels, qui deviendront des `Review` dans
-  les données structurées. Aucune note tant qu'il n'y en a pas.
+- **Purger le livre d'or du site actuel** avant toute redirection : il contient
+  quinze entrées de spam, dont des publicités pour de la fraude bancaire et des
+  faux papiers. Ne pas migrer la page telle quelle.
 - **Compléter et faire relire les pages légales** (voir la section dédiée),
   puis lever le `noindex` et les ajouter au `sitemap.js`.
 - Faire relire à Agus les 14 récits d'activités et la citation de travail.

@@ -1,5 +1,6 @@
 import { ORIGINE, NOM_SITE, DESCRIPTION } from "@/lib/site";
 import { AGUS, CONTACT, WHATSAPP_DISPLAY, TARIFS } from "@/lib/data";
+import { TEMOIGNAGES } from "@/lib/temoignages";
 
 /**
  * Les données structurées, en JSON-LD.
@@ -12,12 +13,18 @@ import { AGUS, CONTACT, WHATSAPP_DISPLAY, TARIFS } from "@/lib/data";
  * Deux règles, et elles ne sont pas négociables :
  *
  * 1. **Uniquement des faits vérifiés.** Tout ce qui est ici vient de
- *    `lib/data.js`, section « faits relevés sur balidecouverte.fr ». Pas
- *    de `aggregateRating` : nous n'avons aucune note, et en inventer une
- *    est à la fois un mensonge et une infraction aux règles de Google —
- *    sanctionnée par la perte des résultats enrichis. Le jour où le
- *    livre d'or arrivera, les avis viendront ici sous forme de `Review`,
- *    un par témoignage réel.
+ *    `lib/data.js` et de `lib/temoignages.js`. Les avis sont les vrais
+ *    témoignages du livre d'or, un `Review` par voyageur.
+ *
+ *    **Toujours pas de `aggregateRating`, et toujours pas de
+ *    `reviewRating`.** Ces témoignages sont des textes, pas des notes :
+ *    personne n'a mis d'étoiles. Leur en attribuer, même en déduisant
+ *    « visiblement cinq sur cinq » du ton, serait fabriquer une donnée
+ *    que personne n'a produite — un mensonge, et une infraction aux
+ *    règles de Google sanctionnée par la perte des résultats enrichis.
+ *    Conséquence assumée : pas d'étoiles dans les résultats de
+ *    recherche. Les avis restent dans le graphe comme contenu, ce qui
+ *    est déjà ce pour quoi ils sont là.
  * 2. **Rien qui ne soit visible sur la page.** Google exige que le
  *    balisage décrive un contenu réellement affiché. Les prix, les
  *    langues, l'adresse et la zone desservie le sont tous.
@@ -52,6 +59,13 @@ export default function DonneesStructurees() {
         areaServed: { "@type": "AdministrativeArea", name: "Bali" },
         knowsLanguage: ["fr", "en", "id"],
         sameAs: [CONTACT.facebook, CONTACT.instagram],
+        review: TEMOIGNAGES.map((t) => ({
+          "@type": "Review",
+          author: { "@type": "Person", name: t.auteur },
+          reviewBody: t.texte,
+          inLanguage: "fr",
+          itemReviewed: { "@id": `${ORIGINE}/#entreprise` },
+        })),
         makesOffer: TARIFS.saisons.map((s) => ({
           "@type": "Offer",
           name: `Excursion à la journée avec guide francophone — ${s.nom.toLowerCase()}`,

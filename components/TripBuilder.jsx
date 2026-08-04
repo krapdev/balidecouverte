@@ -79,11 +79,10 @@ export default function TripBuilder() {
   return (
     <section
       id="sur-mesure"
-      /* Ivoire : la section précédente (« Us et coutumes ») est une
-         bande bambou pleine. L'alternance de la page se lit dans
-         app/page.js — deux fonds identiques qui se touchent forment
-         un seul bloc interminable. */
-      className="ground-ivoire band"
+      /* Sable : la section précédente (le livre d'or) est ivoire.
+         L'alternance de la page se lit dans app/page.js — deux fonds
+         identiques qui se touchent forment un seul bloc interminable. */
+      className="ground-sable band"
     >
       <div className="shell">
         <SectionHead eyebrow="Sur-Mesure" title="Construisez votre demande.">
