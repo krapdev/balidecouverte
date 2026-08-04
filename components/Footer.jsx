@@ -10,7 +10,6 @@ const LINKS = [
   { href: "/#circuit", label: "Le circuit" },
   { href: "/#envies", label: "Vos envies" },
   { href: "/tarifs", label: "Tarifs" },
-  { href: "/#engagement", label: "Engagement" },
   { href: "/#sur-mesure", label: "Sur-Mesure" },
 ];
 

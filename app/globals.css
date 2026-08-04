@@ -26,12 +26,14 @@
   --jade: #0f6b5c;
   --jade-deep: #084a40;
   --jade-soft: #2d8d7b;
-  /* Le bambou : plus clair et plus jaune que le jade, pour les gestes de
-     sélection qui doivent respirer plutôt que trancher. Mesuré à 4,82 sur son
-     propre fond pâle et 5,09 sur l'ivoire — c'est le glyphe « + », lu
-     comme du texte, qui fixe la borne à 4,5. Ne pas l'éclaircir sans
-     remesurer : à #55793a on tombe à 4,45 et à #6f9662 à 3,16. */
-  --bambou: #517339;
+/* Le bambou : plus clair et plus jaune que le jade, pour les gestes de
+     sélection qui doivent respirer plutôt que trancher. La puce est une
+     icône (jepun), donc seuil 3:1 — WCAG 1.4.11, contenu graphique.
+     Mesuré à 3,44 sur son fond pâle et 3,63 sur l'ivoire. Ne pas
+     l'éclaircir sans remesurer : #6f9662 tombe à 2,99, sous le seuil.
+     Et si la puce redevenait un caractère, le seuil repasserait à 4,5 —
+     il faudrait alors revenir à #628c56 assombri. */
+  --bambou: #628c56;
   --bambou-pale: #eef3e6;
   --lagon: #189aa4;
   --lagon-pale: #7fc9cd;

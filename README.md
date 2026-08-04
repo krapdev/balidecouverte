@@ -137,6 +137,10 @@ ancienneté, langues, union, **famille**, véhicules. La famille y a basculé
 depuis le récit : elle rassure comme une ligne d'état civil, elle diluait la
 promesse en paragraphe.
 
+En dessous, le **panneau jade des valeurs** ferme la section — voir « Les
+valeurs » plus bas pour le partage des rôles entre ce qui est visible et ce qui
+est replié.
+
 **C'est un dépliant `<details>`, pas une modale ni une page.** Une modale
 volerait le focus pour une liste qu'on veut survoler ; une page éloignerait les
 faits de l'endroit où naît le doute. Le dépliant coûte un tap, se referme, et
@@ -248,17 +252,26 @@ C'est provisoire. **Les données sont dans l'historique git**
 (`git show <commit>:lib/data.js`) — les remettre prend cinq minutes, les
 réécrire de mémoire produirait des prix faux. Ne pas les recomposer à la main.
 
-### L'engagement — l'argument le plus fort, et il est de lui
+### Les valeurs — l'argument le plus fort, et il est de lui
 
-`components/Engagement.jsx` est placé **juste après les tarifs**, et ce n'est
-pas anodin : la grille de prix pose la question « où va mon argent ? », cette
-section y répond. Elle transforme un argument commercial (« sans
-intermédiaire ») en raison de choisir.
+`VALEURS` (dans `lib/data.js`) se lit **à l'intérieur de la présentation
+d'Agus**, sur un panneau jade en bas de la section `#esprit`. C'était une bande
+à part, posée après les tarifs ; elle est remontée parce que « pourquoi lui »
+appartient à la personne, pas à une bande coincée avant un formulaire.
+
+**Les valeurs sont visibles, les faits sont repliés — et pas l'inverse.** Les
+deux registres ne font pas le même travail : les faits (diplôme, vingt ans,
+langues, véhicules) **lèvent le doute**, on les consulte quand la question se
+pose, donc le dépliant suffit ; les valeurs **créent la préférence**, elles ne
+servent à rien si personne ne les lit. Remplacer les uns par les autres
+perdrait la moitié du travail : qui ne fait pas confiance ne sera pas ému par
+des valeurs, et qui fait confiance sans préférer ne réserve pas non plus.
 
 Trois points, tous tirés des mots d'Agus :
 
-- **En direct, sans agence** — ce que vous payez fait vivre le guide, le
-  chauffeur et les familles, pas une commission.
+- **Ma famille d'abord** — marié, trois enfants ; ce que vous payez les fait
+  vivre, comme il fait vivre le chauffeur et les familles qui accueillent, pas
+  une commission d'intermédiaire.
 - **Une union de guides, pas un homme seul** — Agus écrit qu'il travaille « au
   sein d'une union de guides de Bali », avec d'autres francophones et
   anglophones. Quand il n'est pas disponible, il passe le relais à quelqu'un
@@ -275,6 +288,11 @@ il n'expose pas Agus.
 
 Vocabulaire : il écrit **« une union de guides »**, pas un syndicat. Ne pas
 corriger vers un mot qui n'est pas le sien.
+
+**Effet de bord à ne pas oublier** : la bande jade séparait « Vos envies » du
+configurateur. Sans elle, deux fonds sable se touchaient — `TripBuilder` est
+passé en `ground-ivoire` pour rendre l'alternance ivoire / sable / ivoire /
+sable / ivoire.
 
 ### Ce qui a été supprimé, et pourquoi
 
@@ -296,7 +314,7 @@ catalogue parallèle aux journées.**
 
 **Les trois harmonies (Tri Hita Karana) ont quitté la présentation.** C'était
 la partie la plus conceptuelle de la page, et l'une des trois — « En direct,
-sans agence » — redisait mot pour mot la section Engagement. Il reste un
+sans agence » — redisait mot pour mot le panneau des valeurs. Il reste un
 visage, une voix, et deux détails concrets (le jepun, le canang sari) : de quoi
 donner envie de partir avec lui sans en faire trop.
 
@@ -319,9 +337,7 @@ de vive voix.
 **Les tarifs ont quitté la page d'accueil** pour `app/tarifs/page.js`. Ils y
 étaient trop longs (2,4 écrans sur mobile) et surtout trop flous : la grille au
 jour et par véhicule cohabitait avec les forfaits de circuit par personne, sans
-que rien ne dise que ce sont deux modèles différents. L'`Engagement` les suit sur
-cette page — le prix pose la question « où va mon argent ? », l'engagement y
-répond — tout en restant aussi sur l'accueil.
+que rien ne dise que ce sont deux modèles différents.
 
 La page d'accueil est passée de **23,6 à 14,7 écrans sur mobile**.
 
@@ -452,18 +468,27 @@ couleur qui chante sans crier.
 | --- | --- | --- | --- |
 | `--jade` | `#0f6b5c` | Le vert laqué des temples et des rizières mûres | **Toutes les actions** + les panneaux pleins |
 | `--soleil` | `#f2b134` | Le safran des ombrelles et des offrandes | Éclaire — CTA du hero |
-| `--bambou` | `#517339` | Le vert de la jeune pousse | **Les gestes de cueillette** : le « + » des activités |
+| `--bambou` | `#628c56` | Le vert de la jeune pousse | **Les gestes de cueillette** : la puce jepun des activités |
 
 **Le bambou choisit, le jade agit.** Deux verts, deux rôles : le jade porte les
 actions de la page (boutons, liens, base de circuit), le bambou les gestes de
 sélection — plus clair, plus jaune, il sélectionne sans trancher.
 
-> **Sa valeur est fixée par la mesure, pas par l'œil.** Le glyphe « + » de la
-> maquette est un caractère, donc du **texte** : il lui faut 4,5:1. À `#55793a`
-> on tombe à 4,45 sur son propre fond pâle — quatre centièmes sous le seuil, et
-> l'audit l'a vu. `#517339` donne 4,82 sur le fond pâle et 5,09 sur l'ivoire.
-> **Ne pas l'éclaircir sans remesurer** : à `#6f9662`, qui paraît pourtant plus
-> zen, on tombe à 3,16.
+**Ce n'est plus un « + », c'est une fleur.** Le bouton de sélection porte une
+**puce jepun** (`JepunPuce`, dans `components/Scene.jsx`) : cinq pétales,
+contour quand l'activité n'est pas prise, pleine quand elle l'est. Le signe
+mathématique disait « ajouter une ligne » ; la fleur dit **cueillir**, ce qui
+est exactement le geste — et elle reprend le jepun déjà présent derrière
+l'oreille d'Agus et dans le séparateur.
+
+> **Sa valeur est fixée par la mesure, pas par l'œil — et le seuil a changé
+> avec le glyphe.** Tant que c'était le caractère « + », c'était du **texte** :
+> 4,5:1 exigé, et `#55793a` échouait à 4,45 (quatre centièmes sous le seuil ;
+> seul l'audit l'a vu). Devenue une icône SVG, la puce est un **objet
+> graphique** au sens de la WCAG 1.4.11 : le seuil tombe à **3:1**, ce qui
+> autorise enfin un vert assez clair pour être zen. `#628c56` donne **3,44** sur
+> le fond pâle et **3,63** sur l'ivoire. **Ne pas l'éclaircir sans remesurer** :
+> `#6f9662` tombe à 2,99 et échoue.
 | `--lagon` | `#189aa4` | Le turquoise des passes et du lac d'Ijen | Illustrations |
 | `--bougain` | `#c8455f` | Le rose des murs de Sanur | Étiquettes uniquement |
 | `--ivoire` / `--sable` | `#fbf7ee` / `#f2e9d8` | Pierre et sable | Surfaces de lecture, en alternance |
@@ -483,8 +508,10 @@ texte courant.
 
 **Tri Hita Karana.** Les trois causes du bien-être — l'harmonie avec le divin
 (*Parahyangan*), avec les hommes (*Pawongan*), avec la nature (*Palemahan*) —
-remplacent les trois puces d'argumentaire. Elles recouvrent presque exactement
-ce qu'Agus a à dire, avec une assise que trois arguments marketing n'ont pas.
+avaient remplacé les trois puces d'argumentaire. Elles sont **sorties de la
+page** au recentrage : c'était la partie la plus conceptuelle, et l'une des
+trois redisait le panneau des valeurs. Le repère reste noté ici, il est bon à
+reprendre si la présentation regagne de la place.
 
 **Ornements balinais**, toujours expliqués au lecteur : le **jepun**
 (frangipanier) derrière l'oreille d'Agus et en séparateur, une **branche de
@@ -592,17 +619,16 @@ app/
 components/
   Navbar.jsx         nav collante + menu plein écran mobile
   Hero.jsx           panneau immersif, entrée en cascade, bandeau des étapes
-  AboutAgus.jsx      storytelling + Tri Hita Karana
+  AboutAgus.jsx      la promesse, la fiche dépliable, le panneau des valeurs
   Chemins.jsx        la fourche : partir du circuit, ou de ses envies
   Circuit.jsx        le circuit de 15 jours, déplié d'emblée
   Activites.jsx      classiques et places secrètes, cochables
   Tarifs.jsx         grille saisonnière, inclus et à régler sur place
-  Engagement.jsx     où va l'argent, et pourquoi c'est un argument
   Photo.jsx          emplacement photo — placeholder porteur du brief
   Lightbox.jsx       visionneuse plein écran, swipe et clavier
   TripBuilder.jsx    configurateur + rédaction de l'e-mail
   MobileBar.jsx      rappel du voyage en cours, sur mobile
-  Scene.jsx          paysages SVG + ornements (jepun, canang, séparateur)
+  Scene.jsx          paysages SVG + ornements (jepun, puce jepun, canang, séparateur)
   Reveal.jsx         apparition au scroll
   SectionHead.jsx    en-tête de section
 lib/
@@ -610,6 +636,13 @@ lib/
   trip-store.jsx     état partagé (Context + useReducer)
   message.js         objet, corps et lien mailto:
 ```
+
+> **`lib/data.js` ne se modifie pas au script sans vérifier après.** Une
+> réécriture par tranche (`s[:i] + bloc + s[j:]`) a **avalé `HEBERGEMENT`** au
+> passage : le build est tombé sur « Export HEBERGEMENT doesn't exist ». Deux
+> règles depuis : rejouer la liste complète des **19 exports** après toute
+> édition scriptée du fichier, et récupérer ce qui manque avec
+> `git show HEAD:lib/data.js` — **jamais de mémoire**, les prix seraient faux.
 
 ### État partagé
 

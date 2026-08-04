@@ -51,6 +51,39 @@ function band(y, amp, w, h, phase = 0, steps = 5) {
 /* ================= Ornements ================= */
 
 /** Jepun — le frangipanier. Cinq pétales en hélice, cœur miel. */
+/**
+ * Le jepun en bouton : contour quand il attend, plein quand il est
+ * choisi. C'est la fleur du site, et « cueillir » est exactement le
+ * geste qu'on fait en composant son voyage — un « + » mathématique
+ * n'avait rien à dire de plus, et disait moins bien.
+ *
+ * Icône graphique, donc seuil de contraste 3:1 (WCAG 1.4.11) et non
+ * 4,5:1 : c'est ce qui autorise un bambou plus clair que le glyphe
+ * texte ne le permettait.
+ */
+export function JepunPuce({ size = 20, plein = false, className = "" }) {
+  const petale =
+    "M0 2 C 13 -6, 27 -22, 19 -36 C 13 -46, -5 -47, -12 -35 C -19 -22, -9 -7, 0 2 Z";
+  return (
+    <svg
+      viewBox="-50 -50 100 100"
+      width={size}
+      height={size}
+      className={className}
+      aria-hidden="true"
+      fill={plein ? "currentColor" : "none"}
+      stroke="currentColor"
+      strokeWidth={plein ? 0 : 7}
+      strokeLinejoin="round"
+    >
+      {[0, 72, 144, 216, 288].map((a) => (
+        <path key={a} transform={`rotate(${a})`} d={petale} />
+      ))}
+      <circle r={plein ? 7 : 5} fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
 export function Jepun({ size = 26, className = "", tone = "currentColor" }) {
   return (
     <svg

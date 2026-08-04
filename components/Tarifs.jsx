@@ -36,7 +36,10 @@ export default function Tarifs() {
               <a
                 key={href}
                 href={href}
-                className="label text-accent no-underline hover:text-ink"
+                /* min-h-11 : liste de navigation, pas lien en pleine
+                   phrase — l'exception « inline » de la WCAG 2.5.8 ne
+                   s'applique pas ici. */
+                className="label inline-flex min-h-11 items-center text-accent no-underline hover:text-ink"
               >
                 {label}
               </a>

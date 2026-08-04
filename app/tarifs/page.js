@@ -2,7 +2,6 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Tarifs from "@/components/Tarifs";
-import Engagement from "@/components/Engagement";
 import Footer from "@/components/Footer";
 
 export const metadata = {
@@ -20,8 +19,8 @@ export const metadata = {
  * différents. Ici ils ont la place d'être expliqués — et l'accueil garde
  * l'envie plutôt que les chiffres.
  *
- * L'Engagement suit, comme il suivait la grille sur l'accueil : le prix
- * pose la question « où va mon argent ? », l'engagement y répond.
+ * Les valeurs ont rejoint la présentation d'Agus : « pourquoi lui »
+ * appartient à la personne, pas à une bande posée avant un formulaire.
  */
 export default function TarifsPage() {
   return (
@@ -31,14 +30,13 @@ export default function TarifsPage() {
         <div className="shell pt-[clamp(5.5rem,12vw,7rem)]">
           <Link
             href="/"
-            className="label inline-flex items-center gap-2 text-accent no-underline"
+            className="label inline-flex min-h-11 items-center gap-2 text-accent no-underline"
           >
             <ArrowLeft size={14} />
             Retour à l&apos;accueil
           </Link>
         </div>
         <Tarifs />
-        <Engagement />
       </main>
       <Footer />
     </>

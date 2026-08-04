@@ -1,9 +1,19 @@
-import { BadgeCheck, CalendarClock, Languages, Users, MapPin, Car, ChevronDown } from "lucide-react";
+import {
+  BadgeCheck,
+  CalendarClock,
+  Languages,
+  Users,
+  MapPin,
+  Car,
+  ChevronDown,
+  HandCoins,
+  Heart,
+} from "lucide-react";
 import { PortraitAgus, Canang, Jepun } from "./Scene";
 import Photo from "./Photo";
 import SectionHead from "./SectionHead";
 import Reveal from "./Reveal";
-import { AGUS } from "@/lib/data";
+import { AGUS, VALEURS } from "@/lib/data";
 
 /**
  * La présentation : une promesse professionnelle, puis une fiche.
@@ -25,10 +35,21 @@ import { AGUS } from "@/lib/data";
  * on cacherait la crédibilité à qui ne clique pas — et sur mobile,
  * personne ne clique sur tout.
  *
+ * **Deux registres, deux traitements.** Les valeurs sont visibles, sur
+ * un panneau jade : elles créent la préférence, elles doivent être lues.
+ * Les faits sont repliés : ils lèvent le doute, on les consulte quand la
+ * question se pose. Remplacer les uns par les autres perdrait la moitié
+ * du travail — qui ne fait pas confiance ne sera pas ému par des
+ * valeurs, qui fait confiance sans préférer ne réserve pas non plus.
+ *
  * Pourquoi pas une page /agus : ces faits sont exactement ce qui lève le
  * doute, et les envoyer sur une page à part, c'est les mettre là où
  * personne ne va. Ils restent là où naît la question.
  */
+/* Dans l'ordre des points de VALEURS : ce que l'argent fait vivre, le
+   collectif de guides, la mission. */
+const ICONES_VALEURS = [HandCoins, Users, Heart];
+
 const FICHE = [
   { icon: BadgeCheck, label: "Certification", valeur: AGUS.diplome },
   { icon: CalendarClock, label: "Métier", valeur: `Professionnel depuis ${AGUS.depuis}` },
@@ -178,6 +199,53 @@ export default function AboutAgus() {
             </Reveal>
           </div>
         </div>
+
+        {/* ---------- Les valeurs : visibles, sur panneau jade ----------
+            Ce bloc était une section à part avant le configurateur. Le
+            panneau garde la respiration visuelle qu'on perdrait à
+            supprimer la bande, sans coûter une section de plus. */}
+        <Reveal delay={0.1}>
+          <div
+            id="valeurs"
+            className="mt-[clamp(3rem,8vw,4.5rem)] rounded-[18px] bg-immersive px-[clamp(1.5rem,5vw,3rem)] py-[clamp(2rem,6vw,3rem)] text-on-immersive"
+          >
+            <h3 className="max-w-[22ch] text-[clamp(1.5rem,4.5vw,2rem)] leading-tight">
+              {VALEURS.titre}
+            </h3>
+            <p className="mt-4 max-w-[62ch] leading-relaxed text-on-immersive-soft">
+              {VALEURS.chapo}
+            </p>
+
+            <ul className="m-0 mt-10 grid list-none gap-8 p-0 lg:grid-cols-3">
+              {VALEURS.points.map((p, i) => {
+                const Icon = ICONES_VALEURS[i] ?? Heart;
+                return (
+                  <li
+                    key={p.titre}
+                    className="flex flex-col gap-3 border-t border-[color-mix(in_srgb,var(--on-immersive)_28%,transparent)] pt-5"
+                  >
+                    <Icon size={20} className="text-soleil" strokeWidth={1.5} />
+                    {/* h4 : globals ne donne Eczar qu'à h1–h3. */}
+                    <h4 className="font-display text-xl font-medium leading-tight">
+                      {p.titre}
+                    </h4>
+                    <p
+                      className={`text-sm leading-relaxed text-on-immersive-soft ${
+                        p.citation ? "italic" : ""
+                      }`}
+                    >
+                      {p.texte}
+                    </p>
+                  </li>
+                );
+              })}
+            </ul>
+
+            <p className="mt-10 max-w-[62ch] border-l-3 border-soleil pl-6 font-display text-[clamp(1.15rem,3vw,1.45rem)] leading-snug">
+              {VALEURS.chute}
+            </p>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

@@ -5,7 +5,6 @@ import AboutAgus from "@/components/AboutAgus";
 import Chemins from "@/components/Chemins";
 import Circuit from "@/components/Circuit";
 import Activites from "@/components/Activites";
-import Engagement from "@/components/Engagement";
 import TripBuilder from "@/components/TripBuilder";
 import MobileBar from "@/components/MobileBar";
 import Footer from "@/components/Footer";
@@ -32,7 +31,6 @@ export default function Home() {
         <Chemins />
         <Circuit />
         <Activites />
-        <Engagement />
         <TripBuilder />
       </main>
       <Footer />

@@ -44,7 +44,7 @@
        de sélection. Mesuré à 4,82 sur son propre fond
        pâle et 5,09 sur l'ivoire — c'est le glyphe « + », lu comme du
        texte, qui fixe la borne. Ne pas l'éclaircir sans remesurer. */
-    --bambou:      #517339;
+    --bambou:      #628c56;
     --bambou-pale: #eef3e6;
     --lagon:       #189aa4;
     --soleil:      #f2b134;
@@ -422,7 +422,10 @@
     margin-bottom: 2.5rem; padding-block: 0.85rem;
     border-block: 1px solid var(--rule);
   }
+  /* min-height 44px : liste de navigation, pas lien en pleine phrase —
+     l'exception « inline » de la WCAG 2.5.8 ne s'applique pas ici. */
   .tarifs-sommaire a {
+    display: inline-flex; align-items: center; min-height: 44px;
     font-family: var(--util); font-size: var(--t-xs); letter-spacing: 0.08em;
     text-transform: uppercase; color: var(--accent); text-decoration: none;
   }
@@ -499,7 +502,7 @@
     flex: none; align-self: center; width: 44px; height: 44px;
     display: grid; place-items: center; border-radius: 999px;
     border: 2px solid var(--bambou); background: var(--bambou-pale);
-    color: var(--bambou); font-size: 1.25rem; line-height: 1; cursor: pointer;
+    color: var(--bambou); line-height: 0; cursor: pointer;
     transition: background-color .2s, color .2s;
   }
   .journee-plus:hover { background: color-mix(in srgb, var(--bambou) 18%, var(--bambou-pale)); }
@@ -642,19 +645,25 @@
   .fiche-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; border-top: 1px solid var(--rule); margin-top: 1.5rem; padding-top: 1.25rem; }
   .fiche-actions a { display: inline-flex; align-items: center; min-height: 44px; font-size: var(--t-sm); color: var(--text-soft); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--rule); }
   .fiche-note { display: flex; gap: 0.6rem; margin-top: 1rem; font-size: var(--t-sm); color: var(--text-soft); }
-  /* L'engagement, juste après les tarifs — c'est là qu'il pèse : la
-     grille pose la question « où va mon argent », la section y répond. */
-  .engagement { list-style: none; margin: 0; padding: 0; display: grid; gap: 2rem; }
-  @media (min-width: 900px) {
-    .engagement { grid-template-columns: repeat(3, 1fr); }
-    .engagement li:nth-child(2) { margin-top: 2rem; }
-    .engagement li:nth-child(3) { margin-top: 4rem; }
+  /* Les valeurs, à l'intérieur de la présentation d'Agus. C'était une
+     bande jade à part ; le panneau garde la respiration visuelle sans
+     coûter une section de plus, et surtout il rattache les valeurs à la
+     personne — « pourquoi lui » n'appartient pas à une bande posée
+     avant un formulaire. */
+  .valeurs-panneau {
+    margin-top: clamp(3rem, 8vw, 4.5rem); border-radius: 18px;
+    background: var(--immersive); color: var(--on-immersive);
+    padding: clamp(2rem, 6vw, 3rem) clamp(1.5rem, 5vw, 3rem);
   }
-  .engagement li { display: flex; flex-direction: column; gap: 0.75rem; border-top: 1px solid color-mix(in srgb, var(--on-immersive) 28%, transparent); padding-top: 1.25rem; }
-  .engagement h3 { font-size: var(--t-xl); line-height: 1.2; }
-  .engagement p { font-size: var(--t-sm); color: var(--on-immersive-soft); line-height: 1.6; }
-  .engagement-chute {
-    margin-top: 3rem; max-width: 62ch; border-left: 3px solid var(--soleil);
+  .valeurs-panneau > h3 { max-width: 22ch; font-size: clamp(1.5rem, 4.5vw, 2rem); line-height: 1.2; }
+  .valeurs-chapo { margin-top: 1rem; max-width: 62ch; color: var(--on-immersive-soft); line-height: 1.6; }
+  .valeurs { list-style: none; margin: 2.5rem 0 0; padding: 0; display: grid; gap: 2rem; }
+  @media (min-width: 900px) { .valeurs { grid-template-columns: repeat(3, 1fr); } }
+  .valeurs li { display: flex; flex-direction: column; gap: 0.75rem; border-top: 1px solid color-mix(in srgb, var(--on-immersive) 28%, transparent); padding-top: 1.25rem; }
+  .valeurs h4 { font-family: var(--display); font-weight: 500; font-size: var(--t-xl); line-height: 1.2; margin: 0; }
+  .valeurs p { font-size: var(--t-sm); color: var(--on-immersive-soft); line-height: 1.6; }
+  .valeurs-chute {
+    margin-top: 2.5rem; max-width: 62ch; border-left: 3px solid var(--soleil);
     padding-left: 1.5rem; font-family: var(--display);
     font-size: clamp(1.15rem, 3vw, 1.45rem); line-height: 1.35;
   }
@@ -840,7 +849,6 @@
       <a href="#circuit">Le circuit</a>
       <a href="#envies">Vos envies</a>
       <a href="#tarifs" data-goto="tarifs">Tarifs</a>
-      <a href="#engagement">Engagement</a>
       <a href="#sur-mesure">Sur-Mesure</a>
     </nav>
     <a class="btn btn-accent nav-wa" href="#sur-mesure">
@@ -951,6 +959,48 @@
         </details>
       </div>
     </div>
+
+    <!-- Les valeurs : visibles, sur panneau jade. Les faits sont repliés
+         juste au-dessus — ils lèvent le doute, on les consulte quand la
+         question se pose ; les valeurs, elles, créent la préférence,
+         donc elles se lisent sans qu'on ait à cliquer. -->
+    <div class="valeurs-panneau reveal" id="valeurs">
+      <h3>Voyager avec moi, c'est faire vivre les guides de Bali.</h3>
+      <p class="valeurs-chapo">Je suis balinais, diplômé, et je travaille en
+      direct depuis vingt ans. Ce n'est pas seulement une façon de baisser le
+      prix : c'est une façon de faire vivre un métier, et de tenir la promesse
+      que je fais à mon pays.</p>
+
+      <ul class="valeurs">
+        <li>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--soleil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17"/><path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"/><path d="m2 16 6 6"/><circle cx="16" cy="9" r="2.9"/><circle cx="6" cy="5" r="3"/></svg>
+          <h4>Ma famille d'abord</h4>
+          <p>Marié, trois enfants. Ce que vous payez les fait vivre — comme il
+          fait vivre le chauffeur et les familles qui vous accueillent chez
+          elles, pas une commission d'intermédiaire.</p>
+        </li>
+        <li>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--soleil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <h4>Une union de guides, pas un homme seul</h4>
+          <p>Je travaille avec d'autres guides francophones et anglophones au
+          sein d'une union de guides de Bali. Quand je ne suis pas disponible,
+          je passe le relais à quelqu'un que je connais — jamais à un inconnu
+          envoyé par une centrale.</p>
+        </li>
+        <li>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--soleil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          <h4>Ambassadeur de mon pays</h4>
+          <p><em>« En tant que guide, je suis un ambassadeur du tourisme de mon
+          pays, et je peux donc vous assurer que je travaille
+          professionnellement et surtout avec tout mon cœur. »</em></p>
+        </li>
+      </ul>
+
+      <p class="valeurs-chute">Chaque voyage organisé en direct, c'est un guide
+      balinais de plus qui vit de son métier sans dépendre d'une agence — et une
+      famille de Sidemen, de Munduk ou de Tenganan qui accueille chez elle
+      plutôt que de servir un autocar.</p>
+    </div>
   </div>
 </section>
 
@@ -1006,7 +1056,7 @@
 
 <!-- ============================ TARIFS ============================ -->
 <div class="shell back-home view-tarifs">
-  <a href="#top" class="label" data-goto="home" style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--accent)">
+  <a href="#top" class="label" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
     &larr; Retour à l'accueil
   </a>
 </div>
@@ -1107,52 +1157,8 @@
   </div>
 </section>
 
-<!-- ============================ ENGAGEMENT ============================ -->
-<section class="band ground-jade" id="engagement">
-  <div class="shell">
-    <div class="sec-head reveal">
-      <p class="label sec-eyebrow">Engagement</p>
-      <h2>Voyager avec moi, c'est faire vivre les guides de Bali.</h2>
-      <p>Je suis balinais, diplômé, et je travaille en direct depuis vingt ans.
-      Ce n'est pas seulement une façon de baisser le prix : c'est une façon de
-      faire vivre un métier.</p>
-    </div>
-
-    <ul class="engagement">
-      <li class="reveal">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--soleil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
-        <h3>En direct, sans agence</h3>
-        <p>Ce que vous payez va au guide, au chauffeur et aux familles qui vous
-        accueillent — pas à une commission d'intermédiaire. C'est ce qui rend le
-        métier vivable, et ce qui me permet de refuser les cadences imposées
-        par les groupes.</p>
-      </li>
-      <li class="reveal">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--soleil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        <h3>Une union de guides, pas un homme seul</h3>
-        <p>Je travaille avec d'autres guides francophones et anglophones au
-        sein d'une union de guides de Bali. Quand il n'est pas disponible, il
-        passe le relais à quelqu'un qu'il connaît — jamais à un inconnu envoyé
-        par une centrale.</p>
-      </li>
-      <li class="reveal">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--soleil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-        <h3>Ambassadeur, et il le dit ainsi</h3>
-        <p><em>« En tant que guide, je suis un ambassadeur du tourisme de mon
-        pays, et je peux donc vous assurer que je travaille professionnellement
-        et surtout avec tout mon cœur. »</em></p>
-      </li>
-    </ul>
-
-    <p class="reveal engagement-chute">Chaque voyage organisé en direct, c'est un
-    guide balinais de plus qui vit de son métier sans dépendre d'une agence — et
-    une famille de Sidemen, de Munduk ou de Tenganan qui accueille chez elle
-    plutôt que de servir un autocar.</p>
-  </div>
-</section>
-
 <!-- ============================ CONFIGURATEUR ============================ -->
-<section class="band ground-sable view-home" id="sur-mesure">
+<section class="band ground-ivoire view-home" id="sur-mesure">
   <div class="shell">
     <div class="sec-head reveal">
       <p class="label sec-eyebrow">Sur-Mesure</p>
@@ -1270,7 +1276,6 @@
       <a href="#circuit">Le circuit</a>
       <a href="#envies">Vos envies</a>
       <a href="#tarifs" data-goto="tarifs">Tarifs</a>
-      <a href="#engagement">Engagement</a>
       <a href="#sur-mesure">Sur-Mesure</a>
     </div>
     <div class="footer-col">
@@ -1602,6 +1607,22 @@
      dégrade pas en attendant), et le bandeau porte le brief de prise de
      vue — la section devient la liste des photos à faire. Le jour où la
      photo existe, on passe `src` et rien d'autre ne change. */
+  /* Le jepun en bouton : contour quand il attend, plein quand il est
+     choisi. C'est la fleur du site, et « cueillir » est exactement le
+     geste qu'on fait en composant son voyage. Icône graphique, donc
+     seuil de contraste 3:1 et non 4,5 — c'est ce qui autorise un bambou
+     plus clair qu'un glyphe texte ne le permettait. */
+  function jepunPuce(plein) {
+    var p = "M0 2 C 13 -6, 27 -22, 19 -36 C 13 -46, -5 -47, -12 -35 C -19 -22, -9 -7, 0 2 Z";
+    var s = '<svg viewBox="-50 -50 100 100" width="20" height="20" aria-hidden="true" fill="' +
+      (plein ? "currentColor" : "none") + '" stroke="currentColor" stroke-width="' +
+      (plein ? 0 : 7) + '" stroke-linejoin="round">';
+    [0, 72, 144, 216, 288].forEach(function (a) {
+      s += '<path transform="rotate(' + a + ')" d="' + p + '"/>';
+    });
+    return s + '<circle r="' + (plein ? 7 : 5) + '" fill="currentColor" stroke="none"/></svg>';
+  }
+
   function photo(o) {
     if (o.src) return '<img src="' + o.src + '" alt="' + (o.alt || "") + '" class="photo-img">';
     return scene(o.scene, 800, 550, o.uid) +
@@ -1995,7 +2016,7 @@
             '</button>' +
             '<button class="journee-plus" type="button" data-act="' + a.id + '" aria-pressed="' + on +
               '" aria-label="' + (on ? "Retirer " + a.titre + " de" : "Ajouter " + a.titre + " \u00e0") + ' ma demande">' +
-              (on ? "\u2713" : "+") +
+              jepunPuce(on) +
             '</button>' +
           '</article></li>';
         }).join("") + '</ul>' +

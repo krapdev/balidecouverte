@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Plus, Images } from "lucide-react";
+import { Images } from "lucide-react";
+import { JepunPuce } from "./Scene";
 import Photo from "./Photo";
 import Lightbox from "./Lightbox";
 import SectionHead from "./SectionHead";
@@ -145,11 +146,7 @@ export default function Activites() {
                               : "border-bambou bg-bambou-pale text-bambou hover:bg-[color-mix(in_srgb,var(--bambou)_18%,var(--bambou-pale))]"
                           }`}
                         >
-                          {on ? (
-                            <Check size={18} strokeWidth={3} />
-                          ) : (
-                            <Plus size={18} strokeWidth={2.6} />
-                          )}
+                          <JepunPuce size={20} plein={on} />
                         </button>
                       </article>
                     </Reveal>

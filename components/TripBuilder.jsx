@@ -80,7 +80,10 @@ export default function TripBuilder() {
   return (
     <section
       id="sur-mesure"
-      className="ground-sable band"
+      /* Ivoire, pas sable : la bande jade de l'engagement séparait
+         « Vos envies » du configurateur, elle est passée dans la
+         présentation d'Agus. Sans elle, deux sables se touchaient. */
+      className="ground-ivoire band"
     >
       <div className="shell">
         <SectionHead eyebrow="Sur-Mesure" title="Construisez votre demande.">
