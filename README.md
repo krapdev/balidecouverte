@@ -764,6 +764,48 @@ bien-être. L'antidote est la tension : imagerie apaisée d'un côté, faits dur
 l'autre — coordonnées GPS, dénivelé, « faisable dès 10 ans », accès et niveau
 pour chaque île, prix à la ligne, itinéraire jour par jour.
 
+### Ce que l'accueil a rendu au portrait
+
+Une fois `/agus` en place, la présentation de l'accueil portait deux fois la
+même charge. Elle est passée de **3,45 à 2,55 écrans mobiles** (−26 %), et la
+page entière de 19,4 à 18,5 — sans qu'aucun argument ne disparaisse du site.
+
+Quatre coupes, et chacune a sa raison propre. C'est ce qui les distingue d'un
+dégraissage à la louche :
+
+- **La citation de travail est supprimée**, pas déplacée. « Libérez-vous de
+  l'organisation. Je m'occupe de tout » disait mot pour mot ce que le chapô de
+  la section dit six centimètres plus haut. C'était la même promesse deux fois
+  — et c'était l'un des deux seuls textes encore inventés de la page. La retirer
+  enlève une redite **et** une chose à faire relire par Agus.
+- **Les deux paragraphes fusionnent.** Le premier donne la liste concrète (le
+  véhicule, le carburant, les assurances, les guides de sentier) ; le second ne
+  faisait que la commenter.
+- **Le canang du tableau de bord part sur `/agus`.** Il était en triple : là,
+  sur la page portrait, et dans l'usage « les offrandes au sol » de la section
+  Us et coutumes.
+- **L'explication du jepun part aussi.** Trois lignes d'atmosphère au milieu du
+  chemin de quelqu'un qui n'a encore rien décidé ; le lecteur qui veut savoir ce
+  qu'est cette fleur est exactement celui qui clique sur le portrait.
+
+Et une réduction plutôt qu'une coupe : **le panneau des valeurs a deux
+longueurs.** `VALEURS.points[].court` sur l'accueil, `.texte` sur `/agus`. Ce
+n'est pas un raccourci d'affichage mais une répartition du travail — sur
+l'accueil, ces trois points doivent créer la préférence en un coup d'œil, au
+milieu d'une page qui doit encore présenter un circuit, des envies et un
+formulaire ; sur le portrait, ils sont le sujet, et la version longue est ce
+qu'on est venu lire. ⚠️ **`court` n'est pas une troncature de `texte`** : chaque
+version est une phrase entière et vraie. Découper `texte` à l'exécution
+couperait au milieu d'une proposition.
+
+L'icône des trois points est passée sur la ligne du titre : empilée au-dessus,
+elle coûtait une ligne par point pour une information qui n'en vaut pas une.
+
+**Ce qui n'a pas bougé, et ne doit pas bouger** : le chapô de la section (c'est
+la promesse), la photo (c'est l'homme), le dépliant « fiche d'identité » (c'est
+ce qui lève le doute), et les trois titres des valeurs. Réduire le panneau à ses
+seuls titres en ferait un mur de slogans.
+
 ### Le menu : un seuil, pas une barre
 
 Le reproche était juste — c'était la barre de n'importe quel site. Logo à

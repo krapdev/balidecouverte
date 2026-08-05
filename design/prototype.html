@@ -730,10 +730,13 @@
   }
   .valeurs-panneau > h3 { max-width: 22ch; font-size: clamp(1.5rem, 4.5vw, 2rem); line-height: 1.2; }
   .valeurs-chapo { margin-top: 1rem; max-width: 62ch; color: var(--on-immersive-soft); line-height: 1.6; }
-  .valeurs { list-style: none; margin: 2.5rem 0 0; padding: 0; display: grid; gap: 2rem; }
+  .valeurs { list-style: none; margin: 2rem 0 0; padding: 0; display: grid; gap: 1.5rem; }
   @media (min-width: 900px) { .valeurs { grid-template-columns: repeat(3, 1fr); } }
-  .valeurs li { display: flex; flex-direction: column; gap: 0.75rem; border-top: 1px solid color-mix(in srgb, var(--on-immersive) 28%, transparent); padding-top: 1.25rem; }
-  .valeurs h4 { font-family: var(--display); font-weight: 500; font-size: var(--t-xl); line-height: 1.2; margin: 0; }
+  .valeurs li { display: flex; flex-direction: column; gap: 0.5rem; border-top: 1px solid color-mix(in srgb, var(--on-immersive) 28%, transparent); padding-top: 1rem; }
+  /* L'icône est sur la ligne du titre : empilée au-dessus, elle coûtait
+     une ligne par point pour une information qui n'en vaut pas une. */
+  .valeurs h4 { display: flex; align-items: center; gap: 0.6rem; font-family: var(--display); font-weight: 500; font-size: var(--t-lg); line-height: 1.2; margin: 0; }
+  .valeurs h4 svg { flex: none; }
   .valeurs p { font-size: var(--t-sm); color: var(--on-immersive-soft); line-height: 1.6; }
   .valeurs-chute {
     margin-top: 2.5rem; max-width: 62ch; border-left: 3px solid var(--soleil);
@@ -1243,39 +1246,37 @@
           <div class="portrait" id="portrait"></div>
           <span class="portrait-appel">Son portrait, sa famille, son union <span aria-hidden="true">&rarr;</span></span>
         </a>
-        <figcaption class="portrait-cap">
-          <span class="label">Agus Yudiarta</span>
-          <span class="label">Denpasar · 08°39'S 115°13'E</span>
-        </figcaption>
-        <p style="display: flex; gap: 0.75rem; font-size: var(--t-sm); color: var(--text-soft); margin-top: 0.6rem; line-height: 1.55">
-          <span id="capJepun" style="flex: none; margin-top: 0.25rem"></span>
-          <span>La fleur derrière mon oreille est un <em>jepun</em>, le frangipanier :
-          on la porte au temple, on la dépose sur les offrandes.</span>
-        </p>
+        <!-- Une seule ligne, et sans les coordonnées. Le nom et le GPS se
+             partageaient la largeur : à 390 px, « AGUS YUDIARTA » passait à
+             la ligne dans sa moitié et la légende tenait sur deux étages
+             juste sous le lien. Les coordonnées et l'explication du jepun
+             sont sur la vue portrait — trois lignes d'atmosphère au milieu
+             du chemin de quelqu'un qui n'a encore rien décidé, c'est là
+             qu'on les perd. -->
+        <figcaption class="label" style="color: var(--text-faint)">Agus Yudiarta · Denpasar, Bali</figcaption>
       </figure>
 
       <div class="agus-body">
-        <!-- Citation de travail : à remplacer par les mots d'Agus. -->
-        <blockquote class="agus-quote reveal">« Libérez-vous de l'organisation. Je m'occupe de tout — vous n'avez plus qu'à profiter. »</blockquote>
+        <!-- Trois blocs ont quitté cet endroit, chacun pour sa propre raison.
+             • La citation de travail disait « Libérez-vous de l'organisation.
+               Je m'occupe de tout » — mot pour mot ce que le chapô dit six
+               centimètres plus haut. La même promesse deux fois, et l'un des
+               deux seuls textes encore inventés de la page : la supprimer
+               enlève une redite ET une chose à faire relire.
+             • Le second paragraphe (« vingt ans de métier, ça sert surtout à
+               ça ») a fusionné avec le premier, qu'il ne faisait que
+               commenter.
+             • Le canang du tableau de bord est sur la vue portrait, et
+               l'usage « les offrandes au sol » le raconte déjà dans Us et
+               coutumes. Il était ici en troisième exemplaire. -->
         <p class="reveal">Le véhicule climatisé, le carburant, les assurances, les
         parkings, les entrées, les guides de sentier obligatoires sur certains
-        chemins, les horaires qui s'enchaînent sans temps mort — tout cela est
-        mon travail, et vous n'avez pas à y penser. Si vous le souhaitez, je
-        choisis et je réserve aussi vos hôtels.</p>
-        <p class="reveal">Vingt ans de métier, ça sert surtout à ça : savoir ce
-        qui s'enchaîne bien, quel jour éviter tel temple, à quelle heure une
-        route se vide. Vous découvrez, je m'occupe du reste.</p>
+        chemins, les horaires qui s'enchaînent sans temps mort : tout cela est
+        mon travail. Vingt ans de métier servent surtout à ça — savoir ce qui
+        s'enchaîne bien, quel jour éviter tel temple, à quelle heure une route
+        se vide. Si vous le souhaitez, je choisis et je réserve aussi vos
+        hôtels.</p>
         <p class="agus-sign reveal">— Agus</p>
-
-        <div class="reveal" style="display: flex; align-items: flex-start; gap: 1rem; border-block: 1px solid var(--rule); padding-block: 1.25rem">
-          <span id="canangEsprit" style="flex: none; margin-top: 0.15rem"></span>
-          <p style="font-size: var(--t-sm); color: var(--text-soft); line-height: 1.6">
-            Chaque matin, avant de prendre la route, je dépose un
-            <em>canang sari</em> sur le tableau de bord : quelques fleurs dans un
-            panier de feuille de palme tressée. C'est trois minutes, et c'est le
-            vrai début de la journée.
-          </p>
-        </div>
 
         <!-- La fiche : les faits, pas les adjectifs. La famille y est
              passée — elle rassure comme une ligne d'état civil, elle
@@ -1320,26 +1321,19 @@
 
       <ul class="valeurs">
         <li>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--soleil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17"/><path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"/><path d="m2 16 6 6"/><circle cx="16" cy="9" r="2.9"/><circle cx="6" cy="5" r="3"/></svg>
-          <h4>Ma famille d'abord</h4>
-          <p>Marié, trois enfants. Ce que vous payez les fait vivre — comme il
-          fait vivre le chauffeur et les familles qui vous accueillent chez
-          elles, pas une commission d'intermédiaire.</p>
+          <h4><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--soleil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17"/><path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"/><path d="m2 16 6 6"/><circle cx="16" cy="9" r="2.9"/><circle cx="6" cy="5" r="3"/></svg>Ma famille d'abord</h4>
+          <p>Marié, trois enfants. Ce que vous payez les fait vivre — pas une
+          commission d'intermédiaire.</p>
         </li>
         <li>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--soleil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          <h4>Une union de guides, pas un homme seul</h4>
-          <p>Je travaille avec d'autres guides francophones et anglophones au
-          sein d'une union de guides de Bali. Quand je ne suis pas disponible,
-          je passe le relais à quelqu'un que je connais — jamais à un inconnu
-          envoyé par une centrale.</p>
+          <h4><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--soleil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Une union de guides, pas un homme seul</h4>
+          <p>Si je ne suis pas libre, je passe le relais à un guide que je
+          connais — jamais à une centrale.</p>
         </li>
         <li>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--soleil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-          <h4>Ambassadeur de mon pays</h4>
-          <p><em>« En tant que guide, je suis un ambassadeur du tourisme de mon
-          pays, et je peux donc vous assurer que je travaille
-          professionnellement et surtout avec tout mon cœur. »</em></p>
+          <h4><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--soleil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>Ambassadeur de mon pays</h4>
+          <p><em>« Je suis un ambassadeur du tourisme de mon pays, et je
+          travaille avec tout mon cœur. »</em></p>
         </li>
       </ul>
 
@@ -1633,7 +1627,17 @@
     <div class="portrait-tete">
       <figure class="portrait-fig">
         <div class="arch portrait-photo" id="portraitPhoto"></div>
-        <figcaption class="label" style="margin-top: 0.9rem; color: var(--text-faint)">Denpasar · 08°39'S 115°13'E</figcaption>
+        <figcaption style="margin-top: 0.9rem; border-top: 1px solid var(--rule); padding-top: 0.75rem">
+          <span class="label" style="display: block; color: var(--text-faint)">Denpasar · 08°39'S 115°13'E</span>
+          <!-- Venu de l'accueil, où il tenait trois lignes d'atmosphère au
+               milieu du chemin de quelqu'un qui n'a encore rien décidé. Ici,
+               on est venu pour ça. -->
+          <span style="display: flex; gap: 0.75rem; margin-top: 0.6rem; font-size: var(--t-sm); color: var(--text-soft); line-height: 1.55">
+            <span id="portraitJepun" style="flex: none; margin-top: 0.25rem"></span>
+            <span>La fleur derrière mon oreille est un <em>jepun</em>, le
+            frangipanier : on la porte au temple, on la dépose sur les offrandes.</span>
+          </span>
+        </figcaption>
       </figure>
       <div>
         <p class="label sec-eyebrow">Le portrait</p>
@@ -2790,8 +2794,6 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
     '<span class="photo-brief">' +
       '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>' +
       "<span><b>Photo à venir</b> — LA photo à faire en premier : Agus de face, en extérieur, lumière douce</span></span>";
-  $("capJepun").innerHTML = jepun(22, "var(--eyebrow)");
-  $("canangEsprit").innerHTML = canang(52);
   $("canangFooter").innerHTML = canang(54);
   document.querySelector(".jepun-mark").outerHTML = jepun(38, "currentColor");
 
@@ -3146,6 +3148,7 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
 
   function renderPortrait() {
     $("portraitPhoto").innerHTML = portraitScene();
+    $("portraitJepun").innerHTML = jepun(22, "var(--eyebrow)");
     $("portraitCite").textContent =
       "« En tant que guide, je suis un ambassadeur du tourisme de mon pays, " +
       "et je peux donc vous assurer que je travaille professionnellement et " +

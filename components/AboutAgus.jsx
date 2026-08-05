@@ -11,7 +11,7 @@ import {
   Heart,
   ArrowRight,
 } from "lucide-react";
-import { PortraitAgus, Canang, Jepun } from "./Scene";
+import { PortraitAgus } from "./Scene";
 import { Symbole } from "./Symboles";
 import Photo from "./Photo";
 import SectionHead from "./SectionHead";
@@ -105,63 +105,56 @@ export default function AboutAgus() {
                 <ArrowRight size={15} className="shrink-0 transition-transform group-hover:translate-x-1" />
               </span>
             </Link>
-            <figcaption>
-              <span className="flex items-baseline justify-between gap-4 text-faint">
-                <span className="label">{AGUS.nom}</span>
-                <span className="label">Denpasar · 08°39&apos;S 115°13&apos;E</span>
-              </span>
-              <span className="mt-2 flex items-start gap-3 text-sm leading-relaxed text-soft">
-                <Jepun size={22} tone="var(--eyebrow)" className="mt-1 shrink-0" />
-                <span>
-                  La fleur derrière mon oreille est un <em>jepun</em>, le
-                  frangipanier : on la porte au temple, on la dépose sur les
-                  offrandes.
-                </span>
-              </span>
+            {/* L'explication du jepun est partie sur /agus. C'était trois
+                lignes d'atmosphère sur une page qui doit encore
+                présenter un circuit, des envies et un formulaire — et le
+                lecteur qui veut savoir ce qu'est cette fleur est
+                exactement celui qui clique sur le portrait. */}
+            {/* Une seule ligne. Le nom et les coordonnées se partageaient
+                la largeur en `justify-between` : à 390 px, « AGUS
+                YUDIARTA » passait à la ligne dans sa moitié et la légende
+                tenait sur deux étages juste sous le lien. Les coordonnées
+                GPS — le « fait dur » qui tient la direction — sont sur
+                /agus, où elles ont la place. */}
+            <figcaption className="label text-faint">
+              {AGUS.nom} · Denpasar, Bali
             </figcaption>
           </Reveal>
 
           <div className="flex flex-col gap-6 md:mt-16">
-            <Reveal>
-              {/* Citation de travail : à remplacer par les mots d'Agus. */}
-              <blockquote className="border-l-3 border-accent pl-5 text-[clamp(1.25rem,3.6vw,1.6rem)] italic leading-snug text-pretty">
-                « Libérez-vous de l&apos;organisation. Je m&apos;occupe de
-                tout — vous n&apos;avez plus qu&apos;à profiter. »
-              </blockquote>
-            </Reveal>
+            {/* Trois blocs ont quitté cet endroit, et chacun pour une
+                raison qui lui est propre — ce n'est pas un dégraissage
+                à la louche :
 
-            <Reveal delay={0.05}>
+                • **La citation de travail** disait « Libérez-vous de
+                  l'organisation. Je m'occupe de tout » — mot pour mot ce
+                  que le chapô de la section dit six centimètres plus
+                  haut. C'était la même promesse deux fois, et c'était en
+                  plus l'un des deux textes encore inventés de la page.
+                  La supprimer enlève une redite **et** une chose à faire
+                  relire.
+                • **Le second paragraphe** (« vingt ans de métier, ça sert
+                  surtout à ça ») a fusionné avec le premier : le premier
+                  donne la liste concrète, le second la commentait.
+                • **Le canang du tableau de bord** est désormais sur
+                  /agus, et l'usage « les offrandes au sol » le raconte
+                  déjà dans la section Us et coutumes. Il était ici en
+                  troisième exemplaire. */}
+            <Reveal>
               <p className="max-w-[62ch] text-soft">
                 Le véhicule climatisé, le carburant, les assurances, les
                 parkings, les entrées, les guides de sentier obligatoires sur
                 certains chemins, les horaires qui s&apos;enchaînent sans temps
-                mort — tout cela est mon travail, et vous n&apos;avez pas à y
-                penser. Si vous le souhaitez, je choisis et je réserve aussi vos
-                hôtels.
-              </p>
-              <p className="mt-4 max-w-[62ch] text-soft">
-                Vingt ans de métier, ça sert surtout à ça : savoir ce qui
-                s&apos;enchaîne bien, quel jour éviter tel temple, à quelle
-                heure une route se vide. Vous découvrez, je m&apos;occupe du
-                reste.
+                mort : tout cela est mon travail. Vingt ans de métier servent
+                surtout à ça — savoir ce qui s&apos;enchaîne bien, quel jour
+                éviter tel temple, à quelle heure une route se vide. Si vous le
+                souhaitez, je choisis et je réserve aussi vos hôtels.
               </p>
               <p className="mt-4 font-display text-xl">— Agus</p>
             </Reveal>
 
-            <Reveal delay={0.1}>
-              <div className="flex items-start gap-4 border-y border-rule py-5">
-                <Canang size={52} className="mt-0.5 shrink-0" />
-                <p className="text-sm leading-relaxed text-soft">
-                  Chaque matin, avant de prendre la route, je dépose un{" "}
-                  <em>canang sari</em> sur le tableau de bord : quelques fleurs
-                  dans un panier de feuille de palme tressée. C&apos;est trois
-                  minutes, et c&apos;est le vrai début de la journée.
-                </p>
-              </div>
-            </Reveal>
-
             {/* ---------- La fiche : les faits, pas les adjectifs ---------- */}
-            <Reveal delay={0.14}>
+            <Reveal delay={0.05}>
               <details className="group rounded-[14px] border border-rule bg-surface-alt [&_summary::-webkit-details-marker]:hidden">
                 <summary className="flex min-h-11 cursor-pointer list-none items-center gap-3 p-5">
                   <BadgeCheck
@@ -256,17 +249,28 @@ export default function AboutAgus() {
               {VALEURS.chapo}
             </p>
 
-            <ul className="m-0 mt-10 grid list-none gap-8 p-0 lg:grid-cols-3">
+            {/* `court` et non `texte` : sur l'accueil, ces trois points
+                doivent créer la préférence en un coup d'œil. La version
+                longue est sur /agus, où l'on arrive après avoir décidé
+                de vouloir en savoir plus — et où elle est ce qu'on est
+                venu lire. L'icône passe sur la ligne du titre : trois
+                lignes empilées par point coûtaient une demi-hauteur
+                d'écran pour rien. */}
+            <ul className="m-0 mt-8 grid list-none gap-6 p-0 lg:grid-cols-3">
               {VALEURS.points.map((p, i) => {
                 const Icon = ICONES_VALEURS[i] ?? Heart;
                 return (
                   <li
                     key={p.titre}
-                    className="flex flex-col gap-3 border-t border-[color-mix(in_srgb,var(--on-immersive)_28%,transparent)] pt-5"
+                    className="flex flex-col gap-2 border-t border-[color-mix(in_srgb,var(--on-immersive)_28%,transparent)] pt-4"
                   >
-                    <Icon size={20} className="text-soleil" strokeWidth={1.5} />
                     {/* h4 : globals ne donne Eczar qu'à h1–h3. */}
-                    <h4 className="font-display text-xl font-medium leading-tight">
+                    <h4 className="flex items-center gap-2.5 font-display text-lg font-medium leading-tight">
+                      <Icon
+                        size={18}
+                        className="shrink-0 text-soleil"
+                        strokeWidth={1.5}
+                      />
                       {p.titre}
                     </h4>
                     <p
@@ -274,7 +278,7 @@ export default function AboutAgus() {
                         p.citation ? "italic" : ""
                       }`}
                     >
-                      {p.texte}
+                      {p.court ?? p.texte}
                     </p>
                   </li>
                 );

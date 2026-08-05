@@ -124,10 +124,20 @@ export default function PagePortrait() {
                     className="w-full"
                   />
                 </div>
-                <figcaption className="mt-3.5 flex items-start gap-3 border-t border-rule pt-3 text-sm leading-relaxed text-soft">
-                  <Jepun size={22} tone="var(--eyebrow)" className="mt-1 shrink-0" />
-                  <span>
+                <figcaption className="mt-3.5 border-t border-rule pt-3">
+                  <span className="label block text-faint">
                     Denpasar · 08°39&apos;S 115°13&apos;E
+                  </span>
+                  {/* Venu de l'accueil, où il tenait trois lignes
+                      d'atmosphère au milieu du chemin de quelqu'un qui
+                      n'a encore rien décidé. Ici, on est venu pour ça. */}
+                  <span className="mt-2.5 flex items-start gap-3 text-sm leading-relaxed text-soft">
+                    <Jepun size={22} tone="var(--eyebrow)" className="mt-1 shrink-0" />
+                    <span>
+                      La fleur derrière mon oreille est un <em>jepun</em>, le
+                      frangipanier : on la porte au temple, on la dépose sur les
+                      offrandes.
+                    </span>
                   </span>
                 </figcaption>
               </figure>
