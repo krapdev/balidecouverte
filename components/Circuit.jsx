@@ -99,12 +99,18 @@ export default function Circuit() {
                 onClick={() => setBaseCircuit(base ? null : c.id)}
                 className={`btn ${base ? "btn-outline text-accent" : "btn-accent"}`}
               >
+                {/* « Commencer par » et non « partir de » : le verbe dit
+                    qu'il y a une suite, et la suite est la conversation
+                    avec Agus. « Partir de ce circuit » se lisait comme
+                    le bouton d'achat d'un séjour. Le libellé une fois
+                    choisi reste court — c'est un état, pas une phrase,
+                    et il doit tenir sur une ligne à 320 px. */}
                 {base ? (
                   <>
                     <Check size={15} /> C&apos;est ma base de départ
                   </>
                 ) : (
-                  "Partir de ce circuit"
+                  "Commencer par ce circuit"
                 )}
               </button>
               {/* `?de=circuit` : le retour des tarifs ramènera ici,
@@ -120,7 +126,8 @@ export default function Circuit() {
             {base && (
               <p className="mt-4 text-sm leading-relaxed text-soft">
                 Descendez cocher ce que vous voulez y ajouter — ou
-                envoyez-le tel quel et laissez-moi vous proposer la suite.
+                envoyez-le tel quel : on l&apos;ajustera ensemble par
+                retour de mail.
               </p>
             )}
           </Reveal>

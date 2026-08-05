@@ -58,6 +58,15 @@
   --surface: #ffffff;
   --surface-alt: #f2e9d8;
   --rule: #e3d8c2;
+  /* La bordure des champs de saisie, et d'eux seuls.
+     `--rule` fait 1,41 sur le blanc : c'est assez pour un filet qui
+     sépare deux paragraphes, et bien trop peu pour le **seul** signe
+     qu'il y a là une case où écrire. Un champ blanc sur un panneau
+     blanc n'est identifiable que par son contour, ce qui le range sous
+     la règle des 3:1 des composants d'interface (WCAG 1.4.11). Mesuré
+     à 3,36 sur le blanc, 3,15 sur la page. Ne pas l'employer pour les
+     filets de texte : il les rendrait bruyants. */
+  --rule-champ: #9c8a66;
   --text: #22302b;
   --text-soft: #505f58;
   --text-faint: #5d6c64; /* relevé par l'audit : 4,02 sur le sable */
@@ -337,14 +346,24 @@
     font-size: 16px;
     color: var(--text);
     background: var(--surface);
-    border: 1px solid var(--rule);
+    border: 1px solid var(--rule-champ);
     border-radius: var(--radius);
     padding: 0.7rem 0.85rem;
     width: 100%;
     appearance: none;
   }
   .field-input:hover {
-    border-color: color-mix(in srgb, var(--bambou) 45%, var(--rule));
+    border-color: var(--bambou);
+  }
+  /* Le champ libre. `resize: vertical` seulement : en diagonale, on
+     l'élargit au-delà de sa colonne et la grille déborde de l'écran.
+     L'interligne descend à 1,55 — celui du site (1,8) est réglé pour du
+     texte d'accroche et rend une zone de saisie trop aérée pour qu'on
+     relise ce qu'on écrit. */
+  textarea.field-input {
+    line-height: 1.55;
+    min-height: 7rem;
+    resize: vertical;
   }
   select.field-input {
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%235d6c64' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");

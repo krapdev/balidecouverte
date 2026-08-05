@@ -62,6 +62,13 @@
     --surface:     #ffffff;
     --surface-alt: #f2e9d8;
     --rule:        #e3d8c2;
+    /* La bordure des champs de saisie, et d'eux seuls. --rule fait 1,41
+       sur le blanc : assez pour un filet entre deux paragraphes, bien
+       trop peu pour le SEUL signe qu'il y a là une case où écrire. Un
+       champ blanc sur un panneau blanc n'est identifiable que par son
+       contour — règle des 3:1 des composants (WCAG 1.4.11). Mesuré à
+       3,36 sur le blanc. Ne pas l'employer pour les filets de texte. */
+    --rule-champ:  #9c8a66;
     --text:        #22302b;
     --text-soft:   #505f58;
     --text-faint:  #5d6c64;
@@ -847,16 +854,23 @@
   .field { display: flex; flex-direction: column; gap: 0.4rem; }
   .field-wide { grid-column: 1 / -1; }
   .field label { font-size: var(--t-xs); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-soft); }
-  .field select, .field input {
+  .field-aide { font-size: var(--t-sm); line-height: 1.6; color: var(--text-faint); }
+  .field select, .field input, .field textarea {
     /* 16px exactement : en dessous, iOS zoome à la mise au point du
        champ et recadre la page. Ne jamais redescendre. */
     font: inherit; font-size: 16px; color: var(--text);
     background: var(--surface);
-    border: 1px solid var(--rule); border-radius: var(--radius);
+    border: 1px solid var(--rule-champ); border-radius: var(--radius);
     padding: 0.7rem 0.8rem; width: 100%;
     appearance: none;
   }
   .field select option { background: var(--surface); color: var(--text); }
+  /* Le champ libre. resize: vertical seulement : en diagonale on
+     l'élargit au-delà de sa colonne et la grille déborde de l'écran.
+     L'interligne descend à 1,55 — celui du site (1,8) est réglé pour du
+     texte d'accroche et rend une zone de saisie trop aérée pour qu'on
+     relise ce qu'on écrit. */
+  .field textarea { line-height: 1.55; min-height: 7rem; resize: vertical; }
   .field select {
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2394a9ac' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
     background-repeat: no-repeat; background-position: right 0.75rem center; padding-right: 2.2rem;
@@ -1396,7 +1410,7 @@
     <div class="sec-head reveal">
       <p class="label sec-eyebrow">Sur-Mesure</p>
       <h2>Construisez votre demande.</h2>
-      <p>Quatre questions, et votre e-mail m'arrive déjà rédigé. Je réponds sous 24 h, en français — et c'est ce fil-là qui devient votre devis.</p>
+      <p>Quelques questions, une case libre pour tout le reste, et votre e-mail m'arrive déjà rédigé. Je réponds sous 24 h, en français — et c'est ce fil-là qui devient votre devis.</p>
     </div>
 
     <div class="builder">
@@ -1448,9 +1462,26 @@
             <label>Style recherché</label>
             <div class="tags" id="tags"></div>
           </div>
+          <!-- Prénom ET nom : le message devient un devis, puis une
+               réservation, puis un nom sur un vol intérieur et sur une fiche
+               d'hôtel. Le demander ici évite un aller-retour de mail, et
+               autocomplete="name" le fait remplir d'un tap sur mobile. -->
           <div class="field field-wide">
-            <label for="fName">Votre prénom <span style="text-transform:none;letter-spacing:0;font-weight:400;color:var(--text-faint)">(facultatif)</span></label>
-            <input id="fName" type="text" placeholder="Ex. Camille" autocomplete="given-name">
+            <label for="fName">Vos prénom et nom <span style="text-transform:none;letter-spacing:0;font-weight:400;color:var(--text-faint)">(facultatif)</span></label>
+            <input id="fName" type="text" placeholder="Ex. Camille Rousseau" autocomplete="name">
+          </div>
+          <!-- Le champ libre. Tout ce qui précède est fermé : des listes,
+               des compteurs, des cases. Sans case vide, le voyageur doit
+               faire entrer sa demande dans celles qu'on a prévues — et ce
+               qui n'y entre pas se perd, alors que c'est presque toujours
+               là que se trouve ce qui fait le voyage.
+               L'exemple est donné AU-DESSUS du champ et non en placeholder :
+               un placeholder s'efface à la frappe, c'est-à-dire au moment
+               précis où on en a besoin. -->
+          <div class="field field-wide">
+            <label for="fNote">Ce que vous voulez me dire <span style="text-transform:none;letter-spacing:0;font-weight:400;color:var(--text-faint)">(facultatif)</span></label>
+            <p class="field-aide" id="noteAide">Un anniversaire à fêter, un genou qui ne fait plus les marches, un bébé, un lieu vu quelque part dont vous ne connaissez pas le nom, une question. C'est ce qu'Agus lit en premier.</p>
+            <textarea id="fNote" rows="4" maxlength="1200" aria-describedby="noteAide"></textarea>
           </div>
         </div>
       </div>
@@ -1655,9 +1686,16 @@
   var CHEMINS = [
     {
       id: "circuit",
-      titre: "Partir de son circuit",
-      texte: "Quinze jours à travers Bali que j'ai conduits des dizaines de fois. Prenez-le comme base et déformez-le : on garde, on jette, on rallonge.",
-      detail: "Le squelette existe, vous l'ajustez.",
+      /* « Mon » et non « son » : la page parle à la première personne,
+         et la paire se lit mieux — mon circuit / vos envies. « On
+         l'ajuste ensemble » plutôt que « déformez-le » : la promesse
+         n'est pas que le circuit soit modifiable, c'est qu'Agus est
+         dans la pièce quand on le modifie. Éviter « déjà préparé », le
+         vocabulaire du produit sur étagère : ce qui vaut, c'est qu'il
+         l'ait conduit, pas qu'il l'ait préparé. */
+      titre: "Partir de mon circuit",
+      texte: "Commencez par mon circuit : quinze jours à travers Bali que j'ai déjà conduits des dizaines de fois. Puis on l'ajuste ensemble — on garde, on jette, on rallonge.",
+      detail: "Le squelette existe, on l'ajuste ensemble.",
       ancre: "#circuit",
       action: "Voir le circuit"
     },
@@ -2430,7 +2468,10 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
     adults: 2,
     children: 0,
     styles: ["Nature", "Culture"],
-    name: ""
+    name: "",
+    /* Le champ libre : la seule case où le voyageur peut dire une chose
+       qu'on n'a pas prévue. Souvent la ligne la plus utile du message. */
+    note: ""
   };
 
   var $ = function (id) { return document.getElementById(id); };
@@ -2527,7 +2568,7 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
         '<div class="fiche-actions">' +
           '<button class="btn ' + (base ? "btn-outline" : "btn-accent") + '" type="button" data-base="' + c.id + '"' +
             (base ? ' style="color: var(--accent)"' : '') + '>' +
-            (base ? "\u2713 C'est ma base de départ" : "Partir de ce circuit") + '</button>' +
+            (base ? "\u2713 C'est ma base de départ" : "Commencer par ce circuit") + '</button>' +
           '<a href="#tarifs" data-goto="tarifs">Ce que comprend ce prix</a>' +
         '</div>' +
       '</div>';
@@ -2728,7 +2769,7 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
           '<p class="label" style="color: var(--eyebrow)">Ma base de départ</p>' +
           '<p style="font-weight: 700; margin-top: 0.25rem">' + bc.nom + ' · ' + bc.jours + ' jours</p>' +
           '<p style="font-size: var(--t-sm); color: var(--text-soft)">' + bc.temperament +
-          ' — ' + bc.prixPers + ' par personne. À déformer autant que vous voulez.</p>' +
+          ' — ' + bc.prixPers + ' par personne. On l\'ajuste ensemble, autant que vous voulez.</p>' +
         '</div>' +
         '<button class="cart-remove" data-base="' + bc.id + '" aria-label="Repartir de zéro">' +
           '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>' +
@@ -2785,6 +2826,17 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
         : "Je n'ai pas encore choisi d'activité — je suis ouvert(e) à vos suggestions.");
     }
 
+    /* Le mot libre passe APRÈS les cases cochées et avant la demande de
+       devis : il commente ce qui précède, et c'est la dernière chose lue
+       avant la question. Repris tel quel, sauts de ligne compris — le
+       reformater serait réécrire ce que le voyageur a voulu dire. */
+    var mot = (state.note || "").trim();
+    if (mot) {
+      lines.push("");
+      lines.push("✍️ Ce que je voulais vous dire :");
+      lines.push(mot);
+    }
+
     lines.push("");
     lines.push("Pouvez-vous me proposer un itinéraire et un devis ? Merci beaucoup !");
 
@@ -2801,7 +2853,11 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
   /* L'objet dit l'essentiel avant l'ouverture : Agus trie sa boîte au
      premier coup d'œil, et le fil garde un titre lisible. */
   function buildSubject() {
-    return "Demande de devis Bali — " + (state.name ? state.name + ", " : "") +
+    /* Nom complet depuis qu'on le demande : c'est ce qu'Agus retrouvera
+       en cherchant dans sa boîte six semaines plus tard. Le tiret cadratin
+       sépare le nom du reste, comme dans l'appli. */
+    var qui = (state.name || "").trim();
+    return "Demande de devis Bali — " + (qui ? qui + " — " : "") +
       state.month + ", " + state.duration;
   }
 
@@ -3120,6 +3176,7 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
   $("fMonth").addEventListener("change", function (e) { state.month = e.target.value; renderPeriod(); renderMessage(); });
   $("fDuration").addEventListener("change", function (e) { state.duration = e.target.value; renderMessage(); });
   $("fName").addEventListener("input", function (e) { state.name = e.target.value.trim(); renderMessage(); });
+  $("fNote").addEventListener("input", function (e) { state.note = e.target.value; renderMessage(); });
 
   /* ---------- Révélation au scroll ---------- */
   var io;

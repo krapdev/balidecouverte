@@ -27,6 +27,12 @@ const initialState = {
   children: 0,
   styles: ["Nature", "Culture"],
   name: "",
+  /* Le champ libre. Tout le configurateur ne sait poser que des
+     questions fermées ; c'est la seule case où le voyageur peut dire
+     une chose qu'on n'a pas prévue — un anniversaire, un genou fragile,
+     un lieu vu ailleurs. C'est souvent la ligne la plus utile du
+     message, et sans elle elle n'existait nulle part. */
+  note: "",
 };
 
 function reducer(state, action) {

@@ -86,7 +86,8 @@ export default function TripBuilder() {
     >
       <div className="shell">
         <SectionHead eyebrow="Sur-Mesure" title="Construisez votre demande.">
-          Quatre questions, et votre e-mail m&apos;arrive déjà rédigé. Je
+          Quelques questions, une case libre pour tout le reste, et votre
+          e-mail m&apos;arrive déjà rédigé. Je
           réponds sous 24 h, en français — et c&apos;est ce fil-là qui devient
           votre devis.
         </SectionHead>
@@ -106,7 +107,8 @@ export default function TripBuilder() {
                   </p>
                   <p className="text-sm text-soft">
                     {trip.circuit.temperament} — {trip.circuit.prixPers} par
-                    personne. À déformer autant que vous voulez.
+                    personne. On l&apos;ajuste ensemble, autant que vous
+                    voulez.
                   </p>
                 </div>
                 <button
@@ -262,9 +264,15 @@ export default function TripBuilder() {
                 </div>
               </fieldset>
 
+              {/* Prénom **et** nom : le message devient un devis, puis
+                  une réservation, puis un nom sur un vol intérieur et
+                  sur une fiche d'hôtel. Le demander ici évite un
+                  aller-retour de mail, et `autocomplete="name"` le fait
+                  remplir d'un tap sur mobile. Reste facultatif : rien
+                  ici n'est un formulaire à valider. */}
               <div className="flex flex-col gap-1.5 sm:col-span-2">
                 <label className="label text-soft" htmlFor="name">
-                  Votre prénom{" "}
+                  Vos prénom et nom{" "}
                   <span className="font-sans normal-case tracking-normal text-faint">
                     (facultatif)
                   </span>
@@ -273,10 +281,50 @@ export default function TripBuilder() {
                   id="name"
                   type="text"
                   className="field-input"
-                  placeholder="Ex. Camille"
-                  autoComplete="given-name"
+                  placeholder="Ex. Camille Rousseau"
+                  autoComplete="name"
                   value={trip.name}
                   onChange={(e) => trip.setField("name", e.target.value.trimStart())}
+                />
+              </div>
+
+              {/* ---------- Le champ libre ----------
+                  Tout ce qui précède est fermé : des listes, des
+                  compteurs, des cases. Un configurateur sans case vide
+                  oblige le voyageur à faire entrer sa demande dans les
+                  cases qu'on a prévues — et ce qui n'y entre pas se
+                  perd. C'est pourtant là que se trouve presque toujours
+                  ce qui fait le voyage.
+
+                  L'exemple est donné au-dessus du champ et non en
+                  substitut d'étiquette : un `placeholder` disparaît à
+                  la frappe, et il ne faut pas qu'une consigne
+                  s'efface au moment où on en a besoin. */}
+              <div className="flex flex-col gap-1.5 sm:col-span-2">
+                <label className="label text-soft" htmlFor="note">
+                  Ce que vous voulez me dire{" "}
+                  <span className="font-sans normal-case tracking-normal text-faint">
+                    (facultatif)
+                  </span>
+                </label>
+                <p id="note-aide" className="text-sm leading-relaxed text-faint">
+                  Un anniversaire à fêter, un genou qui ne fait plus les
+                  marches, un bébé, un lieu vu quelque part dont vous ne
+                  connaissez pas le nom, une question. C&apos;est ce que je
+                  lis en premier.
+                </p>
+                <textarea
+                  id="note"
+                  rows={4}
+                  className="field-input"
+                  aria-describedby="note-aide"
+                  /* Le message part par mailto:, et une URL trop longue
+                     est tronquée par certains clients. 1200 caractères
+                     laissent largement de quoi écrire sans risquer de
+                     perdre la fin. */
+                  maxLength={1200}
+                  value={trip.note}
+                  onChange={(e) => trip.setField("note", e.target.value.trimStart())}
                 />
               </div>
             </div>

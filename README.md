@@ -506,6 +506,66 @@ subordonné :
 Le voyageur reste l'auteur de son voyage. Toute évolution qui transformerait la
 page en tunnel de réservation va contre le brief.
 
+### « On l'ajuste ensemble » — pourquoi pas « déjà préparé »
+
+La fourche disait « Partir de son circuit » et le bouton « Partir de ce
+circuit ». Deux corrections y ont été apportées, et la seconde mérite d'être
+tenue.
+
+**« Mon » et non « son ».** Toute la page est à la première personne — c'est
+même une règle inscrite plus haut dans ce fichier. La paire se lit désormais
+*mon circuit / vos envies*, ce qui oppose enfin deux points de vue au lieu de
+mélanger les deux voix.
+
+**« On l'ajuste ensemble » plutôt que « déformez-le ».** La promesse n'est pas
+que le circuit soit modifiable — n'importe quel voyagiste dit ça. Elle est
+qu'Agus est dans la pièce quand on le modifie. C'est exactement ce qui le
+distingue d'une agence, et ça n'était nulle part dans les mots du choix.
+
+**Ce qu'il ne faut pas écrire : « mon circuit déjà préparé ».** La formule
+vient naturellement, et elle coûte cher : « préparé » est le vocabulaire du
+produit sur étagère, c'est-à-dire précisément ce que la section du circuit
+passe son temps à démentir (« Ce n'est pas un produit sur étagère »). Ce qui
+vaut, ici, ce n'est pas qu'Agus ait **préparé** cet itinéraire, c'est qu'il
+l'ait **conduit** des dizaines de fois. Le texte dit donc « que j'ai déjà
+conduits », et la promesse de co-construction est portée par le verbe qui
+suit, pas par l'adjectif qui précède.
+
+Le bouton passe de « Partir de ce circuit » à « **Commencer par ce circuit** » :
+le verbe annonce qu'il y a une suite, et la suite est la conversation. Le
+libellé une fois choisi reste court (« C'est ma base de départ ») — c'est un
+état, pas une phrase, et il doit tenir sur une ligne à 320 px.
+
+### Le champ libre
+
+Tout le configurateur ne sait poser que des **questions fermées** : des listes,
+des compteurs, des cases à cocher. C'est ce qui le rend rapide, et c'est aussi
+sa limite — sans case vide, le voyageur doit faire entrer sa demande dans
+celles qu'on a prévues, et **ce qui n'y entre pas se perd**. Or c'est presque
+toujours là que se trouve ce qui fait le voyage : un anniversaire, un genou qui
+ne fait plus les marches, un bébé, un lieu vu quelque part dont on ne connaît
+pas le nom.
+
+Trois choix à ne pas défaire :
+
+- **L'exemple est au-dessus du champ, pas dedans.** Un `placeholder` s'efface à
+  la frappe, c'est-à-dire au moment précis où on en aurait besoin. La ligne
+  d'aide est un vrai paragraphe, relié par `aria-describedby`.
+- **`maxlength="1200"`.** Le message part par `mailto:`, et une URL trop longue
+  est tronquée sans avertissement par certains clients. 1 200 caractères
+  laissent de quoi écrire sans risquer de perdre la fin. Le jour où un
+  formulaire serveur remplacera le `mailto:`, cette limite peut sauter.
+- **Le texte est repris tel quel**, sauts de ligne compris, sous « ✍️ Ce que je
+  voulais vous dire ». Le reformater serait réécrire ce que le voyageur a
+  voulu dire. Il est placé **après** les cases cochées et **avant** la demande
+  de devis : il commente ce qui précède et c'est la dernière chose lue.
+
+Le champ nom demande désormais **prénom et nom** (`autocomplete="name"`) : le
+message devient un devis, puis une réservation, puis un nom sur un vol
+intérieur et sur une fiche d'hôtel. Le demander ici évite un aller-retour de
+mail, et l'objet du message reste retrouvable dans la boîte d'Agus six semaines
+plus tard. Il reste facultatif — rien ici n'est un formulaire à valider.
+
 ### Les points de tarification à ne pas perdre
 
 - Le tarif journée est **par jour et par véhicule**, jamais par personne.
@@ -857,6 +917,17 @@ Trois pièges si l'audit est réécrit :
   régressions.
 - Ce qui est masqué par `hidden` (la visionneuse fermée) aussi, pour la même
   raison.
+
+**Le contour d'un champ de saisie n'est pas un filet de texte.** L'audit ne
+regardait que les couleurs de texte, et laissait donc passer une vraie faute :
+les champs du configurateur étaient bordés de `--rule` (#e3d8c2), soit **1,41
+sur le blanc**. C'est assez pour séparer deux paragraphes, et très insuffisant
+pour le **seul** signe qu'il y a là une case où écrire — un champ blanc sur un
+panneau blanc n'est identifiable que par son contour, ce qui le range sous la
+règle des 3:1 des composants d'interface (WCAG 1.4.11). D'où `--rule-champ`
+(#9c8a66), mesuré à **3,36** sur le blanc et 3,15 sur la page, réservé aux
+`input`, `select` et `textarea`. **Ne pas l'employer pour les filets de
+texte** : il les rendrait bruyants.
 
 **Et un fond translucide au-dessus d'une illustration est indémontrable.** Le
 bandeau « Photo à venir » était à 82 % d'opacité : selon la couleur de la scène
