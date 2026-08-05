@@ -924,6 +924,39 @@ que Google les réserve aux avis notés. C'est le prix de l'honnêteté sur ce
 point, et il est faible comparé à celui d'un balisage trompeur — la sanction
 est la perte de tous les résultats enrichis du domaine.
 
+### Deux pièges de portage, tous deux silencieux
+
+> **Un bouton qui pointe vers sa propre section ne va nulle part.** Dans la
+> maquette, « Lire les 7 témoignages » était une ancre `#temoignages` — or le
+> bouton *est* dans cette section. Rien ne bougeait, et rien n'avait l'air
+> cassé. La maquette a désormais **trois vues** (`home`, `tarifs`, `livre`) au
+> lieu de deux, et le bouton porte `data-goto="livre"`. À trois vues, écrire
+> les règles d'affichage en toutes lettres plutôt qu'en négation : « tout sauf
+> la vue courante » devient illisible dès la troisième.
+>
+> **Ne jamais réindenter un bloc extrait qui contient des gabarits.** Le script
+> de portage ajoutait deux espaces après chaque retour à la ligne « pour faire
+> joli » : les lignes vides qui séparent les paragraphes des témoignages sont
+> devenues des lignes de deux espaces, `split("\n\n")` n'a plus rien trouvé,
+> et les sept témoignages se sont affichés d'un seul tenant. Le rendu n'avait
+> pas l'air en erreur — juste illisible. La vérification qui l'attrape est de
+> **comparer le nombre de paragraphes des deux côtés** : 6, 4, 4, 3, 4, 4, 3.
+
+### Le lien emporte sa provenance
+
+Comme celui des tarifs : `/livre-d-or?de=temoignages` dans l'application,
+`data-de="temoignages"` dans la maquette. Le retour ramène donc à la section
+des avis, pas en haut de l'accueil.
+
+`data-de` l'emporte sur la détection automatique, et c'est nécessaire : le
+bouton vit *dans* la section « Livre d'or », mais au moment du clic celle-ci
+peut n'être qu'à moitié entrée à l'écran, et `sectionCourante()` désigne alors
+la section précédente. Quand la provenance est connue à l'avance, on l'écrit
+plutôt que de la deviner.
+
+Depuis le pied de page, où il n'y a pas de provenance à mémoriser, le lien
+reste nu et le retour dit « Retour à l'accueil ».
+
 ### Où ils sont placés, et pourquoi
 
 Juste avant le configurateur. **La preuve sociale travaille au moment du

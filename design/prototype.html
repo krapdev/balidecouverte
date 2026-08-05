@@ -733,6 +733,19 @@
   .vehicules { margin-top: 1.5rem; border: 1px solid var(--rule); border-radius: 14px; background: var(--surface-alt); padding: clamp(1.25rem, 4vw, 1.75rem); }
   .vehicules-ailleurs { border-top: 1px solid var(--rule); margin-top: 1rem; padding-top: 1rem; font-size: var(--t-sm); color: var(--text-soft); line-height: 1.6; }
 
+  .livre { list-style: none; margin: 0; padding: 0; max-width: 80ch; display: grid; gap: 1rem; }
+  .livre figure { margin: 0; border: 1px solid var(--rule); border-radius: 14px;
+    background: var(--surface); padding: clamp(1.25rem, 4vw, 2rem); }
+  .livre figcaption { display: flex; flex-wrap: wrap; align-items: baseline;
+    justify-content: space-between; gap: 0.25rem 1.5rem;
+    border-bottom: 1px solid var(--rule); padding-bottom: 0.85rem; }
+  .livre figcaption .qui { display: flex; align-items: center; gap: 0.75rem; }
+  .livre figcaption .qui svg { flex: none; color: var(--accent); }
+  .livre figcaption .nom { font-family: var(--display); font-size: 1.15rem; }
+  .livre figcaption .label { color: var(--text-faint); }
+  .livre blockquote { margin: 1rem 0 0; display: flex; flex-direction: column; gap: 0.85rem; }
+  .livre blockquote p { color: var(--text-soft); line-height: 1.7; }
+
   /* ---- Livre d'or ---- */
   .temoins { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
   @media (min-width: 1000px) { .temoins { grid-template-columns: repeat(3, 1fr); } }
@@ -912,10 +925,17 @@
      dépose le haut de la section sous la barre. */
   html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
 
-  /* Deux vues dans un seul fichier : la maquette doit refléter que les
-     tarifs vivent désormais sur leur propre page (/tarifs). */
-  body[data-view="tarifs"] .view-home { display: none; }
-  body[data-view="home"] .view-tarifs { display: none; }
+  /* Trois vues dans un seul fichier : la maquette doit refléter que les
+     tarifs et le livre d'or vivent sur leurs propres pages (/tarifs et
+     /livre-d-or). Chaque vue masque les deux autres — écrit en toutes
+     lettres plutôt qu'en négation, parce qu'à trois vues une règle du
+     type « tout sauf la vue courante » devient illisible. */
+  body[data-view="home"]   .view-tarifs,
+  body[data-view="home"]   .view-livre  { display: none; }
+  body[data-view="tarifs"] .view-home,
+  body[data-view="tarifs"] .view-livre  { display: none; }
+  body[data-view="livre"]  .view-home,
+  body[data-view="livre"]  .view-tarifs { display: none; }
   .back-home { display: block; padding-top: 5.5rem; }
   body[data-view="home"] .back-home { display: none; }
 
@@ -1277,13 +1297,39 @@
     </div>
     <ul class="temoins" id="temoinsList"></ul>
     <p style="margin-top: 2rem">
-      <a class="btn btn-outline" href="#temoignages" style="color: var(--accent)">
+      <!-- data-goto, pas une ancre : « #temoignages » renvoyait sur la
+           section elle-même, donc nulle part. -->
+      <a class="btn btn-outline" href="#livre" data-goto="livre" data-de="temoignages" style="color: var(--accent)">
         Lire les 7 témoignages
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
     </p>
   </div>
 </section>
+
+<!-- ============================ LIVRE D'OR — VUE ENTIÈRE ============================ -->
+<div class="shell back-home view-livre">
+  <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
+    &larr; <span class="retour-libelle">Retour à l'accueil</span>
+  </a>
+</div>
+
+<section class="band ground-ivoire view-livre" id="livre">
+  <div class="shell">
+    <div class="sec-head reveal">
+      <p class="label sec-eyebrow">Livre d'or</p>
+      <h1 id="livreTitre" style="font-size: clamp(1.9rem, 5.2vw, 2.375rem)"></h1>
+      <p id="livreChapo"></p>
+    </div>
+    <ul class="livre" id="livreList"></ul>
+  </div>
+</section>
+
+<div class="shell back-home view-livre" style="padding-bottom: clamp(3rem, 8vw, 4.5rem)">
+  <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
+    &larr; <span class="retour-libelle">Retour à l'accueil</span>
+  </a>
+</div>
 
 <!-- ============================ CONFIGURATEUR ============================ -->
 <section class="band ground-sable view-home" id="sur-mesure">
@@ -1796,112 +1842,112 @@
 
   /* <<< TEMOIGNAGES — généré par port-tmp.mjs, ne pas retoucher */
   var TEMOIGNAGES = [
-    {
-      id: "vernet",
-      auteur: "Valérie Vernet",
-      pays: "France",
-      quand: "Deux semaines, du 22 février au 7 mars",
-      vedette: true,
-      extrait:
-        "Agus est un guide comme on rêve d'en avoir dans chaque pays qu'on visite !",
-      texte: `Agus un guide d'exception 🤩 !!!
-  
-  … Je ne savais pas comment commencer ni par où… et c'est sans doute pour cela que j'ai mis tant de temps pour écrire 😅 !
-  
-  Grâce à lui et en sa compagnie, nous avons fait un merveilleux voyage de 2 semaines avec ma sœur Anne et mes filles Estelle & Jade. C'était du 22 février au 7 mars dernier.
-  
-  Agus est un guide comme on rêve d'en avoir dans chaque pays qu'on visite ! Une parfaite maîtrise de notre langue française et de ses subtilités qui fait qu'on a grand plaisir à échanger avec lui. Il nous a fait découvrir avec passion son île et sa culture si riche. Agus a répondu à toutes nos envies qu'il a même parfois anticipées. Il est attentionné : nous trouvions chaque matin dans sa voiture des bouteilles d'eau fraîche pour chacune de nous.
-  
-  Je ne suis évidemment pas la première à le recommander vivement et ne serai pas la dernière non plus, à n'en pas douter 😃 ! Dommage qu'il ne puisse pas nous accompagner à la découverte d'autres parties du monde !
-  
-  … Rien que pour le plaisir de voyager avec lui, je reviendrai volontiers dans ce coin magique de l'Indonésie 🤩 !!!`,
-    },
-    {
-      id: "bastien",
-      auteur: "Bastien",
-      pays: "France",
-      quand: "Juillet 2025",
-      vedette: true,
-      extrait:
-        "Une fois sur place tout est bien organisé, pas d'imprévus, et c'est vraiment confortable de voyager sereinement.",
-      texte: `Nous avons contacté Bali Découverte pour notre voyage à Bali en juillet 2025 et nous sommes ravis de l'avoir fait. Agus nous a très bien conseillés sur la réalisation de notre programme et nous avons tout de suite senti un grand professionnalisme.
-  
-  Une fois sur place tout est bien organisé, pas d'imprévus, et c'est vraiment confortable de voyager sereinement.
-  
-  Nous avons adoré visiter cette île en compagnie de vrais Balinais qui nous ont fait découvrir leur île et leur culture avec un œil différent. Big up à Mario avec qui nous avons passé d'excellents moments de partage, de rires et de bonne humeur !
-  
-  Suksma, merci pour tout !`,
-    },
-    {
-      id: "francoise",
-      auteur: "Françoise",
-      pays: "France",
-      quand: "Deux semaines, dont trois jours de croisière",
-      vedette: true,
-      extrait: "C'est l'une de nos plus belles expériences de voyageur.",
-      texte: `Agus est un guide fiable. Avant notre arrivée à Bali tout était clairement défini. Il est très réactif.
-  
-  Notre séjour de 2 semaines avec lui s'est majoritairement déroulé à Bali. Mais notre coup de cœur est la croisière de 3 jours, 2 nuits sur un ancien bateau de pêche. Nous étions les seuls passagers. Repos, snorkeling, balades. Paysages incroyables, poissons et coraux magnifiques, rencontre des varans, observation des roussettes…
-  
-  C'est l'une de nos plus belles expériences de voyageur. Si c'était à refaire, nous le referions dans les mêmes conditions.
-  
-  Merci Agus pour ce beau séjour !`,
-    },
-    {
-      id: "blechschmidt",
-      auteur: "Chantal et Jean-Marc Blechschmidt",
-      pays: "France",
-      quand: "Trois semaines, en mai",
-      extrait:
-        "Il a su rendre ce voyage exceptionnel, et j'espère que nous resterons longtemps en contact avec lui.",
-      texte: `Nous venons de passer 3 semaines à Bali en mai avec Agus qui nous a fait découvrir, comprendre et aimer cette île ! Sa gentillesse et son sourire correspondent totalement à l'image qu'on nous avait donnée des Balinais, mais en plus, il a partagé avec nous toutes ses connaissances historiques, religieuses, culturelles.
-  
-  Connaissant parfaitement la France où il a passé quelques mois, il pouvait mieux nous faire appréhender les différences entre nos deux cultures. L'organisation du voyage était très professionnelle et chaque détail était réglé à l'avance.
-  
-  Il a su rendre ce voyage exceptionnel, et j'espère que nous resterons longtemps en contact avec lui. Nous reviendrons sans doute un jour, peut-être pour visiter Flores ? Encore merci Agus 🥰`,
-    },
-    {
-      id: "bertrand",
-      auteur: "Pascale Bertrand",
-      pays: "France",
-      quand: "Quatre jours, à quatre adultes",
-      extrait: "Aucune mauvaise surprise.",
-      texte: `Nous avons passé 4 jours à Bali avec Agus Yudiarta. Agus est vraiment un guide au top. Nous étions 4 adultes. Il a été très réactif quand il s'est agi d'organiser le voyage.
-  
-  Puis sur place il était vraiment à l'écoute. Il nous a fait visiter tout ce que nous souhaitions en sachant s'adapter à notre rythme et en optimisant notre temps qui était contraint. Aucune mauvaise surprise.
-  
-  Il est d'une grande culture, en ce qui concerne Bali mais aussi l'Indonésie et le reste du monde ! Son français est parfait. Il ne compte pas ses heures et les journées peuvent être longues et bien remplies si on le souhaite.
-  
-  C'était vraiment un super séjour. Nous recommandons fortement Agus.`,
-    },
-    {
-      id: "christ",
-      auteur: "Roland Christ",
-      pays: "Laos",
-      quand: "Quatre jours",
-      extrait: "Nous pouvons conseiller Agus les yeux fermés !",
-      texte: `Lors de notre séjour à Bali, nous avons réservé Agus comme chauffeur-guide francophone. Nous avons passé 4 jours à visiter cette magnifique île avec lui, avec un programme défini à l'avance. Et nous avons été plus qu'enchantés de notre expérience avec Agus.
-  
-  Non seulement il parle parfaitement français, mais c'est une vraie mine de savoir ! Il connaît l'histoire balinaise et indonésienne parfaitement et, à chaque visite, il nous a donné une multitude de renseignements très intéressants. Il est également très cultivé (voyages en Europe) et nous avons pu avoir avec lui différentes discussions très intéressantes sur différents thèmes.
-  
-  Il conduit également très bien. Et, pour couronner le tout, il a beaucoup d'humour.
-  
-  C'est dire que nous pouvons conseiller Agus les yeux fermés !`,
-    },
-    {
-      id: "vellayen",
-      auteur: "Maeva Vellayen",
-      pays: "France",
-      quand: "Cinq jours",
-      extrait:
-        "Il a été totalement à notre écoute, s'adaptant à nos envies et à notre rythme.",
-      texte: `Nous avons passé 5 jours exceptionnels avec Agus à Bali. Il a été totalement à notre écoute, s'adaptant à nos envies et à notre rythme.
-  
-  Son français est excellent, ce qui a rendu nos échanges très fluides. C'est une personne cultivée avec qui nous avons eu des discussions passionnantes sur la culture balinaise, l'histoire des lieux visités et sur plein d'autres sujets. Ses explications étaient toujours claires et enrichissantes.
-  
-  Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali avec un guide compétent et attentionné !`,
-    },
-  ];;
+  {
+    id: "vernet",
+    auteur: "Valérie Vernet",
+    pays: "France",
+    quand: "Deux semaines, du 22 février au 7 mars",
+    vedette: true,
+    extrait:
+      "Agus est un guide comme on rêve d'en avoir dans chaque pays qu'on visite !",
+    texte: `Agus un guide d'exception 🤩 !!!
+
+… Je ne savais pas comment commencer ni par où… et c'est sans doute pour cela que j'ai mis tant de temps pour écrire 😅 !
+
+Grâce à lui et en sa compagnie, nous avons fait un merveilleux voyage de 2 semaines avec ma sœur Anne et mes filles Estelle & Jade. C'était du 22 février au 7 mars dernier.
+
+Agus est un guide comme on rêve d'en avoir dans chaque pays qu'on visite ! Une parfaite maîtrise de notre langue française et de ses subtilités qui fait qu'on a grand plaisir à échanger avec lui. Il nous a fait découvrir avec passion son île et sa culture si riche. Agus a répondu à toutes nos envies qu'il a même parfois anticipées. Il est attentionné : nous trouvions chaque matin dans sa voiture des bouteilles d'eau fraîche pour chacune de nous.
+
+Je ne suis évidemment pas la première à le recommander vivement et ne serai pas la dernière non plus, à n'en pas douter 😃 ! Dommage qu'il ne puisse pas nous accompagner à la découverte d'autres parties du monde !
+
+… Rien que pour le plaisir de voyager avec lui, je reviendrai volontiers dans ce coin magique de l'Indonésie 🤩 !!!`,
+  },
+  {
+    id: "bastien",
+    auteur: "Bastien",
+    pays: "France",
+    quand: "Juillet 2025",
+    vedette: true,
+    extrait:
+      "Une fois sur place tout est bien organisé, pas d'imprévus, et c'est vraiment confortable de voyager sereinement.",
+    texte: `Nous avons contacté Bali Découverte pour notre voyage à Bali en juillet 2025 et nous sommes ravis de l'avoir fait. Agus nous a très bien conseillés sur la réalisation de notre programme et nous avons tout de suite senti un grand professionnalisme.
+
+Une fois sur place tout est bien organisé, pas d'imprévus, et c'est vraiment confortable de voyager sereinement.
+
+Nous avons adoré visiter cette île en compagnie de vrais Balinais qui nous ont fait découvrir leur île et leur culture avec un œil différent. Big up à Mario avec qui nous avons passé d'excellents moments de partage, de rires et de bonne humeur !
+
+Suksma, merci pour tout !`,
+  },
+  {
+    id: "francoise",
+    auteur: "Françoise",
+    pays: "France",
+    quand: "Deux semaines, dont trois jours de croisière",
+    vedette: true,
+    extrait: "C'est l'une de nos plus belles expériences de voyageur.",
+    texte: `Agus est un guide fiable. Avant notre arrivée à Bali tout était clairement défini. Il est très réactif.
+
+Notre séjour de 2 semaines avec lui s'est majoritairement déroulé à Bali. Mais notre coup de cœur est la croisière de 3 jours, 2 nuits sur un ancien bateau de pêche. Nous étions les seuls passagers. Repos, snorkeling, balades. Paysages incroyables, poissons et coraux magnifiques, rencontre des varans, observation des roussettes…
+
+C'est l'une de nos plus belles expériences de voyageur. Si c'était à refaire, nous le referions dans les mêmes conditions.
+
+Merci Agus pour ce beau séjour !`,
+  },
+  {
+    id: "blechschmidt",
+    auteur: "Chantal et Jean-Marc Blechschmidt",
+    pays: "France",
+    quand: "Trois semaines, en mai",
+    extrait:
+      "Il a su rendre ce voyage exceptionnel, et j'espère que nous resterons longtemps en contact avec lui.",
+    texte: `Nous venons de passer 3 semaines à Bali en mai avec Agus qui nous a fait découvrir, comprendre et aimer cette île ! Sa gentillesse et son sourire correspondent totalement à l'image qu'on nous avait donnée des Balinais, mais en plus, il a partagé avec nous toutes ses connaissances historiques, religieuses, culturelles.
+
+Connaissant parfaitement la France où il a passé quelques mois, il pouvait mieux nous faire appréhender les différences entre nos deux cultures. L'organisation du voyage était très professionnelle et chaque détail était réglé à l'avance.
+
+Il a su rendre ce voyage exceptionnel, et j'espère que nous resterons longtemps en contact avec lui. Nous reviendrons sans doute un jour, peut-être pour visiter Flores ? Encore merci Agus 🥰`,
+  },
+  {
+    id: "bertrand",
+    auteur: "Pascale Bertrand",
+    pays: "France",
+    quand: "Quatre jours, à quatre adultes",
+    extrait: "Aucune mauvaise surprise.",
+    texte: `Nous avons passé 4 jours à Bali avec Agus Yudiarta. Agus est vraiment un guide au top. Nous étions 4 adultes. Il a été très réactif quand il s'est agi d'organiser le voyage.
+
+Puis sur place il était vraiment à l'écoute. Il nous a fait visiter tout ce que nous souhaitions en sachant s'adapter à notre rythme et en optimisant notre temps qui était contraint. Aucune mauvaise surprise.
+
+Il est d'une grande culture, en ce qui concerne Bali mais aussi l'Indonésie et le reste du monde ! Son français est parfait. Il ne compte pas ses heures et les journées peuvent être longues et bien remplies si on le souhaite.
+
+C'était vraiment un super séjour. Nous recommandons fortement Agus.`,
+  },
+  {
+    id: "christ",
+    auteur: "Roland Christ",
+    pays: "Laos",
+    quand: "Quatre jours",
+    extrait: "Nous pouvons conseiller Agus les yeux fermés !",
+    texte: `Lors de notre séjour à Bali, nous avons réservé Agus comme chauffeur-guide francophone. Nous avons passé 4 jours à visiter cette magnifique île avec lui, avec un programme défini à l'avance. Et nous avons été plus qu'enchantés de notre expérience avec Agus.
+
+Non seulement il parle parfaitement français, mais c'est une vraie mine de savoir ! Il connaît l'histoire balinaise et indonésienne parfaitement et, à chaque visite, il nous a donné une multitude de renseignements très intéressants. Il est également très cultivé (voyages en Europe) et nous avons pu avoir avec lui différentes discussions très intéressantes sur différents thèmes.
+
+Il conduit également très bien. Et, pour couronner le tout, il a beaucoup d'humour.
+
+C'est dire que nous pouvons conseiller Agus les yeux fermés !`,
+  },
+  {
+    id: "vellayen",
+    auteur: "Maeva Vellayen",
+    pays: "France",
+    quand: "Cinq jours",
+    extrait:
+      "Il a été totalement à notre écoute, s'adaptant à nos envies et à notre rythme.",
+    texte: `Nous avons passé 5 jours exceptionnels avec Agus à Bali. Il a été totalement à notre écoute, s'adaptant à nos envies et à notre rythme.
+
+Son français est excellent, ce qui a rendu nos échanges très fluides. C'est une personne cultivée avec qui nous avons eu des discussions passionnantes sur la culture balinaise, l'histoire des lieux visités et sur plein d'autres sujets. Ses explications étaient toujours claires et enrichissantes.
+
+Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali avec un guide compétent et attentionné !`,
+  },
+];;
   /* TEMOIGNAGES >>> */
 
   var ACTIVITES_RESTE = "Trois journées ou quinze, c'est vous qui voyez : je viens vous chercher à votre hôtel pour une seule journée, ou je construis le circuit entier. Et cette liste n'est pas fermée — il y en a d'autres, par région : le sud et la presqu'île de Bukit, l'est et Tirta Gangga, le centre-nord et Tamblingan, le sud-ouest et Tanah Lot. Je vous propose celles qui collent à l'endroit où vous logez.";
@@ -2337,6 +2383,7 @@
     circuit: "Retour au circuit",
     envies: "Retour à mes envies",
     usages: "Retour aux us et coutumes",
+    temoignages: "Retour au livre d'or",
     "sur-mesure": "Retour à ma demande"
   };
   var retourDepuis = "top";
@@ -2481,6 +2528,21 @@
       "Ces mots sont les leurs, recopiés du livre d'or sans être retouchés. " +
       "Je n'ai corrigé que des fautes de frappe.";
     var vedettes = TEMOIGNAGES.filter(function (t) { return t.vedette; });
+    /* La vue entière : les sept, avec leur paragraphage d'origine. */
+    $("livreTitre").textContent = "Ce qu'en disent ceux qui sont partis";
+    $("livreChapo").textContent =
+      "Ces mots sont les leurs, recopiés du livre d'or sans être retouchés. " +
+      "Je n'ai corrigé que des fautes de frappe.";
+    $("livreList").innerHTML = TEMOIGNAGES.map(function (t) {
+      return '<li class="reveal"><figure><figcaption>' +
+        '<span class="qui">' + symbole("padma", 22) +
+        '<span class="nom">' + t.auteur + "</span></span>" +
+        '<span class="label">' + t.pays + " \u00B7 " + t.quand + "</span>" +
+        "</figcaption><blockquote>" +
+        t.texte.split(/\n\s*\n/).map(function (par) { return "<p>" + par + "</p>"; }).join("") +
+        "</blockquote></figure></li>";
+    }).join("");
+
     $("temoinsList").innerHTML = vedettes.map(function (t) {
       return '<li class="reveal"><figure>' + symbole("padma", 26) +
         "<blockquote>\u00AB " + t.extrait + " \u00BB</blockquote>" +
@@ -2828,8 +2890,13 @@
     if (goto) {
       ev.preventDefault();
       var vue = goto.dataset.goto;
-      if (vue === "tarifs") {
-        retourDepuis = sectionCourante();
+      if (vue !== "home") {
+        /* `data-de` l'emporte sur la détection : le bouton du livre d'or
+           vit *dans* la section « Livre d'or », mais au moment du clic
+           celle-ci peut n'être qu'à moitié entrée à l'écran et la
+           détection désigne alors la section précédente. Quand la
+           provenance est connue à l'avance, on l'écrit. */
+        retourDepuis = goto.dataset.de || sectionCourante();
         var lib = SECTIONS_RETOUR[retourDepuis] || SECTIONS_RETOUR.top;
         [].forEach.call(document.querySelectorAll(".retour-libelle"), function (el) {
           el.textContent = lib;

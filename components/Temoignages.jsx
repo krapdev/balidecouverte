@@ -57,7 +57,14 @@ export default function Temoignages() {
 
         <Reveal delay={0.14}>
           <p className="mt-8">
-            <Link className="btn btn-outline text-accent" href="/livre-d-or">
+            {/* `?de=temoignages` : le retour du livre d'or ramène ici, et
+                non en haut de l'accueil — même mécanique que les tarifs,
+                voir lib/retours.js. Depuis le pied de page, où il n'y a
+                pas de provenance à mémoriser, le lien reste nu. */}
+            <Link
+              className="btn btn-outline text-accent"
+              href="/livre-d-or?de=temoignages"
+            >
               Lire les {LIVRE_OR.nombre} témoignages
               <ArrowRight size={16} />
             </Link>
