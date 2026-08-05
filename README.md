@@ -691,6 +691,81 @@ bien-être. L'antidote est la tension : imagerie apaisée d'un côté, faits dur
 l'autre — coordonnées GPS, dénivelé, « faisable dès 10 ans », accès et niveau
 pour chaque île, prix à la ligne, itinéraire jour par jour.
 
+### La navigation : savoir où l'on est, et pouvoir remonter
+
+Le reproche était double — « on scrolle et on ne peut pas revenir facilement
+sur l'engagement d'Agus ». Il avait une cause bête et une cause de fond.
+
+**La cause bête : `#valeurs` n'était lié de nulle part.** Le panneau qui porte
+l'argument le plus fort d'Agus avait bien une ancre, mais aucun lien ne
+pointait dessus. Dès qu'on avait dépassé la présentation, il était en pratique
+inaccessible. Il est maintenant dans la barre du haut, dans le menu mobile et
+dans le pied de page — sa place dans la barre a été prise à « Sur-Mesure », que
+le bouton « Demander un devis » juste à côté dessert déjà.
+
+**La cause de fond : rien ne disait où l'on était.** Un repère de position
+marque désormais la section courante. Il est calculé sur un écouteur de
+défilement limité à une image par trame, et non sur un `IntersectionObserver` :
+la règle est « la dernière section dont le haut est passé sous la barre », elle
+est directement lisible dans le code, là où il faudrait la déduire de marges
+racines acrobatiques avec un observateur.
+
+> **La barre ne montre pas toutes les sections, et le repère doit quand même
+> être continu.** Marquer strictement la section courante l'éteint quand on
+> traverse « Par où commencer » ou « Us et coutumes », absentes de la barre : il
+> clignote au fil du défilement, ce qui est pire que pas de repère du tout. On
+> marque donc la dernière entrée **de la barre** que l'on a dépassée, ce qui se
+> lit « vous êtes quelque part après ce point ». Le menu mobile, lui, les liste
+> toutes et marque la section exacte — avec une puce en plus de la couleur, une
+> couleur seule ne portant pas d'information (WCAG 1.4.1).
+
+### Trois pièges trouvés en réparant ça
+
+> **`scroll-padding-top` s'applique aussi au focus.** Le décalage des ancres
+> sous la barre collante était porté par `scroll-padding-top: 5rem` sur `html`.
+> Or cette propriété vaut pour **toute** mise en vue, y compris celle que le
+> navigateur déclenche quand un élément reçoit le focus — et les commandes de
+> la barre collante vivent par construction dans les 80 px du haut, donc dans
+> la bande réservée. Le navigateur les jugeait masquées et faisait défiler la
+> page pour les dégager : **ouvrir le menu mobile déplaçait la page de 428 px**,
+> et la refermer encore autant. Le décalage est désormais porté par les cibles
+> (`[id] { scroll-margin-top: 5rem }`). Ne pas remettre `scroll-padding-top`
+> par-dessus : les deux s'additionnent et les ancres atterrissent à 176 px.
+
+> **`backdrop-filter` fait de l'élément le bloc conteneur de ses descendants en
+> position fixe.** Le panneau du menu mobile vivait dans le `<header>`, qui
+> porte `backdrop-blur`. Son `top: 68px; bottom: 0` se calculait donc sur les
+> 68 px de la barre : **un panneau de 1 px de haut**. Les liens débordaient, ce
+> qui donnait l'illusion que ça marchait — mais le fond ne couvrait rien et la
+> page restait visible derrière le menu. Le panneau est maintenant hors du
+> `<header>`. Le symptôme à reconnaître : un overlay « transparent » alors que
+> son `background` est bien défini.
+
+> **On n'anime pas ce vers quoi on navigue.** Un `.reveal` qui n'est pas encore
+> apparu est décalé de 14 px vers le bas. L'ancre `#valeurs` atterrissait donc
+> sur la position d'avant l'animation, puis le panneau remontait de 14 px et
+> passait sous la barre collante. Le panneau des valeurs n'a plus d'apparition
+> au défilement, parce qu'il est devenu une destination.
+
+### Le clignotement à la sélection
+
+Cocher une activité faisait clignoter toute la page. La maquette rappelait
+`render()`, qui reconstruit tout par `innerHTML` : **70 nœuds détruits et
+recréés** à chaque clic, dont les quatre-vingt-dix SVG des vignettes. Et
+surtout, **chaque `.reveal` recréé repart à `opacity: 0`** puis se rallume en
+0,55 s — c'est ce que l'œil lit comme un rafraîchissement complet.
+
+La sélection ne touche plus que la carte concernée et les trois endroits qui
+en dépendent vraiment : le panier, le message, le compteur. On passe de 70
+nœuds recréés à 6. L'application, elle, n'a jamais eu le défaut — React
+réconcilie et ne recrée rien (2 nœuds ajoutés, 1 retiré).
+
+> **La mesure qui l'attrape** — et il en faut une, parce que le compte de
+> nœuds ne suffit pas : échantillonner l'opacité des cartes **déjà apparues**
+> pendant les 500 ms qui suivent le clic. Avant le correctif, elle tombe à 0 ;
+> après, elle ne bouge pas de 1. Vérifié dans les deux sens sur la version
+> précédente, sinon on ne teste rien.
+
 ### Mobile — les seuils à tenir
 
 Le site est vérifié à **320, 360, 390 et 414 px**. Quatre règles, toutes

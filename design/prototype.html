@@ -218,12 +218,38 @@
   .brand-sub { display: none; font-family: var(--util); font-size: 0.625rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-faint); }
   @media (min-width: 640px) { .brand-sub { display: block; } }
   .nav-links { display: none; gap: 1.6rem; }
+  /* La maquette n'avait aucune navigation sous 900 px : les liens
+     disparaissaient sans rien pour les remplacer. Sur un site de dix-neuf
+     écrans, c'est précisément là qu'on en a besoin. */
+  .nav-burger {
+    flex: none; width: 44px; height: 44px; display: grid; place-items: center;
+    border: 1px solid var(--rule); border-radius: var(--radius);
+    background: transparent; color: var(--text-soft); cursor: pointer;
+  }
+  .nav-menu {
+    position: fixed; inset: 68px 0 0; z-index: 40; display: none;
+    border-top: 1px solid var(--rule); background: var(--page); overflow-y: auto;
+  }
+  body[data-menu="true"] .nav-menu { display: block; }
+  .nav-menu nav { display: flex; flex-direction: column; padding-block: 1.5rem; }
+  .nav-menu a {
+    display: flex; align-items: center; gap: 0.75rem;
+    border-bottom: 1px solid var(--rule); padding-block: 1rem;
+    font-family: var(--display); font-size: 1.5rem; text-decoration: none; color: var(--text);
+  }
+  .nav-menu a[aria-current] { color: var(--accent); }
+  .nav-menu .btn { margin-top: 1.5rem; }
+  @media (min-width: 900px) { .nav-burger, .nav-menu { display: none !important; } }
   .nav-links a {
     display: inline-flex; align-items: center; min-height: 44px;
     text-decoration: none; font-size: var(--t-sm); color: var(--text-soft);
     border-bottom: 1px solid transparent; transition: color .18s, border-color .18s;
   }
   .nav-links a:hover { color: var(--text); border-color: var(--accent); }
+  /* Le repère de position : la dernière entrée **de la barre** que l'on
+     a dépassée. Sans ce repli, traverser une section absente de la barre
+     éteindrait le repère, et il clignoterait au fil du défilement. */
+  .nav-links a[aria-current] { color: var(--text); font-weight: 600; border-color: var(--accent); }
   .nav-wa { display: none; }
   @media (min-width: 900px) {
     .nav-links { display: flex; }
@@ -923,7 +949,16 @@
   }
   /* La barre de navigation est collante : sans ce décalage, une ancre
      dépose le haut de la section sous la barre. */
-  html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+  html { scroll-behavior: smooth; }
+  /* ⚠️ Le décalage des ancres était porté par `scroll-padding-top` sur
+     `html`. Il s'applique à **toute** mise en vue, y compris celle que
+     le navigateur déclenche au focus — et les commandes de la barre
+     collante vivent dans les 80 px du haut, donc dans la bande
+     réservée. Le navigateur les jugeait masquées et faisait défiler la
+     page pour les dégager : ouvrir le menu déplaçait la page de 428 px.
+     Porté par les cibles, le problème disparaît. Ne pas remettre
+     `scroll-padding-top` par-dessus, les deux s'additionnent. */
+  [id] { scroll-margin-top: 5rem; }
 
   /* Trois vues dans un seul fichier : la maquette doit refléter que les
      tarifs et le livre d'or vivent sur leurs propres pages (/tarifs et
@@ -962,19 +997,39 @@
            entrées ne tiennent pas sur une ligne à 1280 px. La fourche est
            de toute façon la deuxième chose qu'on voit en descendant. -->
       <a href="#esprit">Qui je suis</a>
+      <!-- Le panneau des valeurs avait une ancre mais aucun lien ne
+           pointait dessus : l'argument le plus fort d'Agus était
+           inaccessible dès qu'on avait dépassé la présentation. Sa place
+           est prise à « Sur-Mesure », que le bouton juste à côté dessert
+           déjà. -->
+      <a href="#valeurs">Son engagement</a>
       <a href="#circuit">Le circuit</a>
       <a href="#envies">Vos envies</a>
       <a href="#temoignages">Livre d'or</a>
       <a href="#tarifs" data-goto="tarifs">Tarifs</a>
-      <a href="#sur-mesure">Sur-Mesure</a>
     </nav>
+    <button class="nav-burger" type="button" id="burger" aria-expanded="false" aria-label="Ouvrir le menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
     <a class="btn btn-accent nav-wa" href="#sur-mesure">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
       Demander un devis
     </a>
   
   </div>
+
 </header>
+
+<!-- ⚠️ Le panneau est **hors du <header>**, et ce n'est pas un détail de
+     rangement. L'en-tête porte un `backdrop-filter`, et cette propriété
+     fait de l'élément le **bloc conteneur de ses descendants en position
+     fixe** : à l'intérieur, `inset: 68px 0 0` se calculait sur les 68 px
+     de la barre et donnait un panneau de 1 px de haut. Les liens
+     débordaient, donc ça avait l'air de marcher — mais le fond ne
+     couvrait rien et la page restait visible derrière le menu. -->
+<div class="nav-menu" id="navMenu">
+  <nav class="shell" aria-label="Navigation mobile" id="navMenuList"></nav>
+</div>
 
 <!-- ============================ HERO ============================ -->
 <section class="hero view-home" id="top">
@@ -1081,7 +1136,11 @@
          juste au-dessus — ils lèvent le doute, on les consulte quand la
          question se pose ; les valeurs, elles, créent la préférence,
          donc elles se lisent sans qu'on ait à cliquer. -->
-    <div class="valeurs-panneau reveal" id="valeurs">
+    <!-- Pas d'apparition au défilement : c'est une destination de
+         navigation, et un `.reveal` non encore apparu est décalé de 14 px
+         vers le bas — l'ancre atterrissait sur la position d'avant
+         l'animation. On n'anime pas ce vers quoi on navigue. -->
+    <div class="valeurs-panneau" id="valeurs">
       <h3>Voyager avec moi, c'est faire vivre les guides de Bali.</h3>
       <p class="valeurs-chapo">Je suis balinais, diplômé, et je travaille en
       direct depuis vingt ans. Ce n'est pas seulement une façon de baisser le
@@ -1446,6 +1505,7 @@
     <div class="footer-col">
       <p class="label">Explorer</p>
       <a href="#esprit">Qui je suis</a>
+      <a href="#valeurs">Son engagement</a>
       <a href="#chemins">Par où commencer</a>
       <a href="#circuit">Le circuit</a>
       <a href="#envies">Vos envies</a>
@@ -2379,6 +2439,7 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
   var SECTIONS_RETOUR = {
     top: "Retour à l'accueil",
     esprit: "Retour à la présentation",
+    valeurs: "Retour à son engagement",
     chemins: "Retour aux deux chemins",
     circuit: "Retour au circuit",
     envies: "Retour à mes envies",
@@ -2765,6 +2826,128 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
     if (navigator.clipboard) navigator.clipboard.writeText(texte).then(fini, function () {});
   });
 
+  /**
+   * Cocher une activité ne redessine que ce qui a changé.
+   *
+   * `render()` reconstruisait toute la page par `innerHTML` : 70 nœuds
+   * détruits et recréés à chaque clic, dont les quatre-vingt-dix SVG des
+   * vignettes. Et surtout, **chaque `.reveal` recréé repart à
+   * `opacity: 0`** puis se rallume en 0,55 s — c'est ce clignotement que
+   * l'œil lit comme un rafraîchissement de la page entière.
+   *
+   * Ici on touche la carte concernée, et les trois endroits qui
+   * dépendent vraiment de la sélection : le panier, le message, le
+   * compteur. Rien n'est recréé, donc rien ne réanime.
+   */
+  function majSelection(id) {
+    var bouton = document.querySelector('.journee-plus[data-act="' + id + '"]');
+    if (bouton) {
+      var on = actIds.indexOf(id) !== -1;
+      var titre = (ACTIVITES.filter(function (a) { return a.id === id; })[0] || {}).titre || "";
+      bouton.closest(".journee-carte").dataset.on = String(on);
+      bouton.setAttribute("aria-pressed", String(on));
+      bouton.setAttribute(
+        "aria-label",
+        (on ? "Retirer " + titre + " de" : "Ajouter " + titre + " \u00e0") + " ma demande"
+      );
+      bouton.innerHTML = jepunPuce(on);
+    }
+    renderCart();
+    renderMessage();
+  }
+
+  /**
+   * Le repère de position dans la barre du haut.
+   *
+   * Il ne décore pas : le reproche était qu'après avoir descendu la
+   * page, on ne sait plus où l'on est ni comment revenir en arrière.
+   * Marquer la section courante répond à la première moitié et rend la
+   * seconde évidente — on voit d'un coup d'œil ce qui est au-dessus.
+   *
+   * La barre ne montre pas toutes les sections : on marque donc la
+   * dernière entrée **de la barre** que l'on a dépassée, ce qui se lit
+   * « vous êtes quelque part après ce point ». Sans ce repli, traverser
+   * une section absente de la barre éteindrait le repère.
+   */
+  var LIENS_BARRE = [].slice.call(
+    document.querySelectorAll('.nav-links a[href^="#"]')
+  );
+  var ORDRE_ANCRES = Object.keys(SECTIONS_RETOUR);
+
+  function majRepere() {
+    var rang = ORDRE_ANCRES.indexOf(sectionCourante());
+    var choisi = null;
+    LIENS_BARRE.forEach(function (a) {
+      a.removeAttribute("aria-current");
+      var i = ORDRE_ANCRES.indexOf(a.getAttribute("href").slice(1));
+      if (i !== -1 && i <= rang) choisi = a;
+    });
+    if (choisi) choisi.setAttribute("aria-current", "true");
+  }
+
+  (function () {
+    var attendue = false;
+    function surDefilement() {
+      if (attendue) return;
+      attendue = true;
+      requestAnimationFrame(function () {
+        attendue = false;
+        majRepere();
+      });
+    }
+    majRepere();
+    addEventListener("scroll", surDefilement, { passive: true });
+    addEventListener("resize", surDefilement);
+  })();
+
+  /* ---------- Le menu mobile ---------- */
+  /* Il liste **toutes** les sections, y compris celles que la barre du
+     haut ne peut pas montrer faute de place. Le verrou de défilement est
+     posé sur `<html>` et non sur `<body>` : sur le body, qui porte une
+     hauteur minimale et une disposition en colonne, `overflow: hidden`
+     en fait un conteneur de défilement et la page se déplace. */
+  var MENU = [
+    ["#esprit", "Qui je suis"],
+    ["#valeurs", "Son engagement"],
+    ["#chemins", "Par où commencer"],
+    ["#circuit", "Le circuit"],
+    ["#envies", "Vos envies"],
+    ["#usages", "Us et coutumes"],
+    ["#temoignages", "Livre d'or"],
+    ["#tarifs", "Tarifs"],
+    ["#sur-mesure", "Sur-Mesure"]
+  ];
+
+  $("navMenuList").innerHTML =
+    MENU.map(function (m) {
+      var goto = m[0] === "#tarifs" ? ' data-goto="tarifs"' : "";
+      return '<a href="' + m[0] + '"' + goto + ">" + m[1] + "</a>";
+    }).join("") +
+    '<a class="btn btn-accent btn-lg" href="#sur-mesure">Demander un devis</a>';
+
+  function menuOuvrir(ouvert) {
+    document.body.dataset.menu = String(ouvert);
+    $("burger").setAttribute("aria-expanded", String(ouvert));
+    $("burger").setAttribute("aria-label", ouvert ? "Fermer le menu" : "Ouvrir le menu");
+    document.documentElement.style.overflow = ouvert ? "hidden" : "";
+    if (ouvert) majMenuRepere();
+  }
+
+  function majMenuRepere() {
+    var courante = sectionCourante();
+    [].forEach.call($("navMenuList").querySelectorAll("a[href^='#']"), function (a) {
+      if (a.getAttribute("href").slice(1) === courante) a.setAttribute("aria-current", "true");
+      else a.removeAttribute("aria-current");
+    });
+  }
+
+  $("burger").addEventListener("click", function () {
+    menuOuvrir(document.body.dataset.menu !== "true");
+  });
+  $("navMenuList").addEventListener("click", function (ev) {
+    if (ev.target.closest("a")) menuOuvrir(false);
+  });
+
   function render() {
     renderChemins();
     renderCircuit();
@@ -2872,13 +3055,15 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
     if (act) {
       var ai = actIds.indexOf(act.dataset.act);
       if (ai === -1) actIds.push(act.dataset.act); else actIds.splice(ai, 1);
-      render();
+      majSelection(act.dataset.act);
       return;
     }
     var bse = ev.target.closest("[data-base]");
     if (bse && bse.tagName === "BUTTON") {
       baseCircuit = baseCircuit === bse.dataset.base ? null : bse.dataset.base;
-      render();
+      renderCircuit();
+      renderCart();
+      renderMessage();
       return;
     }
     /* Les tarifs ont leur propre page dans l'application ; ici, une vue.

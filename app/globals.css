@@ -117,8 +117,31 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
     background: var(--page);
+  }
+
+  /**
+   * Le décalage des ancres sous la barre collante.
+   *
+   * ⚠️ Il était porté par `scroll-padding-top: 5rem` sur `html`, et
+   * **c'était un piège**. `scroll-padding` s'applique à *toute* mise en
+   * vue, y compris celle que le navigateur déclenche quand un élément
+   * reçoit le focus. Or les commandes de la barre collante vivent, par
+   * construction, dans les 80 px du haut — donc dans la bande réservée.
+   * Le navigateur les jugeait masquées et faisait défiler la page pour
+   * les « dégager », alors qu'elles sont visibles en permanence :
+   * **ouvrir le menu mobile déplaçait la page de 428 px**, et la
+   * refermer encore autant.
+   *
+   * Le décalage est donc porté par les cibles elles-mêmes. Une ancre est
+   * un élément avec un `id` ; le focus d'un bouton sans `id` ne déclenche
+   * plus rien.
+   *
+   * Ne pas remettre `scroll-padding-top` par-dessus : les deux
+   * s'additionnent, et les ancres atterrissent à 176 px au lieu de 80.
+   */
+  [id] {
+    scroll-margin-top: 5rem;
   }
   body {
     background: var(--page);

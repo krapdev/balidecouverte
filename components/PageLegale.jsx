@@ -26,10 +26,13 @@ export function Valeur({ v, quoi }) {
   return v ? <>{v}</> : <AComplete>{quoi}</AComplete>;
 }
 
+/* Le décalage des ancres sous la barre collante vient de la règle `[id]`
+   de globals.css — ne pas ajouter de `scroll-mt` ici, les deux
+   s'additionneraient et les articles atterriraient trop bas. */
 export function Article({ n, titre, children }) {
   const id = `art-${n}`;
   return (
-    <section className="mt-10 scroll-mt-24" id={id}>
+    <section className="mt-10" id={id}>
       <h2 className="flex gap-3 text-[1.25rem] leading-snug">
         <span className="font-sans text-base font-bold tabular-nums text-eyebrow">
           {n}.

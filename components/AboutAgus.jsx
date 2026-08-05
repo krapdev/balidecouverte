@@ -211,7 +211,14 @@ export default function AboutAgus() {
             temple est orienté. En filigrane et non en icône — un
             symbole affiché en clair demande à être expliqué, une
             texture non. Il est posé là où aucun texte ne passe. */}
-        <Reveal delay={0.1}>
+        {/* Pas d'apparition au défilement sur ce panneau, contrairement
+            au reste : c'est devenu une **destination de navigation**, et
+            un `.reveal` non encore apparu est décalé de 14 px vers le
+            bas. L'ancre atterrissait donc sur la position d'avant
+            l'animation, puis le panneau remontait de 14 px et passait
+            sous la barre collante. On n'anime pas ce vers quoi on
+            navigue. */}
+        <div>
           <div
             id="valeurs"
             className="relative mt-[clamp(3rem,8vw,4.5rem)] overflow-hidden rounded-[18px] bg-immersive px-[clamp(1.5rem,5vw,3rem)] py-[clamp(2rem,6vw,3rem)] text-on-immersive"
@@ -258,7 +265,7 @@ export default function AboutAgus() {
               {VALEURS.chute}
             </p>
           </div>
-        </Reveal>
+        </div>
       </div>
     </section>
   );
