@@ -12,19 +12,11 @@ import Footer from "./Footer";
  * d'où le sommaire ancré, et des titres numérotés.
  */
 
-/** Un champ qui n'a pas encore de valeur. Impossible à manquer. */
-export function AComplete({ children }) {
-  return (
-    <mark className="rounded-sm bg-[color-mix(in_srgb,var(--bougain)_18%,transparent)] px-1.5 py-0.5 font-sans text-[0.9em] font-bold text-eyebrow">
-      [à compléter{children ? ` — ${children}` : ""}]
-    </mark>
-  );
-}
-
-/** Une valeur, ou le marqueur si elle manque. */
-export function Valeur({ v, quoi }) {
-  return v ? <>{v}</> : <AComplete>{quoi}</AComplete>;
-}
+/* Le marqueur de champ manquant a déménagé dans son propre fichier : le
+   portrait d'Agus s'en sert aussi, et il n'avait pas à importer le
+   gabarit des CGV pour ça. Réexporté ici — les pages légales
+   l'importent depuis ce module depuis le début. */
+export { AComplete, Valeur } from "./AComplete";
 
 /* Le décalage des ancres sous la barre collante vient de la règle `[id]`
    de globals.css — ne pas ajouter de `scroll-mt` ici, les deux

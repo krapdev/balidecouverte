@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   BadgeCheck,
   CalendarClock,
@@ -8,6 +9,7 @@ import {
   ChevronDown,
   HandCoins,
   Heart,
+  ArrowRight,
 } from "lucide-react";
 import { PortraitAgus, Canang, Jepun } from "./Scene";
 import { Symbole } from "./Symboles";
@@ -70,22 +72,40 @@ export default function AboutAgus() {
         </SectionHead>
 
         <div className="grid items-start gap-[clamp(2rem,6vw,3.5rem)] md:grid-cols-[0.72fr_1.28fr]">
+          {/* Le portrait est cliquable, et **il le dit**. Une photo qui
+              navigue sans le montrer est un piège : on l'apprend en
+              cliquant par hasard, ou jamais. D'où la ligne d'appel sous
+              la légende — c'est elle qui porte l'affordance, la photo ne
+              fait que l'élargir à une cible confortable.
+
+              `?de=esprit` : le retour depuis /agus ramènera ici, pas en
+              haut de l'accueil (voir lib/retours.js). */}
           <Reveal
             as="figure"
             className="m-0 mx-auto w-full max-w-[300px] md:max-w-none"
           >
-            <div className="arch bg-immersive-deep shadow-[0_30px_70px_-30px_rgba(0,0,0,0.7)]">
-              <Photo
-                fallback={<PortraitAgus className="h-full w-full" />}
-                uid="agus"
-                ratio="aspect-[46/50]"
-                priority
-                brief="LA photo à faire en premier — Agus de face, en extérieur, lumière douce"
-                alt="Agus Yudiarta, guide francophone à Bali"
-                className="w-full"
-              />
-            </div>
-            <figcaption className="mt-3.5 border-t border-rule pt-3">
+            <Link
+              href="/agus?de=esprit"
+              className="group block no-underline"
+              aria-label="Le portrait d'Agus : sa famille, son pays, son union de guides"
+            >
+              <span className="arch block bg-immersive-deep shadow-[0_30px_70px_-30px_rgba(0,0,0,0.7)]">
+                <Photo
+                  fallback={<PortraitAgus className="h-full w-full" />}
+                  uid="agus"
+                  ratio="aspect-[46/50]"
+                  priority
+                  brief="LA photo à faire en premier — Agus de face, en extérieur, lumière douce"
+                  alt="Agus Yudiarta, guide francophone à Bali"
+                  className="w-full"
+                />
+              </span>
+              <span className="mt-3.5 flex min-h-11 items-center justify-between gap-3 border-t border-rule pt-3 text-sm text-accent">
+                <span>Son portrait, sa famille, son union</span>
+                <ArrowRight size={15} className="shrink-0 transition-transform group-hover:translate-x-1" />
+              </span>
+            </Link>
+            <figcaption>
               <span className="flex items-baseline justify-between gap-4 text-faint">
                 <span className="label">{AGUS.nom}</span>
                 <span className="label">Denpasar · 08°39&apos;S 115°13&apos;E</span>
@@ -261,8 +281,25 @@ export default function AboutAgus() {
               })}
             </ul>
 
-            <p className="mt-10 max-w-[62ch] border-l-3 border-soleil pl-6 font-display text-[clamp(1.15rem,3vw,1.45rem)] leading-snug">
-              {VALEURS.chute}
+            {/* La chute du panneau — « chaque voyage en direct, c'est un
+                guide balinais de plus qui vit de son métier » — a
+                déménagé sur /agus, où elle ouvre le développement.
+                L'accueil garde ce qui embarque : le titre, le chapô et
+                les trois points. Il ne garde pas la démonstration
+                complète, qui ajoutait un écran de défilement à une page
+                qui en fait déjà dix-neuf, et qui trouve sa vraie place
+                là où quelqu'un a choisi d'aller lire. */}
+            <p className="relative mt-10">
+              <Link
+                href="/agus?de=valeurs"
+                className="group inline-flex min-h-11 items-center gap-2 border-b border-soleil pb-1 font-display text-[clamp(1.05rem,2.8vw,1.3rem)] leading-snug text-on-immersive no-underline"
+              >
+                Sa famille, son pays, son union de guides
+                <ArrowRight
+                  size={17}
+                  className="shrink-0 text-soleil transition-transform group-hover:translate-x-1"
+                />
+              </Link>
             </p>
           </div>
         </div>

@@ -214,7 +214,17 @@
     position: sticky; top: 0; z-index: 60;
     background: color-mix(in srgb, var(--page) 88%, transparent);
     backdrop-filter: blur(14px) saturate(1.2);
-    border-bottom: 1px solid var(--rule);
+  }
+  /* Le linteau — la frise de dents sculptée au-dessus des portes de
+     temple. Elle remplace le `border-bottom` : la séparation devait
+     exister de toute façon, elle est simplement dessinée au lieu d'être
+     droite. Sept pixels, un SVG en ligne, aucune requête.
+     ⚠️ La barre mesure donc 75 px et non 68 : tout ce qui s'y accroche
+     (le haut du panneau mobile) doit suivre. */
+  .linteau {
+    height: 7px;
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2222%22%20height%3D%227%22%20viewBox%3D%220%200%2022%207%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22rgba%2871%2C102%2C53%2C0.32%29%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%201h22%22%2F%3E%3Cpath%20d%3D%22M0%201l5.5%205%205.5-5%205.5%205%205.5-5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+    background-repeat: repeat-x;
   }
   .nav-in { display: flex; align-items: center; gap: 1.5rem; height: 68px; }
   .brand { display: flex; align-items: center; min-height: 44px; gap: 0.7rem; text-decoration: none; margin-right: auto; }
@@ -234,18 +244,41 @@
     background: transparent; color: var(--text-soft); cursor: pointer;
   }
   .nav-menu {
-    position: fixed; inset: 68px 0 0; z-index: 40; display: none;
-    border-top: 1px solid var(--rule); background: var(--page); overflow-y: auto;
+    position: fixed; inset: 75px 0 0; z-index: 40; display: none;
+    background-color: var(--surface-alt); overflow-y: auto;
   }
   body[data-menu="true"] .nav-menu { display: block; }
-  .nav-menu nav { display: flex; flex-direction: column; padding-block: 1.5rem; }
-  .nav-menu a {
-    display: flex; align-items: center; gap: 0.75rem;
-    border-bottom: 1px solid var(--rule); padding-block: 1rem;
-    font-family: var(--display); font-size: 1.5rem; text-decoration: none; color: var(--text);
+  .nav-menu nav { display: flex; flex-direction: column; padding-block: 1.25rem; }
+  /* La plaque : numéro, symbole, libellé, et **une ligne qui dit ce
+     qu'il y a derrière**. Sur mobile, le menu est le seul plan de la
+     page dont on dispose ; une liste de titres nus oblige à ouvrir pour
+     savoir. C'est là que se gagne la lisibilité, pas dans la taille du
+     texte. La bordure gauche est présente dans les deux états,
+     transparente au repos : sans elle, l'entrée courante se décalerait
+     de 3 px et la liste sauterait d'une ligne à l'autre. */
+  .nav-menu a.plaque {
+    display: flex; align-items: center; gap: 0.9rem;
+    border-bottom: 1px solid var(--rule); border-left: 3px solid transparent;
+    padding: 0.75rem 0 0.75rem 0.75rem; text-decoration: none; color: var(--text);
   }
-  .nav-menu a[aria-current] { color: var(--accent); }
+  .nav-menu a.plaque[aria-current] {
+    border-left-color: var(--accent);
+    background: color-mix(in srgb, var(--tint) 60%, transparent);
+  }
+  .plaque-num { flex: none; width: 1.25rem; font-family: var(--util); font-size: 0.6875rem; font-variant-numeric: tabular-nums; color: var(--text-faint); }
+  .plaque-sym { flex: none; display: grid; color: var(--accent); }
+  .plaque-txt { min-width: 0; flex: 1; }
+  .plaque-titre { display: block; font-family: var(--display); font-size: 1.3rem; line-height: 1.15; }
+  .nav-menu a.plaque[aria-current] .plaque-titre { color: var(--accent); font-weight: 600; }
+  .plaque-gloss { display: block; margin-top: 0.15rem; font-size: var(--t-sm); line-height: 1.35; color: var(--text-soft); }
+  .plaque-puce { flex: none; display: grid; color: var(--accent); }
   .nav-menu .btn { margin-top: 1.5rem; }
+  /* La porte fendue ferme le panneau — le seuil qu'on vient de
+     franchir. En clair et non en filigrane : à 390 px, le panneau est
+     trop étroit pour qu'un dessin trouve un coin sans texte, et la
+     règle de la maison est que le motif ne passe jamais sous du texte. */
+  .nav-seuil { margin-top: 1.75rem; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--accent); }
+  .nav-seuil p { font-size: 0.6875rem; color: var(--text-faint); text-align: center; }
   @media (min-width: 900px) { .nav-burger, .nav-menu { display: none !important; } }
   .nav-links a {
     display: inline-flex; align-items: center; min-height: 44px;
@@ -974,19 +1007,129 @@
      `scroll-padding-top` par-dessus, les deux s'additionnent. */
   [id] { scroll-margin-top: 5rem; }
 
-  /* Trois vues dans un seul fichier : la maquette doit refléter que les
+  /* Cinq vues dans un seul fichier : la maquette doit refléter que les
      tarifs et le livre d'or vivent sur leurs propres pages (/tarifs et
      /livre-d-or). Chaque vue masque les deux autres — écrit en toutes
      lettres plutôt qu'en négation, parce qu'à trois vues une règle du
      type « tout sauf la vue courante » devient illisible. */
-  body[data-view="home"]   .view-tarifs,
-  body[data-view="home"]   .view-livre  { display: none; }
-  body[data-view="tarifs"] .view-home,
-  body[data-view="tarifs"] .view-livre  { display: none; }
-  body[data-view="livre"]  .view-home,
-  body[data-view="livre"]  .view-tarifs { display: none; }
+  body[data-view="home"]     .view-tarifs,
+  body[data-view="home"]     .view-livre,
+  body[data-view="home"]     .view-circuit,
+  body[data-view="home"]     .view-portrait,
+  body[data-view="tarifs"]   .view-home,
+  body[data-view="tarifs"]   .view-livre,
+  body[data-view="tarifs"]   .view-circuit,
+  body[data-view="tarifs"]   .view-portrait,
+  body[data-view="livre"]    .view-home,
+  body[data-view="livre"]    .view-tarifs,
+  body[data-view="livre"]    .view-circuit,
+  body[data-view="livre"]    .view-portrait,
+  body[data-view="circuit"]  .view-home,
+  body[data-view="circuit"]  .view-tarifs,
+  body[data-view="circuit"]  .view-livre,
+  body[data-view="circuit"]  .view-portrait,
+  body[data-view="portrait"] .view-home,
+  body[data-view="portrait"] .view-tarifs,
+  body[data-view="portrait"] .view-livre,
+  body[data-view="portrait"] .view-circuit { display: none; }
   .back-home { display: block; padding-top: 5.5rem; }
   body[data-view="home"] .back-home { display: none; }
+
+  /* ============================================================
+     LE CIRCUIT EN ENTIER, ET LE PORTRAIT
+     ============================================================ */
+  .part-tete { display: flex; align-items: center; gap: 0.9rem; border-bottom: 1px solid var(--rule); padding-bottom: 1rem; margin-top: clamp(3rem, 8vw, 4.5rem); }
+  .part-sym { display: grid; flex: none; color: var(--accent); }
+  .part-tete h2 { font-size: clamp(1.375rem, 4vw, 1.75rem); line-height: 1.15; }
+
+  .circuit-detail-scene { margin-top: 2rem; border: 1px solid var(--rule); border-radius: 18px; overflow: hidden; position: relative; aspect-ratio: 21 / 9; }
+  .circuit-detail-scene svg { width: 100%; height: 100%; display: block; }
+
+  .cadre-grille { display: grid; gap: 1rem; margin-top: 2rem; }
+  @media (min-width: 560px) { .cadre-grille { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1000px) { .cadre-grille { grid-template-columns: repeat(4, 1fr); } }
+  .cadre-grille > div { display: flex; gap: 0.75rem; border: 1px solid var(--rule); background: var(--surface); border-radius: 12px; padding: 1rem; }
+  .cadre-grille .label { display: block; color: var(--text-faint); }
+  .cadre-grille b { display: block; font-size: var(--t-sm); font-weight: 400; line-height: 1.3; margin-top: 0.15rem; }
+  .cadre-prix { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 1rem; margin-top: 1rem; border: 1px solid var(--accent); background: color-mix(in srgb, var(--tint) 70%, transparent); border-radius: 14px; padding: 1.25rem; }
+  .cadre-prix .montant { display: block; font-family: var(--display); font-size: 1.5rem; line-height: 1.15; font-variant-numeric: tabular-nums; margin-top: 0.25rem; }
+
+  /* La colonne du numéro est fixe : sans elle, « 1 » et « 15 » ne
+     s'alignent pas et la liste ondule. */
+  .jours { list-style: none; margin: 1.5rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 1.5rem; }
+  .jours > li { display: grid; grid-template-columns: 2.75rem 1fr; column-gap: 1rem; border-bottom: 1px solid var(--rule); padding-bottom: 1.5rem; }
+  @media (min-width: 640px) { .jours > li { grid-template-columns: 3.5rem 1fr; } }
+  .jours > li:last-child { border-bottom: 0; }
+  .jour-num { font-family: var(--util); font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--eyebrow); }
+  .jour-num b { display: block; margin-top: 0.15rem; font-family: var(--display); font-size: 1.5rem; font-weight: 400; letter-spacing: 0; line-height: 1; color: var(--text); }
+  .jours h3 { font-size: 1.15rem; line-height: 1.3; }
+  .jours ul { list-style: none; margin: 0.6rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+  .jours ul li { display: flex; gap: 0.65rem; font-size: var(--t-sm); line-height: 1.65; color: var(--text-soft); }
+  .jours ul li::before { content: ""; flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); margin-top: 0.6rem; }
+  .jour-nuit { display: flex; align-items: center; gap: 0.4rem; margin-top: 0.75rem; color: var(--text-faint); }
+
+  .compris-grille { display: grid; gap: 1.25rem; margin-top: 1.5rem; }
+  @media (min-width: 1000px) { .compris-grille { grid-template-columns: 1fr 1fr; align-items: start; } }
+  .compris { list-style: none; margin: 0; padding: 1.25rem; border: 1px solid var(--rule); background: var(--surface); border-radius: 14px; display: flex; flex-direction: column; gap: 0.65rem; }
+  .compris.non-compris { background: var(--surface-alt); }
+  .compris li { display: flex; gap: 0.75rem; font-size: var(--t-sm); line-height: 1.6; }
+  .compris li::before { content: "\2713"; flex: none; color: var(--accent); font-weight: 700; }
+  .compris.non-compris li::before { content: "\00D7"; color: var(--eyebrow); }
+  .compris.non-compris li.titre { display: block; }
+  .compris.non-compris li.titre::before { content: none; }
+
+  .sortie { margin-top: clamp(3rem, 8vw, 4.5rem); border-radius: 18px; background: var(--immersive); color: var(--on-immersive); padding: clamp(2rem, 6vw, 3rem) clamp(1.5rem, 5vw, 3rem); }
+  .sortie h2 { max-width: 24ch; font-size: clamp(1.5rem, 4.5vw, 2rem); line-height: 1.15; }
+  .sortie p { margin-top: 1rem; max-width: 62ch; color: var(--on-immersive-soft); }
+  .sortie .btn { margin-top: 1.75rem; }
+
+  /* ---- Le portrait ---- */
+  .portrait-tete { display: grid; gap: clamp(1.75rem, 5vw, 3rem); }
+  @media (min-width: 780px) { .portrait-tete { grid-template-columns: 0.62fr 1.38fr; align-items: start; } }
+  .portrait-fig { margin: 0 auto; width: 100%; max-width: 280px; }
+  @media (min-width: 780px) { .portrait-fig { max-width: none; } }
+  .portrait-photo { background: var(--immersive-deep); box-shadow: 0 30px 70px -30px rgba(0,0,0,.7); position: relative; aspect-ratio: 46 / 50; }
+  .portrait-photo svg { width: 100%; height: 100%; display: block; }
+  .portrait-cite { margin-top: 1.5rem; border-left: 3px solid var(--accent); padding-left: 1.25rem; font-style: italic; font-size: clamp(1.15rem, 3.4vw, 1.45rem); line-height: 1.3; }
+  .avert { margin-top: 1.75rem; display: flex; gap: 0.9rem; border: 1px solid var(--eyebrow); background: color-mix(in srgb, var(--bougain) 10%, transparent); border-radius: 14px; padding: 1.25rem; font-size: var(--t-sm); line-height: 1.6; }
+  .fiche-grille { list-style: none; margin: 1.5rem 0 0; padding: 0; display: grid; gap: 1rem; }
+  @media (min-width: 640px) { .fiche-grille { grid-template-columns: 1fr 1fr; } }
+  .fiche-grille li { border: 1px solid var(--rule); background: var(--surface); border-radius: 12px; padding: 1rem; }
+  .fiche-grille .label { display: block; color: var(--text-faint); }
+  .fiche-grille span:last-child { font-size: var(--t-sm); line-height: 1.35; }
+  .portrait-corps { margin-top: 1.25rem; max-width: 64ch; display: flex; flex-direction: column; gap: 1rem; color: var(--text-soft); }
+  .portrait-corps .fort { color: var(--text); font-size: 1.0625rem; }
+  .portrait-corps .encart { display: flex; gap: 1rem; border: 1px solid var(--rule); background: var(--surface); border-radius: 14px; padding: 1.25rem; font-size: var(--t-sm); line-height: 1.6; color: var(--text); }
+  /* Le marqueur de champ manquant. Volontairement laid : ce n'est pas un
+     état par défaut élégant à laisser traîner, c'est une alarme. Une case
+     vide se voit, une case inventée ne se voit pas. */
+  .acompleter { background: color-mix(in srgb, var(--bougain) 18%, transparent); color: var(--eyebrow); font-family: var(--util); font-size: 0.9em; font-weight: 700; padding: 0.1rem 0.35rem; border-radius: 3px; }
+  .union-grille { display: grid; gap: 1rem; border: 1px solid var(--rule); background: var(--surface); border-radius: 14px; padding: 1.25rem; }
+  @media (min-width: 640px) { .union-grille { grid-template-columns: 1fr 1fr; } .union-grille .large { grid-column: 1 / -1; } }
+  .union-grille dt { display: block; }
+  .union-grille dd { margin: 0.25rem 0 0; font-size: var(--t-sm); line-height: 1.4; }
+  .questions { margin-top: clamp(3rem, 8vw, 4.5rem); border: 1px solid var(--eyebrow); background: color-mix(in srgb, var(--bougain) 8%, transparent); border-radius: 16px; padding: clamp(1.25rem, 4vw, 2rem); }
+  .questions h2 { font-size: 1.25rem; line-height: 1.3; }
+  .questions > p { margin-top: 0.5rem; max-width: 62ch; font-size: var(--t-sm); color: var(--text-soft); }
+  .questions ol { list-style: none; margin: 1rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.65rem; counter-reset: q; }
+  .questions li { display: flex; gap: 0.75rem; font-size: var(--t-sm); line-height: 1.6; counter-increment: q; }
+  .questions li::before { content: counter(q, decimal-leading-zero); flex: none; font-family: var(--util); font-size: 0.6875rem; color: var(--eyebrow); font-variant-numeric: tabular-nums; }
+
+  /* Le résumé du circuit sur l'accueil : ce qu'on **fait**, pas où l'on
+     dort. « Ubud, 4 nuits » ne dit pas qu'on descend le Batur à vélo le
+     septième jour. */
+  .portrait-lien { display: block; text-decoration: none; }
+  .portrait-appel { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; min-height: 44px; margin-top: 0.9rem; border-top: 1px solid var(--rule); padding-top: 0.75rem; font-size: var(--t-sm); color: var(--accent); }
+  .valeurs-lien { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; border-bottom: 1px solid var(--soleil); font-family: var(--display); font-size: clamp(1.05rem, 2.8vw, 1.3rem); color: var(--on-immersive); text-decoration: none; }
+  .valeurs-lien span { color: var(--soleil); }
+
+  .forts { list-style: none; margin: 0; padding: 0; }
+  .forts li { display: flex; align-items: baseline; gap: 0.9rem; border-bottom: 1px solid var(--rule); padding-block: 0.65rem; }
+  .forts li:last-child { border-bottom: 0; }
+  .forts .label { flex: none; color: var(--eyebrow); font-variant-numeric: tabular-nums; }
+  .forts span:last-child { font-size: var(--t-sm); line-height: 1.6; }
+  .circuit-route { margin-top: 1rem; border-top: 1px solid var(--rule); padding-top: 1rem; font-size: var(--t-sm); line-height: 1.6; color: var(--text-soft); }
+  .circuit-route .label { display: block; color: var(--text-faint); margin-bottom: 0.25rem; }
 
 </style>
 
@@ -1023,7 +1166,13 @@
       <a href="#tarifs" data-goto="tarifs">Tarifs</a>
     </nav>
     <button class="nav-burger" type="button" id="burger" aria-expanded="false" aria-label="Ouvrir le menu">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <!-- Trois traits, mais de largeurs décroissantes : c'est la
+           silhouette du meru, le toit à étages qui se rétrécit vers le
+           ciel, et c'est en même temps le hamburger que tout le monde
+           sait lire. On ne troque pas une convention contre un symbole,
+           on la redessine — un candi bentar à cette place aurait été
+           plus balinais et parfaitement illisible. -->
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M8 6.5h8M5.5 12h13M3 17.5h18"/></svg>
     </button>
     <a class="btn btn-accent nav-wa" href="#sur-mesure">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
@@ -1032,6 +1181,7 @@
   
   </div>
 
+  <div class="linteau" aria-hidden="true"></div>
 </header>
 
 <!-- ⚠️ Le panneau est **hors du <header>**, et ce n'est pas un détail de
@@ -1085,7 +1235,14 @@
 
     <div class="agus-grid">
       <figure class="portrait-frame reveal" style="margin: 0">
-        <div class="portrait" id="portrait"></div>
+        <!-- Le portrait est cliquable, et **il le dit**. Une photo qui
+             navigue sans le montrer est un piège : on l'apprend en cliquant
+             par hasard, ou jamais. La ligne d'appel porte l'affordance, la
+             photo ne fait que l'élargir à une cible confortable. -->
+        <a href="#portrait-agus" data-goto="portrait" data-de="esprit" class="portrait-lien">
+          <div class="portrait" id="portrait"></div>
+          <span class="portrait-appel">Son portrait, sa famille, son union <span aria-hidden="true">&rarr;</span></span>
+        </a>
         <figcaption class="portrait-cap">
           <span class="label">Agus Yudiarta</span>
           <span class="label">Denpasar · 08°39'S 115°13'E</span>
@@ -1186,10 +1343,12 @@
         </li>
       </ul>
 
-      <p class="valeurs-chute">Chaque voyage organisé en direct, c'est un guide
-      balinais de plus qui vit de son métier sans dépendre d'une agence — et une
-      famille de Sidemen, de Munduk ou de Tenganan qui accueille chez elle
-      plutôt que de servir un autocar.</p>
+      <!-- La chute du panneau a déménagé sur la vue portrait, où elle ouvre
+           le développement. L'accueil garde ce qui embarque — le titre, le
+           chapô, les trois points — et pas la démonstration complète, qui
+           ajoutait un écran de défilement à une page qui en fait déjà
+           dix-neuf. -->
+      <p class="valeurs-chute"><a href="#portrait-agus" data-goto="portrait" data-de="valeurs" class="valeurs-lien">Sa famille, son pays, son union de guides <span aria-hidden="true">&rarr;</span></a></p>
     </div>
   </div>
 </section>
@@ -1399,6 +1558,117 @@
 </section>
 
 <div class="shell back-home view-livre" style="padding-bottom: clamp(3rem, 8vw, 4.5rem)">
+  <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
+    &larr; <span class="retour-libelle">Retour à l'accueil</span>
+  </a>
+</div>
+
+<div class="shell back-home view-circuit">
+  <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
+    &larr; <span class="retour-libelle">Retour à l'accueil</span>
+  </a>
+</div>
+
+<!-- ============================ LE CIRCUIT, EN ENTIER ============================
+     Pourquoi une vue et pas un dépliant sur l'accueil : quinze journées
+     détaillées font huit écrans de défilement. Sur l'accueil, elles
+     passeraient entre quelqu'un qui n'a pas encore décidé et la suite du
+     parcours. Ici, on n'arrive que si on veut savoir — et alors on veut
+     tout savoir, pas un résumé de plus. -->
+<section class="band ground-ivoire view-circuit" id="circuit-detail" style="padding-top: clamp(1.5rem, 4vw, 2.5rem)">
+  <div class="shell">
+    <p class="label sec-eyebrow">Le circuit, en entier</p>
+    <h1 style="margin-top: 0.5rem; max-width: 18ch; font-size: clamp(2rem, 6vw, 3rem); line-height: 1.05">Quinze jours, jour par jour.</h1>
+    <p style="margin-top: 1.25rem; max-width: 64ch; font-size: var(--t-lg); color: var(--text-soft)" id="circuitIntro"></p>
+    <div class="circuit-detail-scene" id="circuitDetailScene"></div>
+    <div class="cadre-grille" id="circuitCadre"></div>
+    <div class="cadre-prix" id="circuitPrix"></div>
+
+    <div class="part-tete"><span class="part-sym" id="symEtapes"></span><h2>Où vous dormez</h2></div>
+    <ol class="etapes" id="circuitEtapes"></ol>
+
+    <div class="part-tete"><span class="part-sym" id="symJours"></span><h2>Le jour par jour</h2></div>
+    <ol class="jours" id="circuitJours"></ol>
+
+    <div class="part-tete"><span class="part-sym" id="symPrix"></span><h2>Ce que le prix comprend</h2></div>
+    <p style="margin-top: 1rem; max-width: 64ch; color: var(--text-soft)" id="circuitPrixNote"></p>
+    <div class="compris-grille">
+      <ul class="compris" id="circuitCompris"></ul>
+      <ul class="compris non-compris" id="circuitNonCompris"></ul>
+    </div>
+
+    <div class="sortie">
+      <h2>Maintenant, dites-moi ce que vous en gardez.</h2>
+      <p>Ce programme est un point de départ, pas un produit. On enlève une
+      journée de temples, on rallonge Munduk, on ajoute Nusa Penida, on
+      supprime le rafting : dites-le-moi et je refais le compte. Si vous
+      préférez n'avoir à penser à rien, je choisis et je réserve aussi vos
+      hôtels.</p>
+      <a class="btn btn-sun" href="#sur-mesure" data-goto="home" data-de="sur-mesure">Partir de ce circuit et l'ajuster</a>
+    </div>
+  </div>
+</section>
+<div class="shell back-home view-circuit" style="padding-bottom: clamp(3rem, 8vw, 4.5rem)">
+  <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
+    &larr; <span class="retour-libelle">Retour à l'accueil</span>
+  </a>
+</div>
+<div class="shell back-home view-portrait">
+  <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
+    &larr; <span class="retour-libelle">Retour à l'accueil</span>
+  </a>
+</div>
+
+<!-- ============================ LE PORTRAIT ============================
+     Les faits **restent** sur l'accueil : le dépliant « fiche d'identité »
+     n'a pas bougé, le panneau des valeurs non plus. Ce qui part ici, c'est
+     le développement — l'homme, sa famille, son pays, son union de guides.
+     Personne ne lit ça avant d'avoir décidé de faire confiance ; tout le
+     monde le lit après, et c'est ce moment-là qui décide d'écrire ou de
+     refermer.
+     Règle tenue à la lettre : rien d'inventé sur un homme réel. Ce qui
+     n'est pas su porte un marqueur rouge. -->
+<section class="band ground-ivoire view-portrait" id="portrait-agus" style="padding-top: clamp(1.5rem, 4vw, 2.5rem)">
+  <div class="shell">
+    <div class="portrait-tete">
+      <figure class="portrait-fig">
+        <div class="arch portrait-photo" id="portraitPhoto"></div>
+        <figcaption class="label" style="margin-top: 0.9rem; color: var(--text-faint)">Denpasar · 08°39'S 115°13'E</figcaption>
+      </figure>
+      <div>
+        <p class="label sec-eyebrow">Le portrait</p>
+        <h1 style="margin-top: 0.5rem; font-size: clamp(2rem, 6vw, 3rem); line-height: 1.05">Agus Yudiarta</h1>
+        <p style="margin-top: 1rem; font-size: var(--t-lg); color: var(--text-soft)">Guide balinais diplômé, francophone, professionnel depuis octobre 2005. Je conduis moi-même, je traduis moi-même, et je travaille en direct — sans agence entre vous et moi.</p>
+        <blockquote class="portrait-cite" id="portraitCite"></blockquote>
+        <div class="avert">
+          <b>Cette page attend les mots d'Agus.</b> Les faits vérifiés y sont ;
+          ce qui est signalé en rouge ne peut venir que de lui, et n'a surtout
+          pas à être deviné. Les questions sont listées en bas de page.
+        </div>
+      </div>
+    </div>
+
+    <div class="part-tete"><span class="part-sym" id="symMetier"></span><h2>Le métier, en faits</h2></div>
+    <ul class="fiche-grille" id="portraitFiche"></ul>
+
+    <div class="part-tete"><span class="part-sym" id="symFamille"></span><h2>Ma famille</h2></div>
+    <div class="portrait-corps" id="portraitFamille"></div>
+
+    <div class="part-tete"><span class="part-sym" id="symPays"></span><h2>Mon pays, et ce que j'en montre</h2></div>
+    <div class="portrait-corps" id="portraitPays"></div>
+
+    <div class="part-tete"><span class="part-sym" id="symUnion"></span><h2>Les guides de Bali, et mon union</h2></div>
+    <div class="portrait-corps" id="portraitUnion"></div>
+
+    <div class="questions">
+      <h2>Les six questions à poser à Agus</h2>
+      <p>Elles sont affichées ici, et non rangées dans un fichier de notes,
+      parce qu'un fichier de notes ne se rouvre pas.</p>
+      <ol id="portraitQuestions"></ol>
+    </div>
+  </div>
+</section>
+<div class="shell back-home view-portrait" style="padding-bottom: clamp(3rem, 8vw, 4.5rem)">
   <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
     &larr; <span class="retour-libelle">Retour à l'accueil</span>
   </a>
@@ -2538,6 +2808,231 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
     observeReveals();
   }
 
+
+  /* <<< CIRCUIT — repris de lib/circuit.js
+     Le jour par jour était volontairement absent : « c'est le livrable
+     d'Agus et la raison même de lui écrire ». Deux choses ont rendu la
+     règle caduque — ce texte est **déjà public** sur balidecouverte.fr,
+     et c'est ce qu'on vient chercher : « quinze jours, 1 210 € » ne se
+     décide pas sur un résumé. Ce qui reste vrai : l'accueil n'en montre
+     que le résumé, le détail vit sur sa propre vue. */
+  var CADRE = {
+  personnes: "2 voyageurs",
+  jours: 15,
+  joursGuides: 14,
+  nuits: 14,
+  periode: "Janvier, février, mars, novembre et décembre 2026",
+  vehicule:
+    "Toyota Avanza climatisée — quatre personnes à bord, moi compris, avec les valises",
+  degressif:
+    "À trois ou quatre voyageurs, le prix par personne baisse. À vous de me dire combien vous êtes.",
+};
+
+  var JOURS = [
+  {
+    j: 1,
+    nuit: "Candidasa",
+    titre: "L'arrivée, sans rien à porter",
+    etapes: [
+      "Je vous accueille à l'aéroport",
+      "Massage balinais à côté de l'aéroport",
+      "Transfert vers l'est de Bali",
+    ],
+  },
+  {
+    j: 2,
+    nuit: "Candidasa",
+    titre: "Le royaume de Karangasem",
+    etapes: [
+      "Marché traditionnel d'Amlapura, où la vie locale se déroule sans nous attendre",
+      "Palais royal de Karangasem",
+      "Palais d'eau de Tirta Gangga, puis promenade dans les rizières voisines (environ 45 minutes)",
+      "La corniche est en voiture",
+      "Baignade à la plage de Pasir Putih",
+    ],
+  },
+  {
+    j: 3,
+    nuit: "Sidemen",
+    titre: "Tenganan, à pied",
+    etapes: [
+      "Marche d'environ 2 h 30 du village de Kastala au village indigène de Tenganan, par les rizières et les villages. La présence d'un guide de sentier est obligatoire",
+      "Visite du village indigène de Tenganan",
+      "Baignade ou snorkeling au Blue Lagoon, près du port de Padang Bai",
+      "L'ancienne cour de justice de Klungkung",
+    ],
+  },
+  {
+    j: 4,
+    nuit: "Ubud",
+    titre: "Le temple mère, et les laves du Batur",
+    etapes: [
+      "Temple mère de Besakih, le plus vénéré des Balinais hindous",
+      "Marche d'environ une heure dans la coulée de lave du volcan Batur (1 717 mètres)",
+      "Temple des bains sacrés de Tirta Empul",
+      "Les rizières de Tegallalang",
+    ],
+  },
+  {
+    j: 5,
+    nuit: "Ubud",
+    titre: "Barong, les singes et le cochon grillé",
+    etapes: [
+      "Spectacle de Barong à Batubulan — la bataille du Bien et du Mal, qui se termine sur un match nul. Quinze minutes de Legong, puis une opérette masquée d'environ trois quarts d'heure",
+      "Ateliers de sculpture sur pierre et sur bois",
+      "Forêt des singes d'Ubud",
+      "Déjeuner de cochon grillé à la broche chez Mère Oka (boissons non incluses)",
+      "Marché d'Ubud et ses rues commerçantes",
+      "Soin du corps dans un spa d'Ubud — massage, gommage, bain floral, environ deux heures",
+    ],
+  },
+  {
+    j: 6,
+    nuit: "Ubud",
+    titre: "La grotte de l'éléphant, et le théâtre d'ombres",
+    etapes: [
+      "Temple de Goa Gajah, littéralement la grotte de l'éléphant (XIᵉ siècle)",
+      "Marché traditionnel et artisanal de Sukawati",
+      "Déjeuner de poisson grillé sur la plage de Lebih, très fréquentée par les Balinais (boissons non incluses)",
+      "Village traditionnel de Penglipuran",
+      "Rencontre avec un marionnettiste : vous apprenez à jouer du gender (xylophone de métal) et du rindik (xylophone de bambou), puis vous assistez à un théâtre d'ombres d'une vingtaine de minutes",
+    ],
+  },
+  {
+    j: 7,
+    nuit: "Ubud",
+    titre: "Descente à vélo, rafting sur l'Ayung",
+    etapes: [
+      "Descente à vélo depuis la région du Batur jusqu'à Ubud — 90 % de descente, à travers les plantations de mandariniers et les rizières",
+      "Rafting dans les gorges de l'Ayung, déjeuner et deux boissons sans alcool inclus",
+    ],
+  },
+  {
+    j: 8,
+    nuit: "Munduk",
+    titre: "Jatiluwih, et la cuisine chez l'habitant",
+    etapes: [
+      "Rizières de Jatiluwih, au patrimoine mondial de l'UNESCO depuis 2012, avec une balade possible d'environ 45 minutes",
+      "Marché composite de Bedugul — fruits, légumes, fleurs, épices, artisanat",
+      "Temple d'Ulun Danu Beratan, le plus photographié de l'île",
+      "Cours de cuisine balinaise et d'offrandes chez l'habitant, à Munduk, suivi du dîner que vous aurez préparé",
+    ],
+  },
+  {
+    j: 9,
+    nuit: "Munduk",
+    titre: "Blimbing, le café et le grand ficus",
+    etapes: [
+      "Marche d'environ 1 h 30 dans les rizières en terrasse de Blimbing, très peu visitées",
+      "Montée dans la plantation de caféiers jusqu'à la cascade de Pujungan (une heure aller-retour)",
+      "Le grand ficus, un arbre qui enjambe la route au fond de la région, loin de tout circuit touristique",
+    ],
+  },
+  {
+    j: 10,
+    nuit: "Lovina",
+    titre: "Tamblingan en pirogue, Sekumpul à pied",
+    etapes: [
+      "Cascade de Munduk",
+      "Forêt primaire de Tamblingan, et tour du lac en pirogue (environ 1 h 45)",
+      "Marche d'environ deux heures jusqu'à la cascade de Sekumpul, la plus belle du nord de Bali, où l'on peut se baigner. La présence d'un guide de sentier est obligatoire",
+    ],
+  },
+  {
+    j: 11,
+    nuit: "Pemuteran",
+    titre: "Les dauphins, à 5 h 45",
+    etapes: [
+      "Départ à 5 h 45 en bateau à balancier : le lever du jour sur la mer, et les dauphins",
+      "Retour à l'hôtel pour le petit-déjeuner",
+      "Temple bouddhiste de Banjar",
+      "Baignade dans la source d'eau chaude de Banjar",
+      "Temple de Melanting, avec une promenade possible dans les vignes voisines (environ 30 minutes)",
+    ],
+  },
+  {
+    j: 12,
+    nuit: "Pemuteran",
+    titre: "Menjangan, et la plus grande saline de Bali",
+    etapes: [
+      "Snorkeling autour de l'île de Menjangan — tombants vertigineux, coraux, myriades de poissons (non compris dans la formule)",
+      "La plus grande saline de Bali, environ 400 hectares, que les cars ne connaissent pas",
+      "Le coucher du soleil depuis une colline de Pemuteran",
+    ],
+  },
+  {
+    j: 13,
+    nuit: "Sanur",
+    titre: "La côte ouest, jusqu'à Tanah Lot",
+    etapes: [
+      "La corniche nord-ouest puis sud-ouest de l'île, en voiture",
+      "Village chrétien de Palasari, son église et sa grotte de Marie qui rappelle Lourdes",
+      "Port de Perancak et ses grands bateaux de pêche multicolores",
+      "Temple de Tanah Lot",
+    ],
+  },
+  {
+    j: 14,
+    nuit: "Sanur",
+    titre: "Denpasar, puis le Bukit",
+    etapes: [
+      "Marché traditionnel et marché aux oiseaux de Denpasar",
+      "La presqu'île de Bukit, et la plage de Padang-Padang",
+      "Temple d'Uluwatu, bâti sur une falaise qui rappelle Étretat",
+      "Fin de mes prestations",
+    ],
+  },
+  {
+    j: 15,
+    nuit: null,
+    titre: "Le retour",
+    etapes: [
+      "Transfert à l'aéroport par un chauffeur",
+      "Fin de ma gestion. Je vous souhaite un bon retour",
+    ],
+  },
+];
+
+  var COMPRIS = [
+  "Toutes les entrées : temples, palais, sites archéologiques, rizières, plages, parkings",
+  "Un massage balinais (1ᵉʳ jour)",
+  "Deux prestations de guide de sentier, obligatoires sur ces chemins (3ᵉ et 10ᵉ jour)",
+  "Un spectacle de danse-opérette balinaise (5ᵉ jour)",
+  "Deux entrées à la forêt des singes (5ᵉ jour)",
+  "Un soin du corps (5ᵉ jour)",
+  "Trois déjeuners (5ᵉ, 6ᵉ et 7ᵉ jour)",
+  "La rencontre avec le marionnettiste (6ᵉ jour)",
+  "La location des vélos et toute sa logistique (7ᵉ jour)",
+  "Le rafting sur l'Ayung (7ᵉ jour)",
+  "Le cours de cuisine balinaise et d'offrandes, et le dîner (8ᵉ jour)",
+  "La promenade en pirogue sur le lac Tamblingan (10ᵉ jour)",
+  "La sortie en bateau à balancier à la rencontre des dauphins (11ᵉ jour)",
+  "Le bain chaud de Banjar (11ᵉ jour)",
+  "Ma rémunération pendant 14 jours, mon propre hébergement compris",
+  "Le véhicule climatisé, son assurance et l'essence pendant 14 jours",
+];
+
+  var NON_COMPRIS = [
+  "Vos hébergements — mais je peux les choisir, vous les proposer et les réserver",
+  "Les petits-déjeuners, les déjeuners (sauf les 5ᵉ, 6ᵉ et 7ᵉ jour) et les dîners (sauf le 8ᵉ)",
+  "Masque, tuba, palmes, plongée sous-marine, bateau et ticket pour le snorkeling autour de Menjangan (12ᵉ jour)",
+  "Les frais supplémentaires dus à un changement de programme de dernière minute à votre initiative",
+  "Les assurances particulières auxquelles vous souhaiteriez souscrire",
+];
+
+  /* Six lignes, choisies pour ce qu'elles font **faire** et non pour ce
+     qu'elles font voir : c'est la différence entre un circuit et une
+     liste de temples. Chacune renvoie à un jour réel du programme. */
+  var TEMPS_FORTS = [
+  { jour: 3, texte: "Deux heures et demie à pied jusqu'à Tenganan, par les rizières" },
+  { jour: 7, texte: "La descente du Batur à vélo, puis le rafting dans les gorges de l'Ayung" },
+  { jour: 8, texte: "Cuisiner chez l'habitant à Munduk, et dîner de ce qu'on a fait" },
+  { jour: 10, texte: "Deux heures de marche jusqu'à la cascade de Sekumpul, et la baignade" },
+  { jour: 11, texte: "Les dauphins à 5 h 45, en bateau à balancier" },
+  { jour: 12, texte: "Les quatre cents hectares de la saline de Pemuteran, sans personne" },
+];
+  /* CIRCUIT >>> */
+
   /* ---------- Rendu : le circuit (un seul désormais) ---------- */
   function renderCircuit() {
     var c = CIRCUITS[0];
@@ -2555,24 +3050,179 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
           '</span>' +
         '</div>' +
       '</div>' +
+        '<p class="circuit-route"><span class="label">L\'itinéraire</span>' +
+          c.etapes.map(function (e) { return e.lieu; }).join(" · ") + '</p>' +
+      '</div>' +
       '<div class="reveal">' +
-        '<p class="label" style="color: var(--eyebrow); margin-bottom: 1rem">Où vous dormez</p>' +
-        '<ol class="etapes">' +
-          c.etapes.map(function (e) {
-            return '<li><span><b>' + e.lieu + '</b> <span class="etape-region">' + e.region + '</span></span>' +
-              '<span class="label">' + e.nuits + (e.nuits > 1 ? " nuits" : " nuit") + '</span></li>';
+        '<p class="label" style="color: var(--eyebrow); margin-bottom: 1rem">Six journées sur quinze</p>' +
+        '<ul class="forts">' +
+          TEMPS_FORTS.map(function (t) {
+            return '<li><span class="label">J' + t.jour + '</span><span>' + t.texte + '</span></li>';
           }).join("") +
-        '</ol>' +
+        '</ul>' +
         '<p class="circuit-heb">Hébergements à votre charge par défaut — mais Agus ' +
         'peut les choisir, vous les proposer et les réserver.</p>' +
         '<div class="fiche-actions">' +
           '<button class="btn ' + (base ? "btn-outline" : "btn-accent") + '" type="button" data-base="' + c.id + '"' +
             (base ? ' style="color: var(--accent)"' : '') + '>' +
             (base ? "\u2713 C'est ma base de départ" : "Commencer par ce circuit") + '</button>' +
+          '<a href="#circuit-detail" data-goto="circuit" data-de="circuit">Les quinze journées en détail &rarr;</a>' +
           '<a href="#tarifs" data-goto="tarifs">Ce que comprend ce prix</a>' +
         '</div>' +
       '</div>';
     observeReveals();
+  }
+
+
+  /* ---------- Rendu : le circuit en entier ---------- */
+  function renderCircuitDetail() {
+    var c = CIRCUITS[0];
+    $("circuitIntro").textContent =
+      "Voici le programme tel que je le conduis. Il n'est pas là pour être " +
+      "signé : il est là pour que vous sachiez exactement ce que vous achetez, " +
+      "et pour que vous puissiez me dire ce que vous voulez en retirer. " + CADRE.degressif;
+    $("circuitDetailScene").innerHTML = scene(c.scene, 1200, 515, "circuit-detail");
+    $("symEtapes").innerHTML = symbole("candi", 30);
+    $("symJours").innerHTML = symbole("penjor", 30);
+    $("symPrix").innerHTML = symbole("poleng", 30);
+
+    $("circuitCadre").innerHTML = [
+      ["Base du devis", CADRE.personnes],
+      ["Durée", CADRE.jours + " jours, dont " + CADRE.joursGuides + " en ma compagnie"],
+      ["Nuits", CADRE.nuits + " nuits, " + c.etapes.length + " étapes"],
+      ["Véhicule", CADRE.vehicule]
+    ].map(function (x) {
+      return '<div><span><span class="label">' + x[0] + '</span><b>' + x[1] + '</b></span></div>';
+    }).join("");
+
+    $("circuitPrix").innerHTML =
+      '<span><span class="label" style="color: var(--eyebrow)">Activités, transport et chauffeur-guide francophone</span>' +
+      '<span class="montant">' + c.prixDeux + ' pour deux</span>' +
+      '<span style="font-size: var(--t-sm); color: var(--text-soft)">soit ' + c.prixPers +
+      ' par personne — hébergements non compris</span></span>' +
+      '<span style="font-size: var(--t-sm); color: var(--text-soft)">Devis établi pour : ' +
+      CADRE.periode.toLowerCase() + '.</span>';
+
+    $("circuitEtapes").innerHTML = c.etapes.map(function (e) {
+      return '<li><span><b>' + e.lieu + '</b> <span class="etape-region">' + e.region + ' de Bali</span></span>' +
+        '<span class="label">' + e.nuits + (e.nuits > 1 ? " nuits" : " nuit") + '</span></li>';
+    }).join("");
+
+    $("circuitJours").innerHTML = JOURS.map(function (d) {
+      return '<li id="jour-' + d.j + '">' +
+        '<span class="jour-num">Jour<b>' + d.j + '</b></span>' +
+        '<div><h3>' + d.titre + '</h3><ul>' +
+          d.etapes.map(function (e) { return "<li>" + e + "</li>"; }).join("") +
+        '</ul>' +
+        (d.nuit ? '<p class="label jour-nuit">Nuit à ' + d.nuit + '</p>' : '') +
+        '</div></li>';
+    }).join("");
+
+    $("circuitPrixNote").textContent =
+      "Cette liste est longue, et c'est l'argument : tant qu'on ne l'a pas lue, " +
+      c.prixPers + " par personne se compare à une location de voiture. Une fois lue, non.";
+    $("circuitCompris").innerHTML = COMPRIS.map(function (x) { return "<li>" + x + "</li>"; }).join("");
+    $("circuitNonCompris").innerHTML =
+      '<li class="titre"><span class="label" style="color: var(--eyebrow)">Non compris</span></li>' +
+      NON_COMPRIS.map(function (x) { return "<li>" + x + "</li>"; }).join("");
+  }
+
+  /* ---------- Rendu : le portrait ---------- */
+  /* `null` dans PORTRAIT = une chose que seul Agus peut dire. Elle sort
+     en marqueur rouge, jamais en phrase plausible. */
+  var UNION = { nom: null, depuis: null, role: null, effectif: null, actions: null };
+  var HISTOIRE = { origine: null, francais: null, debut: null, epouse: null };
+  var QUESTIONS = [
+    "Comment s'appelle exactement votre union de guides, et depuis quand en faites-vous partie ?",
+    "Que fait-elle concrètement ? Trois exemples valent mieux qu'une définition.",
+    "Combien de guides êtes-vous, et dans quelles langues travaillez-vous ?",
+    "Où avez-vous grandi, et où avez-vous appris le français ?",
+    "Qu'est-ce qui vous a fait devenir guide en 2005 ?",
+    "Que voulez-vous qu'on dise de votre famille — et que préférez-vous garder pour vous ?"
+  ];
+  function valeur(v, quoi) {
+    return v ? v : '<mark class="acompleter">[à compléter — ' + quoi + ']</mark>';
+  }
+
+  function renderPortrait() {
+    $("portraitPhoto").innerHTML = portraitScene();
+    $("portraitCite").textContent =
+      "« En tant que guide, je suis un ambassadeur du tourisme de mon pays, " +
+      "et je peux donc vous assurer que je travaille professionnellement et " +
+      "surtout avec tout mon cœur. »";
+    $("symMetier").innerHTML = symbole("tedung", 30);
+    $("symFamille").innerHTML = symbole("rangs", 30);
+    $("symPays").innerHTML = symbole("padma", 30);
+    $("symUnion").innerHTML = symbole("gong", 30);
+
+    $("portraitFiche").innerHTML = [
+      ["Certification", "Diplômé guide francophone"],
+      ["Métier", "Professionnel depuis octobre 2005"],
+      ["Langues", "Je guide en français et anglais"],
+      ["Union", "Membre d'une union de guides de Bali"],
+      ["Famille", "Marié, deux filles de 12 et 9 ans et un garçon de 5 ans"],
+      ["Véhicules", AGUS_VEHICULES.map(function (v) { return v.split(" — ")[0]; }).join(" · ")]
+    ].map(function (x) {
+      return '<li><span class="label">' + x[0] + '</span><span>' + x[1] + '</span></li>';
+    }).join("");
+
+    /* Le point « Ma famille d'abord » du panneau des valeurs s'ouvre sur
+       « Marié, trois enfants » — la ligne au-dessus le dit déjà, et en
+       plus précis. On ne reprend donc que sa seconde moitié. */
+    $("portraitFamille").innerHTML =
+      '<p class="fort">Marié, deux filles de 12 et 9 ans et un garçon de 5 ans.</p>' +
+      "<p>Ce que vous payez les fait vivre — comme il fait vivre le chauffeur et " +
+      "les familles qui vous accueillent chez elles, pas une commission d'intermédiaire.</p>" +
+      '<p class="encart">' + canang(50) +
+      "<span>Chaque matin, avant de prendre la route, je dépose un <em>canang sari</em> " +
+      "sur le tableau de bord : quelques fleurs dans un panier de feuille de palme " +
+      "tressée. C'est trois minutes, et c'est le vrai début de la journée.</span></p>" +
+      "<p><b>Wayan, Made, Nyoman, Ketut.</b> Ce ne sont pas des prénoms mais des rangs " +
+      "de naissance, et au cinquième enfant on repart à Wayan. Mes enfants portent les " +
+      "leurs, comme tout le monde ici.</p>" +
+      "<p style=\"color: var(--text-faint)\">Ce qu'Agus veut bien qu'on dise de plus : " +
+      valeur(HISTOIRE.epouse, "ce qu'il souhaite partager, et ce qu'il garde") + "</p>";
+
+    $("portraitPays").innerHTML =
+      "<p>Je suis balinais, diplômé, et je travaille en direct depuis vingt ans. " +
+      "Ce n'est pas seulement une façon de baisser le prix : c'est une façon de " +
+      "faire vivre un métier, et de tenir la promesse que je fais à mon pays.</p>" +
+      "<p>Chaque voyage organisé en direct, c'est un guide balinais de plus qui " +
+      "vit de son métier sans dépendre d'une agence — et une famille de Sidemen, " +
+      "de Munduk ou de Tenganan qui accueille chez elle plutôt que de servir un " +
+      "autocar.</p>" +
+      "<p>Ce que je montre n'est pas ce qu'un autocar peut atteindre. Une saline où " +
+      "personne ne s'arrête, un ficus qui enjambe une route au fond de Munduk, un " +
+      "village qui reçoit chez lui parce qu'on s'y connaît : ces endroits existent " +
+      "parce que quelqu'un du pays y a ses entrées, et ils cessent d'exister le jour " +
+      "où on en publie l'adresse.</p>";
+
+    $("portraitUnion").innerHTML =
+      '<p class="fort">Membre d\'une union de guides de Bali.</p>' +
+      "<p>Je travaille avec d'autres guides francophones et anglophones au sein " +
+      "d'une union de guides de Bali. Quand je ne suis pas disponible, je passe le " +
+      "relais à quelqu'un que je connais — jamais à un inconnu envoyé par une " +
+      "centrale.</p>" +
+      "<p>Un guide balinais qui travaille en direct fixe son prix, choisit ses journées " +
+      "et répond de son travail devant les voyageurs eux-mêmes. C'est un métier, pas " +
+      "une prestation revendue : il tient debout tant que des guides se tiennent " +
+      "ensemble — pour se passer le relais, se former, et ne pas se laisser mettre en " +
+      "concurrence les uns contre les autres.</p>" +
+      '<dl class="union-grille">' +
+        [["Son nom", UNION.nom, "le nom exact, et sa traduction"],
+         ["Membre depuis", UNION.depuis, "l'année"],
+         ["Son rôle", UNION.role, "membre, ou une responsabilité"],
+         ["Combien de guides", UNION.effectif, "l'effectif, et les langues"]].map(function (x) {
+          return '<div><dt class="label" style="color: var(--text-faint)">' + x[0] +
+            '</dt><dd>' + valeur(x[1], x[2]) + '</dd></div>';
+        }).join("") +
+        '<div class="large"><dt class="label" style="color: var(--text-faint)">Ce qu\'elle fait</dt>' +
+        '<dd>' + valeur(UNION.actions, "trois actions concrètes valent mieux qu'une définition") + '</dd></div>' +
+      '</dl>';
+
+    $("portraitQuestions").innerHTML = QUESTIONS.map(function (q) {
+      return "<li>" + q + "</li>";
+    }).join("");
   }
 
   /* ---------- Rendu : les envies, en deux familles ---------- */
@@ -2962,24 +3612,51 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
      posé sur `<html>` et non sur `<body>` : sur le body, qui porte une
      hauteur minimale et une disposition en colonne, `overflow: hidden`
      en fait un conteneur de défilement et la page se déplace. */
+  /* Chaque entrée porte deux choses de plus que son libellé.
+
+     `symbole` : le dessin de la famille balinaise qui désigne cette
+     section. **Ce n'est pas une décoration interchangeable** — la règle
+     du fichier des symboles vaut ici : chacun est choisi parce qu'il
+     nomme une chose que la section contient vraiment. Le canang qu'Agus
+     dépose chaque matin sur son tableau de bord, le padma déjà en
+     filigrane du panneau des valeurs, la porte fendue en deux là où la
+     page propose deux chemins, les penjor qui bordent les routes du
+     circuit, le damier noir et blanc pour la page des prix.
+
+     `gloss` : ce qu'on trouve là. C'est ce qui transforme le menu en
+     sommaire.
+
+     Sur-Mesure n'y est plus : le panneau se termine par le bouton
+     « Demander un devis », qui mène au même endroit. L'ancienne version
+     affichait les deux, à trois centimètres l'un de l'autre. */
   var MENU = [
-    ["#esprit", "Qui je suis"],
-    ["#valeurs", "Son engagement"],
-    ["#chemins", "Par où commencer"],
-    ["#circuit", "Le circuit"],
-    ["#envies", "Vos envies"],
-    ["#usages", "Us et coutumes"],
-    ["#temoignages", "Livre d'or"],
-    ["#tarifs", "Tarifs"],
-    ["#sur-mesure", "Sur-Mesure"]
+    ["#esprit", "Qui je suis", "Guide diplômé, vingt ans de route", "canang"],
+    ["#valeurs", "Son engagement", "Ce que le direct fait vivre", "padma"],
+    ["#portrait-agus", "Son portrait", "Sa famille, son pays, son union de guides", "rangs", "portrait"],
+    ["#chemins", "Par où commencer", "Deux façons d'entrer", "candi"],
+    ["#circuit", "Le circuit", "Quinze jours, sept étapes, et le jour par jour", "penjor"],
+    ["#envies", "Vos envies", "Les classiques, et les places secrètes", "tedung"],
+    ["#usages", "Us et coutumes", "Ce qu'on comprend en arrivant", "nyepi"],
+    ["#temoignages", "Livre d'or", "Sept voyageurs, leurs mots", "gong"],
+    ["#tarifs", "Tarifs", "Trois façons de compter, dites d'avance", "poleng", "tarifs"]
   ];
 
   $("navMenuList").innerHTML =
-    MENU.map(function (m) {
-      var goto = m[0] === "#tarifs" ? ' data-goto="tarifs"' : "";
-      return '<a href="' + m[0] + '"' + goto + ">" + m[1] + "</a>";
+    MENU.map(function (m, i) {
+      var goto = m[4] ? ' data-goto="' + m[4] + '"' : "";
+      return '<a class="plaque" href="' + m[0] + '"' + goto + '>' +
+        '<span class="plaque-num">' + String(i + 1).padStart(2, "0") + '</span>' +
+        '<span class="plaque-sym">' + symbole(m[3], 26) + '</span>' +
+        '<span class="plaque-txt">' +
+          '<span class="plaque-titre">' + m[1] + '</span>' +
+          '<span class="plaque-gloss">' + m[2] + '</span>' +
+        '</span>' +
+        '<span class="plaque-puce"></span>' +
+      '</a>';
     }).join("") +
-    '<a class="btn btn-accent btn-lg" href="#sur-mesure">Demander un devis</a>';
+    '<a class="btn btn-accent btn-lg" href="#sur-mesure">Demander un devis</a>' +
+    '<span class="nav-seuil">' + symbole("candi", 44, 1.1) +
+      '<p>Om Swastiastu — réponse sous 24 h, en français.</p></span>';
 
   function menuOuvrir(ouvert) {
     document.body.dataset.menu = String(ouvert);
@@ -2991,9 +3668,13 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
 
   function majMenuRepere() {
     var courante = sectionCourante();
-    [].forEach.call($("navMenuList").querySelectorAll("a[href^='#']"), function (a) {
-      if (a.getAttribute("href").slice(1) === courante) a.setAttribute("aria-current", "true");
+    [].forEach.call($("navMenuList").querySelectorAll("a.plaque"), function (a) {
+      var ici = a.getAttribute("href").slice(1) === courante;
+      if (ici) a.setAttribute("aria-current", "true");
       else a.removeAttribute("aria-current");
+      /* La couleur ne porte jamais seule une information (WCAG 1.4.1) :
+         le jepun la double, et la graisse du titre la triple. */
+      a.querySelector(".plaque-puce").innerHTML = ici ? jepunPuce(true) : "";
     });
   }
 
@@ -3007,6 +3688,8 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
   function render() {
     renderChemins();
     renderCircuit();
+    renderCircuitDetail();
+    renderPortrait();
     renderActivites();
     renderUsages();
     renderTemoins();

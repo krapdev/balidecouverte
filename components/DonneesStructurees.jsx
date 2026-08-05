@@ -1,5 +1,5 @@
 import { ORIGINE, NOM_SITE, DESCRIPTION } from "@/lib/site";
-import { AGUS, CONTACT, WHATSAPP_DISPLAY, TARIFS } from "@/lib/data";
+import { AGUS, CIRCUITS, CONTACT, WHATSAPP_DISPLAY, TARIFS } from "@/lib/data";
 import { TEMOIGNAGES } from "@/lib/temoignages";
 
 /**
@@ -91,6 +91,44 @@ export default function DonneesStructurees() {
         knowsLanguage: ["fr", "en", "id"],
         worksFor: { "@id": `${ORIGINE}/#entreprise` },
         homeLocation: { "@type": "Place", name: "Denpasar, Bali" },
+      },
+      /* Le circuit, maintenant qu'il a sa page et son programme complet.
+         `TouristTrip` est le type que Google attend pour un itinéraire ;
+         `itinerary` reprend les sept étapes **affichées** sur la page —
+         la règle « rien qui ne soit visible » vaut ici aussi. Le prix
+         est celui du forfait pour deux, avec son unité écrite en toutes
+         lettres : sans elle, un moteur lit 2420 € par personne. */
+      {
+        "@type": "TouristTrip",
+        "@id": `${ORIGINE}/circuit#circuit`,
+        name: "Circuit de 15 jours à Bali avec chauffeur-guide francophone",
+        url: `${ORIGINE}/circuit`,
+        description:
+          "Quinze jours à travers Bali, dont quatorze guidés par Agus Yudiarta : sept étapes, rizières, temples, rafting sur l'Ayung, cours de cuisine chez l'habitant et sortie aux dauphins.",
+        inLanguage: "fr",
+        provider: { "@id": `${ORIGINE}/#entreprise` },
+        touristType: "Voyageurs francophones",
+        itinerary: {
+          "@type": "ItemList",
+          numberOfItems: CIRCUITS[0].etapes.length,
+          itemListElement: CIRCUITS[0].etapes.map((e, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            item: { "@type": "Place", name: `${e.lieu}, Bali` },
+          })),
+        },
+        offers: {
+          "@type": "Offer",
+          priceCurrency: "EUR",
+          price: CIRCUITS[0].prixDeux.replace(/[^\d]/g, ""),
+          priceSpecification: {
+            "@type": "UnitPriceSpecification",
+            priceCurrency: "EUR",
+            price: CIRCUITS[0].prixDeux.replace(/[^\d]/g, ""),
+            unitText:
+              "pour deux voyageurs, activités, transport et chauffeur-guide francophone compris, hébergements non compris",
+          },
+        },
       },
       {
         "@type": "WebSite",

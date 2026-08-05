@@ -153,10 +153,18 @@ sur mobile (99 px fermé contre 554 ouvert).
 > tout. Replier de la crédibilité derrière un clic sans résumé, c'est la
 > perdre.
 
-**Pourquoi pas une page `/agus`** : ces faits sont exactement ce qui rassure un
-voyageur qui s'apprête à confier quinze jours à un inconnu. Les envoyer sur une
-page à part, c'est les mettre là où personne ne va. Ils restent là où naît la
-question.
+**Pourquoi les faits restent sur l'accueil** : ils sont exactement ce qui
+rassure un voyageur qui s'apprête à confier quinze jours à un inconnu. Les
+envoyer sur une page à part, c'est les mettre là où personne ne va. Ils restent
+donc là où naît la question — le dépliant « fiche d'identité » et le panneau des
+valeurs n'ont pas bougé.
+
+**Il existe pourtant une page `/agus`, et ce n'est pas une contradiction.** La
+règle ci-dessus interdisait de *déplacer* les faits, pas d'écrire la suite. Ce
+qui vit sur `/agus`, c'est le développement — l'homme, sa famille, son pays, son
+union de guides. Personne ne lit ça avant d'avoir décidé de faire confiance ;
+tout le monde le lit après, et c'est ce moment-là qui décide d'écrire ou de
+refermer. Voir « Le portrait » plus bas.
 
 ### Les emplacements photo
 
@@ -585,9 +593,14 @@ plus tard. Il reste facultatif — rien ici n'est un formulaire à valider.
 - **Quelle adresse e-mail est publique** : le pied de page du site donne
   `agus.yudiarta@balidecouverte.fr`, la page Présentation
   `agus.guidebali@gmail.com`. Les deux sont dans `CONTACT`, à trancher avec Agus.
-- Deux incohérences relevées **sur le site actuel**, à corriger à la source :
-  l'Avanza annoncée à « 3 personnes » et à « 4 personnes » sur la même page, et
+- Une incohérence relevée **sur le site actuel**, à corriger à la source :
   « Munduk (centre-nord de Java) » — Munduk est à Bali.
+- ~~L'Avanza annoncée à « 3 personnes » et à « 4 personnes » sur la même page.~~
+  **Réglé** : la page du circuit dit « 4 personnes (y compris moi-même) » à un
+  endroit et « 3 personnes avec les valises » à un autre. C'est la même chose
+  dite deux fois. `AGUS.vehicules` tranche depuis toujours dans le bon sens —
+  « 4 personnes chauffeur-guide compris » — et `lib/circuit.js` reprend la même
+  formule. **Ne jamais écrire « 4 voyageurs »** : ce serait faux d'un siège.
 - **Mentions légales, CGV, politique de confidentialité, conditions
   d'annulation** : absentes du site actuel, obligatoires pour une clientèle
   française.
@@ -751,6 +764,153 @@ bien-être. L'antidote est la tension : imagerie apaisée d'un côté, faits dur
 l'autre — coordonnées GPS, dénivelé, « faisable dès 10 ans », accès et niveau
 pour chaque île, prix à la ligne, itinéraire jour par jour.
 
+### Le menu : un seuil, pas une barre
+
+Le reproche était juste — c'était la barre de n'importe quel site. Logo à
+gauche, six liens au milieu, un bouton, trois traits à droite. Rien là-dedans ne
+disait Bali, alors que la page entière essaie de le dire.
+
+La contrainte posée était « sans perdre en visibilité », et elle a écarté d'un
+coup la moitié des idées : un candi bentar à la place du bouton de menu aurait
+été plus balinais et parfaitement illisible, ce qui n'aurait servi personne.
+Quatre déplacements ont survécu, tous mesurés :
+
+1. **Le linteau.** Le filet gris de 1 px sous la barre est devenu une frise de
+   dents — celle qui court sur la pierre au-dessus des portes de temple. Une
+   séparation devait exister de toute façon ; elle est maintenant sculptée au
+   lieu d'être droite. Sept pixels, un SVG en ligne, aucune requête réseau.
+   ⚠️ **La barre mesure donc 75 px et non 68**, et le haut du panneau mobile
+   suit (`top: 75px`). Les deux valeurs vont ensemble.
+2. **Le bouton de menu est un meru.** Trois traits de largeurs décroissantes :
+   c'est la silhouette du toit à étages qui se rétrécit vers le ciel, et c'est
+   en même temps, trait pour trait, le hamburger que tout le monde sait lire. On
+   ne troque pas une convention contre un symbole — on la redessine.
+3. **Le repère de position est une fleur.** La section où l'on se trouve n'est
+   plus soulignée d'un rectangle bambou mais marquée d'un jepun posé sous le
+   libellé, la fleur qui sert déjà de puce de sélection ailleurs. La graisse du
+   texte double l'information : ni la couleur ni la forme ne la portent seules
+   (WCAG 1.4.1).
+4. **Le panneau mobile devient un seuil**, et c'est là que se joue l'essentiel.
+
+#### Les plaques
+
+Chaque entrée du menu mobile porte désormais un numéro, un symbole, son libellé
+et **une ligne qui dit ce qu'il y a derrière**. C'est ce dernier point qui fait
+tout le travail : sur mobile, le menu est le seul plan de la page dont on
+dispose, et une liste de titres nus oblige à ouvrir pour savoir. « Le circuit »
+ne dit rien ; « Quinze jours, sept étapes, et le jour par jour » fait décider.
+**La visibilité s'est gagnée là, pas dans la taille du texte.**
+
+Les symboles viennent de la famille de `Symboles.jsx`, et la règle de ce
+fichier vaut ici mot pour mot : **ce ne sont pas des décorations
+interchangeables.** Chacun est choisi parce qu'il nomme une chose que la section
+contient vraiment.
+
+| Entrée | Symbole | Pourquoi celui-là |
+| --- | --- | --- |
+| Qui je suis | canang | l'offrande qu'il dépose chaque matin sur son tableau de bord, et qui est dans le texte de la section |
+| Son engagement | padma | déjà le filigrane du panneau des valeurs |
+| Son portrait | rangs | Wayan, Made, Nyoman, Ketut : une page sur un homme, sa famille et son nom |
+| Par où commencer | candi | la porte fendue **en deux**, là où la page propose deux chemins |
+| Le circuit | penjor | les bambous arqués qui bordent les routes, et que la note de période mentionne |
+| Vos envies | tedung | l'ombrelle qui signale ce qu'on honore |
+| Us et coutumes | nyepi | le jour du silence est l'un des six usages listés |
+| Livre d'or | gong | ce qui résonne après |
+| Tarifs | poleng | le damier : la règle dite en noir et blanc |
+
+Deux choses à ne pas défaire :
+
+- **La bordure gauche des plaques existe dans les deux états**, transparente au
+  repos. Sans elle, l'entrée courante se décalerait de 3 px et la liste
+  sauterait d'une ligne à l'autre au défilement.
+- **Sur-Mesure n'est plus une plaque.** Le panneau se termine par le bouton
+  « Demander un devis », qui mène au même endroit ; l'ancienne version affichait
+  les deux, à trois centimètres l'un de l'autre.
+
+Et une règle qui a failli être enfreinte : la porte fendue devait d'abord être
+posée en filigrane dans l'angle du panneau, comme le padma des valeurs. À
+390 px, le panneau est trop étroit pour qu'un dessin de 240 px trouve un coin
+sans texte — il passait sous trois libellés. **Le motif va sur un fond de
+section, jamais sous du texte.** Il ferme donc le panneau, en clair, seul sur sa
+ligne.
+
+### Le portrait — `/agus`
+
+La page que l'on atteint en cliquant sur sa photo. Elle existe parce qu'un
+guide indépendant ne se vend pas sur une prestation mais sur une personne, et
+que l'accueil ne peut pas porter les deux registres : les faits qui lèvent le
+doute (ils y restent), et l'homme qui donne envie de choisir lui plutôt qu'une
+agence.
+
+**Le portrait est cliquable, et il le dit.** Une photo qui navigue sans le
+montrer est un piège : on l'apprend en cliquant par hasard, ou jamais. La ligne
+d'appel sous la photo porte l'affordance ; la photo ne fait que l'élargir à une
+cible confortable.
+
+**Ce qui a été retiré de l'accueil** : la chute du panneau des valeurs, qui
+ouvre désormais le développement sur `/agus`. Le titre, le chapô et les trois
+points restent — c'est ce qui embarque. La démonstration complète, elle, trouve
+sa place là où quelqu'un a choisi d'aller lire.
+
+#### Rien d'inventé sur un homme réel
+
+C'est la règle qui commande toute la page, et elle a un coût visible. Ce qui est
+su vient de `AGUS` et de `VALEURS`. **Ce qui ne l'est pas porte un marqueur
+rouge** — le même composant que les pages légales, sorti dans
+`components/AComplete.jsx` pour être partagé.
+
+Il manque cinq choses, toutes dans `lib/portrait.js`, et aucune ne se devine :
+le nom exact de l'union de guides, depuis quand il en est membre, son rôle
+éventuel, l'effectif, et **ce que l'union fait concrètement**. Un nom
+d'association plausible glissé à la place d'un blanc traverse toutes les
+relectures. Les six questions à lui poser sont affichées **en bas de la page
+elle-même**, pas dans un fichier de notes : un fichier de notes ne se rouvre
+pas.
+
+Trois choses vont donc ensemble le jour où il a répondu : les marqueurs
+disparaissent, le bandeau d'avertissement de la page part, `robots: { index:
+false }` saute, et la page entre dans `app/sitemap.js`.
+
+### Le circuit en entier — `/circuit`
+
+⚠️ **Cette page renverse une règle inscrite plus haut dans ce fichier**, et il
+faut savoir pourquoi. La règle était : « le jour par jour reste absent, et c'est
+délibéré : c'est le livrable d'Agus et la raison même de lui écrire. » Deux
+choses l'ont rendue caduque :
+
+1. **Ce texte est déjà public**, mot pour mot, sur balidecouverte.fr. Le cacher
+   ici ne protégeait rien : ça privait seulement le nouveau site de la seule
+   page qui prouve le travail.
+2. **C'est ce qu'on vient chercher.** « Quinze jours, sept étapes, 1 210 € » ne
+   se décide pas sur un résumé. Quelqu'un qui hésite veut savoir ce qu'il fait
+   le neuvième jour.
+
+Ce qui reste vrai de l'ancienne règle : **l'accueil n'en montre que le résumé.**
+Quinze journées détaillées font huit écrans de défilement ; au milieu d'une page
+qui en fait déjà dix-neuf, elles passeraient entre quelqu'un qui n'a pas encore
+décidé et la suite du parcours. On ne les déplie pas non plus au clic — un
+dépliant de cette taille casse la position de lecture de tous ceux qui le
+referment.
+
+**Le résumé de l'accueil dit ce qu'on fait, pas où l'on dort.** La section
+listait les sept lieux de nuit : c'est le squelette du circuit, ce n'est pas ce
+qui donne envie d'y aller — « Ubud, 4 nuits » ne dit pas qu'on descend le Batur
+à vélo le septième jour. Six temps forts ont remplacé la liste, chacun portant
+le numéro du jour réel auquel il renvoie ; sans ce numéro, ce serait une liste
+d'arguments. Le squelette tient maintenant sur une seule ligne
+(« Candidasa · Sidemen · Ubud · … »).
+
+**Le texte suit celui d'Agus.** Les durées, les « guide de sentier obligatoire »,
+les « boissons non incluses », les noms de lieux : rien n'a été arrondi. **Ne
+pas embellir** — un programme est un engagement, et c'est lui qu'on lui
+opposera. La liste de ce que le prix comprend est longue, et c'est exactement
+l'argument : tant qu'on ne l'a pas lue, 1 210 € par personne se compare à une
+location de voiture.
+
+La page se termine comme le reste du site : par un message à écrire, où l'on dit
+ce qu'on garde et ce qu'on jette. **Elle ne doit jamais devenir un formulaire de
+réservation.**
+
 ### La navigation : savoir où l'on est, et pouvoir remonter
 
 Le reproche était double — « on scrolle et on ne peut pas revenir facilement
@@ -909,9 +1069,16 @@ après toute modification de palette.**
 
 Trois pièges si l'audit est réécrit :
 
-- Chromium sérialise `color-mix()` en **`color(srgb r g b / a)`**, composantes
-  en 0–1. Les lire comme du 0–255 fait passer un fond ivoire pour du noir et
-  produit des échecs fantômes.
+- **Ne décodez pas les couleurs à la main.** Chromium sérialise `color-mix()`
+  tantôt en `color(srgb r g b / a)` — composantes en 0–1 —, tantôt en
+  `oklab(…)`, et les deux formes se lisent faux si on les prend pour du RGB
+  0–255 : un fond ivoire passe pour du noir. La version de l'audit qui ne
+  corrigeait que la première forme a produit **vingt-quatre échecs fantômes**
+  sur une seule passe, dont toute la barre de navigation. La seule méthode
+  fiable est de laisser le navigateur décoder : on peint la couleur sur un
+  canvas 1 × 1 et on relit les octets. Elle vaut pour n'importe quelle syntaxe,
+  présente ou future. Il faut aussi **composer les couches translucides** —
+  `bg-tint/70` sur un fond sable n'est ni l'un ni l'autre.
 - Le décoratif (`aria-hidden="true"`) doit sortir de l'audit : les séparateurs
   du bandeau défilant ne sont lus par personne, et les compter noie les vraies
   régressions.

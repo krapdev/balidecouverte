@@ -258,6 +258,20 @@
       transparent 70%
     );
   }
+  /* Le linteau — la frise de dents sculptée au-dessus des portes de
+     temple, en bas de la barre de navigation.
+     Elle remplace le `border-b` : la séparation devait exister de toute
+     façon, elle est simplement dessinée au lieu d'être droite. Sept
+     pixels, une image SVG en ligne, aucune requête réseau.
+     ⚠️ La barre mesure donc 75 px et non 68. Toute valeur qui s'y
+     accroche (le haut du panneau mobile) doit suivre. */
+  .linteau {
+    height: 7px;
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2222%22%20height%3D%227%22%20viewBox%3D%220%200%2022%207%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22rgba%2871%2C102%2C53%2C0.32%29%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%201h22%22%2F%3E%3Cpath%20d%3D%22M0%201l5.5%205%205.5-5%205.5%205%205.5-5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+    background-repeat: repeat-x;
+    background-position: top left;
+  }
+
   .horizon {
     height: 1px;
     background: linear-gradient(

@@ -2,43 +2,39 @@
 
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { Menu, X, Mail } from "lucide-react";
+import { X, Mail } from "lucide-react";
 import { urlTarifs } from "@/lib/retours";
+import { NAV, ANCRES } from "@/lib/navigation";
+import { Symbole } from "./Symboles";
 import { JepunPuce } from "./Scene";
 
-/* Les tarifs vivent sur leur propre page ; tout le reste est une ancre
-   de l'accueil. Depuis /tarifs, une ancre nue ne mène nulle part — d'où
-   le préfixe « / » ajouté hors accueil par hrefFor().
-
-   Le lien Tarifs emporte la section d'où l'on part (`?de=`), pour que
-   le retour ne renvoie pas en haut de page. L'attribut href reste
-   `/tarifs` tout court : le clic milieu, la copie de lien et les robots
-   ne passent pas par le gestionnaire. */
-/* `menuSeul` : présent dans le menu mobile, absent de la barre du haut.
-   Six entrées est le maximum qui tienne sur une ligne à 1280 px — au
-   septième, elles passent à la ligne et cassent la hauteur de la barre. */
-const LINKS = [
-  { href: "#esprit", label: "Qui je suis" },
-  /* Le panneau des valeurs avait une ancre mais **aucun lien ne pointait
-     dessus** : l'argument le plus fort d'Agus était, en pratique,
-     inaccessible dès qu'on avait dépassé la présentation. C'est la cause
-     directe du « on ne peut pas revenir facilement sur son engagement ».
-     Sa place dans la barre est prise à « Sur-Mesure », que le bouton
-     « Demander un devis » juste à côté dessert déjà. */
-  { href: "#valeurs", label: "Son engagement" },
-  { href: "#chemins", label: "Par où commencer", menuSeul: true },
-  { href: "#circuit", label: "Le circuit" },
-  { href: "#envies", label: "Vos envies" },
-  { href: "#usages", label: "Us et coutumes", menuSeul: true },
-  { href: "#temoignages", label: "Livre d'or" },
-  { href: "/tarifs", label: "Tarifs" },
-  { href: "#sur-mesure", label: "Sur-Mesure", menuSeul: true },
-];
-
-/* Les ancres suivies par le repère de position, dans l'ordre de la page. */
-const ANCRES = LINKS.filter((l) => l.href.startsWith("#")).map((l) =>
-  l.href.slice(1)
-);
+/**
+ * La navigation.
+ *
+ * Le reproche était juste : c'était la barre de n'importe quel site.
+ * Logo à gauche, six liens au milieu, un bouton, trois traits à droite.
+ * Rien là-dedans ne disait Bali, alors que la page entière essaie de le
+ * dire.
+ *
+ * Trois déplacements, et aucun ne coûte en lisibilité — c'était la
+ * condition :
+ *
+ *  1. **Le linteau.** Le filet gris sous la barre devient une frise de
+ *     dents, celle qui court sur la pierre au-dessus des portes de
+ *     temple. Une séparation devait être là de toute façon ; elle est
+ *     maintenant sculptée au lieu d'être droite.
+ *  2. **Le repère est une fleur.** La section où l'on se trouve n'est
+ *     plus soulignée d'un rectangle bambou mais marquée d'un jepun — la
+ *     fleur du site, déjà la puce de sélection ailleurs. Même
+ *     information, même place, dessinée.
+ *  3. **Le menu mobile devient un seuil.** Voir plus bas : c'est là que
+ *     se joue l'essentiel, et c'est aussi là qu'on gagne en clarté.
+ *
+ * Ce qui n'a pas bougé, et ne doit pas bouger : la barre reste collante,
+ * les libellés restent des mots français ordinaires, les cibles font
+ * 44 px, et le panneau mobile reste **hors du `<header>`** (voir le
+ * commentaire du piège `backdrop-filter`, plus bas).
+ */
 
 function Logo() {
   return (
@@ -64,11 +60,39 @@ function Logo() {
   );
 }
 
+/**
+ * Le bouton du menu : trois traits, mais de largeurs décroissantes.
+ *
+ * C'est la silhouette du **meru**, le toit à étages qui se rétrécit vers
+ * le ciel — et c'est en même temps, trait pour trait, le hamburger que
+ * tout le monde sait lire. On ne troque pas une convention contre un
+ * symbole : on la redessine. Un candi bentar à cette place aurait été
+ * plus balinais et parfaitement illisible, ce qui n'aurait servi
+ * personne.
+ */
+function Meru({ size = 20 }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      aria-hidden="true"
+    >
+      <path d="M8 6.5h8M5.5 12h13M3 17.5h18" />
+    </svg>
+  );
+}
+
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [courante, setCourante] = useState(null);
   const router = useRouter();
-  const home = usePathname() === "/";
+  const pathname = usePathname();
+  const home = pathname === "/";
   const hrefFor = (h) => (home || !h.startsWith("#") ? h : `/${h}`);
 
   /**
@@ -111,7 +135,10 @@ export default function Navbar() {
     };
   }, [home]);
 
-  const ici = (h) => home && h.startsWith("#") && h.slice(1) === courante;
+  /* Sur l'accueil, la section sous les yeux. Ailleurs, la page courante :
+     depuis /agus ou /tarifs, c'est cette entrée-là qui est marquée. */
+  const ici = (h) =>
+    h.startsWith("#") ? home && h.slice(1) === courante : pathname === h;
 
   /**
    * Le repère de la barre du haut, qui ne montre pas toutes les sections.
@@ -123,12 +150,11 @@ export default function Navbar() {
    * se lit « vous êtes quelque part après ce point ».
    */
   const rangCourant = courante === null ? -1 : ANCRES.indexOf(courante);
-  const ancreBarre = LINKS.filter(
-    (l) => !l.menuSeul && l.href.startsWith("#")
-  )
+  const ancreBarre = NAV.filter((l) => l.barre && l.href.startsWith("#"))
     .filter((l) => ANCRES.indexOf(l.href.slice(1)) <= rangCourant)
     .pop()?.href;
-  const iciBarre = (h) => home && h === ancreBarre;
+  const iciBarre = (h) =>
+    h.startsWith("#") ? home && h === ancreBarre : pathname === h;
 
   function versTarifs(e) {
     if (!home || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
@@ -168,78 +194,91 @@ export default function Navbar() {
 
   return (
     <>
-    <header className="sticky top-0 z-50 border-b border-rule bg-[color-mix(in_srgb,var(--page)_88%,transparent)] backdrop-blur-lg backdrop-saturate-150">
-      {/* Les écarts se resserrent sous 640 px. À 320 — le plus petit
-          écran que le site prétend tenir — logo + titre + « Devis » +
-          burger faisaient 360 px de large dans 280 px utiles, et le
-          burger sortait de l'écran de 40 px. */}
-      <div className="shell flex h-[68px] items-center gap-3 sm:gap-6">
-        <a
-          href={home ? "#top" : "/"}
-          className="mr-auto flex min-h-11 min-w-0 items-center gap-2.5 no-underline sm:gap-3"
-        >
-          <Logo />
-          <span className="min-w-0 leading-tight">
-            <span className="block truncate font-display text-base font-semibold tracking-tight min-[380px]:text-lg">
-              Bali Découverte
+      <header className="sticky top-0 z-50 bg-[color-mix(in_srgb,var(--page)_88%,transparent)] backdrop-blur-lg backdrop-saturate-150">
+        {/* Les écarts se resserrent sous 640 px. À 320 — le plus petit
+            écran que le site prétend tenir — logo + titre + « Devis » +
+            burger faisaient 360 px de large dans 280 px utiles, et le
+            burger sortait de l'écran de 40 px. */}
+        <div className="shell flex h-[68px] items-center gap-3 sm:gap-6">
+          <a
+            href={home ? "#top" : "/"}
+            className="mr-auto flex min-h-11 min-w-0 items-center gap-2.5 no-underline sm:gap-3"
+          >
+            <Logo />
+            <span className="min-w-0 leading-tight">
+              <span className="block truncate font-display text-base font-semibold tracking-tight min-[380px]:text-lg">
+                Bali Découverte
+              </span>
+              {/* Masquée sous 640 px plutôt que tronquée : « GUIDE
+                  FRANCOPH… » a l'air d'un bug, l'absence non. */}
+              <span className="label hidden truncate text-faint sm:block">
+                Guide francophone
+              </span>
             </span>
-            {/* Masquée sous 640 px plutôt que tronquée : « GUIDE
-                FRANCOPH… » a l'air d'un bug, l'absence non. */}
-            <span className="label hidden truncate text-faint sm:block">
-              Guide francophone
-            </span>
-          </span>
-        </a>
+          </a>
 
-        <nav className="hidden gap-6 lg:flex" aria-label="Navigation principale">
-          {LINKS.filter((l) => !l.menuSeul).map((l) => (
-            <a
-              key={l.href}
-              href={hrefFor(l.href)}
-              onClick={l.href === "/tarifs" ? versTarifs : undefined}
-              aria-current={iciBarre(l.href) ? "true" : undefined}
-              className={`inline-flex min-h-11 items-center border-b text-sm no-underline transition-colors hover:border-accent hover:text-ink ${
-                iciBarre(l.href)
-                  ? "border-accent font-semibold text-ink"
-                  : "border-transparent text-soft"
-              }`}
-            >
-              {l.label}
-            </a>
-          ))}
-        </nav>
+          <nav className="hidden gap-6 lg:flex" aria-label="Navigation principale">
+            {NAV.filter((l) => l.barre).map((l) => (
+              <a
+                key={l.href}
+                href={hrefFor(l.href)}
+                onClick={l.href === "/tarifs" ? versTarifs : undefined}
+                aria-current={iciBarre(l.href) ? "true" : undefined}
+                /* Le soulignement ne sert plus qu'au survol. La section
+                   courante, elle, porte un jepun — même information, même
+                   place, dessinée. La graisse la double : ni la couleur
+                   ni la forme ne portent seules le sens (WCAG 1.4.1). */
+                className={`relative inline-flex min-h-11 items-center border-b border-transparent text-sm no-underline transition-colors hover:border-accent hover:text-ink ${
+                  iciBarre(l.href) ? "font-semibold text-ink" : "text-soft"
+                }`}
+              >
+                {l.label}
+                {iciBarre(l.href) && (
+                  <JepunPuce
+                    size={13}
+                    plein
+                    className="absolute bottom-0.5 left-1/2 -translate-x-1/2 text-accent"
+                  />
+                )}
+              </a>
+            ))}
+          </nav>
 
-        <a className="btn btn-accent hidden lg:inline-flex" href={hrefFor("#sur-mesure")}>
-          <Mail size={16} />
-          Demander un devis
-        </a>
+          <a className="btn btn-accent hidden lg:inline-flex" href={hrefFor("#sur-mesure")}>
+            <Mail size={16} />
+            Demander un devis
+          </a>
 
-        {/* Version courte pour mobile : sans elle, quelqu'un qui ne coche
-            rien n'a aucune porte de sortie avant onze écrans de défilement
-            — la barre du bas ne sort qu'une fois une envie choisie. */}
-        <a
-          className="btn btn-accent h-11 w-11 shrink-0 px-0 min-[380px]:w-auto min-[380px]:px-3.5 lg:hidden"
-          href={hrefFor("#sur-mesure")}
-          aria-label="Demander un devis"
-        >
-          <Mail size={16} />
-          {/* Le mot tombe sous 380 px ; l'aria-label porte le sens, et
-              la cible reste 44 × 44. */}
-          <span className="hidden text-sm min-[380px]:inline">Devis</span>
-        </a>
+          {/* Version courte pour mobile : sans elle, quelqu'un qui ne coche
+              rien n'a aucune porte de sortie avant onze écrans de défilement
+              — la barre du bas ne sort qu'une fois une envie choisie. */}
+          <a
+            className="btn btn-accent h-11 w-11 shrink-0 px-0 min-[380px]:w-auto min-[380px]:px-3.5 lg:hidden"
+            href={hrefFor("#sur-mesure")}
+            aria-label="Demander un devis"
+          >
+            <Mail size={16} />
+            {/* Le mot tombe sous 380 px ; l'aria-label porte le sens, et
+                la cible reste 44 × 44. */}
+            <span className="hidden text-sm min-[380px]:inline">Devis</span>
+          </a>
 
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          className="grid h-11 w-11 shrink-0 place-items-center rounded border border-rule text-soft lg:hidden"
-          aria-expanded={open}
-          aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
-        >
-          {open ? <X size={18} /> : <Menu size={18} />}
-        </button>
-      </div>
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            className="grid h-11 w-11 shrink-0 place-items-center rounded border border-rule text-soft lg:hidden"
+            aria-expanded={open}
+            aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
+          >
+            {open ? <X size={18} /> : <Meru />}
+          </button>
+        </div>
 
-    </header>
+        {/* Le linteau. Il remplace le `border-b` : une frise de dents,
+            celle qui court sur la pierre au-dessus des portes de temple.
+            Sept pixels, une image SVG en ligne, aucune requête. */}
+        <div className="linteau" aria-hidden="true" />
+      </header>
 
       {/* ⚠️ Le panneau est **hors du `<header>`**, et ce n'est pas un
           détail de rangement. L'en-tête porte `backdrop-blur`, et un
@@ -250,35 +289,87 @@ export default function Navbar() {
           avait l'air de marcher — mais le fond ne couvrait rien et la
           page défilait visiblement derrière le menu. */}
       {open && (
-        <div className="fixed inset-x-0 top-[68px] bottom-0 z-40 overflow-y-auto border-t border-rule bg-page lg:hidden">
-          <nav className="shell flex flex-col gap-1 py-6" aria-label="Navigation mobile">
-            {LINKS.map((l) => (
-              <a
-                key={l.href}
-                href={hrefFor(l.href)}
-                onClick={(e) => {
-                  setOpen(false);
-                  if (l.href === "/tarifs") versTarifs(e);
-                }}
-                aria-current={ici(l.href) ? "true" : undefined}
-                className={`flex items-center gap-3 border-b border-rule py-4 font-display text-2xl no-underline ${
-                  ici(l.href) ? "text-accent" : ""
-                }`}
-              >
-                {/* Le repère est doublé d'une puce : la couleur seule ne
-                    suffit pas à porter une information (WCAG 1.4.1). */}
-                {ici(l.href) && <JepunPuce size={16} plein className="shrink-0" />}
-                {l.label}
-              </a>
-            ))}
+        <div className="ground-sable fixed inset-x-0 bottom-0 top-[75px] z-40 overflow-y-auto lg:hidden">
+          <nav className="shell relative py-5" aria-label="Navigation mobile">
+            <ul className="m-0 flex list-none flex-col p-0">
+              {NAV.map((l, i) => {
+                const actif = ici(l.href);
+                return (
+                  <li key={l.href}>
+                    <a
+                      href={hrefFor(l.href)}
+                      onClick={(e) => {
+                        setOpen(false);
+                        if (l.href === "/tarifs") versTarifs(e);
+                      }}
+                      aria-current={actif ? "true" : undefined}
+                      /* La bordure gauche est là dans les deux états,
+                         transparente au repos : sans elle, l'entrée
+                         courante se décalerait de 3 px et la liste
+                         sauterait d'une ligne à l'autre. */
+                      className={`flex items-center gap-3.5 border-b border-l-3 border-b-rule py-3 pl-3 no-underline ${
+                        actif
+                          ? "border-l-accent bg-tint/60"
+                          : "border-l-transparent"
+                      }`}
+                    >
+                      <span className="w-5 shrink-0 font-sans text-[0.6875rem] tabular-nums text-faint">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <Symbole
+                        nom={l.symbole}
+                        size={26}
+                        className="shrink-0 text-accent"
+                      />
+                      <span className="min-w-0 flex-1">
+                        <span
+                          className={`block font-display text-[1.3rem] leading-tight ${
+                            actif ? "font-semibold text-accent" : ""
+                          }`}
+                        >
+                          {l.label}
+                        </span>
+                        {/* La ligne qui fait du menu un sommaire. Sur
+                            mobile, c'est le seul plan de la page dont on
+                            dispose : une liste de titres nus oblige à
+                            ouvrir pour savoir ce qu'il y a derrière. */}
+                        <span className="mt-0.5 block text-sm leading-snug text-soft">
+                          {l.gloss}
+                        </span>
+                      </span>
+                      {/* La couleur ne porte jamais seule une
+                          information (WCAG 1.4.1) : le jepun la double. */}
+                      {actif && (
+                        <JepunPuce size={16} plein className="shrink-0 text-accent" />
+                      )}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+
             <a
-              className="btn btn-accent btn-lg mt-6"
+              className="btn btn-accent btn-lg mt-6 w-full"
               href={hrefFor("#sur-mesure")}
               onClick={() => setOpen(false)}
             >
               <Mail size={18} />
               Demander un devis
             </a>
+            {/* La porte fendue ferme le panneau — le seuil qu'on vient
+                de franchir. Elle a d'abord été posée en filigrane dans
+                l'angle haut, comme le padma du panneau des valeurs : à
+                390 px, le panneau est trop étroit pour qu'un dessin de
+                240 px trouve un coin sans texte, et il passait sous
+                trois libellés. La règle de la maison tient : **le motif
+                va sur un fond de section, jamais sous du texte.** Ici il
+                est donc au bout, en clair, seul sur sa ligne. */}
+            <div className="mt-7 flex flex-col items-center gap-2 text-accent">
+              <Symbole nom="candi" size={44} strokeWidth={1.1} className="opacity-60" />
+              <p className="text-center text-[0.6875rem] text-faint">
+                Om Swastiastu — réponse sous 24 h, en français.
+              </p>
+            </div>
           </nav>
         </div>
       )}

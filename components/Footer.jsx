@@ -8,8 +8,10 @@ import LienTarifs from "./LienTarifs";
 const LINKS = [
   { href: "/#esprit", label: "Qui je suis" },
   { href: "/#valeurs", label: "Son engagement" },
+  { href: "/agus", label: "Son portrait" },
   { href: "/#chemins", label: "Par où commencer" },
   { href: "/#circuit", label: "Le circuit" },
+  { href: "/circuit", label: "Le programme jour par jour" },
   { href: "/#envies", label: "Vos envies" },
   { href: "/#usages", label: "Us et coutumes" },
   { href: "/livre-d-or", label: "Livre d'or" },
