@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { X, Mail } from "lucide-react";
 import { urlTarifs } from "@/lib/retours";
+import { versAncre } from "@/lib/ancre";
 import { NAV, ANCRES } from "@/lib/navigation";
 import { Symbole } from "./Symboles";
 import { JepunPuce } from "./Scene";
@@ -165,6 +166,14 @@ export default function Navbar() {
   const iciBarre = (h) =>
     h.startsWith("#") ? home && h === ancreBarre : pathname === h;
 
+  /* Sur l'accueil, une ancre déjà présente dans l'URL ne renavigue
+     pas : le lien devient inerte dès qu'on s'en est servi une fois.
+     Voir lib/ancre.js. */
+  const surClic = (h) => (e) => {
+    if (h === "/tarifs") versTarifs(e);
+    else if (home) versAncre(e, h);
+  };
+
   function versTarifs(e) {
     if (!home || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
     e.preventDefault();
@@ -231,7 +240,7 @@ export default function Navbar() {
               <Link
                 key={l.href}
                 href={hrefFor(l.href)}
-                onClick={l.href === "/tarifs" ? versTarifs : undefined}
+                onClick={surClic(l.href)}
                 aria-current={iciBarre(l.href) ? "true" : undefined}
                 /* Le soulignement ne sert plus qu'au survol. La section
                    courante, elle, porte un jepun — même information, même
@@ -253,7 +262,11 @@ export default function Navbar() {
             ))}
           </nav>
 
-          <Link className="btn btn-accent hidden lg:inline-flex" href={hrefFor("#sur-mesure")}>
+          <Link
+            className="btn btn-accent hidden lg:inline-flex"
+            href={hrefFor("#sur-mesure")}
+            onClick={surClic("#sur-mesure")}
+          >
             <Mail size={16} />
             Demander un devis
           </Link>
@@ -264,6 +277,7 @@ export default function Navbar() {
           <Link
             className="btn btn-accent h-11 w-11 shrink-0 px-0 min-[380px]:w-auto min-[380px]:px-3.5 lg:hidden"
             href={hrefFor("#sur-mesure")}
+            onClick={surClic("#sur-mesure")}
             aria-label="Demander un devis"
           >
             <Mail size={16} />
@@ -325,7 +339,7 @@ export default function Navbar() {
                       href={hrefFor(l.href)}
                       onClick={(e) => {
                         setOpen(false);
-                        if (l.href === "/tarifs") versTarifs(e);
+                        surClic(l.href)(e);
                       }}
                       aria-current={actif ? "true" : undefined}
                       /* La bordure gauche est là dans les deux états,
@@ -388,7 +402,10 @@ export default function Navbar() {
             <Link
               className="btn btn-accent btn-lg mt-6 w-full"
               href={hrefFor("#sur-mesure")}
-              onClick={() => setOpen(false)}
+              onClick={(e) => {
+                setOpen(false);
+                surClic("#sur-mesure")(e);
+              }}
             >
               <Mail size={18} />
               Demander un devis

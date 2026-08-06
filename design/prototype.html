@@ -2035,7 +2035,13 @@
     <b id="mobileNum">0 expérience</b>
     dans votre circuit
   </div>
-  <a class="btn btn-accent" href="#sur-mesure">Ma demande</a>
+  <!-- `data-goto="home"` + `data-de="sur-mesure"` : depuis la vue des
+       envies, « #sur-mesure » ne mène nulle part — la section n'est pas
+       affichée. Le gestionnaire ramène à l'accueil ET vise le
+       formulaire. Sur l'accueil, le même attribut force le défilement :
+       une ancre déjà présente dans l'URL ne renavigue pas, et le bouton
+       devenait inerte dès qu'on s'en était servi une fois. -->
+  <a class="btn btn-accent" href="#sur-mesure" data-goto="home" data-de="sur-mesure">Ma demande</a>
 </div>
 
 <script>
@@ -4055,7 +4061,15 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
           el.textContent = lib;
         });
       }
+      var memeVue = document.body.dataset.view === vue;
       document.body.dataset.view = vue;
+      /* Même vue et même ancre : il n'y a rien à « naviguer », mais il y
+         a tout à faire défiler. Sans ça, le bouton du panier était inerte
+         dès qu'on s'en était servi une fois. */
+      if (memeVue && vue === "home" && goto.dataset.de) {
+        var deja = document.getElementById(goto.dataset.de);
+        if (deja) { deja.scrollIntoView({ block: "start" }); observeReveals(); return; }
+      }
       if (vue === "home" && retourDepuis !== "top") {
         var cible = document.getElementById(retourDepuis);
         window.scrollTo({ top: 0, behavior: "instant" });

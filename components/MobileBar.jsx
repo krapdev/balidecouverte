@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTrip } from "@/lib/trip-store";
+import { versAncre } from "@/lib/ancre";
 
 /**
  * Rappel permanent du circuit en cours de construction, sur mobile.
@@ -37,14 +38,22 @@ export default function MobileBar() {
         </b>
         dans votre voyage
       </p>
-      {/* ⚠️ `<Link>` et non `<a>`. Un `<a href="/…">` provoque un
-          **chargement complet** : le magasin vit dans le gabarit, il
-          survit aux navigations client mais pas à un rechargement. Cocher
-          trois envies sur /envies puis toucher ce bouton effaçait tout.
-          Règle générale du site : **tout lien interne passe par `Link`.** */}
+      {/* Deux pièges se croisent sur ce seul bouton, et il a fallu les
+          deux corrections :
+
+          1. `<Link>` et non `<a>` quand on change de page. Un
+             `<a href="/…">` provoque un **chargement complet**, et le
+             magasin vit dans le gabarit : il survit aux navigations
+             client, pas aux rechargements. Cocher trois envies sur
+             /envies puis toucher ce bouton effaçait tout.
+          2. `versAncre` quand on **ne** change **pas** de page. Une fois
+             arrivé sur `/#sur-mesure`, retoucher le bouton ne
+             renavigue pas — le fragment est déjà celui-là — et le
+             bouton devenait inerte. Voir lib/ancre.js. */}
       <Link
         className="btn btn-accent ml-auto"
         href={accueil ? "#sur-mesure" : "/#sur-mesure"}
+        onClick={(e) => accueil && versAncre(e, "#sur-mesure")}
         tabIndex={visible ? undefined : -1}
       >
         Ma demande

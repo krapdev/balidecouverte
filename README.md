@@ -884,6 +884,45 @@ exception et **tout ce qui le suivait dans `render()` ne s'exécutait plus** —
 jour par jour, le portrait, les envies. Les vues s'affichaient à moitié vides
 sans qu'aucune erreur ne soit visible à l'œil.
 
+### Le bouton qui devient inerte au deuxième appui
+
+Un bug qu'on ne trouve qu'en le vivant, et qui touchait le bouton le plus
+important de la version mobile. On coche deux places sur `/envies`, on touche
+« Ma demande », on atterrit sur `/#sur-mesure`. On remonte lire quelque chose,
+la barre du panier est toujours là, on la retouche… **et rien ne se passe.**
+
+La cause vaut d'être retenue parce qu'elle ne dépend pas de la bibliothèque :
+**naviguer vers le fragment sur lequel on est déjà n'est pas une navigation.**
+Ni `<Link>` ni un `<a>` géré par le routeur n'émettent quoi que ce soit, donc
+aucun défilement. Le bouton fonctionnait une fois, puis mourait — et c'était
+invisible en test, parce qu'on ne teste jamais deux fois d'affilée.
+
+`lib/ancre.js` force donc le défilement à la main quand on est déjà sur la bonne
+page. Trois détails :
+
+- **`history.replaceState`, pas `pushState`.** Réappuyer sur un bouton qui ne
+  change pas de page ne doit pas empiler une entrée d'historique — sinon le
+  bouton « retour » du téléphone ne fait plus que remonter les allers-retours
+  qu'on vient de faire.
+- **Le clic milieu et ctrl/cmd/maj-clic ne sont jamais interceptés.** On ne se
+  met pas en travers d'un « ouvrir dans un nouvel onglet ».
+- Le décalage sous la barre collante vient de `[id] { scroll-margin-top }` et le
+  défilement doux de `html { scroll-behavior }` — **ne rien ajouter** dans le
+  gestionnaire.
+
+Le correctif est appliqué partout où un lien peut viser l'ancre courante : la
+barre du panier, les six liens de la barre du haut, les neuf plaques du menu, et
+les deux boutons « Demander un devis ».
+
+Dans la maquette, le même bouton cumulait les deux problèmes : depuis la vue des
+envies, `#sur-mesure` ne mène nulle part puisque la section n'est pas affichée.
+Il porte donc `data-goto="home"` **et** `data-de="sur-mesure"`, et le
+gestionnaire de vues sait maintenant que « même vue demandée » veut dire « pas
+de navigation, mais un défilement quand même ».
+
+⚠️ **En testant un lien d'ancre, cliquer deux fois.** Le premier appui masque le
+défaut du second.
+
 ### Les pastilles de la visionneuse
 
 Trois points sous la photo, dans la visionneuse des places secrètes. Ils disent
