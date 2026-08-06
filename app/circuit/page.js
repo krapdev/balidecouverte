@@ -259,7 +259,13 @@ export default function PageCircuit() {
                 choisis et je réserve aussi vos hôtels.
               </p>
               <div className="mt-7 flex flex-wrap items-center gap-3">
-                <Link className="btn btn-sun" href="/#sur-mesure">
+                {/* `?circuit=` et non `#sur-mesure` tout seul : le lien
+                    nu menait à un formulaire vide, sans que rien ne dise
+                    de quoi on venait de parler, et le message partait
+                    sans la base de départ. Le magasin n'existe que sur
+                    l'accueil — l'intention doit donc voyager dans l'URL.
+                    Voir components/PreselectionCircuit.jsx. */}
+                <Link className="btn btn-sun" href={`/?circuit=${c.id}#sur-mesure`}>
                   <Mail size={17} />
                   Partir de ce circuit et l&apos;ajuster
                 </Link>

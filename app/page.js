@@ -12,6 +12,7 @@ import MobileBar from "@/components/MobileBar";
 import Footer from "@/components/Footer";
 import DonneesStructurees from "@/components/DonneesStructurees";
 import RevealObserver from "@/components/RevealObserver";
+import PreselectionCircuit from "@/components/PreselectionCircuit";
 import { Divider } from "@/components/Scene";
 
 /**
@@ -30,6 +31,9 @@ export default function Home() {
     <TripProvider>
       <DonneesStructurees />
       <RevealObserver />
+      {/* Doit être **dans** le TripProvider : c'est lui qui reçoit la
+          sélection venue de /circuit par `?circuit=`. */}
+      <PreselectionCircuit />
       <Navbar />
       <main className="flex-1">
         <Hero />

@@ -4,7 +4,6 @@ import {
   CalendarClock,
   Languages,
   Users,
-  MapPin,
   Car,
   HandCoins,
   Heart,
@@ -19,7 +18,7 @@ import { Valeur } from "@/components/AComplete";
 import { Symbole } from "@/components/Symboles";
 import { PortraitAgus, Jepun, Canang } from "@/components/Scene";
 import { AGUS, VALEURS, USAGES } from "@/lib/data";
-import { UNION, HISTOIRE, QUESTIONS } from "@/lib/portrait";
+import { UNION, QUESTIONS } from "@/lib/portrait";
 
 /**
  * Le portrait — la page qu'on atteint en cliquant sur sa photo.
@@ -27,13 +26,18 @@ import { UNION, HISTOIRE, QUESTIONS } from "@/lib/portrait";
  * Le README disait le contraire il y a peu : « pourquoi pas une page
  * /agus — ces faits sont exactement ce qui lève le doute, et les envoyer
  * sur une page à part, c'est les mettre là où personne ne va ». La
- * raison était bonne, et elle ne s'applique plus, parce que la condition
- * a changé : **les faits restent sur l'accueil.** Le dépliant « fiche
- * d'identité » n'a pas bougé, le panneau des valeurs non plus. Ce qui
+ * raison était bonne, et elle tient toujours pour **le fait qui lève le
+ * doute** : la certification est restée sur l'accueil, en clair. Ce qui
  * part ici, c'est le développement — l'homme, sa famille, son pays, son
- * union de guides. Personne ne lit ça avant d'avoir décidé de faire
- * confiance ; tout le monde le lit après, et c'est ce moment-là qui
- * décide d'écrire ou de refermer.
+ * union de guides, et le détail de ses véhicules. Personne ne lit ça
+ * avant d'avoir décidé de faire confiance ; tout le monde le lit après,
+ * et c'est ce moment-là qui décide d'écrire ou de refermer.
+ *
+ * Toute la page est à la première personne. C'est la règle du site —
+ * Agus parle, on ne parle pas de lui — et c'est ici qu'elle compte le
+ * plus : une page de présentation écrite à la troisième personne est le
+ * signe qu'un tiers l'a rédigée, ce qui est exactement l'inverse de ce
+ * que cette page essaie de prouver.
  *
  * Deux règles tenues à la lettre :
  *
@@ -50,7 +54,7 @@ import { UNION, HISTOIRE, QUESTIONS } from "@/lib/portrait";
 export const metadata = {
   title: "Agus Yudiarta, guide francophone à Bali",
   description:
-    "Guide balinais diplômé, francophone, professionnel depuis 2005. Sa famille, son métier, et l'union de guides de Bali dont il est membre.",
+    "Guide balinais diplômé, francophone, je travaille en direct depuis 2005. Ma famille, mon métier, et l'union de guides de Bali dont je fais partie.",
   alternates: { canonical: "/agus" },
   /* `noindex` tant que la page porte des marqueurs « à compléter ».
      Trois choses vont ensemble le jour où Agus a répondu : ce bloc, le
@@ -70,13 +74,23 @@ export const metadata = {
   },
 };
 
+/**
+ * Quatre lignes, et pas six.
+ *
+ * « Union » et « Famille » y figuraient aussi — et chacune est le titre
+ * d'une partie de cette page, trente centimètres plus bas. Une fiche qui
+ * annonce en trois mots ce qu'un paragraphe va dire ne résume pas : elle
+ * dit deux fois. Ne restent que les faits qui **n'ont pas** leur
+ * développement ailleurs.
+ *
+ * Tout est à la première personne, comme le reste du site : ces lignes
+ * sont dites par Agus, pas par un annuaire qui parlerait de lui.
+ */
 const FICHE = [
-  { icon: BadgeCheck, label: "Certification", valeur: AGUS.diplome },
-  { icon: CalendarClock, label: "Métier", valeur: `Professionnel depuis ${AGUS.depuis}` },
-  { icon: Languages, label: "Langues", valeur: `Je guide en ${AGUS.langues}` },
-  { icon: MapPin, label: "Union", valeur: AGUS.union },
-  { icon: Users, label: "Famille", valeur: AGUS.famille },
-  { icon: Car, label: "Véhicules", valeur: AGUS.vehicules.map((v) => v.split(" — ")[0]).join(" · ") },
+  { icon: BadgeCheck, label: "Ma certification", valeur: `Je suis ${AGUS.diplome.toLowerCase()}` },
+  { icon: CalendarClock, label: "Mon métier", valeur: `Je l'exerce depuis ${AGUS.depuis}` },
+  { icon: Languages, label: "Mes langues", valeur: `Je guide en ${AGUS.langues}` },
+  { icon: Car, label: "Mes véhicules", valeur: `${AGUS.vehicules.map((v) => v.split(" — ")[0]).join(" · ")} — je conduis moi-même` },
 ];
 
 /** Un titre de partie, avec son symbole. Pas de `Reveal` : on ne fait
@@ -179,11 +193,9 @@ export default function PagePortrait() {
             {/* ---------- 1. Le métier ---------- */}
             <Partie n={1} symbole="tedung" titre="Le métier, en faits">
               <p>
-                Ce sont les mêmes lignes que sur l&apos;accueil, et elles y
-                restent : on ne cache pas ce qui lève le doute derrière un
-                clic. Elles sont ici parce qu&apos;une fiche se relit, et
-                parce que la suite de cette page ne se comprend qu&apos;à
-                partir d&apos;elles.
+                Avant de vous raconter quoi que ce soit, voici ce qui se
+                vérifie. Le reste de cette page ne vaut que si ces quatre
+                lignes-là tiennent.
               </p>
               <ul className="m-0 grid list-none gap-4 p-0 sm:grid-cols-2">
                 {FICHE.map(({ icon: Icon, label, valeur }) => (
@@ -200,16 +212,9 @@ export default function PagePortrait() {
                 ))}
               </ul>
               <p>
-                Je guide à {AGUS.territoires.toLowerCase()} — mais le site est
+                Je guide à {AGUS.territoires.toLowerCase()}. Ce site est
                 aujourd&apos;hui recentré sur Bali, et c&apos;est là que je
                 passe l&apos;essentiel de mes jours.
-              </p>
-              <p className="text-faint">
-                D&apos;où je viens : <Valeur v={HISTOIRE.origine} quoi="son village, sa région" />.
-                Où j&apos;ai appris le français :{" "}
-                <Valeur v={HISTOIRE.francais} quoi="où, comment, pourquoi le français" />.
-                Ce qui m&apos;a mené au métier en 2005 :{" "}
-                <Valeur v={HISTOIRE.debut} quoi="son premier voyage guidé" />.
               </p>
             </Partie>
 
@@ -243,10 +248,7 @@ export default function PagePortrait() {
                   monde ici.
                 </p>
               )}
-              <p className="text-faint">
-                Ce qu&apos;Agus veut bien qu&apos;on dise de plus :{" "}
-                <Valeur v={HISTOIRE.epouse} quoi="ce qu'il souhaite partager, et ce qu'il garde" />
-              </p>
+
             </Partie>
 
             {/* ---------- 3. Le pays ---------- */}
@@ -265,7 +267,13 @@ export default function PagePortrait() {
 
             {/* ---------- 4. L'union de guides ---------- */}
             <Partie n={4} symbole="gong" titre="Les guides de Bali, et mon union">
-              <p className="text-[1.0625rem] text-ink">{AGUS.union}.</p>
+              {/* `AGUS.union` est un libellé de fiche (« Membre d'une
+                  union… ») ; ici c'est une phrase qu'il dit. Ce qu'il
+                  faut préserver mot pour mot, c'est « une union de
+                  guides de Bali » — pas « syndicat ». */}
+              <p className="text-[1.0625rem] text-ink">
+                Je fais partie d&apos;une union de guides de Bali.
+              </p>
               <p>{VALEURS.points[1].texte}</p>
               <p>
                 Un guide balinais qui travaille en direct fixe son prix, choisit
@@ -329,7 +337,7 @@ export default function PagePortrait() {
                   className="flex min-h-11 items-center text-sm text-soft underline decoration-rule underline-offset-4 hover:text-ink"
                   href="/#valeurs"
                 >
-                  Revenir à son engagement
+                  Revenir à mon engagement
                 </Link>
               </div>
             </Partie>

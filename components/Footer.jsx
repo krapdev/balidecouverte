@@ -7,8 +7,8 @@ import LienTarifs from "./LienTarifs";
    navigation de fragment — pas de rechargement. */
 const LINKS = [
   { href: "/#esprit", label: "Qui je suis" },
-  { href: "/#valeurs", label: "Son engagement" },
-  { href: "/agus", label: "Son portrait" },
+  { href: "/#valeurs", label: "Mon engagement" },
+  { href: "/agus", label: "Mon portrait" },
   { href: "/#chemins", label: "Par où commencer" },
   { href: "/#circuit", label: "Le circuit" },
   { href: "/circuit", label: "Le programme jour par jour" },

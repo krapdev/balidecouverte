@@ -1,12 +1,7 @@
 import Link from "next/link";
 import {
   BadgeCheck,
-  CalendarClock,
-  Languages,
   Users,
-  MapPin,
-  Car,
-  ChevronDown,
   HandCoins,
   Heart,
   ArrowRight,
@@ -19,47 +14,44 @@ import Reveal from "./Reveal";
 import { AGUS, VALEURS } from "@/lib/data";
 
 /**
- * La présentation : une promesse professionnelle, puis une fiche.
+ * La présentation : une promesse, une preuve, une préférence.
  *
- * L'argument n'est plus « voilà qui je suis » mais **« vous n'avez rien
- * à organiser »**. C'est ce qu'achète quelqu'un qui part à 12 000 km :
- * pas une biographie, la certitude que tout est pris en charge par un
+ * L'argument n'est pas « voilà qui je suis » mais **« vous n'avez rien à
+ * organiser »**. C'est ce qu'achète quelqu'un qui part à 12 000 km : pas
+ * une biographie, la certitude que tout est pris en charge par un
  * professionnel diplômé.
  *
- * La famille a basculé dans la fiche. Elle rassure comme un fait dans
- * une ligne d'état civil ; en paragraphe, elle diluait la promesse.
+ * Trois registres, et il en faut trois — en retirer un coûterait la
+ * moitié du travail :
  *
- * **La fiche est un dépliant, pas une modale ni une page.** Une modale
- * volerait le focus pour une liste qu'on veut survoler ; une page
- * éloignerait les faits de l'endroit où naît le doute. `<details>` coûte
- * un tap, se referme, et marche au clavier sans une ligne de JS.
+ *  1. **La promesse** (le chapô, puis le paragraphe) : ce dont on est
+ *     déchargé.
+ *  2. **La preuve** (la ligne de certification) : de quoi lever le doute.
+ *     Qui ne fait pas confiance ne sera pas ému par des valeurs.
+ *  3. **La préférence** (le panneau bambou) : pourquoi lui plutôt qu'une
+ *     agence. Qui fait confiance sans préférer ne réserve pas non plus.
  *
- * Condition tenue : **le résumé porte l'essentiel même fermé.** Sans ça,
- * on cacherait la crédibilité à qui ne clique pas — et sur mobile,
- * personne ne clique sur tout.
+ * ⚠️ **Il y avait ici un dépliant « Fiche d'identité »** — six faits
+ * repliés derrière un `<details>`. Il a été retiré, et ce n'est pas un
+ * revirement : la condition qui le justifiait était « le résumé porte
+ * l'essentiel même fermé », et sur mobile personne n'ouvre un dépliant,
+ * si bien que la page ne montrait en pratique **que** sa ligne de
+ * résumé. Depuis que /agus développe ces faits, garder un tiroir fermé
+ * au-dessus d'un lien qui mène à la version complète était deux fois le
+ * même geste. On garde donc la ligne, à découvert, et on la lie au
+ * portrait.
  *
- * **Deux registres, deux traitements.** Les valeurs sont visibles, sur
- * un panneau bambou : elles créent la préférence, elles doivent être lues.
- * Les faits sont repliés : ils lèvent le doute, on les consulte quand la
- * question se pose. Remplacer les uns par les autres perdrait la moitié
- * du travail — qui ne fait pas confiance ne sera pas ému par des
- * valeurs, qui fait confiance sans préférer ne réserve pas non plus.
- *
- * Pourquoi pas une page /agus : ces faits sont exactement ce qui lève le
- * doute, et les envoyer sur une page à part, c'est les mettre là où
- * personne ne va. Ils restent là où naît la question.
+ * Ce qui reste ici n'est pas choisi au hasard : la certification est le
+ * seul de ces faits qui **répond à une inquiétude** plutôt qu'à une
+ * curiosité. Ses véhicules, son union et sa famille sont intéressants ;
+ * ils n'apaisent rien tant que « est-ce un professionnel ? » est ouvert.
  */
+
 /* Dans l'ordre des points de VALEURS : ce que l'argent fait vivre, le
    collectif de guides, la mission. */
 const ICONES_VALEURS = [HandCoins, Users, Heart];
 
-const FICHE = [
-  { icon: BadgeCheck, label: "Certification", valeur: AGUS.diplome },
-  { icon: CalendarClock, label: "Métier", valeur: `Professionnel depuis ${AGUS.depuis}` },
-  { icon: Languages, label: "Langues", valeur: `Je guide en ${AGUS.langues}` },
-  { icon: MapPin, label: "Union", valeur: AGUS.union },
-  { icon: Users, label: "Famille", valeur: AGUS.famille },
-];
+/* La fiche complète vit sur /agus. */
 
 export default function AboutAgus() {
   return (
@@ -87,7 +79,7 @@ export default function AboutAgus() {
             <Link
               href="/agus?de=esprit"
               className="group block no-underline"
-              aria-label="Le portrait d'Agus : sa famille, son pays, son union de guides"
+              aria-label="Mon portrait : ma famille, mon pays, mon union de guides"
             >
               <span className="arch block bg-immersive-deep shadow-[0_30px_70px_-30px_rgba(0,0,0,0.7)]">
                 <Photo
@@ -101,7 +93,7 @@ export default function AboutAgus() {
                 />
               </span>
               <span className="mt-3.5 flex min-h-11 items-center justify-between gap-3 border-t border-rule pt-3 text-sm text-accent">
-                <span>Son portrait, sa famille, son union</span>
+                <span>Mon portrait, ma famille, mon union</span>
                 <ArrowRight size={15} className="shrink-0 transition-transform group-hover:translate-x-1" />
               </span>
             </Link>
@@ -153,63 +145,45 @@ export default function AboutAgus() {
               <p className="mt-4 font-display text-xl">— Agus</p>
             </Reveal>
 
-            {/* ---------- La fiche : les faits, pas les adjectifs ---------- */}
+            {/* ---------- La certification, et rien d'autre ----------
+                Le dépliant « Fiche d'identité » vivait ici : six faits
+                repliés derrière un clic. Il n'a plus de raison d'être
+                depuis que /agus les développe, et il coûtait cher pour
+                ce qu'il rendait — sur mobile, personne n'ouvre un
+                dépliant, si bien que la page ne montrait en pratique que
+                sa ligne de résumé. On garde donc exactement cette ligne,
+                à découvert, et on la lie au portrait.
+
+                Ce qui est gardé n'est pas choisi au hasard : la
+                certification est le seul fait qui **répond à une
+                inquiétude** plutôt qu'à une curiosité. Confier quinze
+                jours à un inconnu à 12 000 km, c'est se demander s'il
+                est un professionnel. Ses véhicules, son union et sa
+                famille sont intéressants ; ils n'apaisent rien tant que
+                cette question-là est ouverte. */}
             <Reveal delay={0.05}>
-              <details className="group rounded-[14px] border border-rule bg-surface-alt [&_summary::-webkit-details-marker]:hidden">
-                <summary className="flex min-h-11 cursor-pointer list-none items-center gap-3 p-5">
-                  <BadgeCheck
-                    size={17}
-                    className="shrink-0 text-accent"
-                    strokeWidth={1.7}
-                  />
-                  <span className="min-w-0 flex-1">
-                    <span className="label block text-eyebrow">
-                      Fiche d&apos;identité
-                    </span>
-                    {/* Ce résumé est lu par ceux qui n'ouvriront jamais le
-                        dépliant : il doit suffire à lui seul. */}
-                    <span className="mt-0.5 block text-sm leading-snug text-soft">
-                      Guide diplômé · 20 ans de métier · français et anglais
-                    </span>
-                  </span>
-                  <ChevronDown
-                    size={18}
-                    className="shrink-0 text-faint transition-transform duration-300 group-open:rotate-180"
-                    aria-hidden="true"
-                  />
-                </summary>
-                <ul className="m-0 grid list-none gap-3.5 border-t border-rule p-5 sm:grid-cols-2">
-                  {FICHE.map(({ icon: Icon, label, valeur }) => (
-                    <li key={label} className="flex items-start gap-3">
-                      <Icon
-                        size={16}
-                        className="mt-0.5 shrink-0 text-accent"
-                        strokeWidth={1.7}
-                      />
-                      <span>
-                        <span className="label block text-faint">{label}</span>
-                        <span className="text-sm leading-snug">{valeur}</span>
-                      </span>
-                    </li>
-                  ))}
-                  <li className="flex items-start gap-3 sm:col-span-2">
-                    <Car
-                      size={16}
-                      className="mt-0.5 shrink-0 text-accent"
-                      strokeWidth={1.7}
-                    />
-                    <span>
-                      <span className="label block text-faint">Véhicules</span>
-                      <span className="text-sm leading-snug text-soft">
-                        {AGUS.vehicules
-                          .map((v) => v.split(" — ")[0])
-                          .join(" · ")}{" "}
-                        — chauffeur-guide compris dans le compte.
-                      </span>
-                    </span>
-                  </li>
-                </ul>
-              </details>
+              <p className="flex items-start gap-3 rounded-[14px] border border-rule bg-surface-alt p-4">
+                <BadgeCheck
+                  size={18}
+                  className="mt-0.5 shrink-0 text-accent"
+                  strokeWidth={1.7}
+                />
+                <span className="min-w-0 text-sm leading-relaxed">
+                  <b className="font-semibold">{AGUS.diplome}</b>, professionnel
+                  depuis {AGUS.depuis}. Je guide en {AGUS.langues}, et je conduis
+                  moi-même.{" "}
+                  <Link
+                    href="/agus?de=esprit"
+                    /* Souligné en bambou et non en `rule` : dans un
+                       paragraphe, un lien ne peut pas se signaler par la
+                       seule couleur (WCAG 1.4.1), et un filet ivoire
+                       très pâle ne se voit pas sur le fond sable. */
+                    className="whitespace-nowrap text-accent underline decoration-accent underline-offset-4"
+                  >
+                    Tout mon parcours
+                  </Link>
+                </span>
+              </p>
             </Reveal>
           </div>
         </div>
@@ -298,7 +272,7 @@ export default function AboutAgus() {
                 href="/agus?de=valeurs"
                 className="group inline-flex min-h-11 items-center gap-2 border-b border-soleil pb-1 font-display text-[clamp(1.05rem,2.8vw,1.3rem)] leading-snug text-on-immersive no-underline"
               >
-                Sa famille, son pays, son union de guides
+                Ma famille, mon pays, mon union de guides
                 <ArrowRight
                   size={17}
                   className="shrink-0 text-soleil transition-transform group-hover:translate-x-1"

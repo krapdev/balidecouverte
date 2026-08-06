@@ -1126,6 +1126,12 @@
   .valeurs-lien { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; border-bottom: 1px solid var(--soleil); font-family: var(--display); font-size: clamp(1.05rem, 2.8vw, 1.3rem); color: var(--on-immersive); text-decoration: none; }
   .valeurs-lien span { color: var(--soleil); }
 
+  .certif { display: flex; align-items: flex-start; gap: 0.75rem; border: 1px solid var(--rule); background: var(--surface-alt); border-radius: 14px; padding: 1rem; font-size: var(--t-sm); line-height: 1.6; }
+  .certif svg { flex: none; margin-top: 0.15rem; }
+  /* Souligné en bambou : dans un paragraphe, un lien ne peut pas se
+     signaler par la seule couleur (WCAG 1.4.1). */
+  .certif a { color: var(--accent); white-space: nowrap; text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 4px; }
+
   .forts { list-style: none; margin: 0; padding: 0; }
   .forts li { display: flex; align-items: baseline; gap: 0.9rem; border-bottom: 1px solid var(--rule); padding-block: 0.65rem; }
   .forts li:last-child { border-bottom: 0; }
@@ -1162,7 +1168,7 @@
            inaccessible dès qu'on avait dépassé la présentation. Sa place
            est prise à « Sur-Mesure », que le bouton juste à côté dessert
            déjà. -->
-      <a href="#valeurs">Son engagement</a>
+      <a href="#valeurs">Mon engagement</a>
       <a href="#circuit">Le circuit</a>
       <a href="#envies">Vos envies</a>
       <a href="#temoignages">Livre d'or</a>
@@ -1244,7 +1250,7 @@
              photo ne fait que l'élargir à une cible confortable. -->
         <a href="#portrait-agus" data-goto="portrait" data-de="esprit" class="portrait-lien">
           <div class="portrait" id="portrait"></div>
-          <span class="portrait-appel">Son portrait, sa famille, son union <span aria-hidden="true">&rarr;</span></span>
+          <span class="portrait-appel">Mon portrait, ma famille, mon union <span aria-hidden="true">&rarr;</span></span>
         </a>
         <!-- Une seule ligne, et sans les coordonnées. Le nom et le GPS se
              partageaient la largeur : à 390 px, « AGUS YUDIARTA » passait à
@@ -1278,29 +1284,25 @@
         hôtels.</p>
         <p class="agus-sign reveal">— Agus</p>
 
-        <!-- La fiche : les faits, pas les adjectifs. La famille y est
-             passée — elle rassure comme une ligne d'état civil, elle
-             diluait la promesse en paragraphe. -->
-        <details class="agus-fiche reveal">
-          <summary>
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg>
-            <span>
-              <span class="label">Fiche d'identité</span>
-              <!-- Ce résumé est lu par ceux qui n'ouvriront jamais le
-                   dépliant : il doit suffire à lui seul. -->
-              <span class="fiche-resume">Guide diplômé · 20 ans de métier · français et anglais</span>
-            </span>
-            <svg class="fiche-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-          </summary>
-          <ul>
-            <li><span class="label">Certification</span><span>Diplômé guide francophone</span></li>
-            <li><span class="label">Métier</span><span>Professionnel depuis octobre 2005</span></li>
-            <li><span class="label">Langues</span><span>Je guide en français et anglais</span></li>
-            <li><span class="label">Union</span><span>Membre d'une union de guides de Bali</span></li>
-            <li><span class="label">Famille</span><span>Marié, deux filles de 12 et 9 ans et un garçon de 5 ans</span></li>
-            <li class="fiche-large"><span class="label">Véhicules</span><span>Toyota Avanza · Suzuki APV · Minibus — chauffeur-guide compris dans le compte.</span></li>
-          </ul>
-        </details>
+        <!-- ⚠️ Il y avait ici un dépliant « Fiche d'identité » — six faits
+             repliés derrière un clic. Il a été retiré, et ce n'est pas un
+             revirement : la condition qui le justifiait était « le résumé
+             porte l'essentiel même fermé », et sur mobile personne n'ouvre
+             un dépliant — la page ne montrait donc en pratique QUE sa ligne
+             de résumé. Depuis que la vue portrait développe ces faits,
+             garder un tiroir fermé au-dessus d'un lien qui mène à la
+             version complète était deux fois le même geste.
+             Ce qui reste n'est pas choisi au hasard : la certification est
+             le seul de ces faits qui répond à une INQUIÉTUDE plutôt qu'à
+             une curiosité. Ses véhicules, son union et sa famille sont
+             intéressants ; ils n'apaisent rien tant que « est-ce un
+             professionnel ? » est ouvert. -->
+        <p class="certif reveal">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg>
+          <span><b>Diplômé guide francophone</b>, professionnel depuis octobre
+          2005. Je guide en français et anglais, et je conduis moi-même.
+          <a href="#portrait-agus" data-goto="portrait" data-de="esprit">Tout mon parcours</a></span>
+        </p>
       </div>
     </div>
 
@@ -1342,7 +1344,7 @@
            chapô, les trois points — et pas la démonstration complète, qui
            ajoutait un écran de défilement à une page qui en fait déjà
            dix-neuf. -->
-      <p class="valeurs-chute"><a href="#portrait-agus" data-goto="portrait" data-de="valeurs" class="valeurs-lien">Sa famille, son pays, son union de guides <span aria-hidden="true">&rarr;</span></a></p>
+      <p class="valeurs-chute"><a href="#portrait-agus" data-goto="portrait" data-de="valeurs" class="valeurs-lien">Ma famille, mon pays, mon union de guides <span aria-hidden="true">&rarr;</span></a></p>
     </div>
   </div>
 </section>
@@ -1598,7 +1600,10 @@
       supprime le rafting : dites-le-moi et je refais le compte. Si vous
       préférez n'avoir à penser à rien, je choisis et je réserve aussi vos
       hôtels.</p>
-      <a class="btn btn-sun" href="#sur-mesure" data-goto="home" data-de="sur-mesure">Partir de ce circuit et l'ajuster</a>
+      <!-- `data-base` en plus de `data-goto` : le lien nu menait à un
+           formulaire vide, sans que rien ne dise de quoi on venait de
+           parler, et le message partait sans la base de départ. -->
+      <a class="btn btn-sun" id="circuitVersDemande" href="#sur-mesure" data-goto="home" data-de="sur-mesure" data-base-avant="bali">Partir de ce circuit et l'ajuster</a>
     </div>
   </div>
 </section>
@@ -1653,7 +1658,13 @@
     </div>
 
     <div class="part-tete"><span class="part-sym" id="symMetier"></span><h2>Le métier, en faits</h2></div>
+    <p class="portrait-corps">Avant de vous raconter quoi que ce soit, voici ce
+    qui se vérifie. Le reste de cette page ne vaut que si ces quatre lignes-là
+    tiennent.</p>
     <ul class="fiche-grille" id="portraitFiche"></ul>
+    <p class="portrait-corps">Je guide à Bali, Lombok, Java Centre et Est,
+    Sumbawa, Flores, Komodo et Rinca. Ce site est aujourd'hui recentré sur
+    Bali, et c'est là que je passe l'essentiel de mes jours.</p>
 
     <div class="part-tete"><span class="part-sym" id="symFamille"></span><h2>Ma famille</h2></div>
     <div class="portrait-corps" id="portraitFamille"></div>
@@ -1810,7 +1821,7 @@
     <div class="footer-col">
       <p class="label">Explorer</p>
       <a href="#esprit">Qui je suis</a>
-      <a href="#valeurs">Son engagement</a>
+      <a href="#valeurs">Mon engagement</a>
       <a href="#chemins">Par où commencer</a>
       <a href="#circuit">Le circuit</a>
       <a href="#envies">Vos envies</a>
@@ -2754,7 +2765,7 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
   var SECTIONS_RETOUR = {
     top: "Retour à l'accueil",
     esprit: "Retour à la présentation",
-    valeurs: "Retour à son engagement",
+    valeurs: "Retour à mon engagement",
     chemins: "Retour aux deux chemins",
     circuit: "Retour au circuit",
     envies: "Retour à mes envies",
@@ -3133,7 +3144,6 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
   /* `null` dans PORTRAIT = une chose que seul Agus peut dire. Elle sort
      en marqueur rouge, jamais en phrase plausible. */
   var UNION = { nom: null, depuis: null, role: null, effectif: null, actions: null };
-  var HISTOIRE = { origine: null, francais: null, debut: null, epouse: null };
   var QUESTIONS = [
     "Comment s'appelle exactement votre union de guides, et depuis quand en faites-vous partie ?",
     "Que fait-elle concrètement ? Trois exemples valent mieux qu'une définition.",
@@ -3158,13 +3168,17 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
     $("symPays").innerHTML = symbole("padma", 30);
     $("symUnion").innerHTML = symbole("gong", 30);
 
+    /* Quatre lignes, et pas six. « Union » et « Famille » y figuraient
+       aussi — et chacune est le titre d'une partie de cette page, trente
+       centimètres plus bas. Une fiche qui annonce en trois mots ce qu'un
+       paragraphe va dire ne résume pas : elle dit deux fois. Ne restent
+       que les faits qui n'ont pas leur développement ailleurs, et tous
+       sont à la première personne. */
     $("portraitFiche").innerHTML = [
-      ["Certification", "Diplômé guide francophone"],
-      ["Métier", "Professionnel depuis octobre 2005"],
-      ["Langues", "Je guide en français et anglais"],
-      ["Union", "Membre d'une union de guides de Bali"],
-      ["Famille", "Marié, deux filles de 12 et 9 ans et un garçon de 5 ans"],
-      ["Véhicules", AGUS_VEHICULES.map(function (v) { return v.split(" — ")[0]; }).join(" · ")]
+      ["Ma certification", "Je suis diplômé guide francophone"],
+      ["Mon métier", "Je l'exerce depuis octobre 2005"],
+      ["Mes langues", "Je guide en français et anglais"],
+      ["Mes véhicules", AGUS_VEHICULES.map(function (v) { return v.split(" — ")[0]; }).join(" · ") + " — je conduis moi-même"]
     ].map(function (x) {
       return '<li><span class="label">' + x[0] + '</span><span>' + x[1] + '</span></li>';
     }).join("");
@@ -3183,8 +3197,7 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
       "<p><b>Wayan, Made, Nyoman, Ketut.</b> Ce ne sont pas des prénoms mais des rangs " +
       "de naissance, et au cinquième enfant on repart à Wayan. Mes enfants portent les " +
       "leurs, comme tout le monde ici.</p>" +
-      "<p style=\"color: var(--text-faint)\">Ce qu'Agus veut bien qu'on dise de plus : " +
-      valeur(HISTOIRE.epouse, "ce qu'il souhaite partager, et ce qu'il garde") + "</p>";
+      "";
 
     $("portraitPays").innerHTML =
       "<p>Je suis balinais, diplômé, et je travaille en direct depuis vingt ans. " +
@@ -3201,7 +3214,7 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
       "où on en publie l'adresse.</p>";
 
     $("portraitUnion").innerHTML =
-      '<p class="fort">Membre d\'une union de guides de Bali.</p>' +
+      '<p class="fort">Je fais partie d\'une union de guides de Bali.</p>' +
       "<p>Je travaille avec d'autres guides francophones et anglophones au sein " +
       "d'une union de guides de Bali. Quand je ne suis pas disponible, je passe le " +
       "relais à quelqu'un que je connais — jamais à un inconnu envoyé par une " +
@@ -3634,8 +3647,8 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
      affichait les deux, à trois centimètres l'un de l'autre. */
   var MENU = [
     ["#esprit", "Qui je suis", "Guide diplômé, vingt ans de route", "canang"],
-    ["#valeurs", "Son engagement", "Ce que le direct fait vivre", "padma"],
-    ["#portrait-agus", "Son portrait", "Sa famille, son pays, son union de guides", "rangs", "portrait"],
+    ["#valeurs", "Mon engagement", "Ce que le direct fait vivre", "padma"],
+    ["#portrait-agus", "Mon portrait", "Ma famille, mon pays, mon union de guides", "rangs", "portrait"],
     ["#chemins", "Par où commencer", "Deux façons d'entrer", "candi"],
     ["#circuit", "Le circuit", "Quinze jours, sept étapes, et le jour par jour", "penjor"],
     ["#envies", "Vos envies", "Les classiques, et les places secrètes", "tedung"],
@@ -3817,6 +3830,15 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
     if (goto) {
       ev.preventDefault();
       var vue = goto.dataset.goto;
+      /* La sélection est posée **avant** le changement de vue : le rendu
+         du panier et du message se fait dans la foulée, et l'accueil
+         s'affiche déjà avec « Ma base de départ » en tête. */
+      if (goto.dataset.baseAvant) {
+        baseCircuit = goto.dataset.baseAvant;
+        renderCircuit();
+        renderCart();
+        renderMessage();
+      }
       if (vue !== "home") {
         /* `data-de` l'emporte sur la détection : le bouton du livre d'or
            vit *dans* la section « Livre d'or », mais au moment du clic

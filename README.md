@@ -119,52 +119,63 @@ occupe l'angle vide des grandes cartes de chemins.
 3. **Pas de filigrane sur les petites cartes.** Essayé sur les cartes
    d'activités (84 px de haut) : invisible, et il frôlait le texte. Retiré.
 
-### La présentation : une promesse, puis une fiche
+### La présentation : une promesse, une preuve, une préférence
 
 L'argument n'est pas « voilà qui je suis » mais **« vous n'avez rien à
 organiser »**. C'est ce qu'achète quelqu'un qui part à 12 000 km : pas une
 biographie, la certitude qu'un professionnel diplômé prend tout en charge.
 
-> « Libérez-vous de l'organisation. Je m'occupe de tout — vous n'avez plus
-> qu'à profiter. »
+Le paragraphe **énumère** ce que « tout » recouvre — véhicule, carburant,
+assurances, parkings, entrées, guides de sentier obligatoires, horaires, hôtels
+sur demande. Une promesse sans liste n'est qu'un slogan.
 
-Le paragraphe qui suit **énumère** ce que « tout » recouvre — véhicule,
-carburant, assurances, parkings, entrées, guides de sentier obligatoires,
-horaires, hôtels sur demande. Une promesse sans liste n'est qu'un slogan.
+Trois registres, et il en faut trois. En retirer un coûte la moitié du travail :
 
-La **fiche d'identité** porte les faits qui lèvent le doute : certification,
-ancienneté, langues, union, **famille**, véhicules. La famille y a basculé
-depuis le récit : elle rassure comme une ligne d'état civil, elle diluait la
-promesse en paragraphe.
+1. **La promesse** — ce dont on est déchargé.
+2. **La preuve** — la ligne de certification. Qui ne fait pas confiance ne sera
+   pas ému par des valeurs.
+3. **La préférence** — le panneau bambou. Qui fait confiance sans préférer ne
+   réserve pas non plus.
 
-En dessous, le **panneau jade des valeurs** ferme la section — voir « Les
-valeurs » plus bas pour le partage des rôles entre ce qui est visible et ce qui
-est replié.
+#### Le dépliant « Fiche d'identité » a été retiré
 
-**C'est un dépliant `<details>`, pas une modale ni une page.** Une modale
-volerait le focus pour une liste qu'on veut survoler ; une page éloignerait les
-faits de l'endroit où naît le doute. Le dépliant coûte un tap, se referme, et
-marche au clavier sans une ligne de JS. Il économise **455 px de défilement**
-sur mobile (99 px fermé contre 554 ouvert).
+Il vivait ici : six faits — certification, ancienneté, langues, union, famille,
+véhicules — repliés derrière un `<details>`, avec cette condition écrite noir
+sur blanc : **« le résumé porte l'essentiel même fermé »**. C'est cette
+condition qui l'a condamné. Sur mobile, personne n'ouvre un dépliant ; la page
+ne montrait donc en pratique **que** sa ligne de résumé. Et depuis que `/agus`
+développe ces faits, garder un tiroir fermé juste au-dessus d'un lien qui mène à
+la version complète, c'était deux fois le même geste.
 
-> **Condition non négociable : le résumé porte l'essentiel même fermé.**
-> « Guide diplômé · 20 ans de métier · français et anglais » est lu par tous
-> ceux qui n'ouvriront jamais le dépliant — et sur mobile, personne n'ouvre
-> tout. Replier de la crédibilité derrière un clic sans résumé, c'est la
-> perdre.
+Ne reste que la ligne, **à découvert**, et elle est liée au portrait. Ce qui est
+gardé n'est pas choisi au hasard : la certification est le seul de ces faits qui
+répond à une **inquiétude** plutôt qu'à une curiosité. Confier quinze jours à un
+inconnu à 12 000 km, c'est se demander si c'est un professionnel. Ses véhicules,
+son union et sa famille sont intéressants ; ils n'apaisent rien tant que cette
+question-là est ouverte.
 
-**Pourquoi les faits restent sur l'accueil** : ils sont exactement ce qui
-rassure un voyageur qui s'apprête à confier quinze jours à un inconnu. Les
-envoyer sur une page à part, c'est les mettre là où personne ne va. Ils restent
-donc là où naît la question — le dépliant « fiche d'identité » et le panneau des
-valeurs n'ont pas bougé.
+> ⚠️ **Ne pas remettre un `<details>` ici.** Si la ligne devait un jour porter
+> plus, c'est qu'elle porterait trop : le reste a une page.
 
-**Il existe pourtant une page `/agus`, et ce n'est pas une contradiction.** La
-règle ci-dessus interdisait de *déplacer* les faits, pas d'écrire la suite. Ce
-qui vit sur `/agus`, c'est le développement — l'homme, sa famille, son pays, son
-union de guides. Personne ne lit ça avant d'avoir décidé de faire confiance ;
-tout le monde le lit après, et c'est ce moment-là qui décide d'écrire ou de
-refermer. Voir « Le portrait » plus bas.
+### La voix : « mon », jamais « son »
+
+Le site pose depuis le début qu'**Agus parle, et qu'on ne parle pas de lui**. La
+règle avait fui à un endroit qu'on ne regarde jamais : les libellés de
+navigation. La barre disait « Qui je suis », puis « Son engagement », puis « Mon
+portrait » sous le libellé « Son portrait » — trois entrées côte à côte, deux
+voix. Le visiteur ne se formule pas la raison, mais il enregistre qu'on lui
+parle d'Agus par moments et qu'Agus lui parle à d'autres, et c'est exactement ce
+que ferait un site tenu par un intermédiaire.
+
+Tout est passé à la première personne — barre, menu mobile, pied de page,
+libellés de retour, appels vers le portrait. Sur `/agus`, c'est là que ça compte
+le plus : **une page de présentation écrite à la troisième personne est le signe
+qu'un tiers l'a rédigée**, ce qui est l'inverse de ce que cette page prouve.
+
+Deux endroits gardent volontairement la troisième personne, et il faut savoir
+pourquoi : le **JSON-LD** (c'est une fiche d'entreprise lue par une machine, pas
+une parole) et le **bandeau de travail** de `/agus` (il s'adresse à qui construit
+le site, pas au voyageur).
 
 ### Les emplacements photo
 
@@ -894,6 +905,21 @@ ouvre désormais le développement sur `/agus`. Le titre, le chapô et les trois
 points restent — c'est ce qui embarque. La démonstration complète, elle, trouve
 sa place là où quelqu'un a choisi d'aller lire.
 
+#### Quatre lignes de fiche, et pas six
+
+« Union » et « Famille » y figuraient — et chacune est le **titre d'une partie
+de la même page**, trente centimètres plus bas. Une fiche qui annonce en trois
+mots ce qu'un paragraphe va dire ne résume pas : elle dit deux fois. Ne restent
+que les faits qui n'ont pas leur développement ailleurs — certification,
+ancienneté, langues, véhicules.
+
+Deux marqueurs « à compléter » ont disparu de la même façon : « d'où je viens /
+où j'ai appris le français / ce qui m'a mené au métier » et « ce qu'Agus veut
+bien qu'on dise de plus » posaient à l'écran des questions que le bloc du bas
+pose déjà. Elles restent dans `lib/portrait.js` et dans les six questions ; le
+jour où Agus répond, **ce seront des paragraphes écrits, pas des champs
+remplis** — c'est pour ça que `HISTOIRE` n'est plus affiché nulle part.
+
 #### Rien d'inventé sur un homme réel
 
 C'est la règle qui commande toute la page, et elle a un coût visible. Ce qui est
@@ -1052,7 +1078,10 @@ mesurées, toutes à zéro défaut aujourd'hui :
   > pages légales qui vivent *à l'intérieur d'une phrase* — « décrites dans les
   > conditions générales de vente » — sont, eux, bien couverts par l'exception,
   > et il ne faut **pas** les agrandir : ça casserait l'interligne du
-  > paragraphe. L'audit les signale quand même ; c'est à la relecture de
+  > paragraphe. Trois cas connus, tous vérifiés : « conditions générales de
+  > vente » et « Tarifs » dans les pages légales, et « Tout mon parcours » dans
+  > la ligne de certification de l'accueil.
+  > L'audit les signale quand même ; c'est à la relecture de
   > trancher, en regardant si le lien est seul sur sa ligne ou pris dans du
   > texte.
 - `min-w-11` autant que `min-h-11` : « CGV » en pied de page ne faisait que
@@ -1296,6 +1325,38 @@ est la perte de tous les résultats enrichis du domaine.
 > et les sept témoignages se sont affichés d'un seul tenant. Le rendu n'avait
 > pas l'air en erreur — juste illisible. La vérification qui l'attrape est de
 > **comparer le nombre de paragraphes des deux côtés** : 6, 4, 4, 3, 4, 4, 3.
+
+### « Partir de ce circuit » depuis `/circuit`
+
+Le bouton de fin de la fiche détaillée menait à `/#sur-mesure` et **ne faisait
+rien** : on atterrissait sur un formulaire vide après avoir lu quinze journées,
+et le message partait sans base de départ — Agus recevait une demande qui ne
+disait pas qu'elle venait de son circuit.
+
+La cause est structurelle et vaut d'être notée : **le magasin (`TripProvider`)
+n'existe que sur l'accueil.** C'est un état React, pas un stockage ; changer de
+page le recrée à vide. Un bouton sur `/circuit` ne peut donc pas « cliquer »
+dans l'état de l'accueil — il faut que l'intention voyage dans l'URL.
+
+D'où `?circuit=bali`, lu par `components/PreselectionCircuit.jsx`. Trois détails
+qui ne sont pas décoratifs :
+
+- **Un paramètre d'URL plutôt que `sessionStorage`** : un lien qu'on envoie à
+  quelqu'un garde la sélection, et un rechargement aussi. C'est exactement le
+  genre de trou qu'on vient de boucher.
+- **Le défilement est fait en JS, pas laissé au fragment `#sur-mesure`.** La
+  sélection insère le bloc « Ma base de départ » *au-dessus* du formulaire :
+  le navigateur a déjà sauté avant que la page ait sa hauteur définitive. On
+  attend la peinture suivante et on vise l'ancre soi-même. (Ne rien ajouter
+  comme décalage : `[id] { scroll-margin-top }` s'en charge.)
+- **Un garde `useRef` par valeur** : sans lui, revenir en arrière dans
+  l'historique rejouerait la sélection et écraserait un choix que le voyageur
+  aurait entre-temps annulé.
+
+⚠️ `useSearchParams` fait basculer en rendu client tout ce qui est sous la
+frontière `<Suspense>` la plus proche, et **sur une route prérendue, l'absence
+de frontière fait échouer le build**. Elle est posée dans le composant, pas chez
+l'appelant.
 
 ### Le lien emporte sa provenance
 
