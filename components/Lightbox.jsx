@@ -101,14 +101,11 @@ export default function Lightbox({ place, index, onClose, onIndex }) {
       }}
     >
       <div className="flex items-center justify-between gap-4 px-[clamp(1rem,4vw,2rem)] py-4 text-on-immersive">
-        <span className="label text-on-immersive-soft">
-          {place.titre}
-          {!seule && (
-            <span className="ml-3 tabular-nums">
-              {index + 1} / {photos.length}
-            </span>
-          )}
-        </span>
+        {/* Le « 2 / 3 » qui suivait le titre a été retiré : les
+            pastilles le disent sous la photo, c'est-à-dire là où on
+            regarde. Le rang reste annoncé aux lecteurs d'écran par
+            l'`aria-label` du dialogue et par celui de chaque pastille. */}
+        <span className="label text-on-immersive-soft">{place.titre}</span>
         <button
           ref={fermer}
           type="button"
@@ -146,16 +143,59 @@ export default function Lightbox({ place, index, onClose, onIndex }) {
             transition: glisse ? "none" : "transform .25s ease",
           }}
         >
-          <Photo
-            src={vue.src}
-            alt={vue.alt}
-            scene={vue.scene}
-            uid={`lb-${place.id}-${index}`}
-            brief={vue.brief}
-            ratio="aspect-[3/2]"
-            priority
-            className="w-full rounded-[14px] [@media(max-height:560px)]:max-w-[52%]"
-          />
+          {/* La photo et ses pastilles forment un seul bloc : sur écran
+              court, la figure passe en deux colonnes et les pastilles
+              doivent rester **sous la photo**, pas sous la légende. */}
+          <span className="block w-full [@media(max-height:560px)]:max-w-[52%]">
+            <Photo
+              src={vue.src}
+              alt={vue.alt}
+              scene={vue.scene}
+              uid={`lb-${place.id}-${index}`}
+              brief={vue.brief}
+              ratio="aspect-[3/2]"
+              priority
+              className="w-full rounded-[14px]"
+            />
+            {/* ---------- Les pastilles ----------
+                Elles disent deux choses d'un coup d'œil, et c'est
+                pourquoi elles valent mieux qu'un compteur « 2 / 3 » posé
+                en haut de l'écran : **combien il y en a** — donc qu'il y
+                en a d'autres — et **où l'on en est**. Le compteur, lui,
+                se lit ; les pastilles se voient. C'est la différence
+                entre savoir qu'on peut balayer et y penser.
+
+                Ce sont de vrais boutons : on tape les pastilles, tout le
+                monde le fait. 44 × 44 de cible malgré un point de 8 px —
+                la surface est du rembourrage, pas du dessin.
+
+                L'active est un bâtonnet et pas un point plus gros : à
+                cette taille, deux cercles de diamètres voisins se
+                distinguent mal, deux formes différentes non. La couleur
+                ne porte donc pas seule l'information (WCAG 1.4.1). */}
+            {!seule && (
+              <span className="mt-1 flex items-center justify-center">
+                {photos.map((_, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => onIndex(i)}
+                    aria-label={`Photo ${i + 1} sur ${photos.length}`}
+                    aria-current={i === index ? "true" : undefined}
+                    className="grid h-11 w-11 place-items-center"
+                  >
+                    <span
+                      className={`block h-2 rounded-full transition-all duration-300 ${
+                        i === index
+                          ? "w-6 bg-soleil"
+                          : "w-2 bg-[color-mix(in_srgb,var(--on-immersive)_60%,transparent)]"
+                      }`}
+                    />
+                  </button>
+                ))}
+              </span>
+            )}
+          </span>
           <figcaption className="text-on-immersive [@media(max-height:560px)]:flex-1">
             <p className="font-display text-[clamp(1.25rem,4vw,1.75rem)] leading-tight">
               {place.titre}
@@ -179,8 +219,12 @@ export default function Lightbox({ place, index, onClose, onIndex }) {
       </div>
 
       {!seule && (
-        <p className="pb-[calc(1rem+env(safe-area-inset-bottom,0px))] text-center text-xs text-on-immersive-soft sm:hidden">
-          Balayez pour voir les autres photos de cette place
+        <p
+          /* Les pastilles montrent qu'il y a d'autres photos ; cette
+             ligne dit **comment** y aller. Les deux, et pas l'une ou
+             l'autre : un geste ne se devine pas d'un dessin. */
+          className="pb-[calc(1rem+env(safe-area-inset-bottom,0px))] text-center text-xs text-on-immersive-soft sm:hidden">
+          Balayez pour voir les autres photos
         </p>
       )}
     </div>

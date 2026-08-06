@@ -649,7 +649,33 @@
     .lightbox-photo { max-width: 52%; flex: none; }
     .lightbox-figure figcaption { flex: 1; }
   }
+  .lightbox-bloc { display: block; width: 100%; }
   .lightbox-photo { position: relative; display: block; width: 100%; aspect-ratio: 3 / 2; overflow: hidden; border-radius: 14px; }
+  /* ---------- Les pastilles ----------
+     Elles disent deux choses d'un coup d'œil, et c'est pourquoi elles
+     valent mieux qu'un compteur « 2 / 3 » posé en haut de l'écran :
+     COMBIEN il y en a — donc qu'il y en a d'autres — et OÙ L'ON EN EST.
+     Le compteur se lit ; les pastilles se voient. C'est la différence
+     entre savoir qu'on peut balayer et y penser.
+     Ce sont de vrais boutons : on tape les pastilles, tout le monde le
+     fait. 44 × 44 de cible malgré un point de 8 px — la surface est du
+     rembourrage, pas du dessin.
+     L'active est un bâtonnet et pas un point plus gros : à cette taille,
+     deux cercles de diamètres voisins se distinguent mal, deux formes
+     différentes non. La couleur ne porte donc pas seule l'information
+     (WCAG 1.4.1). */
+  .lb-pastilles { margin-top: 0.25rem; display: flex; align-items: center; justify-content: center; }
+  .lb-pastilles[hidden] { display: none; }
+  .lb-pastilles button {
+    width: 44px; height: 44px; display: grid; place-items: center;
+    background: none; border: 0; padding: 0; cursor: pointer;
+  }
+  .lb-pastilles span {
+    display: block; height: 8px; width: 8px; border-radius: 999px;
+    background: color-mix(in srgb, var(--on-immersive) 60%, transparent);
+    transition: width .3s ease, background-color .3s ease;
+  }
+  .lb-pastilles button[aria-current] span { width: 24px; background: var(--soleil); }
   .lightbox-photo > svg { width: 100%; height: 100%; }
   .lightbox-titre { font-family: var(--display); font-size: clamp(1.25rem, 4vw, 1.75rem); line-height: 1.2; }
   .lightbox-texte { margin-top: 0.4rem; max-width: 62ch; font-size: var(--t-sm); color: var(--on-immersive-soft); line-height: 1.6; }
@@ -1950,14 +1976,23 @@
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
     </button>
     <figure class="lightbox-figure" id="lbFigure">
-      <span class="lightbox-photo" id="lbPhoto"></span>
+      <!-- La photo et ses pastilles forment un seul bloc : sur écran court,
+           la figure passe en deux colonnes et les pastilles doivent rester
+           SOUS LA PHOTO, pas sous la légende. -->
+      <span class="lightbox-bloc">
+        <span class="lightbox-photo" id="lbPhoto"></span>
+        <span class="lb-pastilles" id="lbPastilles"></span>
+      </span>
       <figcaption><p class="lightbox-titre" id="lbTitre"></p><p class="lightbox-texte" id="lbTexte"></p></figcaption>
     </figure>
     <button class="lightbox-rond lightbox-fleche" type="button" data-pas="1" aria-label="Place suivante">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
     </button>
   </div>
-  <p class="lightbox-aide">Balayez pour passer d'une place à l'autre</p>
+  <!-- Les pastilles montrent qu'il y a d'autres photos ; cette ligne dit
+       COMMENT y aller. Les deux, et pas l'une ou l'autre : un geste ne se
+       devine pas d'un dessin. -->
+  <p class="lightbox-aide">Balayez pour voir les autres photos</p>
 </div>
 
 <!-- ============================ BARRE MOBILE ============================ -->
@@ -3856,8 +3891,11 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
 
   function lbRendu() {
     var vues = lbPlace.photos, v = vues[lbIndex], seule = vues.length < 2;
-    $("lbCompteur").innerHTML = lbPlace.titre +
-      (seule ? "" : '<span class="lb-rang">' + (lbIndex + 1) + " / " + vues.length + "</span>");
+    /* Le « 2 / 3 » qui suivait le titre a été retiré : les pastilles le
+       disent sous la photo, c'est-à-dire là où on regarde. Le rang reste
+       annoncé aux lecteurs d'écran par l'aria-label du dialogue et par
+       celui de chaque pastille. */
+    $("lbCompteur").textContent = lbPlace.titre;
     $("lbPhoto").innerHTML = photo({ scene: v.scene, brief: v.brief, src: v.src, uid: "lb-" + lbPlace.id + "-" + lbIndex });
     $("lbTitre").textContent = lbPlace.titre;
     $("lbTexte").textContent = lbPlace.recit || lbPlace.texte;
@@ -3866,6 +3904,13 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
        à photo unique. */
     Array.prototype.forEach.call(document.querySelectorAll(".lightbox-fleche"), function (f) { f.hidden = seule; });
     document.querySelector(".lightbox-aide").hidden = seule;
+
+    $("lbPastilles").hidden = seule;
+    $("lbPastilles").innerHTML = seule ? "" : vues.map(function (_, i) {
+      return '<button type="button" data-vue="' + i + '" aria-label="Photo ' +
+        (i + 1) + " sur " + vues.length + '"' +
+        (i === lbIndex ? ' aria-current="true"' : "") + '><span></span></button>';
+    }).join("");
   }
 
   function lbOuvrir(id) {
@@ -3900,6 +3945,10 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
     if (ev.target === this) lbFermer();
     var f = ev.target.closest("[data-pas]");
     if (f) lbAller(Number(f.dataset.pas));
+    /* On tape les pastilles : tout le monde le fait, et ne pas les
+       rendre cliquables serait un piège de plus. */
+    var v = ev.target.closest("[data-vue]");
+    if (v) { lbIndex = Number(v.dataset.vue); lbRendu(); }
   });
   document.addEventListener("keydown", function (ev) {
     if (!lbPlace) return;

@@ -817,6 +817,36 @@ la promesse), la photo (c'est l'homme), le dépliant « fiche d'identité » (c'
 ce qui lève le doute), et les trois titres des valeurs. Réduire le panneau à ses
 seuls titres en ferait un mur de slogans.
 
+### Les pastilles de la visionneuse
+
+Trois points sous la photo, dans la visionneuse des places secrètes. Ils disent
+**deux choses d'un seul coup d'œil** : combien il y a de photos — donc qu'il y en
+a d'autres — et où l'on en est.
+
+C'est ce qui les rend meilleures que le compteur « 2 / 3 » qu'elles remplacent :
+**le compteur se lit, les pastilles se voient.** C'est la différence entre savoir
+qu'on peut balayer et y penser. Le compteur vivait d'ailleurs dans l'en-tête,
+loin de la photo, c'est-à-dire loin de l'endroit où l'on regarde ; le rang reste
+annoncé aux lecteurs d'écran par l'`aria-label` du dialogue et par celui de
+chaque pastille.
+
+Quatre décisions à ne pas défaire :
+
+- **Elles sont sous la photo, pas sous la figure.** Sur écran court (téléphone
+  tourné), la figure passe en deux colonnes — photo à gauche, texte à droite —
+  et des pastilles posées au niveau de la figure atterriraient sous la légende.
+  D'où le bloc `photo + pastilles` qui fait un seul élément flex.
+- **Ce sont de vrais boutons.** On tape les pastilles ; ne pas les rendre
+  cliquables serait un piège de plus. 44 × 44 de cible pour un point de 8 px : la
+  surface est du rembourrage, pas du dessin.
+- **L'active est un bâtonnet, pas un point plus gros.** À cette taille, deux
+  cercles de diamètres voisins se distinguent mal ; deux formes différentes, non.
+  La couleur ne porte donc pas seule l'information (WCAG 1.4.1). Mesuré : 4,63
+  pour le bâtonnet safran, 8,14 pour les points au repos — seuil graphique 3:1.
+- **La ligne « Balayez pour voir les autres photos » reste**, sur mobile. Les
+  pastilles montrent qu'il y a d'autres photos ; cette ligne dit **comment** y
+  aller. Un geste ne se devine pas d'un dessin.
+
 ### La navigation : une flèche, franche
 
 Le reproche était que sur mobile on ne sait pas ce que fait un lien — quatre
