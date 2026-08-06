@@ -35,20 +35,25 @@ export default function Usages() {
         <ul className="m-0 grid list-none gap-x-[clamp(2rem,5vw,3.5rem)] gap-y-0 p-0 lg:grid-cols-2">
           {USAGES.liste.map((u, i) => (
             <Reveal as="li" key={u.titre} delay={(i % 2) * 0.05}>
-              <div className="flex h-full items-start gap-4 border-t border-[color-mix(in_srgb,var(--on-immersive)_24%,transparent)] py-5">
-                <Symbole
-                  nom={u.symbole}
-                  size={30}
-                  className="mt-0.5 shrink-0 text-soleil"
-                />
-                <div className="min-w-0">
-                  <h3 className="font-display text-[1.15rem] leading-snug">
-                    {u.titre}
-                  </h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-on-immersive-soft">
-                    {u.texte}
-                  </p>
-                </div>
+              {/* Le symbole était dans une gouttière de gauche, et la
+                  gouttière coûtait 46 px de colonne à chacun des six
+                  paragraphes — soit, à 390 px, une ligne de plus par
+                  usage. Il est passé sur la ligne du titre : le texte
+                  récupère toute la largeur, la rangée perd une ligne, et
+                  le dessin reste au même endroit dans l'œil puisqu'un
+                  titre commence là où commençait le symbole. */}
+              <div className="h-full border-t border-[color-mix(in_srgb,var(--on-immersive)_24%,transparent)] py-4">
+                <h3 className="flex items-center gap-3 font-display text-[1.15rem] leading-snug">
+                  <Symbole
+                    nom={u.symbole}
+                    size={26}
+                    className="shrink-0 text-soleil"
+                  />
+                  {u.titre}
+                </h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-on-immersive-soft">
+                  {u.texte}
+                </p>
               </div>
             </Reveal>
           ))}

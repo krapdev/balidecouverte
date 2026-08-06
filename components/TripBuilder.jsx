@@ -224,14 +224,27 @@ export default function TripBuilder() {
               {/* Ce qui se passe à la période choisie. Les saisons sont
                   fiables ; les dates de cérémonies, non — on dit ce qu'on
                   sait et Agus confirme le reste. */}
-              <div className="rounded border border-rule bg-tint/60 p-4 sm:col-span-2">
-                <p className="label mb-2 flex items-center gap-2 text-tint-ink">
-                  <CalendarDays size={14} />
+              {/* Resserré : c'est un encart d'information posé **au
+                  milieu d'une saisie**, et à 390 px il faisait un tiers
+                  d'écran entre deux champs. Le rembourrage descend, les
+                  notes deviennent une vraie liste à puces — trois
+                  paragraphes empilés se lisaient comme un texte, une
+                  liste se balaye — et les textes eux-mêmes ont été
+                  raccourcis dans lib/data.js. */}
+              <div className="rounded border border-rule bg-tint/60 px-3.5 py-3 sm:col-span-2">
+                <p className="label flex items-center gap-2 text-tint-ink">
+                  <CalendarDays size={14} className="shrink-0" />
                   {trip.month} · {period.saison}
                 </p>
-                <ul className="m-0 flex list-none flex-col gap-2 p-0">
+                <ul className="m-0 mt-1.5 flex list-none flex-col gap-1 p-0">
                   {period.notes.map((n) => (
-                    <li key={n} className="text-sm leading-relaxed text-soft">
+                    <li
+                      key={n}
+                      className="flex gap-2 text-sm leading-snug text-soft"
+                    >
+                      <span aria-hidden="true" className="text-tint-ink">
+                        ·
+                      </span>
                       {n}
                     </li>
                   ))}

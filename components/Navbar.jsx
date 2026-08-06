@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { X, Mail, ArrowRight } from "lucide-react";
+import { X, Mail } from "lucide-react";
 import { urlTarifs } from "@/lib/retours";
 import { NAV, ANCRES } from "@/lib/navigation";
 import { Symbole } from "./Symboles";
@@ -353,28 +353,22 @@ export default function Navbar() {
                           {l.gloss}
                         </span>
                       </span>
-                      {/* Deux marques possibles à droite, jamais les
-                          deux à la fois :
-                          • le jepun **plein** quand on y est — la
-                            couleur ne porte jamais seule une information
-                            (WCAG 1.4.1) ;
-                          • une **flèche** quand l'entrée quitte la page.
-                            Rien ne distinguait « Mon portrait », qui
-                            change de page, de « Le circuit », qui fait
-                            défiler. Une porte balinaise a été essayée
-                            là ; elle demandait d'être apprise, la flèche
-                            non. */}
-                      {actif ? (
+                      {/* Une seule marque à droite, et seulement quand
+                          on y est : le jepun **plein**. La couleur ne
+                          porte jamais seule une information (WCAG 1.4.1).
+
+                          Deux marques ont été essayées à côté, pour
+                          signaler les entrées qui quittent la page — une
+                          porte balinaise, puis une flèche. Toutes deux
+                          retirées : dans une liste où **chaque ligne
+                          est déjà un lien**, un signe sur deux lignes
+                          sur neuf ne se lit pas comme « celle-ci change
+                          de page » mais comme « celle-ci est
+                          différente », sans qu'on sache en quoi. Une
+                          nuance qu'on ne peut pas expliquer coûte plus
+                          qu'elle ne rapporte. */}
+                      {actif && (
                         <JepunPuce size={16} plein className="shrink-0 text-accent" />
-                      ) : (
-                        !l.href.startsWith("#") && (
-                          <ArrowRight
-                            size={18}
-                            strokeWidth={2.2}
-                            aria-hidden="true"
-                            className="shrink-0 text-faint"
-                          />
-                        )
                       )}
                     </a>
                   </li>

@@ -863,9 +863,9 @@
   /* ---- Us et coutumes ---- */
   .usages { list-style: none; margin: 0; padding: 0; display: grid; gap: 0 clamp(2rem, 5vw, 3.5rem); }
   @media (min-width: 1000px) { .usages { grid-template-columns: 1fr 1fr; } }
-  .usages li { display: flex; align-items: flex-start; gap: 1rem; border-top: 1px solid color-mix(in srgb, var(--on-immersive) 24%, transparent); padding-block: 1.25rem; }
-  .usages svg { flex: none; color: var(--soleil); margin-top: 0.15rem; }
-  .usages h3 { font-family: var(--display); font-size: 1.15rem; line-height: 1.3; }
+  .usages li { border-top: 1px solid color-mix(in srgb, var(--on-immersive) 24%, transparent); padding-block: 1rem; }
+  .usages svg { flex: none; color: var(--soleil); }
+  .usages h3 { display: flex; align-items: center; gap: 0.75rem; font-family: var(--display); font-size: 1.15rem; line-height: 1.3; }
   .usages p { margin-top: 0.35rem; font-size: var(--t-sm); color: var(--on-immersive-soft); line-height: 1.6; }
 
   /* Grille tarifaire : le prix est au jour et par véhicule. */
@@ -952,10 +952,15 @@
   .counter .counter-label { font-size: var(--t-sm); color: var(--text-soft); margin-left: 0.1rem; }
 
   /* Ce qui se passe à la période choisie */
-  .period { border: 1px solid var(--rule); background: var(--tint); border-radius: var(--radius); padding: 1rem; }
-  .period .label { color: var(--tint-ink); margin-bottom: 0.5rem; display: block; }
-  .period ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
-  .period li { font-size: var(--t-sm); color: var(--text-soft); line-height: 1.55; }
+  /* Resserré : c'est un encart d'information posé AU MILIEU d'une
+     saisie, et à 390 px il faisait un tiers d'écran entre deux champs.
+     Les notes deviennent une vraie liste à puces — trois paragraphes
+     empilés se lisaient comme un texte, une liste se balaye. */
+  .period { border: 1px solid var(--rule); background: var(--tint); border-radius: var(--radius); padding: 0.75rem 0.85rem; }
+  .period .label { color: var(--tint-ink); margin-bottom: 0.35rem; display: block; }
+  .period ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.25rem; }
+  .period li { position: relative; padding-left: 0.8rem; font-size: var(--t-sm); color: var(--text-soft); line-height: 1.4; }
+  .period li::before { content: "·"; position: absolute; left: 0.15rem; color: var(--tint-ink); }
 
   .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
   .tag {
@@ -1490,7 +1495,7 @@
        page : consulter le prix depuis la fiche circuit et se retrouver
        devant le hero, c'est ce qui fait fermer l'onglet. -->
   <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
-<span class="retour-porte"></span>&larr; <span class="retour-libelle">Retour à l'accueil</span>
+<span class="retour-porte"></span><span class="retour-libelle">Retour à l'accueil</span>
   </a>
 </div>
 
@@ -1573,7 +1578,7 @@
 <!-- Le même retour en bas : la page fait quatre écrans sur mobile. -->
 <div class="shell back-home view-tarifs" style="padding-bottom: clamp(3rem, 8vw, 4.5rem)">
   <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
-<span class="retour-porte"></span>&larr; <span class="retour-libelle">Retour à l'accueil</span>
+<span class="retour-porte"></span><span class="retour-libelle">Retour à l'accueil</span>
   </a>
 </div>
 
@@ -1623,7 +1628,7 @@
 <!-- ============================ LIVRE D'OR — VUE ENTIÈRE ============================ -->
 <div class="shell back-home view-livre">
   <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
-<span class="retour-porte"></span>&larr; <span class="retour-libelle">Retour à l'accueil</span>
+<span class="retour-porte"></span><span class="retour-libelle">Retour à l'accueil</span>
   </a>
 </div>
 
@@ -1640,13 +1645,13 @@
 
 <div class="shell back-home view-livre" style="padding-bottom: clamp(3rem, 8vw, 4.5rem)">
   <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
-<span class="retour-porte"></span>&larr; <span class="retour-libelle">Retour à l'accueil</span>
+<span class="retour-porte"></span><span class="retour-libelle">Retour à l'accueil</span>
   </a>
 </div>
 
 <div class="shell back-home view-circuit">
   <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
-<span class="retour-porte"></span>&larr; <span class="retour-libelle">Retour à l'accueil</span>
+<span class="retour-porte"></span><span class="retour-libelle">Retour à l'accueil</span>
   </a>
 </div>
 
@@ -1697,12 +1702,12 @@
 </section>
 <div class="shell back-home view-circuit" style="padding-bottom: clamp(3rem, 8vw, 4.5rem)">
   <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
-<span class="retour-porte"></span>&larr; <span class="retour-libelle">Retour à l'accueil</span>
+<span class="retour-porte"></span><span class="retour-libelle">Retour à l'accueil</span>
   </a>
 </div>
 <div class="shell back-home view-portrait">
   <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
-<span class="retour-porte"></span>&larr; <span class="retour-libelle">Retour à l'accueil</span>
+<span class="retour-porte"></span><span class="retour-libelle">Retour à l'accueil</span>
   </a>
 </div>
 
@@ -1773,7 +1778,7 @@
 </section>
 <div class="shell back-home view-portrait" style="padding-bottom: clamp(3rem, 8vw, 4.5rem)">
   <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
-<span class="retour-porte"></span>&larr; <span class="retour-libelle">Retour à l'accueil</span>
+<span class="retour-porte"></span><span class="retour-libelle">Retour à l'accueil</span>
   </a>
 </div>
 
@@ -2035,15 +2040,21 @@
     var estSec = seche.indexOf(m) !== -1;
     var notes = [];
     notes.push(estSec
-      ? "Ciel dégagé et mer calme : c'est la fenêtre pour le Rinjani et pour Komodo, où les traversées deviennent difficiles le reste de l'année."
-      : "Averses courtes en fin d'après-midi, rizières éclatantes et sites déserts. Les tarifs sont plus doux, mais la mer se ferme parfois du côté de Komodo.");
+      /* ⚠️ Ces notes s'affichent DANS le formulaire, entre le nombre de
+         voyageurs et le style recherché : à 390 px, la version longue
+         faisait quatre lignes pour dire « c'est la bonne saison » — et
+         parlait d'îles que le site ne propose plus.
+         Règle : une note = un fait + sa conséquence pratique. Pas de
+         troisième proposition. */
+      ? "Ciel dégagé, mer calme, routes sûres : la meilleure fenêtre de l'année."
+      : "Averses courtes en fin d'après-midi, rizières éclatantes, sites déserts. Et les tarifs sont plus doux.");
     if (m === "Juillet" || m === "Août") {
-      notes.push("Haute saison européenne : les écolodges de Sidemen et de Munduk se réservent plusieurs mois à l'avance.");
+      notes.push("Haute saison : Sidemen et Munduk se réservent des mois à l'avance.");
     }
     if (m === "Mars") {
-      notes.push("Nyepi, le jour du silence, tombe en mars : pendant 24 h l'île entière s'arrête — aucun vol, aucune lumière, personne dehors. C'est une expérience rare, mais elle se prépare. La date exacte suit le calendrier saka, Agus vous la confirme.");
+      notes.push("Nyepi tombe en mars : 24 h où l'île s'arrête, aucun vol, personne dehors. Rare, mais ça se prépare — Agus vous confirme la date.");
     }
-    notes.push("Galungan et Kuningan, les grandes fêtes des ancêtres, reviennent tous les 210 jours et se déplacent donc chaque année : demandez à Agus si elles tombent pendant votre séjour, les penjor bordent alors toutes les routes.");
+    notes.push("Galungan et Kuningan se déplacent chaque année : demandez à Agus si elles tombent pendant votre séjour.");
     return { saison: estSec ? "Saison sèche" : "Saison des pluies", notes: notes };
   }
 
@@ -2163,38 +2174,38 @@
       symbole: "canang",
       titre: "Les offrandes au sol",
       texte:
-        "Seuil de boutique, tableau de bord, capot de scooter : le canang sari se dépose partout, plusieurs fois par jour. On l'enjambe, on ne la ramasse pas.",
+        "Le canang sari se dépose partout, plusieurs fois par jour. On l'enjambe, on ne la ramasse pas.",
     },
     {
       symbole: "rangs",
       titre: "Wayan, Made, Nyoman, Ketut",
       texte:
-        "Ce ne sont pas des prénoms mais des rangs de naissance, et au cinquième enfant on repart à Wayan. D'où les trois Wayan de votre journée.",
+        "Pas des prénoms, des rangs de naissance : au cinquième enfant on repart à Wayan. D'où vos trois Wayan du jour.",
     },
     {
 
       symbole: "candi",
       titre: "Le sarong et le selendang",
       texte:
-        "On entre au temple les jambes couvertes et la taille ceinte d'une écharpe. Je les ai dans la voiture, en plusieurs tailles : rien à acheter à l'entrée.",
+        "Jambes couvertes et taille ceinte d'une écharpe pour entrer au temple. Je les ai dans la voiture : rien à acheter.",
     },
     {
       symbole: "poleng",
       titre: "Le damier noir et blanc",
       texte:
-        "Le poleng habille statues, arbres et pierres de gardien. Noir et blanc à parts égales : le bien et le mal tenus ensemble, et non l'un contre l'autre.",
+        "Il habille statues, arbres et pierres de gardien. À parts égales : le bien et le mal tenus ensemble, pas l'un contre l'autre.",
     },
     {
       symbole: "penjor",
       titre: "Les bambous arqués de Galungan",
       texte:
-        "Tous les 210 jours, chaque maison courbe devant sa porte un bambou de cinq mètres chargé d'offrandes. Les routes en sont bordées dix jours durant.",
+        "Tous les 210 jours, chaque maison courbe devant sa porte un bambou de cinq mètres. Les routes en sont bordées dix jours.",
     },
     {
       symbole: "nyepi",
       titre: "Nyepi, le jour du silence",
       texte:
-        "Une fois l'an, l'île s'arrête vingt-quatre heures : ni circulation, ni lumière, aéroport fermé. Rare et magnifique, mais ça se prépare — parlons-en.",
+        "Une fois l'an, l'île s'arrête 24 h : ni circulation, ni lumière, aéroport fermé. Magnifique, mais ça se prépare.",
     },
   ],
 };
@@ -3367,8 +3378,14 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
     $("usagesTitre").textContent = USAGES.titre;
     $("usagesChapo").textContent = USAGES.chapo;
     $("usagesList").innerHTML = USAGES.liste.map(function (u) {
-      return '<li class="reveal">' + symbole(u.symbole, 30) +
-        '<div><h3>' + u.titre + '</h3><p>' + u.texte + '</p></div></li>';
+      /* Le symbole était dans une gouttière de gauche, et la gouttière
+         coûtait 46 px de colonne à chacun des six paragraphes — soit,
+         à 390 px, une ligne de plus par usage. Il est passé sur la
+         ligne du titre : le texte récupère toute la largeur, la rangée
+         perd une ligne, et le dessin reste au même endroit dans l'œil
+         puisqu'un titre commence là où commençait le symbole. */
+      return '<li class="reveal"><h3>' + symbole(u.symbole, 26) + u.titre +
+        '</h3><p>' + u.texte + '</p></li>';
     }).join("");
     observeReveals();
   }
@@ -3746,12 +3763,12 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
      Sur-Mesure n'y est plus : le panneau se termine par le bouton
      « Demander un devis », qui mène au même endroit. L'ancienne version
      affichait les deux, à trois centimètres l'un de l'autre. */
-  /* Une flèche, pas une porte. Une porte balinaise a été essayée ici
-     pour dire « cette entrée change de page » : à 16 px, un symbole
-     qu'il faut apprendre ne se lit pas plus vite qu'un mot, et il
-     remplaçait le seul signe que tout le monde lit sans notice. */
-  var FLECHE_PLAQUE = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
-
+  /* Rien à droite des plaques sauf le jepun de la section courante.
+     Deux marques ont été essayées pour signaler les entrées qui quittent
+     la page — une porte balinaise, puis une flèche — et toutes deux
+     retirées : dans une liste où chaque ligne est déjà un lien, un signe
+     sur deux lignes sur neuf ne se lit pas « celle-ci change de page »
+     mais « celle-ci est différente », sans qu'on sache en quoi. */
   var MENU = [
     ["#esprit", "Qui je suis", "Ce dont je vous décharge", "canang"],
     ["#valeurs", "Mon engagement", "Ce que le direct fait vivre", "padma"],
@@ -3779,7 +3796,7 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
            la page. C'était le vrai flou du menu — rien ne distinguait
            « Mon portrait », qui change de page, de « Le circuit », qui
            fait défiler. */
-        '<span class="plaque-puce">' + (m[4] ? FLECHE_PLAQUE : "") + '</span>' +
+        '<span class="plaque-puce"></span>' +
       '</a>';
     }).join("") +
     '<a class="btn btn-accent btn-lg" href="#sur-mesure">Demander un devis</a>' +
@@ -3802,9 +3819,7 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
       else a.removeAttribute("aria-current");
       /* La couleur ne porte jamais seule une information (WCAG 1.4.1) :
          le jepun la double, et la graisse du titre la triple. */
-      a.querySelector(".plaque-puce").innerHTML = ici
-        ? jepunPuce(true)
-        : (a.dataset.goto ? FLECHE_PLAQUE : "");
+      a.querySelector(".plaque-puce").innerHTML = ici ? jepunPuce(true) : "";
     });
   }
 

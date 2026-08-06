@@ -843,8 +843,18 @@ faut pas défaire : **44 px de haut** (c'était le vrai défaut — des liens de
 20 px pris dans un paragraphe), **un soulignement** en plus de la couleur
 (WCAG 1.4.1), et la flèche en `aria-hidden`.
 
-Dans le menu, les entrées qui **quittent la page** portent la flèche à droite :
-rien ne distinguait « Mon portrait » de « Le circuit », qui ne fait que défiler.
+**Rien à droite des plaques du menu**, sauf le jepun de la section courante.
+Deux marques y ont été essayées pour signaler les entrées qui quittent la page —
+une porte, puis une flèche — et toutes deux retirées. La raison est différente de
+la précédente et vaut d'être retenue : dans une liste où **chaque ligne est déjà
+un lien**, un signe posé sur deux lignes sur neuf ne se lit pas « celle-ci change
+de page » mais « celle-ci est différente », sans qu'on sache en quoi. Une nuance
+qu'on ne peut pas expliquer coûte plus qu'elle ne rapporte.
+
+⚠️ **Un seul signe de direction par lien.** La maquette portait, dans ses liens
+de retour, une flèche SVG *et* un caractère `&larr;` hérité de la version
+précédente : deux flèches côte à côte devant le même libellé. Vérifier après
+chaque remplacement d'icône qu'on a bien retiré ce qu'on remplace.
 
 ### Les retours, agrandis
 
@@ -888,6 +898,33 @@ Trois causes, trois corrections :
    un mot seul en bas d'un paragraphe. Sur mobile, où une colonne fait quarante
    caractères, l'orpheline est la règle et non l'exception. Aucun coût : ignoré
    par les navigateurs qui ne le connaissent pas.
+
+### Condenser sans amputer
+
+Deux blocs étaient trop longs sur mobile, et la méthode a été la même pour les
+deux : **d'abord la mise en page, ensuite le texte** — jamais l'inverse, sinon on
+coupe du sens pour rattraper une gouttière.
+
+**Us et coutumes** (1 336 px → **1 184**, soit 1,40 écran de mobile) :
+
+- Le symbole était dans une gouttière de gauche, et cette gouttière coûtait 46 px
+  de colonne à **chacun des six paragraphes** — soit une ligne de plus par usage
+  à 390 px. Il est passé sur la ligne du titre. Le dessin reste au même endroit
+  dans l'œil, puisqu'un titre commence là où commençait le symbole.
+- Puis les textes. Les versions longues énuméraient joliment — « seuil de
+  boutique, tableau de bord, capot de scooter » — mais ce qui sert le voyageur le
+  jour même, c'est la règle : « on l'enjambe, on ne la ramasse pas ». **Garder la
+  règle, couper l'énumération.** Chaque texte tient désormais en trois lignes à
+  390 px, et c'est la contrainte de ce bloc.
+
+**L'encart de période, dans le formulaire** (222 px → **~175**) : c'est le seul
+endroit du site où un texte explicatif s'intercale **au milieu d'une saisie**,
+entre le nombre de voyageurs et le style recherché. Trois paragraphes empilés s'y
+lisaient comme un texte ; ils sont devenus une liste à puces, qui se balaye. Et
+les notes elles-mêmes ont été réécrites sous une règle simple : **une note = un
+fait + sa conséquence pratique, pas de troisième proposition.** La version longue
+faisait quatre lignes pour dire « c'est la bonne saison » — et parlait du Rinjani
+et de Komodo, que le site ne propose plus.
 
 ### Le pied de page n'est plus un second sommaire
 
