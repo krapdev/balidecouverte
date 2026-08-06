@@ -15,6 +15,7 @@ import Footer from "@/components/Footer";
 import Photo from "@/components/Photo";
 import RetourLien from "@/components/RetourLien";
 import { Valeur } from "@/components/AComplete";
+import LienPage from "@/components/LienPage";
 import { Symbole } from "@/components/Symboles";
 import { PortraitAgus, Jepun, Canang } from "@/components/Scene";
 import { AGUS, VALEURS, USAGES } from "@/lib/data";
@@ -161,10 +162,14 @@ export default function PagePortrait() {
                 <h1 className="mt-2 text-[clamp(2rem,6vw,3rem)] leading-[1.05]">
                   {AGUS.nom}
                 </h1>
+                {/* Le diplôme et l'année sont dans la fiche, quatre
+                    centimètres plus bas, et sur le bandeau du hero de
+                    l'accueil. Trois fois la même phrase sur le même
+                    parcours de lecture : elle ne rassure pas trois fois
+                    plus, elle finit par sonner comme un argument. */}
                 <p className="mt-4 text-lg leading-relaxed text-soft">
-                  Guide balinais diplômé, francophone, professionnel depuis{" "}
-                  {AGUS.depuis}. Je conduis moi-même, je traduis moi-même, et je
-                  travaille en direct — sans agence entre vous et moi.
+                  Je suis balinais, je conduis moi-même, je traduis moi-même,
+                  et je travaille en direct — sans agence entre vous et moi.
                 </p>
 
                 <blockquote className="mt-6 border-l-3 border-accent pl-5 text-[clamp(1.15rem,3.4vw,1.45rem)] italic leading-snug text-pretty">
@@ -333,12 +338,9 @@ export default function PagePortrait() {
                   <Mail size={16} />
                   Lui écrire
                 </Link>
-                <Link
-                  className="flex min-h-11 items-center text-sm text-soft underline decoration-rule underline-offset-4 hover:text-ink"
-                  href="/#valeurs"
-                >
+                <LienPage href="/#valeurs" discret>
                   Revenir à mon engagement
-                </Link>
+                </LienPage>
               </div>
             </Partie>
 

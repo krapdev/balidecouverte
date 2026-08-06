@@ -817,6 +817,78 @@ la promesse), la photo (c'est l'homme), le dépliant « fiche d'identité » (c'
 ce qui lève le doute), et les trois titres des valeurs. Réduire le panneau à ses
 seuls titres en ferait un mur de slogans.
 
+### La grammaire de navigation : une porte, ou une flèche
+
+Le reproche : sur mobile, on ne sait pas ce que fait un lien. « Tout mon
+parcours », « Ce que comprend ce prix », « Les quinze journées en détail »,
+« Lire les sept témoignages » — quatre libellés, quatre habillages différents,
+et aucun ne disait s'il déplaçait **dans** la page ou s'il **changeait** de
+page. Sur un écran de 390 px où l'on ne voit jamais plus d'un tiers d'une
+section, c'est la différence entre « je jette un œil » et « je perds ma place ».
+
+La règle est désormais unique, et vaut partout :
+
+> **Une porte → on change de page. Une flèche → on reste ici.**
+
+La porte est le **candi bentar**, la porte fendue en deux par laquelle on entre
+dans un temple balinais. Ce n'est pas un ornement plaqué sur une convention :
+c'est déjà le symbole du seuil dans le menu mobile, et c'est littéralement ce
+qu'on fait — franchir.
+
+`components/LienPage.jsx` la porte, et garantit trois choses qu'il ne faut pas
+défaire :
+
+- **44 px de haut.** C'était le vrai défaut sur mobile : des liens de 20 px pris
+  dans un paragraphe, impossibles à viser. « Tout mon parcours » était encore
+  signalé par l'audit à la passe précédente ; il ne l'est plus.
+- **Un soulignement, pas seulement la couleur** (WCAG 1.4.1).
+- **La porte est `aria-hidden`** : c'est une redondance visuelle, le libellé
+  porte le sens et un lecteur d'écran annonce déjà « lien ».
+
+Trois endroits la posent à la main plutôt que par le composant, et c'est
+délibéré : le panneau bambou des valeurs et la sortie de `/circuit` (le bambou
+de `LienPage` y serait illisible), et l'appel sous le portrait (la cible
+cliquable, là, c'est la photo entière).
+
+**Un dessin dédié.** `Symboles.jsx` gagne `porte`, qui est le `candi` dépouillé
+de ses cinq assises gravées par montant — indispensables à 24 px pour le
+reconnaître, de la bouillie à 16. Les deux coexistent : `candi` **nomme** la
+porte du temple dans un texte qui en parle, `porte` est un **signe
+d'interface**. Deux usages, deux dessins.
+
+Deux applications qui vont plus loin que le simple habillage :
+
+- **Dans le menu mobile**, les entrées qui quittent la page (« Mon portrait »,
+  « Tarifs ») portent la porte à droite. C'était le vrai flou : rien ne les
+  distinguait du « Le circuit » qui, lui, fait défiler.
+- **Les liens de retour** portent la porte **et** une flèche vers la gauche : la
+  porte dit qu'on change de page, la flèche dit dans quel sens. C'est le seul
+  endroit du site où les deux cohabitent.
+
+### Neuf fois « guide diplômé »
+
+Le compte a été fait : le diplôme était annoncé **neuf fois** — bandeau du hero,
+chapô de la présentation, ligne de certification, chapô des valeurs, sous-titre
+de la barre, pied de page, glose du menu, en-tête de `/agus`, fiche de `/agus`.
+Un fait répété ne rassure pas davantage ; passé la troisième fois, il finit par
+sonner comme un argument de vente.
+
+Il s'annonce désormais **une fois en pleine force, au premier écran** (le
+bandeau du hero), et ne réapparaît que là où il se **vérifie** : la ligne de
+faits de la présentation et la fiche de `/agus`. Ont été retirés : l'ouverture
+du chapô de la présentation, « diplômé » dans le chapô des valeurs, la glose du
+menu (« Guide diplômé, vingt ans de route » → « Ce dont je vous décharge ») et
+l'en-tête de `/agus`.
+
+**La ligne de faits a changé de registre**, et c'est le point important. Elle
+disait, en prose : « Diplômé guide francophone, professionnel depuis octobre
+2005. Je guide en français et anglais, et je conduis moi-même. » C'est une
+phrase — donc quelque chose qui se lit, qui se compare à la phrase d'à côté, et
+qui se met à sonner comme un argument. Elle est devenue une **liste de mentions
+séparées par des points**, sous un intitulé qui dit ce qu'elle est : « Ce qui se
+vérifie ». Une liste ne se lit pas, elle se balaye ; c'est le bon registre pour
+des faits qu'on consulte.
+
 ### Le menu : un seuil, pas une barre
 
 Le reproche était juste — c'était la barre de n'importe quel site. Logo à
@@ -1357,6 +1429,21 @@ qui ne sont pas décoratifs :
 frontière `<Suspense>` la plus proche, et **sur une route prérendue, l'absence
 de frontière fait échouer le build**. Elle est posée dans le composant, pas chez
 l'appelant.
+
+### Le piège du `data-de` à l'aller et au retour (prototype)
+
+Le bouton « Partir de ce circuit et l'ajuster » atterrissait **en haut de la
+page d'accueil** au lieu du formulaire, dans la maquette seulement. La cause
+est instructive : le gestionnaire `data-goto` ne mémorisait la provenance
+(`retourDepuis`) **que si la vue cible n'était pas l'accueil** — il était écrit
+pour un aller vers une sous-page, dont on voudrait revenir. Un lien qui va
+*vers* l'accueil et qui **désigne son point d'arrivée** par `data-de` voyait
+donc son attribut ignoré, et le défilement retombait sur la valeur précédente,
+« top ».
+
+La règle générale, qui vaut au-delà de ce fichier : **un attribut qui nomme une
+destination doit l'emporter dans les deux sens.** Ne pas le conditionner à la
+direction du trajet.
 
 ### Le lien emporte sa provenance
 

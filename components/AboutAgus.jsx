@@ -4,10 +4,10 @@ import {
   Users,
   HandCoins,
   Heart,
-  ArrowRight,
 } from "lucide-react";
 import { PortraitAgus } from "./Scene";
 import { Symbole } from "./Symboles";
+import LienPage from "./LienPage";
 import Photo from "./Photo";
 import SectionHead from "./SectionHead";
 import Reveal from "./Reveal";
@@ -57,10 +57,15 @@ export default function AboutAgus() {
   return (
     <section id="esprit" className="ground-ivoire band">
       <div className="shell">
+        {/* Le chapô s'ouvrait sur « Guide diplômé, professionnel depuis
+            2005 » — que le bandeau du hero venait de dire deux écrans
+            plus haut, et que la ligne de faits redit trois centimètres
+            plus bas. Le diplôme s'annonce **une fois**, au premier
+            écran ; ici on est déjà passé à ce qu'il fait. */}
         <SectionHead eyebrow="Votre guide" title="Laissez-vous guider.">
-          Guide diplômé, professionnel depuis 2005, je conduis moi-même et je
-          traduis moi-même. Vous n&apos;avez ni véhicule à louer, ni billets à
-          prendre, ni horaires à caler : je m&apos;occupe de tout.
+          Je conduis moi-même et je traduis moi-même. Vous n&apos;avez ni
+          véhicule à louer, ni billets à prendre, ni horaires à caler :
+          je m&apos;occupe de tout.
         </SectionHead>
 
         <div className="grid items-start gap-[clamp(2rem,6vw,3.5rem)] md:grid-cols-[0.72fr_1.28fr]">
@@ -92,9 +97,21 @@ export default function AboutAgus() {
                   className="w-full"
                 />
               </span>
-              <span className="mt-3.5 flex min-h-11 items-center justify-between gap-3 border-t border-rule pt-3 text-sm text-accent">
-                <span>Mon portrait, ma famille, mon union</span>
-                <ArrowRight size={15} className="shrink-0 transition-transform group-hover:translate-x-1" />
+              {/* La porte et non la flèche : c'est la grammaire du site
+                  depuis LienPage.jsx — une porte, on change de page ; une
+                  flèche, on reste ici. Elle n'est pas reprise du
+                  composant parce que la cible cliquable, ici, c'est la
+                  photo entière. */}
+              <span className="mt-3.5 flex min-h-11 items-center gap-2.5 border-t border-rule pt-3 text-sm text-accent">
+                <Symbole
+                  nom="porte"
+                  size={17}
+                  strokeWidth={1.5}
+                  className="shrink-0 transition-transform group-hover:-translate-y-0.5"
+                />
+                <span className="underline decoration-accent underline-offset-4">
+                  Mon portrait, ma famille, mon union
+                </span>
               </span>
             </Link>
             {/* L'explication du jepun est partie sur /agus. C'était trois
@@ -145,45 +162,40 @@ export default function AboutAgus() {
               <p className="mt-4 font-display text-xl">— Agus</p>
             </Reveal>
 
-            {/* ---------- La certification, et rien d'autre ----------
-                Le dépliant « Fiche d'identité » vivait ici : six faits
-                repliés derrière un clic. Il n'a plus de raison d'être
-                depuis que /agus les développe, et il coûtait cher pour
-                ce qu'il rendait — sur mobile, personne n'ouvre un
-                dépliant, si bien que la page ne montrait en pratique que
-                sa ligne de résumé. On garde donc exactement cette ligne,
-                à découvert, et on la lie au portrait.
+            {/* ---------- Ce qui se vérifie ----------
+                Trois formes se sont succédé ici : un dépliant de six
+                faits, puis une phrase de trois lignes, maintenant une
+                ligne de quatre mentions séparées par des points.
 
-                Ce qui est gardé n'est pas choisi au hasard : la
-                certification est le seul fait qui **répond à une
-                inquiétude** plutôt qu'à une curiosité. Confier quinze
-                jours à un inconnu à 12 000 km, c'est se demander s'il
-                est un professionnel. Ses véhicules, son union et sa
-                famille sont intéressants ; ils n'apaisent rien tant que
-                cette question-là est ouverte. */}
+                La phrase disait « Diplômé guide francophone,
+                professionnel depuis octobre 2005. Je guide en français
+                et anglais, et je conduis moi-même » — soit, à trois
+                centimètres près, le bandeau du hero et le chapô de la
+                section. Le site répétait le diplôme **neuf fois**. Un
+                fait répété ne rassure pas davantage : il finit par
+                sonner comme un argument de vente.
+
+                Une liste de mentions, elle, ne se lit pas comme une
+                phrase : on la balaye, on vérifie, on passe. C'est le bon
+                registre pour des faits qu'on consulte. */}
             <Reveal delay={0.05}>
-              <p className="flex items-start gap-3 rounded-[14px] border border-rule bg-surface-alt p-4">
-                <BadgeCheck
-                  size={18}
-                  className="mt-0.5 shrink-0 text-accent"
-                  strokeWidth={1.7}
-                />
-                <span className="min-w-0 text-sm leading-relaxed">
-                  <b className="font-semibold">{AGUS.diplome}</b>, professionnel
-                  depuis {AGUS.depuis}. Je guide en {AGUS.langues}, et je conduis
-                  moi-même.{" "}
-                  <Link
-                    href="/agus?de=esprit"
-                    /* Souligné en bambou et non en `rule` : dans un
-                       paragraphe, un lien ne peut pas se signaler par la
-                       seule couleur (WCAG 1.4.1), et un filet ivoire
-                       très pâle ne se voit pas sur le fond sable. */
-                    className="whitespace-nowrap text-accent underline decoration-accent underline-offset-4"
-                  >
-                    Tout mon parcours
-                  </Link>
-                </span>
-              </p>
+              <div className="rounded-[14px] border border-rule bg-surface-alt p-4">
+                <p className="label flex items-center gap-2 text-eyebrow">
+                  <BadgeCheck size={14} strokeWidth={1.9} className="shrink-0" />
+                  Ce qui se vérifie
+                </p>
+                <p className="mt-2 text-sm leading-relaxed">
+                  {[
+                    AGUS.diplome,
+                    `Depuis ${AGUS.depuis}`,
+                    `Je guide en ${AGUS.langues}`,
+                    "Je conduis moi-même",
+                  ].join(" · ")}
+                </p>
+                <LienPage href="/agus?de=esprit" className="mt-1">
+                  Tout mon parcours
+                </LienPage>
+              </div>
             </Reveal>
           </div>
         </div>
@@ -268,15 +280,22 @@ export default function AboutAgus() {
                 qui en fait déjà dix-neuf, et qui trouve sa vraie place
                 là où quelqu'un a choisi d'aller lire. */}
             <p className="relative mt-10">
+              {/* Même grammaire que partout — la porte — mais sur fond
+                  bambou : le composant LienPage est réglé pour les fonds
+                  clairs, et son bambou y serait illisible. */}
               <Link
                 href="/agus?de=valeurs"
-                className="group inline-flex min-h-11 items-center gap-2 border-b border-soleil pb-1 font-display text-[clamp(1.05rem,2.8vw,1.3rem)] leading-snug text-on-immersive no-underline"
+                className="group inline-flex min-h-11 items-center gap-3 font-display text-[clamp(1.05rem,2.8vw,1.3rem)] leading-snug text-on-immersive no-underline"
               >
-                Ma famille, mon pays, mon union de guides
-                <ArrowRight
-                  size={17}
-                  className="shrink-0 text-soleil transition-transform group-hover:translate-x-1"
+                <Symbole
+                  nom="porte"
+                  size={20}
+                  strokeWidth={1.4}
+                  className="shrink-0 text-soleil transition-transform group-hover:-translate-y-0.5"
                 />
+                <span className="underline decoration-soleil underline-offset-[6px]">
+                  Ma famille, mon pays, mon union de guides
+                </span>
               </Link>
             </p>
           </div>

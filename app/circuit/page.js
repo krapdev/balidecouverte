@@ -269,11 +269,22 @@ export default function PageCircuit() {
                   <Mail size={17} />
                   Partir de ce circuit et l&apos;ajuster
                 </Link>
+                {/* La porte, comme partout — mais posée à la main : le
+                    composant LienPage est réglé pour les fonds clairs et
+                    son bambou serait illisible ici. */}
                 <Link
-                  className="flex min-h-11 items-center text-sm text-on-immersive-soft underline decoration-[color-mix(in_srgb,var(--on-immersive)_35%,transparent)] underline-offset-4 hover:text-on-immersive"
+                  className="group flex min-h-11 items-center gap-2.5 text-sm text-on-immersive-soft no-underline hover:text-on-immersive"
                   href="/tarifs?de=circuit"
                 >
-                  Les trois façons de compter
+                  <Symbole
+                    nom="porte"
+                    size={17}
+                    strokeWidth={1.5}
+                    className="shrink-0 transition-transform group-hover:-translate-y-0.5"
+                  />
+                  <span className="underline decoration-[color-mix(in_srgb,var(--on-immersive)_45%,transparent)] underline-offset-4">
+                    Les trois façons de compter
+                  </span>
                 </Link>
               </div>
             </section>

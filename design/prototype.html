@@ -272,6 +272,7 @@
   .nav-menu a.plaque[aria-current] .plaque-titre { color: var(--accent); font-weight: 600; }
   .plaque-gloss { display: block; margin-top: 0.15rem; font-size: var(--t-sm); line-height: 1.35; color: var(--text-soft); }
   .plaque-puce { flex: none; display: grid; color: var(--accent); }
+  .nav-menu a.plaque:not([aria-current]) .plaque-puce { color: var(--text-faint); }
   .nav-menu .btn { margin-top: 1.5rem; }
   /* La porte fendue ferme le panneau — le seuil qu'on vient de
      franchir. En clair et non en filigrane : à 390 px, le panneau est
@@ -1122,15 +1123,50 @@
      dort. « Ubud, 4 nuits » ne dit pas qu'on descend le Batur à vélo le
      septième jour. */
   .portrait-lien { display: block; text-decoration: none; }
-  .portrait-appel { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; min-height: 44px; margin-top: 0.9rem; border-top: 1px solid var(--rule); padding-top: 0.75rem; font-size: var(--t-sm); color: var(--accent); }
-  .valeurs-lien { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; border-bottom: 1px solid var(--soleil); font-family: var(--display); font-size: clamp(1.05rem, 2.8vw, 1.3rem); color: var(--on-immersive); text-decoration: none; }
-  .valeurs-lien span { color: var(--soleil); }
+  .portrait-appel { display: flex; align-items: center; gap: 0.65rem; min-height: 44px; margin-top: 0.9rem; border-top: 1px solid var(--rule); padding-top: 0.75rem; font-size: var(--t-sm); color: var(--accent); }
+  .portrait-appel-porte { flex: none; display: grid; }
+  .portrait-appel-txt { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 4px; }
+  .valeurs-lien { display: inline-flex; align-items: center; gap: 0.75rem; min-height: 44px; font-family: var(--display); font-size: clamp(1.05rem, 2.8vw, 1.3rem); color: var(--on-immersive); text-decoration: none; }
+  .valeurs-lien-porte { flex: none; display: grid; color: var(--soleil); }
+  .valeurs-lien-txt { text-decoration: underline; text-decoration-color: var(--soleil); text-underline-offset: 6px; }
 
-  .certif { display: flex; align-items: flex-start; gap: 0.75rem; border: 1px solid var(--rule); background: var(--surface-alt); border-radius: 14px; padding: 1rem; font-size: var(--t-sm); line-height: 1.6; }
-  .certif svg { flex: none; margin-top: 0.15rem; }
-  /* Souligné en bambou : dans un paragraphe, un lien ne peut pas se
-     signaler par la seule couleur (WCAG 1.4.1). */
-  .certif a { color: var(--accent); white-space: nowrap; text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 4px; }
+  /* ============================================================
+     LA GRAMMAIRE DE NAVIGATION
+
+     Le reproche : sur mobile, on ne savait pas ce que faisait un lien.
+     « Tout mon parcours », « Ce que comprend ce prix », « Les quinze
+     journées en détail » — trois habillages différents, et aucun ne
+     disait s'il déplaçait dans la page ou s'il changeait de page. Sur
+     un écran de 390 px où l'on ne voit jamais plus d'un tiers d'une
+     section, c'est la différence entre « je jette un œil » et « je
+     perds ma place ».
+
+     La règle est désormais unique et vaut partout :
+       UNE PORTE -> on change de page.  UNE FLÈCHE -> on reste ici.
+
+     La porte est le candi bentar, par lequel on entre dans un temple.
+     Ce n'est pas un ornement plaqué : c'est déjà le symbole du seuil
+     dans le menu mobile, et c'est littéralement ce qu'on fait.
+     ============================================================ */
+  .lien-page {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    min-height: 44px; font-size: var(--t-sm); color: var(--accent); text-decoration: none;
+  }
+  .lien-page svg { flex: none; transition: transform .18s; }
+  .lien-page:hover svg { transform: translateY(-2px); }
+  .lien-page span { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 4px; }
+  .lien-page.discret { color: var(--text-soft); }
+  .lien-page.discret svg { color: var(--text-faint); }
+  .lien-page.discret span { text-decoration-color: var(--rule); }
+  /* Porte ET flèche vers la gauche : la porte dit qu'on change de page,
+     la flèche dit dans quel sens. Les deux ensemble, et seulement ici —
+     c'est le seul endroit du site où l'on revient en arrière. */
+  .retour-porte { display: inline-grid; vertical-align: -3px; }
+
+  .certif { border: 1px solid var(--rule); background: var(--surface-alt); border-radius: 14px; padding: 1rem; }
+  .certif-tete { display: flex; align-items: center; gap: 0.5rem; color: var(--eyebrow); }
+  .certif-tete svg { flex: none; }
+  .certif-faits { margin-top: 0.5rem; font-size: var(--t-sm); line-height: 1.6; }
 
   .forts { list-style: none; margin: 0; padding: 0; }
   .forts li { display: flex; align-items: baseline; gap: 0.9rem; border-bottom: 1px solid var(--rule); padding-block: 0.65rem; }
@@ -1237,9 +1273,12 @@
     <div class="sec-head reveal">
       <p class="label sec-eyebrow">Votre guide</p>
       <h2>Laissez-vous guider.</h2>
-      <p>Guide diplômé, professionnel depuis 2005, je conduis moi-même et je
-      traduis moi-même. Vous n'avez ni véhicule à louer, ni billets à prendre,
-      ni horaires à caler : je m'occupe de tout.</p>
+      <!-- Le chapô s'ouvrait sur « Guide diplômé, professionnel depuis
+           2005 » — que le bandeau du hero venait de dire deux écrans plus
+           haut, et que la ligne de faits redit trois centimètres plus bas.
+           Le diplôme s'annonce UNE FOIS, au premier écran. -->
+      <p>Je conduis moi-même et je traduis moi-même. Vous n'avez ni véhicule à
+      louer, ni billets à prendre, ni horaires à caler : je m'occupe de tout.</p>
     </div>
 
     <div class="agus-grid">
@@ -1250,7 +1289,7 @@
              photo ne fait que l'élargir à une cible confortable. -->
         <a href="#portrait-agus" data-goto="portrait" data-de="esprit" class="portrait-lien">
           <div class="portrait" id="portrait"></div>
-          <span class="portrait-appel">Mon portrait, ma famille, mon union <span aria-hidden="true">&rarr;</span></span>
+          <span class="portrait-appel"><span class="portrait-appel-porte"></span><span class="portrait-appel-txt">Mon portrait, ma famille, mon union</span></span>
         </a>
         <!-- Une seule ligne, et sans les coordonnées. Le nom et le GPS se
              partageaient la largeur : à 390 px, « AGUS YUDIARTA » passait à
@@ -1297,12 +1336,24 @@
              une curiosité. Ses véhicules, son union et sa famille sont
              intéressants ; ils n'apaisent rien tant que « est-ce un
              professionnel ? » est ouvert. -->
-        <p class="certif reveal">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg>
-          <span><b>Diplômé guide francophone</b>, professionnel depuis octobre
-          2005. Je guide en français et anglais, et je conduis moi-même.
-          <a href="#portrait-agus" data-goto="portrait" data-de="esprit">Tout mon parcours</a></span>
-        </p>
+        <!-- Trois formes se sont succédé ici : un dépliant de six faits,
+             puis une phrase de trois lignes, maintenant une ligne de quatre
+             mentions séparées par des points.
+             La phrase disait, à trois centimètres près, le bandeau du hero
+             et le chapô de la section. Le site répétait le diplôme NEUF
+             fois : un fait répété ne rassure pas davantage, il finit par
+             sonner comme un argument de vente.
+             Une liste de mentions ne se lit pas comme une phrase — on la
+             balaye, on vérifie, on passe. C'est le bon registre pour des
+             faits qu'on consulte. -->
+        <div class="certif reveal">
+          <p class="label certif-tete">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg>
+            Ce qui se vérifie
+          </p>
+          <p class="certif-faits">Diplômé guide francophone · Depuis octobre 2005 · Je guide en français et anglais · Je conduis moi-même</p>
+          <a class="lien-page" id="lienParcours" href="#portrait-agus" data-goto="portrait" data-de="esprit"><span>Tout mon parcours</span></a>
+        </div>
       </div>
     </div>
 
@@ -1316,7 +1367,7 @@
          l'animation. On n'anime pas ce vers quoi on navigue. -->
     <div class="valeurs-panneau" id="valeurs">
       <h3>Voyager avec moi, c'est faire vivre les guides de Bali.</h3>
-      <p class="valeurs-chapo">Je suis balinais, diplômé, et je travaille en
+      <p class="valeurs-chapo">Je suis balinais et je travaille en
       direct depuis vingt ans. Ce n'est pas seulement une façon de baisser le
       prix : c'est une façon de faire vivre un métier, et de tenir la promesse
       que je fais à mon pays.</p>
@@ -1344,7 +1395,7 @@
            chapô, les trois points — et pas la démonstration complète, qui
            ajoutait un écran de défilement à une page qui en fait déjà
            dix-neuf. -->
-      <p class="valeurs-chute"><a href="#portrait-agus" data-goto="portrait" data-de="valeurs" class="valeurs-lien">Ma famille, mon pays, mon union de guides <span aria-hidden="true">&rarr;</span></a></p>
+      <p class="valeurs-chute"><a href="#portrait-agus" data-goto="portrait" data-de="valeurs" class="valeurs-lien"><span class="valeurs-lien-porte"></span><span class="valeurs-lien-txt">Ma famille, mon pays, mon union de guides</span></a></p>
     </div>
   </div>
 </section>
@@ -1405,7 +1456,7 @@
        page : consulter le prix depuis la fiche circuit et se retrouver
        devant le hero, c'est ce qui fait fermer l'onglet. -->
   <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
-    &larr; <span class="retour-libelle">Retour à l'accueil</span>
+<span class="retour-porte"></span>&larr; <span class="retour-libelle">Retour à l'accueil</span>
   </a>
 </div>
 
@@ -1488,7 +1539,7 @@
 <!-- Le même retour en bas : la page fait quatre écrans sur mobile. -->
 <div class="shell back-home view-tarifs" style="padding-bottom: clamp(3rem, 8vw, 4.5rem)">
   <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
-    &larr; <span class="retour-libelle">Retour à l'accueil</span>
+<span class="retour-porte"></span>&larr; <span class="retour-libelle">Retour à l'accueil</span>
   </a>
 </div>
 
@@ -1527,7 +1578,7 @@
     <p style="margin-top: 2rem">
       <!-- data-goto, pas une ancre : « #temoignages » renvoyait sur la
            section elle-même, donc nulle part. -->
-      <a class="btn btn-outline" href="#livre" data-goto="livre" data-de="temoignages" style="color: var(--accent)">
+      <a class="btn btn-outline" id="lienLivre" href="#livre" data-goto="livre" data-de="temoignages" style="color: var(--accent)">
         Lire les 7 témoignages
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
@@ -1538,7 +1589,7 @@
 <!-- ============================ LIVRE D'OR — VUE ENTIÈRE ============================ -->
 <div class="shell back-home view-livre">
   <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
-    &larr; <span class="retour-libelle">Retour à l'accueil</span>
+<span class="retour-porte"></span>&larr; <span class="retour-libelle">Retour à l'accueil</span>
   </a>
 </div>
 
@@ -1555,13 +1606,13 @@
 
 <div class="shell back-home view-livre" style="padding-bottom: clamp(3rem, 8vw, 4.5rem)">
   <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
-    &larr; <span class="retour-libelle">Retour à l'accueil</span>
+<span class="retour-porte"></span>&larr; <span class="retour-libelle">Retour à l'accueil</span>
   </a>
 </div>
 
 <div class="shell back-home view-circuit">
   <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
-    &larr; <span class="retour-libelle">Retour à l'accueil</span>
+<span class="retour-porte"></span>&larr; <span class="retour-libelle">Retour à l'accueil</span>
   </a>
 </div>
 
@@ -1604,17 +1655,20 @@
            formulaire vide, sans que rien ne dise de quoi on venait de
            parler, et le message partait sans la base de départ. -->
       <a class="btn btn-sun" id="circuitVersDemande" href="#sur-mesure" data-goto="home" data-de="sur-mesure" data-base-avant="bali">Partir de ce circuit et l'ajuster</a>
+      <a class="lien-page" id="lienTarifsSortie" href="#tarifs" data-goto="tarifs" data-de="circuit" style="color: var(--on-immersive-soft); margin-left: 1rem">
+        <span style="text-decoration-color: color-mix(in srgb, var(--on-immersive) 45%, transparent)">Les trois façons de compter</span>
+      </a>
     </div>
   </div>
 </section>
 <div class="shell back-home view-circuit" style="padding-bottom: clamp(3rem, 8vw, 4.5rem)">
   <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
-    &larr; <span class="retour-libelle">Retour à l'accueil</span>
+<span class="retour-porte"></span>&larr; <span class="retour-libelle">Retour à l'accueil</span>
   </a>
 </div>
 <div class="shell back-home view-portrait">
   <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
-    &larr; <span class="retour-libelle">Retour à l'accueil</span>
+<span class="retour-porte"></span>&larr; <span class="retour-libelle">Retour à l'accueil</span>
   </a>
 </div>
 
@@ -1685,7 +1739,7 @@
 </section>
 <div class="shell back-home view-portrait" style="padding-bottom: clamp(3rem, 8vw, 4.5rem)">
   <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
-    &larr; <span class="retour-libelle">Retour à l'accueil</span>
+<span class="retour-porte"></span>&larr; <span class="retour-libelle">Retour à l'accueil</span>
   </a>
 </div>
 
@@ -2449,6 +2503,7 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
       "tedung": "<circle cx=\"12\" cy=\"2.2\" r=\".9\"/><path d=\"M12 3.1V21\"/><path d=\"M7 8.6Q12 3.7 17 8.6\"/><path d=\"M7 8.6q1.25 1.5 2.5 0 1.25 1.5 2.5 0 1.25 1.5 2.5 0 1.25 1.5 2.5 0\"/><path d=\"M4 14.4Q12 7.7 20 14.4\"/><path d=\"M4 14.4q2 1.7 4 0 2 1.7 4 0 2 1.7 4 0 2 1.7 4 0\"/>",
       "penjor": "<path d=\"M4.4 21C4.4 13 6 6.2 12.6 4.2c3.9-1.1 6.2.2 6.6 2.4\"/><path d=\"M19.2 6.6v2.1\"/><path d=\"M17.5 8.7h3.4v3l-1.7 1.9-1.7-1.9z\"/><path d=\"M6.6 15.1v2.6M8.7 10.9v2.6M12.2 7.9v2.6\"/>",
       "candi": "<path d=\"M2.5 21h19\"/><path d=\"M3.6 21V10L6.2 4h2.6v17\"/><path d=\"M20.4 21V10L17.8 4h-2.6v17\"/><path d=\"M4.6 9h4.2M4.1 13h4.7M3.7 17h5.1\"/><path d=\"M19.4 9h-4.2M19.9 13h-4.7M20.3 17h-5.1\"/>",
+      "porte": "<path d=\"M3.2 21V9.4L5.6 3.4h3.1V21\"/><path d=\"M20.8 21V9.4L18.4 3.4h-3.1V21\"/><path d=\"M2 21h20\"/>",
       "gong": "<path d=\"M4.6 3.4h14.8\"/><path d=\"M8.8 3.4v3.4M15.2 3.4v3.4\"/><circle cx=\"12\" cy=\"13.4\" r=\"5.9\"/><circle cx=\"12\" cy=\"13.4\" r=\"1.8\"/>",
       "poleng": "<rect x=\"4\" y=\"4\" width=\"16\" height=\"16\" rx=\"1.4\"/><path d=\"M9.33 4v16M14.67 4v16M4 9.33h16M4 14.67h16\"/><path d=\"M4 4h5.33v5.33H4zM14.67 4H20v5.33h-5.33zM9.33 9.33h5.34v5.34H9.33zM4 14.67h5.33V20H4zM14.67 14.67H20V20h-5.33z\" fill=\"currentColor\" stroke=\"none\"/>",
       "padma": "<path transform=\"rotate(0 12 12)\" d=\"M12 12c-1.9-2.5-1.9-5.9 0-8.4 1.9 2.5 1.9 5.9 0 8.4Z\"/><path transform=\"rotate(45 12 12)\" d=\"M12 12c-1.9-2.5-1.9-5.9 0-8.4 1.9 2.5 1.9 5.9 0 8.4Z\"/><path transform=\"rotate(90 12 12)\" d=\"M12 12c-1.9-2.5-1.9-5.9 0-8.4 1.9 2.5 1.9 5.9 0 8.4Z\"/><path transform=\"rotate(135 12 12)\" d=\"M12 12c-1.9-2.5-1.9-5.9 0-8.4 1.9 2.5 1.9 5.9 0 8.4Z\"/><path transform=\"rotate(180 12 12)\" d=\"M12 12c-1.9-2.5-1.9-5.9 0-8.4 1.9 2.5 1.9 5.9 0 8.4Z\"/><path transform=\"rotate(225 12 12)\" d=\"M12 12c-1.9-2.5-1.9-5.9 0-8.4 1.9 2.5 1.9 5.9 0 8.4Z\"/><path transform=\"rotate(270 12 12)\" d=\"M12 12c-1.9-2.5-1.9-5.9 0-8.4 1.9 2.5 1.9 5.9 0 8.4Z\"/><path transform=\"rotate(315 12 12)\" d=\"M12 12c-1.9-2.5-1.9-5.9 0-8.4 1.9 2.5 1.9 5.9 0 8.4Z\"/>",
@@ -3079,8 +3134,10 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
           '<button class="btn ' + (base ? "btn-outline" : "btn-accent") + '" type="button" data-base="' + c.id + '"' +
             (base ? ' style="color: var(--accent)"' : '') + '>' +
             (base ? "\u2713 C'est ma base de départ" : "Commencer par ce circuit") + '</button>' +
-          '<a href="#circuit-detail" data-goto="circuit" data-de="circuit">Les quinze journées en détail &rarr;</a>' +
-          '<a href="#tarifs" data-goto="tarifs">Ce que comprend ce prix</a>' +
+          '<a class="lien-page" href="#circuit-detail" data-goto="circuit" data-de="circuit">' +
+            symbole("porte", 17, 1.5) + '<span>Les quinze journées en détail</span></a>' +
+          '<a class="lien-page discret" href="#tarifs" data-goto="tarifs">' +
+            symbole("porte", 17, 1.5) + '<span>Ce que comprend ce prix</span></a>' +
         '</div>' +
       '</div>';
     observeReveals();
@@ -3622,6 +3679,22 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
     addEventListener("resize", surDefilement);
   })();
 
+  /* La grammaire de navigation, posée partout d'un coup : une porte, on
+     change de page. Les libellés déjà écrits en dur dans le HTML la
+     reçoivent ici plutôt que d'être recopiés dix fois. */
+  [].forEach.call(document.querySelectorAll(".retour-porte"), function (el) {
+    el.innerHTML = symbole("porte", 16, 1.6);
+  });
+  [].forEach.call(document.querySelectorAll(".valeurs-lien-porte"), function (el) {
+    el.innerHTML = symbole("porte", 20, 1.4);
+  });
+  [].forEach.call(document.querySelectorAll(".portrait-appel-porte"), function (el) {
+    el.innerHTML = symbole("porte", 17, 1.5);
+  });
+  $("lienParcours").insertAdjacentHTML("afterbegin", symbole("porte", 17, 1.5));
+  $("lienLivre").insertAdjacentHTML("afterbegin", symbole("porte", 17, 1.6));
+  $("lienTarifsSortie").insertAdjacentHTML("afterbegin", symbole("porte", 17, 1.5));
+
   /* ---------- Le menu mobile ---------- */
   /* Il liste **toutes** les sections, y compris celles que la barre du
      haut ne peut pas montrer faute de place. Le verrou de défilement est
@@ -3667,7 +3740,12 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
           '<span class="plaque-titre">' + m[1] + '</span>' +
           '<span class="plaque-gloss">' + m[2] + '</span>' +
         '</span>' +
-        '<span class="plaque-puce"></span>' +
+        /* Deux marques possibles à droite, jamais les deux à la fois :
+           le jepun plein quand on y est, la porte quand l'entrée quitte
+           la page. C'était le vrai flou du menu — rien ne distinguait
+           « Mon portrait », qui change de page, de « Le circuit », qui
+           fait défiler. */
+        '<span class="plaque-puce">' + (m[4] ? symbole("porte", 16, 1.6) : "") + '</span>' +
       '</a>';
     }).join("") +
     '<a class="btn btn-accent btn-lg" href="#sur-mesure">Demander un devis</a>' +
@@ -3690,7 +3768,9 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
       else a.removeAttribute("aria-current");
       /* La couleur ne porte jamais seule une information (WCAG 1.4.1) :
          le jepun la double, et la graisse du titre la triple. */
-      a.querySelector(".plaque-puce").innerHTML = ici ? jepunPuce(true) : "";
+      a.querySelector(".plaque-puce").innerHTML = ici
+        ? jepunPuce(true)
+        : (a.dataset.goto ? symbole("porte", 16, 1.6) : "");
     });
   }
 
@@ -3839,7 +3919,14 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
         renderCart();
         renderMessage();
       }
-      if (vue !== "home") {
+      /* ⚠️ `data-de` était ignoré quand on revenait vers l'accueil, et
+         c'est ce qui faisait atterrir « Partir de ce circuit » tout en
+         haut de la page au lieu du formulaire : la provenance n'était
+         mémorisée que pour le trajet aller. Un lien qui **désigne** son
+         point d'arrivée doit l'emporter dans les deux sens. */
+      if (vue === "home" && goto.dataset.de) {
+        retourDepuis = goto.dataset.de;
+      } else if (vue !== "home") {
         /* `data-de` l'emporte sur la détection : le bouton du livre d'or
            vit *dans* la section « Livre d'or », mais au moment du clic
            celle-ci peut n'être qu'à moitié entrée à l'écran et la

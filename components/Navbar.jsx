@@ -337,10 +337,26 @@ export default function Navbar() {
                           {l.gloss}
                         </span>
                       </span>
-                      {/* La couleur ne porte jamais seule une
-                          information (WCAG 1.4.1) : le jepun la double. */}
-                      {actif && (
+                      {/* Deux marques possibles à droite, jamais les
+                          deux à la fois :
+                          • le jepun **plein** quand on y est — la
+                            couleur ne porte jamais seule une information
+                            (WCAG 1.4.1) ;
+                          • la **porte** quand l'entrée quitte la page.
+                            C'était le vrai flou du menu : rien ne
+                            distinguait « Mon portrait », qui change de
+                            page, de « Le circuit », qui fait défiler. */}
+                      {actif ? (
                         <JepunPuce size={16} plein className="shrink-0 text-accent" />
+                      ) : (
+                        !l.href.startsWith("#") && (
+                          <Symbole
+                            nom="porte"
+                            size={16}
+                            strokeWidth={1.6}
+                            className="shrink-0 text-faint"
+                          />
+                        )
                       )}
                     </a>
                   </li>

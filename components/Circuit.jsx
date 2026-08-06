@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import { MoonStar, Check, ArrowRight } from "lucide-react";
+import LienPage from "./LienPage";
+import { MoonStar, Check } from "lucide-react";
 import Photo from "./Photo";
 import SectionHead from "./SectionHead";
 import Reveal from "./Reveal";
@@ -126,24 +126,18 @@ export default function Circuit() {
                   "Commencer par ce circuit"
                 )}
               </button>
-              {/* `?de=circuit` : le retour ramènera ici, et non en haut
+              {/* Les deux mènent ailleurs : ils portent donc la porte,
+                  comme partout sur le site. Le second est `discret` — il
+                  ne doit pas disputer l'œil au premier, qui est la suite
+                  naturelle de la lecture.
+                  `?de=circuit` : le retour ramènera ici, et non en haut
                   de l'accueil. */}
-              <Link
-                className="group flex min-h-11 items-center gap-1.5 text-sm text-accent no-underline"
-                href="/circuit?de=circuit"
-              >
+              <LienPage href="/circuit?de=circuit">
                 Les quinze journées en détail
-                <ArrowRight
-                  size={15}
-                  className="shrink-0 transition-transform group-hover:translate-x-1"
-                />
-              </Link>
-              <Link
-                className="flex min-h-11 items-center text-sm text-soft underline decoration-rule underline-offset-4 hover:text-ink"
-                href="/tarifs?de=circuit"
-              >
+              </LienPage>
+              <LienPage href="/tarifs?de=circuit" discret>
                 Ce que comprend ce prix
-              </Link>
+              </LienPage>
             </div>
 
             {base && (

@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
+import { Symbole } from "./Symboles";
 import { retour } from "@/lib/retours";
 
 /**
@@ -23,7 +24,12 @@ function Lien({ className }) {
   const { href, label } = retour(useSearchParams().get("de"));
   return (
     <Link href={href} className={className}>
-      <ArrowLeft size={14} />
+      {/* Porte **et** flèche vers la gauche : la porte dit qu'on change
+          de page, la flèche dit dans quel sens. Les deux ensemble, et
+          seulement ici — c'est le seul endroit du site où l'on revient
+          en arrière. */}
+      <Symbole nom="porte" size={16} strokeWidth={1.6} />
+      <ArrowLeft size={13} />
       {label}
     </Link>
   );
@@ -35,7 +41,8 @@ export default function RetourLien({ className = "" }) {
     <Suspense
       fallback={
         <Link href="/" className={classes}>
-          <ArrowLeft size={14} />
+          <Symbole nom="porte" size={16} strokeWidth={1.6} />
+          <ArrowLeft size={13} />
           Retour à l&apos;accueil
         </Link>
       }
