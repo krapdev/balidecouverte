@@ -358,7 +358,7 @@ export default function PagePortrait() {
               <ol className="m-0 mt-4 flex list-none flex-col gap-2.5 p-0">
                 {QUESTIONS.map((q, i) => (
                   <li key={q} className="flex gap-3 text-sm leading-relaxed">
-                    <span className="font-sans text-[0.6875rem] tabular-nums text-eyebrow">
+                    <span className="font-sans text-xs tabular-nums text-eyebrow">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     {q}

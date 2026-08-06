@@ -26,7 +26,7 @@ export default function MobileBar() {
         visible ? "visible translate-y-0" : "invisible translate-y-full"
       }`}
     >
-      <p className="font-sans text-[0.6875rem] leading-tight text-soft">
+      <p className="font-sans text-xs leading-tight text-soft">
         <b className="block font-sans text-base font-bold text-ink">
           {count} envie{count > 1 ? "s" : ""}
         </b>

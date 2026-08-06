@@ -47,7 +47,7 @@ export default function Photo({
           {brief && (
             <span className="pointer-events-none absolute inset-x-0 bottom-0 flex items-start gap-2 bg-immersive-deep px-3 py-2 text-on-immersive">
               <Camera size={13} className="mt-0.5 shrink-0" strokeWidth={1.8} />
-              <span className="text-[0.6875rem] leading-snug">
+              <span className="text-xs leading-snug">
                 <b className="font-semibold">Photo à venir</b> — {brief}
               </span>
             </span>

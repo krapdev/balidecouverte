@@ -89,8 +89,15 @@
     --body: "Mulish", ui-sans-serif, system-ui, -apple-system, sans-serif;
     --util: "Mulish", ui-sans-serif, system-ui, sans-serif;
 
-    --t-xs:   0.6875rem;
-    --t-sm:   0.8125rem;
+    /* ⚠️ Échelle relevée d'un cran, et c'est un réglage mobile-first.
+       `--t-sm` valait 13 px — la taille d'une mention légale — et
+       portait ici des paragraphes entiers : les six us et coutumes, les
+       temps forts du circuit, les trois valeurs, tout le jour par jour.
+       À bout de bras, 13 px de texte long se lit en plissant les yeux.
+       Ça ne coûte presque rien en défilement : ces blocs sont larges,
+       la ligne accueille encore le même nombre de mots. */
+    --t-xs:   0.8125rem;
+    --t-sm:   0.9375rem;
     --t-base: 1.0625rem;
     --t-lg:   1.1875rem;
     --t-xl:   1.4375rem;
@@ -118,6 +125,13 @@
        déclencherait jamais. */
     overflow-x: clip;
   }
+  /* `text-wrap: pretty` sur tout le texte courant : le navigateur évite
+     les lignes orphelines — un mot seul en bas d'un paragraphe — en
+     rééquilibrant les deux dernières lignes. Sur mobile, où une colonne
+     fait quarante caractères, une orpheline sur trois paragraphes est la
+     règle. Ignoré par les navigateurs qui ne le connaissent pas. */
+  p, li, dd, figcaption, blockquote { text-wrap: pretty; }
+
   h1, h2, h3 { font-family: var(--display); font-weight: 500; text-wrap: balance; margin: 0; line-height: 1.16; letter-spacing: -0.012em; }
   ::selection { background: var(--accent); color: var(--accent-ink); }
   p { margin: 0; }
@@ -129,12 +143,17 @@
   .shell { max-width: var(--shell); margin-inline: auto; padding-inline: var(--pad); }
 
   /* Étiquette utilitaire — coordonnées, durées, eyebrows */
+  /* 12 px, et 0,16 em d'interlettrage au lieu de 0,20. L'espacement
+     large fait la petite capitale, mais il ALLONGE LE MOT DE 15 % :
+     « US ET COUTUMES », « CE QUI SE VÉRIFIE » passaient à la ligne dans
+     des colonnes où ils tenaient à un cheveu près. C'était la moitié
+     des retours à la ligne parasites de la page. */
   .label {
     font-family: var(--util);
-    font-size: var(--t-xs);
-    font-weight: 500;
+    font-size: 0.75rem;
     font-weight: 600;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.16em;
+    line-height: 1.45;
     text-transform: uppercase;
     font-variant-numeric: tabular-nums;
   }
@@ -148,7 +167,8 @@
     border: 1px solid transparent; border-radius: var(--radius);
     padding: 0.85em 1.5em;
     font-family: var(--body);
-    font-size: 0.875rem; font-weight: 500; letter-spacing: 0.02em; line-height: 1.2;
+    /* 15 px et non 14 : un bouton se lit avant d'être touché. */
+    font-size: 0.9375rem; font-weight: 600; letter-spacing: 0.02em; line-height: 1.2;
     cursor: pointer; text-decoration: none;
     transition: background-color .18s ease, color .18s ease, border-color .18s ease, transform .18s ease;
   }
@@ -232,7 +252,7 @@
   .brand-name { font-family: var(--display); font-size: var(--t-lg); font-weight: 600; letter-spacing: -0.01em; line-height: 1.05; }
   /* Masquée sous 640 px plutôt que tronquée : « GUIDE FRANCOPH… » a
      l'air d'un bug, l'absence non. */
-  .brand-sub { display: none; font-family: var(--util); font-size: 0.625rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-faint); }
+  .brand-sub { display: none; font-family: var(--util); font-size: var(--t-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-faint); }
   @media (min-width: 640px) { .brand-sub { display: block; } }
   .nav-links { display: none; gap: 1.6rem; }
   /* La maquette n'avait aucune navigation sous 900 px : les liens
@@ -280,7 +300,17 @@
      règle de la maison est que le motif ne passe jamais sous du texte. */
   .nav-seuil { margin-top: 1.75rem; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--accent); }
   .nav-seuil p { font-size: 0.6875rem; color: var(--text-faint); text-align: center; }
-  @media (min-width: 900px) { .nav-burger, .nav-menu { display: none !important; } }
+  /* ⚠️ Le burger n'est plus masqué au-delà de 900 px. Le pied de page
+     portait la liste complète des sections, et c'est elle qui rendait
+     le site navigable au-delà des six entrées de la barre. En la
+     retirant — « on a déjà le menu » —, on laissait les écrans larges
+     sans aucun accès à « Par où commencer », « Us et coutumes », « Mon
+     portrait » ou le jour par jour : le menu était justement la seule
+     chose qu'ils n'avaient pas.
+     Le sommaire garde la largeur d'une colonne de lecture : une liste
+     de neuf plaques étalée sur 1180 px se lit en balayant la tête de
+     gauche à droite. */
+  @media (min-width: 900px) { .nav-menu nav { max-width: 42rem; } }
   .nav-links a {
     display: inline-flex; align-items: center; min-height: 44px;
     text-decoration: none; font-size: var(--t-sm); color: var(--text-soft);
@@ -586,7 +616,7 @@
   .journee-compte {
     position: absolute; left: 0.375rem; bottom: 0.375rem;
     display: inline-flex; align-items: center; gap: 0.25rem;
-    padding: 0.1rem 0.45rem; border-radius: 999px; font-size: 0.625rem;
+    padding: 0.1rem 0.45rem; border-radius: 999px; font-size: var(--t-xs);
     background: var(--immersive-2); color: var(--on-immersive);
   }
 
@@ -966,7 +996,7 @@
      ============================================================ */
   .footer { padding-block: clamp(2.5rem, 7vw, 4rem) 6.5rem; }
   .footer-in { display: grid; gap: 2rem; }
-  @media (min-width: 760px) { .footer-in { grid-template-columns: 1.2fr 1fr 1fr; } }
+  @media (min-width: 760px) { .footer-in { grid-template-columns: 1.1fr 1fr; } }
   .footer h3 { font-size: var(--t-xl); margin-bottom: 0.5rem; }
   .footer p, .footer a { color: var(--on-immersive-soft); font-size: var(--t-sm); text-decoration: none; }
   .footer a:hover { color: var(--on-immersive); }
@@ -1124,10 +1154,10 @@
      septième jour. */
   .portrait-lien { display: block; text-decoration: none; }
   .portrait-appel { display: flex; align-items: center; gap: 0.65rem; min-height: 44px; margin-top: 0.9rem; border-top: 1px solid var(--rule); padding-top: 0.75rem; font-size: var(--t-sm); color: var(--accent); }
-  .portrait-appel-porte { flex: none; display: grid; }
+  .portrait-appel-porte { flex: none; display: grid; order: 2; }
   .portrait-appel-txt { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 4px; }
   .valeurs-lien { display: inline-flex; align-items: center; gap: 0.75rem; min-height: 44px; font-family: var(--display); font-size: clamp(1.05rem, 2.8vw, 1.3rem); color: var(--on-immersive); text-decoration: none; }
-  .valeurs-lien-porte { flex: none; display: grid; color: var(--soleil); }
+  .valeurs-lien-porte { flex: none; display: grid; order: 2; color: var(--soleil); }
   .valeurs-lien-txt { text-decoration: underline; text-decoration-color: var(--soleil); text-underline-offset: 6px; }
 
   /* ============================================================
@@ -1152,16 +1182,17 @@
     display: inline-flex; align-items: center; gap: 0.5rem;
     min-height: 44px; font-size: var(--t-sm); color: var(--accent); text-decoration: none;
   }
-  .lien-page svg { flex: none; transition: transform .18s; }
-  .lien-page:hover svg { transform: translateY(-2px); }
+  .lien-page svg { flex: none; order: 2; transition: transform .18s; }
+  .lien-page:hover svg { transform: translateX(3px); }
   .lien-page span { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 4px; }
   .lien-page.discret { color: var(--text-soft); }
   .lien-page.discret svg { color: var(--text-faint); }
   .lien-page.discret span { text-decoration-color: var(--rule); }
-  /* Porte ET flèche vers la gauche : la porte dit qu'on change de page,
-     la flèche dit dans quel sens. Les deux ensemble, et seulement ici —
-     c'est le seul endroit du site où l'on revient en arrière. */
-  .retour-porte { display: inline-grid; vertical-align: -3px; }
+  /* Le retour est la commande la plus utile d'une page qu'on n'a pas
+     choisie, et c'était la plus petite de l'écran : petite capitale de
+     11 px et flèche de 13. Texte courant, 15 px, flèche de 20. */
+  .retour-tarifs { font-family: var(--body) !important; font-size: var(--t-sm) !important; font-weight: 700 !important; letter-spacing: 0 !important; text-transform: none !important; gap: 0.6rem !important; }
+  .retour-porte { display: inline-grid; vertical-align: -5px; }
 
   .certif { border: 1px solid var(--rule); background: var(--surface-alt); border-radius: 14px; padding: 1rem; }
   .certif-tete { display: flex; align-items: center; gap: 0.5rem; color: var(--eyebrow); }
@@ -1351,7 +1382,10 @@
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg>
             Ce qui se vérifie
           </p>
-          <p class="certif-faits">Diplômé guide francophone · Depuis octobre 2005 · Je guide en français et anglais · Je conduis moi-même</p>
+          <!-- Mentions raccourcies : la version longue tenait sur trois
+               lignes à 390 px pour quatre faits. Le mot inutile est celui
+               que le lecteur reconstitue seul. -->
+          <p class="certif-faits">Diplômé · Depuis 2005 · Français et anglais · Je conduis</p>
           <a class="lien-page" id="lienParcours" href="#portrait-agus" data-goto="portrait" data-de="esprit"><span>Tout mon parcours</span></a>
         </div>
       </div>
@@ -1395,7 +1429,7 @@
            chapô, les trois points — et pas la démonstration complète, qui
            ajoutait un écran de défilement à une page qui en fait déjà
            dix-neuf. -->
-      <p class="valeurs-chute"><a href="#portrait-agus" data-goto="portrait" data-de="valeurs" class="valeurs-lien"><span class="valeurs-lien-porte"></span><span class="valeurs-lien-txt">Ma famille, mon pays, mon union de guides</span></a></p>
+      <p class="valeurs-chute"><a href="#portrait-agus" data-goto="portrait" data-de="valeurs" class="valeurs-lien"><span class="valeurs-lien-porte"></span><span class="valeurs-lien-txt">Ma famille, mon pays, mon union</span></a></p>
     </div>
   </div>
 </section>
@@ -1872,18 +1906,12 @@
       guide diplômé francophone à Denpasar. Bali, Lombok, Java Centre et Est,
       Sumbawa, Flores, Komodo et Rinca.</p>
     </div>
-    <div class="footer-col">
-      <p class="label">Explorer</p>
-      <a href="#esprit">Qui je suis</a>
-      <a href="#valeurs">Mon engagement</a>
-      <a href="#chemins">Par où commencer</a>
-      <a href="#circuit">Le circuit</a>
-      <a href="#envies">Vos envies</a>
-      <a href="#usages">Us et coutumes</a>
-      <a href="#temoignages">Livre d'or</a>
-      <a href="#tarifs" data-goto="tarifs">Tarifs</a>
-      <a href="#sur-mesure">Sur-Mesure</a>
-    </div>
+    <!-- ⚠️ La colonne « Explorer » a été retirée. Elle reprenait les neuf
+         sections du site, c'est-à-dire exactement le sommaire du menu — et
+         un sommaire en double est un sommaire qu'on ne maintient qu'à
+         moitié : les deux listes avaient déjà divergé.
+         Condition à laquelle ce retrait est acceptable, et elle est
+         tenue : le menu s'ouvre désormais à toutes les largeurs. -->
     <div class="footer-col">
       <p class="label">Contact direct</p>
       <a href="https://wa.me/628123688936" target="_blank" rel="noopener">WhatsApp · +62 81 236 88 936</a>
@@ -2503,7 +2531,6 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
       "tedung": "<circle cx=\"12\" cy=\"2.2\" r=\".9\"/><path d=\"M12 3.1V21\"/><path d=\"M7 8.6Q12 3.7 17 8.6\"/><path d=\"M7 8.6q1.25 1.5 2.5 0 1.25 1.5 2.5 0 1.25 1.5 2.5 0 1.25 1.5 2.5 0\"/><path d=\"M4 14.4Q12 7.7 20 14.4\"/><path d=\"M4 14.4q2 1.7 4 0 2 1.7 4 0 2 1.7 4 0 2 1.7 4 0\"/>",
       "penjor": "<path d=\"M4.4 21C4.4 13 6 6.2 12.6 4.2c3.9-1.1 6.2.2 6.6 2.4\"/><path d=\"M19.2 6.6v2.1\"/><path d=\"M17.5 8.7h3.4v3l-1.7 1.9-1.7-1.9z\"/><path d=\"M6.6 15.1v2.6M8.7 10.9v2.6M12.2 7.9v2.6\"/>",
       "candi": "<path d=\"M2.5 21h19\"/><path d=\"M3.6 21V10L6.2 4h2.6v17\"/><path d=\"M20.4 21V10L17.8 4h-2.6v17\"/><path d=\"M4.6 9h4.2M4.1 13h4.7M3.7 17h5.1\"/><path d=\"M19.4 9h-4.2M19.9 13h-4.7M20.3 17h-5.1\"/>",
-      "porte": "<path d=\"M3.2 21V9.4L5.6 3.4h3.1V21\"/><path d=\"M20.8 21V9.4L18.4 3.4h-3.1V21\"/><path d=\"M2 21h20\"/>",
       "gong": "<path d=\"M4.6 3.4h14.8\"/><path d=\"M8.8 3.4v3.4M15.2 3.4v3.4\"/><circle cx=\"12\" cy=\"13.4\" r=\"5.9\"/><circle cx=\"12\" cy=\"13.4\" r=\"1.8\"/>",
       "poleng": "<rect x=\"4\" y=\"4\" width=\"16\" height=\"16\" rx=\"1.4\"/><path d=\"M9.33 4v16M14.67 4v16M4 9.33h16M4 14.67h16\"/><path d=\"M4 4h5.33v5.33H4zM14.67 4H20v5.33h-5.33zM9.33 9.33h5.34v5.34H9.33zM4 14.67h5.33V20H4zM14.67 14.67H20V20h-5.33z\" fill=\"currentColor\" stroke=\"none\"/>",
       "padma": "<path transform=\"rotate(0 12 12)\" d=\"M12 12c-1.9-2.5-1.9-5.9 0-8.4 1.9 2.5 1.9 5.9 0 8.4Z\"/><path transform=\"rotate(45 12 12)\" d=\"M12 12c-1.9-2.5-1.9-5.9 0-8.4 1.9 2.5 1.9 5.9 0 8.4Z\"/><path transform=\"rotate(90 12 12)\" d=\"M12 12c-1.9-2.5-1.9-5.9 0-8.4 1.9 2.5 1.9 5.9 0 8.4Z\"/><path transform=\"rotate(135 12 12)\" d=\"M12 12c-1.9-2.5-1.9-5.9 0-8.4 1.9 2.5 1.9 5.9 0 8.4Z\"/><path transform=\"rotate(180 12 12)\" d=\"M12 12c-1.9-2.5-1.9-5.9 0-8.4 1.9 2.5 1.9 5.9 0 8.4Z\"/><path transform=\"rotate(225 12 12)\" d=\"M12 12c-1.9-2.5-1.9-5.9 0-8.4 1.9 2.5 1.9 5.9 0 8.4Z\"/><path transform=\"rotate(270 12 12)\" d=\"M12 12c-1.9-2.5-1.9-5.9 0-8.4 1.9 2.5 1.9 5.9 0 8.4Z\"/><path transform=\"rotate(315 12 12)\" d=\"M12 12c-1.9-2.5-1.9-5.9 0-8.4 1.9 2.5 1.9 5.9 0 8.4Z\"/>",
@@ -3683,17 +3710,18 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
      change de page. Les libellés déjà écrits en dur dans le HTML la
      reçoivent ici plutôt que d'être recopiés dix fois. */
   [].forEach.call(document.querySelectorAll(".retour-porte"), function (el) {
-    el.innerHTML = symbole("porte", 16, 1.6);
+    el.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>';
   });
+  var FLECHE = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
   [].forEach.call(document.querySelectorAll(".valeurs-lien-porte"), function (el) {
-    el.innerHTML = symbole("porte", 20, 1.4);
+    el.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
   });
   [].forEach.call(document.querySelectorAll(".portrait-appel-porte"), function (el) {
-    el.innerHTML = symbole("porte", 17, 1.5);
+    el.innerHTML = FLECHE;
   });
-  $("lienParcours").insertAdjacentHTML("afterbegin", symbole("porte", 17, 1.5));
-  $("lienLivre").insertAdjacentHTML("afterbegin", symbole("porte", 17, 1.6));
-  $("lienTarifsSortie").insertAdjacentHTML("afterbegin", symbole("porte", 17, 1.5));
+  $("lienParcours").insertAdjacentHTML("beforeend", FLECHE);
+  $("lienLivre").insertAdjacentHTML("beforeend", FLECHE);
+  $("lienTarifsSortie").insertAdjacentHTML("beforeend", FLECHE);
 
   /* ---------- Le menu mobile ---------- */
   /* Il liste **toutes** les sections, y compris celles que la barre du
@@ -3718,16 +3746,22 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
      Sur-Mesure n'y est plus : le panneau se termine par le bouton
      « Demander un devis », qui mène au même endroit. L'ancienne version
      affichait les deux, à trois centimètres l'un de l'autre. */
+  /* Une flèche, pas une porte. Une porte balinaise a été essayée ici
+     pour dire « cette entrée change de page » : à 16 px, un symbole
+     qu'il faut apprendre ne se lit pas plus vite qu'un mot, et il
+     remplaçait le seul signe que tout le monde lit sans notice. */
+  var FLECHE_PLAQUE = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+
   var MENU = [
-    ["#esprit", "Qui je suis", "Guide diplômé, vingt ans de route", "canang"],
+    ["#esprit", "Qui je suis", "Ce dont je vous décharge", "canang"],
     ["#valeurs", "Mon engagement", "Ce que le direct fait vivre", "padma"],
-    ["#portrait-agus", "Mon portrait", "Ma famille, mon pays, mon union de guides", "rangs", "portrait"],
+    ["#portrait-agus", "Mon portrait", "Ma famille, mon pays, mon union", "rangs", "portrait"],
     ["#chemins", "Par où commencer", "Deux façons d'entrer", "candi"],
-    ["#circuit", "Le circuit", "Quinze jours, sept étapes, et le jour par jour", "penjor"],
-    ["#envies", "Vos envies", "Les classiques, et les places secrètes", "tedung"],
+    ["#circuit", "Le circuit", "Quinze jours, sept étapes", "penjor"],
+    ["#envies", "Vos envies", "Classiques et places secrètes", "tedung"],
     ["#usages", "Us et coutumes", "Ce qu'on comprend en arrivant", "nyepi"],
     ["#temoignages", "Livre d'or", "Sept voyageurs, leurs mots", "gong"],
-    ["#tarifs", "Tarifs", "Trois façons de compter, dites d'avance", "poleng", "tarifs"]
+    ["#tarifs", "Tarifs", "Trois façons de compter", "poleng", "tarifs"]
   ];
 
   $("navMenuList").innerHTML =
@@ -3745,7 +3779,7 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
            la page. C'était le vrai flou du menu — rien ne distinguait
            « Mon portrait », qui change de page, de « Le circuit », qui
            fait défiler. */
-        '<span class="plaque-puce">' + (m[4] ? symbole("porte", 16, 1.6) : "") + '</span>' +
+        '<span class="plaque-puce">' + (m[4] ? FLECHE_PLAQUE : "") + '</span>' +
       '</a>';
     }).join("") +
     '<a class="btn btn-accent btn-lg" href="#sur-mesure">Demander un devis</a>' +
@@ -3770,7 +3804,7 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
          le jepun la double, et la graisse du titre la triple. */
       a.querySelector(".plaque-puce").innerHTML = ici
         ? jepunPuce(true)
-        : (a.dataset.goto ? symbole("porte", 16, 1.6) : "");
+        : (a.dataset.goto ? FLECHE_PLAQUE : "");
     });
   }
 

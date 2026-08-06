@@ -42,11 +42,15 @@ export default function PageLegale({ titre, chapo, articles, children }) {
       <Navbar />
       <main className="flex-1">
         <div className="shell pt-[clamp(5.5rem,12vw,7rem)]">
+          {/* Même réglage que RetourLien : un retour est la commande la
+              plus utile d'une page qu'on n'a pas choisie, et c'était la
+              plus petite de l'écran — petite capitale de 11 px et flèche
+              de 14. Texte courant, 15 px, flèche de 20. */}
           <Link
             href="/"
-            className="label inline-flex min-h-11 items-center gap-2 text-accent no-underline"
+            className="inline-flex min-h-11 items-center gap-2.5 text-sm font-semibold text-accent no-underline"
           >
-            <ArrowLeft size={14} />
+            <ArrowLeft size={20} strokeWidth={2.4} aria-hidden="true" />
             Retour à l&apos;accueil
           </Link>
         </div>
@@ -89,7 +93,7 @@ export default function PageLegale({ titre, chapo, articles, children }) {
                           href={`#art-${n}`}
                           className="flex min-h-11 items-center gap-2.5 text-sm text-accent no-underline hover:text-ink"
                         >
-                          <span className="font-sans text-[0.6875rem] tabular-nums text-faint">
+                          <span className="font-sans text-xs tabular-nums text-faint">
                             {String(n).padStart(2, "0")}
                           </span>
                           {t}

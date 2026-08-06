@@ -59,23 +59,15 @@ const D = {
     </>
   ),
 
-  /** La porte — le candi bentar dépouillé, pour les petites tailles.
-   *
-   *  Le `candi` complet porte cinq assises gravées par montant : à 24 px
-   *  c'est ce qui le fait reconnaître, à 16 px c'est de la bouillie. Ici
-   *  ne restent que les deux montants et la fente au milieu, et c'est
-   *  précisément ce qu'on veut dire — **on passe de l'autre côté**.
-   *
-   *  Il ne remplace pas `candi` : celui-là nomme la porte du temple dans
-   *  un texte qui en parle, celui-ci est un signe d'interface. Deux
-   *  usages, deux dessins. */
-  porte: (
-    <>
-      <path d="M3.2 21V9.4L5.6 3.4h3.1V21" />
-      <path d="M20.8 21V9.4L18.4 3.4h-3.1V21" />
-      <path d="M2 21h20" />
-    </>
-  ),
+  /* Il y a eu ici un symbole `porte` — le candi bentar dépouillé, pour
+     signaler « ce lien change de page ». Retiré : à 17 px, un symbole
+     qu'il faut apprendre ne se lit pas plus vite qu'un mot, et il
+     remplaçait la flèche, c'est-à-dire le seul signe que tout le monde
+     lit sans notice. Il reste dans l'historique git.
+     La règle qu'il illustre en négatif : **un symbole d'interface n'a
+     de valeur que s'il économise une lecture.** Ceux de ce fichier
+     nomment des choses que le texte nomme aussi ; celui-là prétendait
+     remplacer une convention. */
 
   /** Le gong du gamelan, suspendu à sa traverse de bois. Cordes
       verticales, pas obliques : en oblique on lisait un pendentif. */

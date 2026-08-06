@@ -60,13 +60,13 @@ export default function Circuit() {
                 <span>{c.etapes.length} étapes</span>
               </span>
               <span className="text-right">
-                <span className="block text-[0.6875rem] text-faint">
+                <span className="block text-xs text-faint">
                   à partir de
                 </span>
                 <span className="block font-display text-[1.375rem] leading-tight tabular-nums">
                   {c.prixPers}
                 </span>
-                <span className="block text-[0.6875rem] text-faint">
+                <span className="block text-xs text-faint">
                   par personne — hors hébergement
                 </span>
               </span>

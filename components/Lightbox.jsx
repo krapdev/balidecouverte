@@ -179,7 +179,7 @@ export default function Lightbox({ place, index, onClose, onIndex }) {
       </div>
 
       {!seule && (
-        <p className="pb-[calc(1rem+env(safe-area-inset-bottom,0px))] text-center text-[0.6875rem] text-on-immersive-soft sm:hidden">
+        <p className="pb-[calc(1rem+env(safe-area-inset-bottom,0px))] text-center text-xs text-on-immersive-soft sm:hidden">
           Balayez pour voir les autres photos de cette place
         </p>
       )}

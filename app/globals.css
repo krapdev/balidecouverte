@@ -121,6 +121,21 @@
 
   --font-display: var(--font-display), "Iowan Old Style", Georgia, serif;
   --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+
+  /* ⚠️ L'échelle de texte est **relevée d'un cran** par rapport à celle
+     de Tailwind, et c'est un réglage mobile-first, pas une préférence.
+     `text-sm` valait 0,875 rem — 14 px. C'est la taille d'une mention
+     légale ; ici elle portait des paragraphes entiers : les six us et
+     coutumes, les temps forts du circuit, les trois valeurs, tout le
+     jour par jour. À bout de bras, sur un téléphone, 14 px de texte
+     long se lit en plissant les yeux.
+     15 px pour `text-sm`, 13 px pour `text-xs`. Un pixel, mais il
+     s'applique à peu près partout — et **il ne coûte presque rien en
+     défilement** parce que ces blocs sont larges : la ligne accueille
+     encore le même nombre de mots. */
+  --text-sm: 0.9375rem;
+  --text-sm--line-height: 1.6;
+  --text-xs: 0.8125rem;
 }
 
 @layer base {
@@ -165,6 +180,21 @@
        d'apparition de se déclencher. */
     overflow-x: clip;
   }
+  /* `text-wrap: pretty` sur tout le texte courant.
+     C'est la réponse la plus économique aux « retours à la ligne en
+     trop » : le navigateur évite les lignes orphelines — un seul mot
+     seul en bas d'un paragraphe — en rééquilibrant les deux dernières
+     lignes. Sur mobile, où une colonne fait quarante caractères, une
+     orpheline sur trois paragraphes est la règle et non l'exception.
+     Aucun coût : c'est ignoré par les navigateurs qui ne le
+     connaissent pas. */
+  p,
+  li,
+  dd,
+  figcaption,
+  blockquote {
+    text-wrap: pretty;
+  }
   h1,
   h2,
   h3 {
@@ -188,14 +218,23 @@
 }
 
 @layer components {
+  /* Les petites capitales du site : intitulés, mentions, repères.
+     Deux réglages relevés pour le mobile :
+     • 12 px au lieu de 11 — à 11 px et en capitales, l'œil devine
+       autant qu'il lit ;
+     • 0,16 em d'interlettrage au lieu de 0,20. L'espacement large est
+       ce qui fait la petite capitale, mais il **allonge le mot de
+       15 %** : « US ET COUTUMES » ou « CE QUI SE VÉRIFIE » passaient à
+       la ligne dans des colonnes où ils tenaient à un cheveu près.
+       C'était la moitié des retours à la ligne parasites de la page. */
   .label {
     font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
-    font-size: 0.6875rem;
+    font-size: 0.75rem;
     font-weight: 600;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     font-variant-numeric: tabular-nums;
-    line-height: 1.5;
+    line-height: 1.45;
   }
   .shell {
     max-width: 1180px;
@@ -302,7 +341,10 @@
        erreur d'arrondi — c'est un doigt qui rate. */
     min-height: 44px;
     font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
-    font-size: 0.875rem;
+    /* 15 px et non 14 : un bouton se lit avant d'être touché, et
+       « Créer mon voyage sur-mesure » sortait à 13 px effectifs après
+       arrondi. C'est le texte le plus décisif de la page. */
+    font-size: 0.9375rem;
     font-weight: 600;
     letter-spacing: 0.02em;
     line-height: 1.2;

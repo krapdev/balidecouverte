@@ -817,53 +817,92 @@ la promesse), la photo (c'est l'homme), le dépliant « fiche d'identité » (c'
 ce qui lève le doute), et les trois titres des valeurs. Réduire le panneau à ses
 seuls titres en ferait un mur de slogans.
 
-### La grammaire de navigation : une porte, ou une flèche
+### La navigation : une flèche, franche
 
-Le reproche : sur mobile, on ne sait pas ce que fait un lien. « Tout mon
-parcours », « Ce que comprend ce prix », « Les quinze journées en détail »,
-« Lire les sept témoignages » — quatre libellés, quatre habillages différents,
-et aucun ne disait s'il déplaçait **dans** la page ou s'il **changeait** de
-page. Sur un écran de 390 px où l'on ne voit jamais plus d'un tiers d'une
-section, c'est la différence entre « je jette un œil » et « je perds ma place ».
+Le reproche était que sur mobile on ne sait pas ce que fait un lien — quatre
+libellés, quatre habillages, et aucun assez visible pour qu'on le vise du pouce.
 
-La règle est désormais unique, et vaut partout :
+**Une porte balinaise a été essayée à cette place, et retirée.** L'idée était de
+dire « on change de page » avec le candi bentar, cohérente avec le reste du
+vocabulaire du site. Elle échouait sur le seul critère qui compte ici : à 17 px,
+**un symbole qu'il faut apprendre ne se lit pas plus vite qu'un mot** — et il
+prenait la place de la flèche, c'est-à-dire du seul signe que tout le monde lit
+sans notice. Sur un écran de 390 px, on n'a pas le luxe d'un vocabulaire à
+apprendre.
 
-> **Une porte → on change de page. Une flèche → on reste ici.**
+> La règle qui en sort, et qui vaut au-delà de ce cas : **un symbole d'interface
+> n'a de valeur que s'il économise une lecture.** Les symboles de
+> `Symboles.jsx` nomment des choses que le texte nomme aussi — ils décorent une
+> compréhension déjà acquise. La porte, elle, prétendait remplacer une
+> convention. Elle reste dans l'historique git.
 
-La porte est le **candi bentar**, la porte fendue en deux par laquelle on entre
-dans un temple balinais. Ce n'est pas un ornement plaqué sur une convention :
-c'est déjà le symbole du seuil dans le menu mobile, et c'est littéralement ce
-qu'on fait — franchir.
+Reste donc la flèche, mais **franche** : 18 px et un trait de 2,2 au lieu des
+15 px filiformes d'avant, 20 px et 2,4 pour les retours. C'est ce qui manquait
+vraiment. `components/LienPage.jsx` la porte et garantit trois choses qu'il ne
+faut pas défaire : **44 px de haut** (c'était le vrai défaut — des liens de
+20 px pris dans un paragraphe), **un soulignement** en plus de la couleur
+(WCAG 1.4.1), et la flèche en `aria-hidden`.
 
-`components/LienPage.jsx` la porte, et garantit trois choses qu'il ne faut pas
-défaire :
+Dans le menu, les entrées qui **quittent la page** portent la flèche à droite :
+rien ne distinguait « Mon portrait » de « Le circuit », qui ne fait que défiler.
 
-- **44 px de haut.** C'était le vrai défaut sur mobile : des liens de 20 px pris
-  dans un paragraphe, impossibles à viser. « Tout mon parcours » était encore
-  signalé par l'audit à la passe précédente ; il ne l'est plus.
-- **Un soulignement, pas seulement la couleur** (WCAG 1.4.1).
-- **La porte est `aria-hidden`** : c'est une redondance visuelle, le libellé
-  porte le sens et un lecteur d'écran annonce déjà « lien ».
+### Les retours, agrandis
 
-Trois endroits la posent à la main plutôt que par le composant, et c'est
-délibéré : le panneau bambou des valeurs et la sortie de `/circuit` (le bambou
-de `LienPage` y serait illisible), et l'appel sous le portrait (la cible
-cliquable, là, c'est la photo entière).
+Un retour est la commande la plus utile d'une page qu'on n'a pas choisie, et
+c'était **la plus petite de l'écran** : petite capitale de 11 px et flèche de
+13 ou 14 px, dans `RetourLien.jsx` comme dans le gabarit des pages légales — qui
+avait d'ailleurs son propre lien, jamais aligné sur l'autre. Les deux sont
+désormais du texte courant à 15 px, en demi-gras, avec une flèche de 20 px.
 
-**Un dessin dédié.** `Symboles.jsx` gagne `porte`, qui est le `candi` dépouillé
-de ses cinq assises gravées par montant — indispensables à 24 px pour le
-reconnaître, de la bouillie à 16. Les deux coexistent : `candi` **nomme** la
-porte du temple dans un texte qui en parle, `porte` est un **signe
-d'interface**. Deux usages, deux dessins.
+### Le typographe, un cran au-dessus
 
-Deux applications qui vont plus loin que le simple habillage :
+`text-sm` valait **0,875 rem — 14 px** (13 dans la maquette). C'est la taille
+d'une mention légale, et elle portait ici des paragraphes entiers : les six us
+et coutumes, les temps forts du circuit, les trois valeurs, tout le jour par
+jour. À bout de bras, sur un téléphone, ça se lit en plissant les yeux.
 
-- **Dans le menu mobile**, les entrées qui quittent la page (« Mon portrait »,
-  « Tarifs ») portent la porte à droite. C'était le vrai flou : rien ne les
-  distinguait du « Le circuit » qui, lui, fait défiler.
-- **Les liens de retour** portent la porte **et** une flèche vers la gauche : la
-  porte dit qu'on change de page, la flèche dit dans quel sens. C'est le seul
-  endroit du site où les deux cohabitent.
+- `text-sm` → **15 px**, `text-xs` → **13 px**, `.btn` → **15 px**.
+- Plus rien sous 12 px : les annotations écrites en `text-[0.6875rem]` (11 px)
+  et le badge des envies (10 px) sont passés à `text-xs`.
+- **Ça ne coûte presque rien en défilement** — l'accueil passe de 18,3 à 18,3
+  écrans mobiles : ces blocs sont larges, la ligne accueille encore le même
+  nombre de mots.
+
+### Les retours à la ligne en trop
+
+Trois causes, trois corrections :
+
+1. **L'interlettrage des petites capitales.** `.label` était à `0.2em`, ce qui
+   **allonge le mot de 15 %** : « US ET COUTUMES », « CE QUI SE VÉRIFIE »
+   passaient à la ligne dans des colonnes où ils tenaient à un cheveu près.
+   Ramené à `0.16em` — assez pour que la petite capitale reste une petite
+   capitale.
+2. **Des libellés trop longs pour leur colonne.** Les gloses du menu
+   (« Ma famille, mon pays, mon union de guides » → « … mon union »,
+   « Quinze jours, sept étapes, et le jour par jour » → « Quinze jours, sept
+   étapes ») et la ligne de faits (« Diplômé guide francophone · Depuis octobre
+   2005 · … » → « Diplômé · Depuis 2005 · Français et anglais · Je conduis »).
+   Le mot inutile est celui que le lecteur reconstitue seul.
+3. **`text-wrap: pretty`** sur `p, li, dd, figcaption, blockquote` : le
+   navigateur rééquilibre les deux dernières lignes pour éviter l'orpheline —
+   un mot seul en bas d'un paragraphe. Sur mobile, où une colonne fait quarante
+   caractères, l'orpheline est la règle et non l'exception. Aucun coût : ignoré
+   par les navigateurs qui ne le connaissent pas.
+
+### Le pied de page n'est plus un second sommaire
+
+Sa colonne « Explorer » reprenait les onze sections du site, c'est-à-dire
+exactement le sommaire du menu — et un sommaire en double est un sommaire qu'on
+ne maintient qu'à moitié : les deux listes avaient déjà divergé (le pied de page
+ignorait `/circuit`, le menu ignorait Sur-Mesure).
+
+⚠️ **Condition à laquelle ce retrait est acceptable, et il faut la tenir : le
+menu s'ouvre désormais à toutes les largeurs.** Le burger était `lg:hidden`.
+Sans ce changement, les écrans larges se retrouvaient avec les six entrées de la
+barre et rien d'autre — plus d'accès à « Par où commencer », « Us et coutumes »,
+« Mon portrait » ni au programme jour par jour. Le pied de page était la seule
+chose qui rendait le site navigable au-delà de six liens ; le menu était
+justement ce qu'ils n'avaient pas.
 
 ### Neuf fois « guide diplômé »
 

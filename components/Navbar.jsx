@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { X, Mail } from "lucide-react";
+import { X, Mail, ArrowRight } from "lucide-react";
 import { urlTarifs } from "@/lib/retours";
 import { NAV, ANCRES } from "@/lib/navigation";
 import { Symbole } from "./Symboles";
@@ -266,7 +266,17 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            className="grid h-11 w-11 shrink-0 place-items-center rounded border border-rule text-soft lg:hidden"
+            /* ⚠️ **Plus de `lg:hidden`.** Le pied de page portait
+               jusqu'ici la liste complète des sections, et c'est lui
+               qui rendait le site navigable au-delà des six entrées de
+               la barre. En le retirant — « on a déjà le menu » —, on
+               laissait les écrans larges sans aucun accès à
+               « Par où commencer », « Us et coutumes », « Mon
+               portrait » ou le programme jour par jour : le menu était
+               justement la seule chose qu'ils n'avaient pas.
+               Le meru est donc là partout. La barre garde ses six
+               raccourcis, le menu porte le sommaire complet. */
+            className="grid h-11 w-11 shrink-0 place-items-center rounded border border-rule text-soft"
             aria-expanded={open}
             aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
           >
@@ -289,8 +299,14 @@ export default function Navbar() {
           avait l'air de marcher — mais le fond ne couvrait rien et la
           page défilait visiblement derrière le menu. */}
       {open && (
-        <div className="ground-sable fixed inset-x-0 bottom-0 top-[75px] z-40 overflow-y-auto lg:hidden">
-          <nav className="shell relative py-5" aria-label="Navigation mobile">
+        <div className="ground-sable fixed inset-x-0 bottom-0 top-[75px] z-40 overflow-y-auto">
+          {/* `max-w` sur grand écran : une liste de neuf plaques étalée
+              sur 1180 px se lit en balayant la tête de gauche à droite.
+              Le sommaire garde la largeur d'une colonne de lecture. */}
+          <nav
+            className="shell relative py-5 lg:max-w-[42rem]"
+            aria-label="Sommaire du site"
+          >
             <ul className="m-0 flex list-none flex-col p-0">
               {NAV.map((l, i) => {
                 const actif = ici(l.href);
@@ -313,7 +329,7 @@ export default function Navbar() {
                           : "border-l-transparent"
                       }`}
                     >
-                      <span className="w-5 shrink-0 font-sans text-[0.6875rem] tabular-nums text-faint">
+                      <span className="w-5 shrink-0 font-sans text-xs tabular-nums text-faint">
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       <Symbole
@@ -342,18 +358,20 @@ export default function Navbar() {
                           • le jepun **plein** quand on y est — la
                             couleur ne porte jamais seule une information
                             (WCAG 1.4.1) ;
-                          • la **porte** quand l'entrée quitte la page.
-                            C'était le vrai flou du menu : rien ne
-                            distinguait « Mon portrait », qui change de
-                            page, de « Le circuit », qui fait défiler. */}
+                          • une **flèche** quand l'entrée quitte la page.
+                            Rien ne distinguait « Mon portrait », qui
+                            change de page, de « Le circuit », qui fait
+                            défiler. Une porte balinaise a été essayée
+                            là ; elle demandait d'être apprise, la flèche
+                            non. */}
                       {actif ? (
                         <JepunPuce size={16} plein className="shrink-0 text-accent" />
                       ) : (
                         !l.href.startsWith("#") && (
-                          <Symbole
-                            nom="porte"
-                            size={16}
-                            strokeWidth={1.6}
+                          <ArrowRight
+                            size={18}
+                            strokeWidth={2.2}
+                            aria-hidden="true"
                             className="shrink-0 text-faint"
                           />
                         )
@@ -382,7 +400,7 @@ export default function Navbar() {
                 est donc au bout, en clair, seul sur sa ligne. */}
             <div className="mt-7 flex flex-col items-center gap-2 text-accent">
               <Symbole nom="candi" size={44} strokeWidth={1.1} className="opacity-60" />
-              <p className="text-center text-[0.6875rem] text-faint">
+              <p className="text-center text-xs text-faint">
                 Om Swastiastu — réponse sous 24 h, en français.
               </p>
             </div>

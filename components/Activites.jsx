@@ -109,7 +109,7 @@ export default function Activites() {
                                 ratio="aspect-square"
                                 className="w-[84px] rounded-[10px] sm:w-[96px]"
                               />
-                              <span className="absolute bottom-1.5 left-1.5 flex items-center gap-1 rounded-full bg-immersive-deep px-2 py-0.5 text-[0.625rem] text-on-immersive">
+                              <span className="absolute bottom-1.5 left-1.5 flex items-center gap-1 rounded-full bg-immersive-deep px-2 py-0.5 text-xs text-on-immersive">
                                 <Images size={10} strokeWidth={2} />
                                 {a.photos.length}
                               </span>

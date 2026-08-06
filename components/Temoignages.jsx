@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { Symbole } from "./Symboles";
 import SectionHead from "./SectionHead";
 import Reveal from "./Reveal";
@@ -64,10 +65,8 @@ export default function Temoignages() {
               className="btn btn-outline text-accent"
               href="/livre-d-or?de=temoignages"
             >
-              {/* La porte, pas la flèche : ce bouton change de page.
-                  C'est la grammaire posée dans LienPage.jsx. */}
-              <Symbole nom="porte" size={17} strokeWidth={1.6} />
               Lire les {LIVRE_OR.nombre} témoignages
+              <ArrowRight size={18} strokeWidth={2.2} aria-hidden="true" />
             </Link>
           </p>
         </Reveal>

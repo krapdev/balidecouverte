@@ -1,28 +1,20 @@
 import { WHATSAPP_DISPLAY, WHATSAPP_NUMBER, CONTACT, AGUS } from "@/lib/data";
 import { Canang } from "./Scene";
-import LienTarifs from "./LienTarifs";
 
-/* Le pied de page s'affiche aussi sur /tarifs : les ancres sont donc
-   ancrées à la racine. Depuis l'accueil, « /#esprit » reste une simple
-   navigation de fragment — pas de rechargement. */
-const LINKS = [
-  { href: "/#esprit", label: "Qui je suis" },
-  { href: "/#valeurs", label: "Mon engagement" },
-  { href: "/agus", label: "Mon portrait" },
-  { href: "/#chemins", label: "Par où commencer" },
-  { href: "/#circuit", label: "Le circuit" },
-  { href: "/circuit", label: "Le programme jour par jour" },
-  { href: "/#envies", label: "Vos envies" },
-  { href: "/#usages", label: "Us et coutumes" },
-  { href: "/livre-d-or", label: "Livre d'or" },
-  { href: "/tarifs", label: "Tarifs" },
-  { href: "/#sur-mesure", label: "Sur-Mesure" },
-];
+/* ⚠️ **La colonne « Explorer » a été retirée.** Elle reprenait les onze
+   sections du site, c'est-à-dire exactement le sommaire du menu — et un
+   sommaire en double est un sommaire qu'on ne maintient qu'à moitié :
+   les deux listes avaient déjà divergé (le pied de page ignorait
+   /circuit, le menu ignorait Sur-Mesure).
+   Condition à laquelle ce retrait est acceptable, et elle est tenue :
+   **le menu est désormais ouvrable à toutes les largeurs.** Sans elle,
+   les écrans larges se retrouvaient avec six entrées de barre et rien
+   d'autre. Voir Navbar.jsx. */
 
 export default function Footer() {
   return (
     <footer className="ground-bambou pb-28 pt-[clamp(2.5rem,7vw,4rem)] lg:pb-16">
-      <div className="shell grid gap-8 md:grid-cols-[1.2fr_1fr_1fr]">
+      <div className="shell grid gap-8 md:grid-cols-[1.1fr_1fr]">
         <div>
           <p className="label mb-3 text-soleil-pale">Om Swastiastu</p>
           {/* Pas un titre de document : la marque en pied de page n'ouvre
@@ -36,23 +28,6 @@ export default function Footer() {
             Yudiarta, guide diplômé francophone à Denpasar. {AGUS.territoires}.
           </p>
         </div>
-
-        <nav className="flex flex-col gap-2" aria-label="Pied de page">
-          <p className="label mb-1 text-soleil-pale">Explorer</p>
-          {LINKS.map((l) => {
-            const cls =
-              "flex min-h-11 items-center text-sm text-on-immersive-soft no-underline transition-colors hover:text-on-immersive";
-            return l.href === "/tarifs" ? (
-              <LienTarifs key={l.href} className={cls}>
-                {l.label}
-              </LienTarifs>
-            ) : (
-              <a key={l.href} href={l.href} className={cls}>
-                {l.label}
-              </a>
-            );
-          })}
-        </nav>
 
         <div className="flex flex-col gap-2">
           <p className="label mb-1 text-soleil-pale">Contact direct</p>
@@ -99,7 +74,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="shell mt-10 flex flex-wrap justify-between gap-3 border-t border-[color-mix(in_srgb,var(--on-immersive)_22%,transparent)] pt-5 text-[0.6875rem] text-on-immersive-soft">
+      <div className="shell mt-10 flex flex-wrap justify-between gap-3 border-t border-[color-mix(in_srgb,var(--on-immersive)_22%,transparent)] pt-5 text-xs text-on-immersive-soft">
         <span>© {new Date().getFullYear()} Bali Découverte — Prototype</span>
         {/* `min-w-11` autant que `min-h-11` : « CGV » ne fait que 23 px de
             large, un pixel sous le minimum AA de 24. Ces deux liens sont

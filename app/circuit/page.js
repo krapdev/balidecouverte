@@ -7,6 +7,7 @@ import {
   Check,
   X as Croix,
   Mail,
+  ArrowRight,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -169,7 +170,7 @@ export default function PageCircuit() {
                        « 15 » ne s'alignent pas et la liste ondule. */
                     className="grid grid-cols-[2.75rem_1fr] gap-x-4 gap-y-2 border-b border-rule pb-6 last:border-0 sm:grid-cols-[3.5rem_1fr]"
                   >
-                    <span className="font-sans text-[0.6875rem] font-bold uppercase tracking-[0.08em] tabular-nums text-eyebrow">
+                    <span className="font-sans text-xs font-bold uppercase tracking-[0.08em] tabular-nums text-eyebrow">
                       Jour
                       <span className="mt-0.5 block font-display text-[1.5rem] font-normal leading-none tracking-normal text-ink">
                         {d.j}
@@ -269,22 +270,16 @@ export default function PageCircuit() {
                   <Mail size={17} />
                   Partir de ce circuit et l&apos;ajuster
                 </Link>
-                {/* La porte, comme partout — mais posée à la main : le
-                    composant LienPage est réglé pour les fonds clairs et
-                    son bambou serait illisible ici. */}
+                {/* Posé à la main : le bambou de LienPage serait
+                    illisible sur ce fond. */}
                 <Link
                   className="group flex min-h-11 items-center gap-2.5 text-sm text-on-immersive-soft no-underline hover:text-on-immersive"
                   href="/tarifs?de=circuit"
                 >
-                  <Symbole
-                    nom="porte"
-                    size={17}
-                    strokeWidth={1.5}
-                    className="shrink-0 transition-transform group-hover:-translate-y-0.5"
-                  />
                   <span className="underline decoration-[color-mix(in_srgb,var(--on-immersive)_45%,transparent)] underline-offset-4">
                     Les trois façons de compter
                   </span>
+                  <ArrowRight size={18} strokeWidth={2.2} aria-hidden="true" className="shrink-0" />
                 </Link>
               </div>
             </section>

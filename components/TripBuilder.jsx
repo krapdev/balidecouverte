@@ -144,7 +144,7 @@ export default function TripBuilder() {
                 trip.activites.map((a, i) => (
                     <div key={a.id} className="monte overflow-hidden">
                       <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3.5 border-b border-rule py-3">
-                        <span className="font-sans text-[0.6875rem] tabular-nums text-eyebrow">
+                        <span className="font-sans text-xs tabular-nums text-eyebrow">
                           {String(i + 1).padStart(2, "0")}
                         </span>
                         <span>
@@ -385,7 +385,7 @@ export default function TripBuilder() {
               {copie ? "Copié — collez-le dans votre messagerie" : "Copier le message"}
             </button>
 
-            <p className="text-center text-[0.6875rem] leading-relaxed text-faint">
+            <p className="text-center text-xs leading-relaxed text-faint">
               Ouvre votre messagerie avec le message déjà rédigé. Vous relisez
               avant d&apos;envoyer — aucun engagement. Je réponds sous 24 h, et
               le devis se discute par retour de mail.

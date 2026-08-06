@@ -4,6 +4,7 @@ import {
   Users,
   HandCoins,
   Heart,
+  ArrowRight,
 } from "lucide-react";
 import { PortraitAgus } from "./Scene";
 import { Symbole } from "./Symboles";
@@ -97,21 +98,18 @@ export default function AboutAgus() {
                   className="w-full"
                 />
               </span>
-              {/* La porte et non la flèche : c'est la grammaire du site
-                  depuis LienPage.jsx — une porte, on change de page ; une
-                  flèche, on reste ici. Elle n'est pas reprise du
-                  composant parce que la cible cliquable, ici, c'est la
-                  photo entière. */}
+              {/* Même habillage que LienPage, posé à la main : la cible
+                  cliquable, ici, c'est la photo entière. */}
               <span className="mt-3.5 flex min-h-11 items-center gap-2.5 border-t border-rule pt-3 text-sm text-accent">
-                <Symbole
-                  nom="porte"
-                  size={17}
-                  strokeWidth={1.5}
-                  className="shrink-0 transition-transform group-hover:-translate-y-0.5"
-                />
                 <span className="underline decoration-accent underline-offset-4">
                   Mon portrait, ma famille, mon union
                 </span>
+                <ArrowRight
+                  size={18}
+                  strokeWidth={2.2}
+                  aria-hidden="true"
+                  className="shrink-0 transition-transform group-hover:translate-x-1"
+                />
               </span>
             </Link>
             {/* L'explication du jepun est partie sur /agus. C'était trois
@@ -185,11 +183,16 @@ export default function AboutAgus() {
                   Ce qui se vérifie
                 </p>
                 <p className="mt-2 text-sm leading-relaxed">
+                  {/* Mentions raccourcies : « Diplômé guide francophone ·
+                      Depuis octobre 2005 · Je guide en français et anglais ·
+                      Je conduis moi-même » tenait sur trois lignes à 390 px
+                      pour quatre faits. Le mot inutile est celui que le
+                      lecteur reconstitue seul. */}
                   {[
-                    AGUS.diplome,
-                    `Depuis ${AGUS.depuis}`,
-                    `Je guide en ${AGUS.langues}`,
-                    "Je conduis moi-même",
+                    "Diplômé",
+                    "Depuis 2005",
+                    "Français et anglais",
+                    "Je conduis",
                   ].join(" · ")}
                 </p>
                 <LienPage href="/agus?de=esprit" className="mt-1">
@@ -280,22 +283,21 @@ export default function AboutAgus() {
                 qui en fait déjà dix-neuf, et qui trouve sa vraie place
                 là où quelqu'un a choisi d'aller lire. */}
             <p className="relative mt-10">
-              {/* Même grammaire que partout — la porte — mais sur fond
-                  bambou : le composant LienPage est réglé pour les fonds
-                  clairs, et son bambou y serait illisible. */}
+              {/* Posé à la main plutôt que par LienPage : le bambou du
+                  composant serait illisible sur ce fond. */}
               <Link
                 href="/agus?de=valeurs"
                 className="group inline-flex min-h-11 items-center gap-3 font-display text-[clamp(1.05rem,2.8vw,1.3rem)] leading-snug text-on-immersive no-underline"
               >
-                <Symbole
-                  nom="porte"
-                  size={20}
-                  strokeWidth={1.4}
-                  className="shrink-0 text-soleil transition-transform group-hover:-translate-y-0.5"
-                />
                 <span className="underline decoration-soleil underline-offset-[6px]">
-                  Ma famille, mon pays, mon union de guides
+                  Ma famille, mon pays, mon union
                 </span>
+                <ArrowRight
+                  size={20}
+                  strokeWidth={2.2}
+                  aria-hidden="true"
+                  className="shrink-0 text-soleil transition-transform group-hover:translate-x-1"
+                />
               </Link>
             </p>
           </div>
