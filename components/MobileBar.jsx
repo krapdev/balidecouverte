@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useTrip } from "@/lib/trip-store";
 
 /**
@@ -18,6 +20,9 @@ import { useTrip } from "@/lib/trip-store";
 export default function MobileBar() {
   const { count } = useTrip();
   const visible = count > 0;
+  /* La barre vit aussi sur /envies, où « #sur-mesure » ne mène nulle
+     part : hors accueil, l'ancre est absolue. */
+  const accueil = usePathname() === "/";
 
   return (
     <div
@@ -32,13 +37,18 @@ export default function MobileBar() {
         </b>
         dans votre voyage
       </p>
-      <a
+      {/* ⚠️ `<Link>` et non `<a>`. Un `<a href="/…">` provoque un
+          **chargement complet** : le magasin vit dans le gabarit, il
+          survit aux navigations client mais pas à un rechargement. Cocher
+          trois envies sur /envies puis toucher ce bouton effaçait tout.
+          Règle générale du site : **tout lien interne passe par `Link`.** */}
+      <Link
         className="btn btn-accent ml-auto"
-        href="#sur-mesure"
+        href={accueil ? "#sur-mesure" : "/#sur-mesure"}
         tabIndex={visible ? undefined : -1}
       >
         Ma demande
-      </a>
+      </Link>
     </div>
   );
 }

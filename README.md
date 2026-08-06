@@ -817,6 +817,73 @@ la promesse), la photo (c'est l'homme), le dépliant « fiche d'identité » (c'
 ce qui lève le doute), et les trois titres des valeurs. Réduire le panneau à ses
 seuls titres en ferait un mur de slogans.
 
+### La fourche coupe enfin quelque chose
+
+L'accueil annonçait deux chemins — le circuit ou les envies — et les déroulait
+**tous les deux immédiatement en dessous**. Ce n'était pas une fourche : c'était
+un sommaire décoratif posé au-dessus de son propre contenu, et cinq écrans et
+demi de mobile. Un choix qui ne coupe rien n'est pas un choix.
+
+Chaque carte mène désormais à sa page : `/circuit` et `/envies`. **L'accueil
+passe de 17,9 à 12,5 écrans mobiles** (−30 %), et de 11,3 à 8,0 sur grand écran.
+
+#### Ce que ce déplacement exige en retour
+
+⚠️ **Les cartes doivent montrer, pas annoncer.** Quelqu'un qui descend l'accueil
+sans cliquer ne verra plus jamais ni le circuit ni les places secrètes —
+c'est-à-dire ni le travail d'Agus ni ce qui le distingue d'une agence. Chaque
+carte porte donc :
+
+- **trois chiffres** en petites capitales (`15 jours · 7 étapes · 1 210 € /
+  pers.`, `7 classiques · 7 places secrètes`) — c'est ce qu'on lit en balayant,
+  et c'est ce qui fait choisir ;
+- **trois noms de lieux** sous un filet (« le grand ficus de Munduk, la saline de
+  Pemuteran, les rizières de Blimbing »). « Voir les envies » ne donne envie de
+  rien ; « le grand ficus de Munduk » si.
+
+Les nombres d'activités sont **comptés**, pas écrits : une place ajoutée à
+`ACTIVITES` se voit sur la carte sans qu'on pense à mettre un chiffre à jour.
+
+Le jour où quelqu'un réduit ces cartes à un titre et un bouton, on aura remplacé
+deux sections riches par deux portes fermées.
+
+#### Le chapô
+
+Il disait : « Rien de ce que vous cochez ici n'est réservé. C'est la matière de
+votre premier message — de quoi que je sache qui vous êtes avant de vous
+répondre. » Il répondait à une question qu'on ne se pose pas encore (« est-ce que
+je m'engage ? ») sans jamais répondre à celle qu'on se pose (« entre quoi et quoi
+est-ce que je choisis ? »), et sa dernière proposition n'était même pas
+grammaticale. L'ordre est maintenant celui de la décision : **entre quoi on
+choisit, où ça mène, et seulement ensuite que rien n'engage.**
+
+#### Le piège qu'il fallait désamorcer d'abord
+
+Découper en pages ne marche que si **l'état survit à la navigation**. Le
+`TripProvider` vivait dans `app/page.js` : cocher trois places sur `/envies` et
+revenir au formulaire aurait tout effacé, puisqu'un provider posé dans une page
+est recréé à chaque changement de route.
+
+Il est donc remonté dans `app/layout.js`. Deux conséquences à retenir :
+
+- ⚠️ **Tout lien interne passe par `next/link`.** Un `<a href="/…">` provoque un
+  chargement complet, et un chargement complet recrée le gabarit — donc vide le
+  magasin. Le bug s'est produit exactement là : le bouton « préparer ma demande »
+  d'`/envies` était un `<a>`, et les envies cochées disparaissaient en route. La
+  règle vaut aussi pour les liens qui ne pointent que vers une ancre : depuis une
+  autre page, ils deviennent « /#ancre ».
+- Limite connue et assumée : un **rechargement complet** vide la sélection. Le
+  jour où ça gêne, la réponse n'est pas de déplacer le provider mais de le
+  doubler d'un `sessionStorage`.
+
+#### L'autre piège, dans la maquette
+
+Retirer le balisage d'une section **sans retirer son rendu**. `renderCircuit()`
+écrivait dans `#circuitUn`, supprimé avec la section : l'appel restant levait une
+exception et **tout ce qui le suivait dans `render()` ne s'exécutait plus** — le
+jour par jour, le portrait, les envies. Les vues s'affichaient à moitié vides
+sans qu'aucune erreur ne soit visible à l'œil.
+
 ### Les pastilles de la visionneuse
 
 Trois points sous la photo, dans la visionneuse des places secrètes. Ils disent

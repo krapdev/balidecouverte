@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { Images } from "lucide-react";
 import { JepunPuce } from "./Scene";
@@ -35,8 +36,14 @@ import { useTrip } from "@/lib/trip-store";
  * la grande surface.
  *
  * On nomme et on donne envie, on ne publie ni adresse ni chemin.
+ *
+ * ⚠️ **Ce bloc a quitté l'accueil pour `/envies`.** Il faisait trois
+ * écrans et demi de mobile juste sous une fourche qui prétendait faire
+ * choisir entre lui et le circuit. Il est désormais la page entière, et
+ * son en-tête passe donc en `h1` — c'est le titre du document, plus une
+ * section parmi d'autres.
  */
-export default function Activites() {
+export default function Activites({ niveau = 2 }) {
   const { isActiviteSelected, toggleActivite, count } = useTrip();
   /* La visionneuse s'ouvre sur UNE place : `ouverte` porte la place,
      `photo` le rang de la vue à l'intérieur. Le swipe reste dedans. */
@@ -49,6 +56,7 @@ export default function Activites() {
         <SectionHead
           eyebrow="Vos envies"
           title="Cochez, j&apos;en fais un itinéraire."
+          niveau={niveau}
         >
           Rien ici n&apos;est une commande. Ce que vous cochez part dans votre
           message, et je construis le circuit autour — c&apos;est mon métier de
@@ -166,9 +174,12 @@ export default function Activites() {
         {count > 0 && (
           <Reveal>
             <p className="mt-8">
-              <a className="btn btn-accent btn-lg" href="#sur-mesure">
+              {/* `/#sur-mesure` et non `#sur-mesure` : depuis /envies,
+                  une ancre nue ne mène nulle part. La sélection, elle,
+                  survit — le magasin vit dans le gabarit (layout.js). */}
+              <Link className="btn btn-accent btn-lg" href="/#sur-mesure">
                 {count} envie{count > 1 ? "s" : ""} — préparer ma demande
-              </a>
+              </Link>
             </p>
           </Reveal>
         )}

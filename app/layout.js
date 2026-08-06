@@ -1,4 +1,5 @@
 import { Eczar, Mulish } from "next/font/google";
+import { TripProvider } from "@/lib/trip-store";
 import { ORIGINE, NOM_SITE, TITRE, DESCRIPTION } from "@/lib/site";
 import "./globals.css";
 
@@ -73,7 +74,21 @@ export default function RootLayout({ children }) {
       lang="fr"
       className={`${display.variable} ${body.variable} antialiased`}
     >
-      <body className="flex min-h-screen flex-col">{children}</body>
+      {/* ⚠️ Le `TripProvider` est ici, et non dans la page d'accueil.
+          C'est ce qui rend possible le découpage en pages : depuis que
+          les envies vivent sur `/envies` et le circuit sur `/circuit`,
+          cocher une place puis revenir au formulaire **traverse une
+          navigation**. Un provider posé dans une page est recréé à
+          chaque changement de route ; posé dans le gabarit, il survit
+          aux navigations client — c'est-à-dire à tous les liens du
+          site.
+          Limite connue, et assumée pour l'instant : un **rechargement
+          complet** vide la sélection. Le jour où ça gêne, la réponse
+          n'est pas de déplacer le provider mais de le doubler d'un
+          `sessionStorage`. */}
+      <body className="flex min-h-screen flex-col">
+        <TripProvider>{children}</TripProvider>
+      </body>
     </html>
   );
 }

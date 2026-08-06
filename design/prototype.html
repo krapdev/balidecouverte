@@ -545,7 +545,16 @@
   .chemin h3 { font-size: 1.375rem; line-height: 1.2; }
   .chemin p { font-size: var(--t-sm); color: var(--text-soft); line-height: 1.6; }
   .chemin-detail { color: var(--text-faint); }
-  .chemin-action { margin-top: auto; padding-top: 1rem; font-size: var(--t-sm); color: var(--accent); }
+  /* Les chiffres avant le texte : ce sont eux qu'on lit en balayant, et
+     ce sont eux qui font choisir. L'aperçu de lieux fait l'autre moitié
+     du travail — « voir les envies » ne donne envie de rien, « le grand
+     ficus de Munduk » si. */
+  .chemin-chiffres { display: flex; flex-wrap: wrap; gap: 0.25rem 0.75rem; color: var(--eyebrow) !important; font-size: 0.75rem !important; }
+  .chemin-apercu { margin-top: 0.25rem; border-top: 1px solid var(--rule); padding-top: 0.75rem; color: var(--text) !important; }
+  .chemin-action { display: flex; align-items: center; gap: 0.6rem; margin-top: auto; min-height: 44px; padding-top: 0.75rem; font-size: var(--t-sm); color: var(--accent); }
+  .chemin-action > span { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 4px; }
+  .chemin-action svg { flex: none; transition: transform .18s; }
+  .chemin:hover .chemin-action svg { transform: translateX(3px); }
 
   /* Le circuit, seul et déplié */
   .circuit-un { display: grid; gap: 2rem; align-items: start; }
@@ -1077,6 +1086,16 @@
      /livre-d-or). Chaque vue masque les deux autres — écrit en toutes
      lettres plutôt qu'en négation, parce qu'à trois vues une règle du
      type « tout sauf la vue courante » devient illisible. */
+  body[data-view="home"]     .view-envies,
+  body[data-view="tarifs"]   .view-envies,
+  body[data-view="livre"]    .view-envies,
+  body[data-view="circuit"]  .view-envies,
+  body[data-view="portrait"] .view-envies,
+  body[data-view="envies"]   .view-home,
+  body[data-view="envies"]   .view-tarifs,
+  body[data-view="envies"]   .view-livre,
+  body[data-view="envies"]   .view-circuit,
+  body[data-view="envies"]   .view-portrait,
   body[data-view="home"]     .view-tarifs,
   body[data-view="home"]     .view-livre,
   body[data-view="home"]     .view-circuit,
@@ -1267,8 +1286,8 @@
            est prise à « Sur-Mesure », que le bouton juste à côté dessert
            déjà. -->
       <a href="#valeurs">Mon engagement</a>
-      <a href="#circuit">Le circuit</a>
-      <a href="#envies">Vos envies</a>
+      <a href="#circuit-detail" data-goto="circuit">Le circuit</a>
+      <a href="#envies" data-goto="envies">Vos envies</a>
       <a href="#temoignages">Livre d'or</a>
       <a href="#tarifs" data-goto="tarifs">Tarifs</a>
     </nav>
@@ -1477,34 +1496,44 @@
     <div class="sec-head reveal">
       <p class="label sec-eyebrow">Par où commencer</p>
       <h2>Deux façons de partir.</h2>
-      <p>Rien de ce que vous choisissez ici n'est réservé. C'est la matière du
-      premier message — de quoi que je sache qui vous êtes avant de vous
-      répondre.</p>
+      <!-- Le chapô répondait à une question qu'on ne se pose pas encore
+           (« est-ce que je m'engage ? ») sans jamais répondre à celle qu'on
+           se pose (« entre quoi et quoi est-ce que je choisis ? »), et sa
+           dernière proposition n'était même pas grammaticale.
+           L'ordre est maintenant celui de la décision : entre quoi on
+           choisit, où ça mène, et SEULEMENT ENSUITE que rien n'engage. -->
+      <p>Partez de mon circuit — quinze jours que j'ai déjà conduits des dizaines
+      de fois — ou de vos envies, en cochant ce qui vous attire. Les deux mènent
+      au même endroit : un message que vous m'écrivez, et un voyage qu'on ajuste
+      ensemble. Rien ici n'est réservé.</p>
     </div>
     <ul class="chemins" id="cheminList"></ul>
   </div>
 </section>
 
 <!-- ============================ CIRCUITS ============================ -->
-<section class="band ground-ivoire view-home" id="circuit">
-  <div class="shell">
-    <div class="sec-head reveal">
-      <p class="label sec-eyebrow">Mon circuit</p>
-      <h2>Quinze jours, et tout Bali.</h2>
-      <p>Ce n'est pas un produit sur étagère : c'est l'itinéraire que j'ai
-      conduit des dizaines de fois, et qu'il connaît assez bien pour le défaire.
-      Prenez-le comme base — on garde ce qui vous plaît, on jette le reste.</p>
-    </div>
-    <div class="circuit-un" id="circuitUn"></div>
-  </div>
-</section>
+<!-- ⚠️ La section « Mon circuit » a quitté l'accueil pour sa propre vue.
+     Elle occupait, avec les envies, cinq écrans et demi de mobile — juste
+     sous une fourche qui annonçait deux chemins et les déroulait tous les
+     deux immédiatement. Une fourche qui ne coupe rien n'est pas une
+     fourche : c'était un sommaire décoratif posé au-dessus de son propre
+     contenu. Voir la vue « circuit ». -->
 
-<!-- ============================ VOS ENVIES ============================ -->
-<section class="band ground-sable view-home" id="envies">
+<!-- ============================ VOS ENVIES ============================
+     ⚠️ Sa propre vue depuis qu'elle a quitté l'accueil : elle faisait
+     trois écrans et demi de mobile juste sous une fourche qui prétendait
+     faire choisir entre elle et le circuit. Son en-tête passe donc en h1 —
+     c'est le titre du document, plus une section parmi d'autres. -->
+<div class="shell back-home view-envies">
+  <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
+    <span class="retour-porte"></span><span class="retour-libelle">Retour à l'accueil</span>
+  </a>
+</div>
+<section class="band ground-sable view-envies" id="envies">
   <div class="shell">
     <div class="sec-head reveal">
       <p class="label sec-eyebrow">Vos envies</p>
-      <h2>Cochez, j'en fais un itinéraire.</h2>
+      <h1 style="font-size: clamp(1.9rem, 5.2vw, 2.375rem)">Cochez, j'en fais un itinéraire.</h1>
       <p>Rien ici n'est une commande. Ce que vous cochez part dans votre message,
       et je construis le circuit autour — c'est mon métier de savoir ce qui s'enchaîne
       bien et ce qui se dilue.</p>
@@ -1514,6 +1543,11 @@
     <p class="journees-reste reveal" id="activitesReste"></p>
   </div>
 </section>
+<div class="shell back-home view-envies" style="padding-bottom: clamp(3rem, 8vw, 4.5rem)">
+  <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
+    <span class="retour-porte"></span><span class="retour-libelle">Retour à l'accueil</span>
+  </a>
+</div>
 
 <!-- ============================ TARIFS ============================ -->
 <div class="shell back-home view-tarifs">
@@ -2107,17 +2141,27 @@
          vocabulaire du produit sur étagère : ce qui vaut, c'est qu'il
          l'ait conduit, pas qu'il l'ait préparé. */
       titre: "Partir de mon circuit",
-      texte: "Commencez par mon circuit : quinze jours à travers Bali que j'ai déjà conduits des dizaines de fois. Puis on l'ajuste ensemble — on garde, on jette, on rallonge.",
+      texte: "Quinze jours à travers Bali que j'ai déjà conduits des dizaines de fois. Puis on l'ajuste ensemble — on garde, on jette, on rallonge.",
+      /* Trois chiffres et trois journées : la carte doit MONTRER, pas
+         annoncer. Depuis que le circuit vit sur sa propre vue, quelqu'un
+         qui descend l'accueil sans cliquer ne verra jamais rien d'autre
+         que cette carte — si elle ne dit que « voir le circuit », on a
+         remplacé une section par un bouton. */
+      chiffres: ["15 jours", "7 étapes", "1 210 € / pers."],
+      apercu: "Le rafting dans les gorges de l'Ayung, la descente du Batur à vélo, les dauphins à 5 h 45.",
       detail: "Le squelette existe, on l'ajuste ensemble.",
-      ancre: "#circuit",
-      action: "Voir le circuit"
+      ancre: "#circuit-detail",
+      vue: "circuit",
+      action: "Voir le programme jour par jour"
     },
     {
       id: "envies",
       titre: "Partir de vos envies",
       texte: "Les classiques qu'on vient chercher à Bali, et les endroits que je suis à peu près seul à montrer. Vous cochez, j'en fais un itinéraire.",
+      apercu: "Le grand ficus de Munduk, la saline de Pemuteran, les rizières de Blimbing.",
       detail: "Vos choix deviennent le circuit.",
       ancre: "#envies",
+      vue: "envies",
       action: "Voir les envies"
     }
   ];
@@ -2895,8 +2939,6 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
     esprit: "Retour à la présentation",
     valeurs: "Retour à mon engagement",
     chemins: "Retour aux deux chemins",
-    circuit: "Retour au circuit",
-    envies: "Retour à mes envies",
     usages: "Retour aux us et coutumes",
     temoignages: "Retour au livre d'or",
     "sur-mesure": "Retour à ma demande"
@@ -2939,11 +2981,23 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
   /* ---------- Rendu : les deux chemins ---------- */
   function renderChemins() {
     $("cheminList").innerHTML = CHEMINS.map(function (c) {
-      return '<li class="reveal"><a class="chemin filigrane" href="' + c.ancre + '">' +
+      /* Les nombres d'activités sont COMPTÉS, pas écrits : une place
+         ajoutée à ACTIVITES doit se voir ici sans qu'on pense à mettre un
+         chiffre à jour. */
+      var chiffres = c.chiffres || (c.id === "envies" ? [
+        ACTIVITES.filter(function (a) { return a.famille === "classique"; }).length + " classiques",
+        ACTIVITES.filter(function (a) { return a.famille === "secret"; }).length + " places secrètes"
+      ] : []);
+      return '<li class="reveal"><a class="chemin filigrane" href="' + c.ancre +
+        '" data-goto="' + c.vue + '" data-de="chemins">' +
         '<h3>' + c.titre + '</h3>' +
+        (chiffres.length ? '<p class="label chemin-chiffres">' +
+          chiffres.map(function (n) { return "<span>" + n + "</span>"; }).join("") + '</p>' : "") +
         '<p>' + c.texte + '</p>' +
-        '<p class="label chemin-detail">' + c.detail + '</p>' +
-        '<span class="chemin-action">' + c.action + ' &rarr;</span>' +
+        (c.apercu ? '<p class="chemin-apercu">' + c.apercu + '</p>' : "") +
+        '<span class="chemin-action"><span>' + c.action + '</span>' +
+          '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>' +
+        '</span>' +
       '</a></li>';
     }).join("");
     observeReveals();
@@ -3175,46 +3229,14 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
   /* CIRCUIT >>> */
 
   /* ---------- Rendu : le circuit (un seul désormais) ---------- */
-  function renderCircuit() {
-    var c = CIRCUITS[0];
-    var base = baseCircuit === c.id;
-    $("circuitUn").innerHTML =
-      '<div class="reveal">' +
-        '<div class="circuit-scene">' + photo({ scene: c.scene, uid: "circuit-bali",
-          brief: "une vue large du circuit — rizières de Sidemen ou de Jatiluwih" }) + '</div>' +
-        '<div class="circuit-chiffres">' +
-          '<span class="label">' + c.jours + ' jours &nbsp; ' + c.nuits + ' nuits &nbsp; ' + c.etapes.length + ' étapes</span>' +
-          '<span class="circuit-prix">' +
-            '<span class="circuit-par">à partir de</span>' +
-            '<span class="circuit-montant">' + c.prixPers + '</span>' +
-            '<span class="circuit-par">par personne — hors hébergement</span>' +
-          '</span>' +
-        '</div>' +
-      '</div>' +
-        '<p class="circuit-route"><span class="label">L\'itinéraire</span>' +
-          c.etapes.map(function (e) { return e.lieu; }).join(" · ") + '</p>' +
-      '</div>' +
-      '<div class="reveal">' +
-        '<p class="label" style="color: var(--eyebrow); margin-bottom: 1rem">Six journées sur quinze</p>' +
-        '<ul class="forts">' +
-          TEMPS_FORTS.map(function (t) {
-            return '<li><span class="label">J' + t.jour + '</span><span>' + t.texte + '</span></li>';
-          }).join("") +
-        '</ul>' +
-        '<p class="circuit-heb">Hébergements à votre charge par défaut — mais Agus ' +
-        'peut les choisir, vous les proposer et les réserver.</p>' +
-        '<div class="fiche-actions">' +
-          '<button class="btn ' + (base ? "btn-outline" : "btn-accent") + '" type="button" data-base="' + c.id + '"' +
-            (base ? ' style="color: var(--accent)"' : '') + '>' +
-            (base ? "\u2713 C'est ma base de départ" : "Commencer par ce circuit") + '</button>' +
-          '<a class="lien-page" href="#circuit-detail" data-goto="circuit" data-de="circuit">' +
-            symbole("porte", 17, 1.5) + '<span>Les quinze journées en détail</span></a>' +
-          '<a class="lien-page discret" href="#tarifs" data-goto="tarifs">' +
-            symbole("porte", 17, 1.5) + '<span>Ce que comprend ce prix</span></a>' +
-        '</div>' +
-      '</div>';
-    observeReveals();
-  }
+  /* ⚠️ `renderCircuit()` a été supprimée avec la section « Mon circuit »
+     de l'accueil. Elle écrivait dans `#circuitUn`, qui n'existe plus :
+     l'appel restant faisait planter tout le rendu qui la suivait — le
+     jour par jour, le portrait, les envies. C'est le piège classique du
+     découpage en vues : **retirer le balisage sans retirer son rendu.**
+     Le résumé du circuit vit désormais dans la carte de la fourche
+     (renderChemins) et le détail dans renderCircuitDetail(). */
+
 
 
   /* ---------- Rendu : le circuit en entier ---------- */
@@ -3809,8 +3831,8 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
     ["#valeurs", "Mon engagement", "Ce que le direct fait vivre", "padma"],
     ["#portrait-agus", "Mon portrait", "Ma famille, mon pays, mon union", "rangs", "portrait"],
     ["#chemins", "Par où commencer", "Deux façons d'entrer", "candi"],
-    ["#circuit", "Le circuit", "Quinze jours, sept étapes", "penjor"],
-    ["#envies", "Vos envies", "Classiques et places secrètes", "tedung"],
+    ["#circuit-detail", "Le circuit", "Quinze jours, sept étapes", "penjor", "circuit"],
+    ["#envies", "Vos envies", "Classiques et places secrètes", "tedung", "envies"],
     ["#usages", "Us et coutumes", "Ce qu'on comprend en arrivant", "nyepi"],
     ["#temoignages", "Livre d'or", "Sept voyageurs, leurs mots", "gong"],
     ["#tarifs", "Tarifs", "Trois façons de compter", "poleng", "tarifs"]
@@ -3867,7 +3889,6 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
 
   function render() {
     renderChemins();
-    renderCircuit();
     renderCircuitDetail();
     renderPortrait();
     renderActivites();
@@ -3994,8 +4015,7 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
     var bse = ev.target.closest("[data-base]");
     if (bse && bse.tagName === "BUTTON") {
       baseCircuit = baseCircuit === bse.dataset.base ? null : bse.dataset.base;
-      renderCircuit();
-      renderCart();
+        renderCart();
       renderMessage();
       return;
     }
@@ -4013,8 +4033,7 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
          s'affiche déjà avec « Ma base de départ » en tête. */
       if (goto.dataset.baseAvant) {
         baseCircuit = goto.dataset.baseAvant;
-        renderCircuit();
-        renderCart();
+            renderCart();
         renderMessage();
       }
       /* ⚠️ `data-de` était ignoré quand on revenait vers l'accueil, et

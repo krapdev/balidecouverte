@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { X, Mail } from "lucide-react";
@@ -29,6 +30,14 @@ import { JepunPuce } from "./Scene";
  *     information, même place, dessinée.
  *  3. **Le menu mobile devient un seuil.** Voir plus bas : c'est là que
  *     se joue l'essentiel, et c'est aussi là qu'on gagne en clarté.
+ *
+ * ⚠️ **Tous les liens internes passent par `next/link`.** Un `<a
+ * href="/…">` provoque un chargement complet de la page ; or le magasin
+ * du configurateur vit dans le gabarit et survit aux navigations
+ * client, pas aux rechargements. Cocher trois envies sur /envies puis
+ * toucher « Demander un devis » effaçait tout. La règle vaut pour
+ * n'importe quel lien du site, y compris ceux qui ne pointent que vers
+ * une ancre : depuis une autre page, ils deviennent « /#ancre ».
  *
  * Ce qui n'a pas bougé, et ne doit pas bouger : la barre reste collante,
  * les libellés restent des mots français ordinaires, les cibles font
@@ -200,7 +209,7 @@ export default function Navbar() {
             burger faisaient 360 px de large dans 280 px utiles, et le
             burger sortait de l'écran de 40 px. */}
         <div className="shell flex h-[68px] items-center gap-3 sm:gap-6">
-          <a
+          <Link
             href={home ? "#top" : "/"}
             className="mr-auto flex min-h-11 min-w-0 items-center gap-2.5 no-underline sm:gap-3"
           >
@@ -215,11 +224,11 @@ export default function Navbar() {
                 Guide francophone
               </span>
             </span>
-          </a>
+          </Link>
 
           <nav className="hidden gap-6 lg:flex" aria-label="Navigation principale">
             {NAV.filter((l) => l.barre).map((l) => (
-              <a
+              <Link
                 key={l.href}
                 href={hrefFor(l.href)}
                 onClick={l.href === "/tarifs" ? versTarifs : undefined}
@@ -240,19 +249,19 @@ export default function Navbar() {
                     className="absolute bottom-0.5 left-1/2 -translate-x-1/2 text-accent"
                   />
                 )}
-              </a>
+              </Link>
             ))}
           </nav>
 
-          <a className="btn btn-accent hidden lg:inline-flex" href={hrefFor("#sur-mesure")}>
+          <Link className="btn btn-accent hidden lg:inline-flex" href={hrefFor("#sur-mesure")}>
             <Mail size={16} />
             Demander un devis
-          </a>
+          </Link>
 
           {/* Version courte pour mobile : sans elle, quelqu'un qui ne coche
               rien n'a aucune porte de sortie avant onze écrans de défilement
               — la barre du bas ne sort qu'une fois une envie choisie. */}
-          <a
+          <Link
             className="btn btn-accent h-11 w-11 shrink-0 px-0 min-[380px]:w-auto min-[380px]:px-3.5 lg:hidden"
             href={hrefFor("#sur-mesure")}
             aria-label="Demander un devis"
@@ -261,7 +270,7 @@ export default function Navbar() {
             {/* Le mot tombe sous 380 px ; l'aria-label porte le sens, et
                 la cible reste 44 × 44. */}
             <span className="hidden text-sm min-[380px]:inline">Devis</span>
-          </a>
+          </Link>
 
           <button
             type="button"
@@ -312,7 +321,7 @@ export default function Navbar() {
                 const actif = ici(l.href);
                 return (
                   <li key={l.href}>
-                    <a
+                    <Link
                       href={hrefFor(l.href)}
                       onClick={(e) => {
                         setOpen(false);
@@ -370,20 +379,20 @@ export default function Navbar() {
                       {actif && (
                         <JepunPuce size={16} plein className="shrink-0 text-accent" />
                       )}
-                    </a>
+                    </Link>
                   </li>
                 );
               })}
             </ul>
 
-            <a
+            <Link
               className="btn btn-accent btn-lg mt-6 w-full"
               href={hrefFor("#sur-mesure")}
               onClick={() => setOpen(false)}
             >
               <Mail size={18} />
               Demander un devis
-            </a>
+            </Link>
             {/* La porte fendue ferme le panneau — le seuil qu'on vient
                 de franchir. Elle a d'abord été posée en filigrane dans
                 l'angle haut, comme le padma du panneau des valeurs : à

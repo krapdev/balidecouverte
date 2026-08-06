@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import {
   X,
@@ -128,11 +129,25 @@ export default function TripBuilder() {
             </p>
 
             <div className="mb-6 flex flex-col">
+              {/* « Remontez choisir » était vrai tant que les envies
+                  vivaient sur cette page. Elles ont leur page : le texte
+                  donne donc le lien, il ne désigne plus un endroit qui
+                  n'existe plus. */}
               {trip.activites.length === 0 ? (
                 <p className="border-y border-dashed border-rule py-4 text-sm text-faint">
                   {trip.circuit
                     ? "Rien d'ajouté au circuit pour l'instant — envoyez tel quel, je vous proposerai la suite."
-                    : "Rien de coché pour l'instant — remontez choisir, ou envoyez votre demande telle quelle : je vous proposerai un itinéraire complet."}
+                    : "Rien de coché pour l'instant. "}
+                  {!trip.circuit && (
+                    <Link
+                      href="/envies"
+                      className="whitespace-nowrap text-accent underline decoration-accent underline-offset-4"
+                    >
+                      Voir les envies
+                    </Link>
+                  )}
+                  {!trip.circuit &&
+                    " — ou envoyez votre demande telle quelle : je vous proposerai un itinéraire complet."}
                 </p>
               ) : (
                 /* L'ancienne version animait aussi la sortie d'une

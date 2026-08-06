@@ -17,6 +17,7 @@ export default function sitemap() {
   return [
     { url: `${ORIGINE}/`, lastModified: maj, changeFrequency: "monthly", priority: 1 },
     { url: `${ORIGINE}/circuit`, lastModified: maj, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${ORIGINE}/envies`, lastModified: maj, changeFrequency: "monthly", priority: 0.85 },
     { url: `${ORIGINE}/tarifs`, lastModified: maj, changeFrequency: "monthly", priority: 0.8 },
     { url: `${ORIGINE}/livre-d-or`, lastModified: maj, changeFrequency: "monthly", priority: 0.7 },
   ];

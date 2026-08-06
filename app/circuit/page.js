@@ -15,7 +15,7 @@ import Photo from "@/components/Photo";
 import RetourLien from "@/components/RetourLien";
 import { Symbole } from "@/components/Symboles";
 import { CIRCUITS } from "@/lib/data";
-import { CADRE, JOURS, COMPRIS, NON_COMPRIS } from "@/lib/circuit";
+import { CADRE, JOURS, COMPRIS, NON_COMPRIS, TEMPS_FORTS } from "@/lib/circuit";
 
 /**
  * La fiche détaillée du circuit — le jour par jour.
@@ -125,6 +125,43 @@ export default function PageCircuit() {
                 Devis établi pour&nbsp;: {CADRE.periode.toLowerCase()}.
               </span>
             </div>
+
+            {/* ---------- Six journées sur quinze ----------
+                Ce bloc vivait sur l'accueil, dans la section « Mon
+                circuit » qui n'existe plus. Il n'est pas redondant avec
+                le jour par jour qui suit : il dit ce qu'on **fait** là où
+                le programme dit ce qui se passe, et il tient en six
+                lignes — c'est ce qu'on lit avant de décider si on lit les
+                quinze journées. */}
+            <section className="mt-[clamp(3rem,8vw,4.5rem)]" id="temps-forts">
+              <div className="flex items-center gap-3.5 border-b border-rule pb-4">
+                <Symbole nom="tedung" size={30} className="shrink-0 text-accent" />
+                <h2 className="text-[clamp(1.375rem,4vw,1.75rem)] leading-tight">
+                  Six journées sur quinze
+                </h2>
+              </div>
+              <ul className="m-0 mt-4 flex list-none flex-col p-0">
+                {TEMPS_FORTS.map((t) => (
+                  <li
+                    key={t.jour}
+                    className="flex items-center gap-3.5 border-b border-rule py-2 last:border-0"
+                  >
+                    {/* `min-h-11 min-w-11` : « J3 » fait 20 px de haut
+                        et 24 de large. L'exception « lien en pleine
+                        phrase » de la WCAG 2.5.8 ne le couvre pas — il
+                        est seul dans sa colonne. */}
+                    <a
+                      href={`#jour-${t.jour}`}
+                      className="label inline-flex min-h-11 min-w-11 shrink-0 items-center tabular-nums text-eyebrow underline decoration-rule underline-offset-4"
+                      aria-label={`Aller au jour ${t.jour}`}
+                    >
+                      J{t.jour}
+                    </a>
+                    <span className="text-sm leading-relaxed">{t.texte}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
 
             {/* ---------- Les étapes ---------- */}
             <section className="mt-[clamp(3rem,8vw,4.5rem)]" id="etapes">
