@@ -208,8 +208,8 @@ export default function MentionsLegales() {
 
       <Article n={8} titre="Cookies et mesure d'audience">
         <p>
-          <b>Ce site ne dépose aucun cookie</b> et n&apos;utilise aucun outil
-          de mesure d&apos;audience ni de traçage publicitaire. Aucune
+          <b>Ce site ne dépose aucun cookie</b>{" "}
+          et n&apos;utilise aucun outil de mesure d&apos;audience ni de traçage publicitaire. Aucune
           bannière de consentement n&apos;est donc nécessaire.
         </p>
         <p>

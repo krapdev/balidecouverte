@@ -521,20 +521,6 @@
   /* Les deux chemins */
   .chemins { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.25rem; }
   @media (min-width: 640px) { .chemins { grid-template-columns: 1fr 1fr; } }
-  .tarifs-sommaire {
-    display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem;
-    margin-bottom: 2.5rem; padding-block: 0.85rem;
-    border-block: 1px solid var(--rule);
-  }
-  /* min-height 44px : liste de navigation, pas lien en pleine phrase —
-     l'exception « inline » de la WCAG 2.5.8 ne s'applique pas ici. */
-  .tarifs-sommaire a {
-    display: inline-flex; align-items: center; min-height: 44px;
-    font-family: var(--util); font-size: var(--t-xs); letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--accent); text-decoration: none;
-  }
-  .tarifs-sommaire a:hover { color: var(--text); }
-
   .chemin {
     display: flex; flex-direction: column; gap: 0.6rem; height: 100%;
     border: 1px solid var(--rule); border-radius: 16px; background: var(--surface);
@@ -1244,11 +1230,6 @@
   .retour-tarifs { font-family: var(--body) !important; font-size: var(--t-sm) !important; font-weight: 700 !important; letter-spacing: 0 !important; text-transform: none !important; gap: 0.6rem !important; }
   .retour-porte { display: inline-grid; vertical-align: -5px; }
 
-  .certif { border: 1px solid var(--rule); background: var(--surface-alt); border-radius: 14px; padding: 1rem; }
-  .certif-tete { display: flex; align-items: center; gap: 0.5rem; color: var(--eyebrow); }
-  .certif-tete svg { flex: none; }
-  .certif-faits { margin-top: 0.5rem; font-size: var(--t-sm); line-height: 1.6; }
-
   .forts { list-style: none; margin: 0; padding: 0; }
   .forts li { display: flex; align-items: baseline; gap: 0.9rem; border-bottom: 1px solid var(--rule); padding-block: 0.65rem; }
   .forts li:last-child { border-bottom: 0; }
@@ -1418,40 +1399,22 @@
         hôtels.</p>
         <p class="agus-sign reveal">— Agus</p>
 
-        <!-- ⚠️ Il y avait ici un dépliant « Fiche d'identité » — six faits
-             repliés derrière un clic. Il a été retiré, et ce n'est pas un
-             revirement : la condition qui le justifiait était « le résumé
-             porte l'essentiel même fermé », et sur mobile personne n'ouvre
-             un dépliant — la page ne montrait donc en pratique QUE sa ligne
-             de résumé. Depuis que la vue portrait développe ces faits,
-             garder un tiroir fermé au-dessus d'un lien qui mène à la
-             version complète était deux fois le même geste.
-             Ce qui reste n'est pas choisi au hasard : la certification est
-             le seul de ces faits qui répond à une INQUIÉTUDE plutôt qu'à
-             une curiosité. Ses véhicules, son union et sa famille sont
-             intéressants ; ils n'apaisent rien tant que « est-ce un
-             professionnel ? » est ouvert. -->
-        <!-- Trois formes se sont succédé ici : un dépliant de six faits,
-             puis une phrase de trois lignes, maintenant une ligne de quatre
-             mentions séparées par des points.
-             La phrase disait, à trois centimètres près, le bandeau du hero
-             et le chapô de la section. Le site répétait le diplôme NEUF
-             fois : un fait répété ne rassure pas davantage, il finit par
-             sonner comme un argument de vente.
-             Une liste de mentions ne se lit pas comme une phrase — on la
-             balaye, on vérifie, on passe. C'est le bon registre pour des
-             faits qu'on consulte. -->
-        <div class="certif reveal">
-          <p class="label certif-tete">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg>
-            Ce qui se vérifie
-          </p>
-          <!-- Mentions raccourcies : la version longue tenait sur trois
-               lignes à 390 px pour quatre faits. Le mot inutile est celui
-               que le lecteur reconstitue seul. -->
-          <p class="certif-faits">Diplômé · Depuis 2005 · Français et anglais · Je conduis</p>
-          <a class="lien-page" id="lienParcours" href="#portrait-agus" data-goto="portrait" data-de="esprit"><span>Tout mon parcours</span></a>
-        </div>
+        <!-- ⚠️ **Trois blocs de preuve se sont succédé ici, et il n'en
+             reste aucun.** Un dépliant « Fiche d'identité » de six faits,
+             puis une phrase de trois lignes, puis une ligne de quatre
+             mentions sous l'intitulé « Ce qui se vérifie ». Chacun a été
+             retiré pour la même raison : il redisait ce qui était dit
+             ailleurs — d'abord le bandeau du hero, ensuite la vue
+             portrait.
+             À savoir avant d'y toucher : **l'accueil ne dit donc plus
+             nulle part qu'Agus est un professionnel certifié.** La preuve
+             vit sur la vue portrait et dans le pied de page, et les deux
+             liens vers le portrait — celui-ci et celui du panneau des
+             valeurs — en sont devenus le seul chemin. Les affaiblir
+             couperait la réassurance du site. -->
+        <p class="reveal" style="margin-top: 0.5rem">
+          <a class="lien-page" id="lienParcours" href="#portrait-agus" data-goto="portrait" data-de="esprit"><span>Mon parcours, mes diplômes, mes véhicules</span></a>
+        </p>
       </div>
     </div>
 
@@ -1473,8 +1436,16 @@
       <ul class="valeurs">
         <li>
           <h4><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--soleil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17"/><path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"/><path d="m2 16 6 6"/><circle cx="16" cy="9" r="2.9"/><circle cx="6" cy="5" r="3"/></svg>Ma famille d'abord</h4>
-          <p>Marié, trois enfants. Ce que vous payez les fait vivre — pas une
-          commission d'intermédiaire.</p>
+          <!-- « Vous m'aidez à faire vivre ma famille » plutôt que « ce que
+               vous payez les fait vivre » : la première formule met le
+               voyageur en position d'agir, la seconde en position de payer.
+               Même transaction, pas le même geste.
+               La phrase sur la cour n'est pas de l'ornement : elle dit ce
+               que « famille » veut dire ici, et ce n'est pas ce que le mot
+               recouvre en France. -->
+          <p>Vous m'aidez à faire vivre ma famille — pas une commission
+          d'intermédiaire. Ici, on vit à plusieurs générations dans la même
+          cour, autour du temple des ancêtres.</p>
         </li>
         <li>
           <h4><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--soleil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Une union de guides, pas un homme seul</h4>
@@ -1584,13 +1555,13 @@
       famille ou entre amis.</p>
     </div>
 
-    <!-- Le sommaire : quatre écrans sur mobile, on doit pouvoir aller
-         droit au chiffre sans relire la méthode. -->
-    <nav class="tarifs-sommaire reveal" aria-label="Sommaire des tarifs">
-      <a href="#formules">Les trois formules</a>
-      <a href="#grille">Le prix de la journée</a>
-      <a href="#compris">Ce qui est compris</a>
-    </nav>
+    <!-- ⚠️ Le sommaire a été retiré. Il listait « Les trois formules · Le
+         prix de la journée · Ce qui est compris » — soit les trois titres
+         visibles trois centimètres plus bas, sur une page qui en compte
+         trois. Un sommaire sert quand on ne voit pas la fin ; ici il
+         retardait la première ligne utile d'un écran de mobile.
+         Les ancres #formules, #grille et #compris restent posées sur les
+         titres : elles ont pu être partagées ou envoyées par mail. -->
 
     <!-- 1. De quoi parle-t-on. Trois façons de compter cohabitaient sans
          être annoncées : on voyait « 80 € » et « 1 210 € » sur le même
@@ -2267,7 +2238,7 @@
   var USAGES = {
   titre: "Six choses qu'on comprend en arrivant",
   chapo:
-    "Rien à réviser : je vous les raconte en route. Elles sont ici pour que le pays ne soit pas une surprise muette.",
+    "Bali est hindoue et le montre partout : sur les trottoirs, dans les cours, au calendrier. Voici ce que vous croiserez.",
   liste: [
     {
       symbole: "canang",
@@ -3355,13 +3326,23 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
       return '<li><span class="label">' + x[0] + '</span><span>' + x[1] + '</span></li>';
     }).join("");
 
-    /* Le point « Ma famille d'abord » du panneau des valeurs s'ouvre sur
-       « Marié, trois enfants » — la ligne au-dessus le dit déjà, et en
-       plus précis. On ne reprend donc que sa seconde moitié. */
+    /* La version longue du point « Ma famille d'abord » — celle que
+       l'accueil ne montre pas. Elle ne redit pas « Marié, trois enfants » :
+       la ligne au-dessus le dit déjà, et en plus précis.
+       Le tri hita karana est un concept balinais documenté, nommé comme le
+       sont le canang sari ou le penjor ailleurs sur le site — on ne prête
+       à Agus aucune parole qu'il n'aurait pas dite, on nomme une chose de
+       son pays. */
     $("portraitFamille").innerHTML =
       '<p class="fort">Marié, deux filles de 12 et 9 ans et un garçon de 5 ans.</p>' +
-      "<p>Ce que vous payez les fait vivre — comme il fait vivre le chauffeur et " +
-      "les familles qui vous accueillent chez elles, pas une commission d'intermédiaire.</p>" +
+      "<p>Vous m'aidez à faire vivre ma famille — comme vous faites vivre le " +
+      "chauffeur et les familles qui vous accueillent chez elles, et non une " +
+      "commission d'intermédiaire. À Bali, une maison n'est pas une maison mais " +
+      "une cour : plusieurs générations sous le même mur, un temple pour les " +
+      "ancêtres, des offrandes déposées chaque matin. Les Balinais appellent ça " +
+      "le <em>tri hita karana</em>, les trois causes du bonheur — l'entente avec " +
+      "le divin, avec les autres et avec la terre. Aucune ne tient sans les deux " +
+      "autres.</p>" +
       '<p class="encart">' + canang(50) +
       "<span>Chaque matin, avant de prendre la route, je dépose un <em>canang sari</em> " +
       "sur le tableau de bord : quelques fleurs dans un panier de feuille de palme " +

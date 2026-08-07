@@ -37,31 +37,15 @@ export default function Tarifs() {
           le guide privé abordable en famille ou entre amis.
         </SectionHead>
 
-        {/* Le sommaire : la page fait quatre écrans sur mobile, on doit
-            pouvoir aller droit au chiffre sans relire la méthode. */}
-        <Reveal>
-          <nav
-            className="mb-10 flex flex-wrap gap-x-6 border-y border-rule py-1.5"
-            aria-label="Sommaire des tarifs"
-          >
-            {[
-              ["#formules", "Les trois formules"],
-              ["#grille", "Le prix de la journée"],
-              ["#compris", "Ce qui est compris"],
-            ].map(([href, label]) => (
-              <a
-                key={href}
-                href={href}
-                /* min-h-11 : liste de navigation, pas lien en pleine
-                   phrase — l'exception « inline » de la WCAG 2.5.8 ne
-                   s'applique pas ici. */
-                className="label inline-flex min-h-11 items-center text-accent no-underline hover:text-ink"
-              >
-                {label}
-              </a>
-            ))}
-          </nav>
-        </Reveal>
+        {/* ⚠️ **Le sommaire a été retiré d'ici.** Il listait « Les trois
+            formules · Le prix de la journée · Ce qui est compris » —
+            c'est-à-dire les trois titres qu'on voit en descendant, sur
+            une page de sept écrans dont le premier tiers est déjà le
+            premier de ces titres. Un sommaire n'aide que s'il annonce
+            ce qu'on ne voit pas ; celui-ci annonçait ce qui arrivait
+            trois centimètres plus bas.
+            Les ancres `#formules`, `#grille` et `#compris` restent :
+            elles servent aux liens entrants et se partagent. */}
 
         {/* ---------- 1. De quoi parle-t-on ---------- */}
         <Reveal>

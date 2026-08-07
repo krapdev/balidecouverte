@@ -226,22 +226,24 @@ export default function PagePortrait() {
             {/* ---------- 2. La famille ---------- */}
             <Partie n={2} symbole="rangs" titre="Ma famille">
               <p className="text-[1.0625rem] text-ink">{AGUS.famille}.</p>
-              {/* Le point « Ma famille d'abord » du panneau des valeurs
-                  s'ouvre sur « Marié, trois enfants » — la ligne
-                  au-dessus le dit déjà, et en plus précis. On ne reprend
-                  donc que sa seconde moitié, écrite ici en clair plutôt
-                  que découpée à l'exécution : une découpe sur un point
-                  se casse à la première virgule déplacée. */}
-              <p>
-                Ce que vous payez les fait vivre — comme il fait vivre le
-                chauffeur et les familles qui vous accueillent chez elles, pas
-                une commission d&apos;intermédiaire.
-              </p>
+              {/* La version longue du point « Ma famille d'abord » du
+                  panneau des valeurs — celle que l'accueil ne montre pas.
+                  Elle était recopiée à la main ici, et les deux textes ont
+                  divergé au premier remaniement : c'est `texte` qui est lu
+                  maintenant, comme pour les points 2 et 3 plus bas.
+                  Sa première ligne ne redit pas « Marié, trois enfants » :
+                  `AGUS.famille`, juste au-dessus, le dit en plus précis. */}
+              <p>{VALEURS.points[0].texte}</p>
               <div className="flex items-start gap-4 rounded-[14px] border border-rule bg-surface p-5">
                 <Canang size={50} className="mt-0.5 shrink-0" />
                 <p className="text-sm leading-relaxed">
                   Chaque matin, avant de prendre la route, je dépose un{" "}
-                  <em>canang sari</em> sur le tableau de bord : quelques fleurs
+                  {/* ⚠️ `{" "}` obligatoire APRÈS la balise, pas seulement
+                      avant : JSX rogne l'espace de tête de chaque ligne
+                      d'un texte multiligne, et le rendu donnait
+                      « canang sarisur le tableau de bord ». */}
+                  <em>canang sari</em>{" "}
+                  sur le tableau de bord : quelques fleurs
                   dans un panier de feuille de palme tressée. C&apos;est trois
                   minutes, et c&apos;est le vrai début de la journée.
                 </p>

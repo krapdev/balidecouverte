@@ -168,8 +168,8 @@ export default function CGV() {
       <Article n={5} titre="Formation du contrat">
         <p>
           Le contrat est formé lorsque le Client accepte le devis par écrit —
-          un courriel de confirmation suffit — <b>et</b> que l&apos;acompte
-          prévu à l&apos;article 8 a été reçu. Aucune date n&apos;est bloquée
+          un courriel de confirmation suffit — <b>et</b>{" "}
+          que l&apos;acompte prévu à l&apos;article 8 a été reçu. Aucune date n&apos;est bloquée
           avant ces deux conditions.
         </p>
         <p>

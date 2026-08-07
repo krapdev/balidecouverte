@@ -1,11 +1,5 @@
 import Link from "next/link";
-import {
-  BadgeCheck,
-  Users,
-  HandCoins,
-  Heart,
-  ArrowRight,
-} from "lucide-react";
+import { Users, HandCoins, Heart, ArrowRight } from "lucide-react";
 import { PortraitAgus } from "./Scene";
 import { Symbole } from "./Symboles";
 import LienPage from "./LienPage";
@@ -15,37 +9,32 @@ import Reveal from "./Reveal";
 import { AGUS, VALEURS } from "@/lib/data";
 
 /**
- * La présentation : une promesse, une preuve, une préférence.
+ * La présentation : une promesse, puis une préférence.
  *
  * L'argument n'est pas « voilà qui je suis » mais **« vous n'avez rien à
  * organiser »**. C'est ce qu'achète quelqu'un qui part à 12 000 km : pas
- * une biographie, la certitude que tout est pris en charge par un
- * professionnel diplômé.
+ * une biographie, la certitude que tout est pris en charge.
  *
- * Trois registres, et il en faut trois — en retirer un coûterait la
- * moitié du travail :
+ * ⚠️ **Trois blocs de preuve se sont succédé ici, et il n'en reste
+ * aucun.** Un dépliant « Fiche d'identité » de six faits, puis une
+ * phrase de trois lignes, puis une ligne de quatre mentions sous
+ * l'intitulé « Ce qui se vérifie ». Chacun a été retiré pour la même
+ * raison : il redisait ce qui était dit ailleurs — d'abord le bandeau du
+ * hero, ensuite `/agus`.
+ *
+ * Ce qu'il faut savoir avant d'y toucher : **l'accueil ne dit donc plus
+ * nulle part qu'Agus est un professionnel certifié.** La preuve vit sur
+ * `/agus` et dans le pied de page. Les deux liens vers le portrait — sous
+ * la photo, et au bas du panneau des valeurs — sont devenus le seul
+ * chemin vers elle. Les affaiblir couperait la réassurance du site ; les
+ * supprimer la supprimerait.
+ *
+ * Restent donc deux registres :
  *
  *  1. **La promesse** (le chapô, puis le paragraphe) : ce dont on est
  *     déchargé.
- *  2. **La preuve** (la ligne de certification) : de quoi lever le doute.
- *     Qui ne fait pas confiance ne sera pas ému par des valeurs.
- *  3. **La préférence** (le panneau bambou) : pourquoi lui plutôt qu'une
- *     agence. Qui fait confiance sans préférer ne réserve pas non plus.
- *
- * ⚠️ **Il y avait ici un dépliant « Fiche d'identité »** — six faits
- * repliés derrière un `<details>`. Il a été retiré, et ce n'est pas un
- * revirement : la condition qui le justifiait était « le résumé porte
- * l'essentiel même fermé », et sur mobile personne n'ouvre un dépliant,
- * si bien que la page ne montrait en pratique **que** sa ligne de
- * résumé. Depuis que /agus développe ces faits, garder un tiroir fermé
- * au-dessus d'un lien qui mène à la version complète était deux fois le
- * même geste. On garde donc la ligne, à découvert, et on la lie au
- * portrait.
- *
- * Ce qui reste ici n'est pas choisi au hasard : la certification est le
- * seul de ces faits qui **répond à une inquiétude** plutôt qu'à une
- * curiosité. Ses véhicules, son union et sa famille sont intéressants ;
- * ils n'apaisent rien tant que « est-ce un professionnel ? » est ouvert.
+ *  2. **La préférence** (le panneau bambou) : pourquoi lui plutôt qu'une
+ *     agence.
  */
 
 /* Dans l'ordre des points de VALEURS : ce que l'argent fait vivre, le
@@ -59,10 +48,8 @@ export default function AboutAgus() {
     <section id="esprit" className="ground-ivoire band">
       <div className="shell">
         {/* Le chapô s'ouvrait sur « Guide diplômé, professionnel depuis
-            2005 » — que le bandeau du hero venait de dire deux écrans
-            plus haut, et que la ligne de faits redit trois centimètres
-            plus bas. Le diplôme s'annonce **une fois**, au premier
-            écran ; ici on est déjà passé à ce qu'il fait. */}
+            2005 ». Le diplôme se dit maintenant sur /agus et nulle part
+            ailleurs ; ici on est passé à ce qu'il fait. */}
         <SectionHead eyebrow="Votre guide" title="Laissez-vous guider.">
           Je conduis moi-même et je traduis moi-même. Vous n&apos;avez ni
           véhicule à louer, ni billets à prendre, ni horaires à caler :
@@ -160,45 +147,22 @@ export default function AboutAgus() {
               <p className="mt-4 font-display text-xl">— Agus</p>
             </Reveal>
 
-            {/* ---------- Ce qui se vérifie ----------
-                Trois formes se sont succédé ici : un dépliant de six
-                faits, puis une phrase de trois lignes, maintenant une
-                ligne de quatre mentions séparées par des points.
+            {/* ⚠️ **La ligne « Ce qui se vérifie » a été retirée**, après
+                le bandeau du hero. Le diplôme, l'année et les langues ne
+                sont donc plus nulle part sur l'accueil : ils vivent sur
+                /agus, où la fiche les développe, et dans le pied de page.
 
-                La phrase disait « Diplômé guide francophone,
-                professionnel depuis octobre 2005. Je guide en français
-                et anglais, et je conduis moi-même » — soit, à trois
-                centimètres près, le bandeau du hero et le chapô de la
-                section. Le site répétait le diplôme **neuf fois**. Un
-                fait répété ne rassure pas davantage : il finit par
-                sonner comme un argument de vente.
-
-                Une liste de mentions, elle, ne se lit pas comme une
-                phrase : on la balaye, on vérifie, on passe. C'est le bon
-                registre pour des faits qu'on consulte. */}
+                C'est un choix assumé, et il a un coût qu'il faut
+                connaître : **plus rien sur l'accueil ne dit qu'Agus est
+                un professionnel certifié.** Le seul chemin vers cette
+                preuve est le lien du portrait — celui sous la photo et
+                celui du panneau des valeurs. Ces deux liens sont donc
+                devenus critiques : les affaiblir, c'est couper la
+                réassurance du site. */}
             <Reveal delay={0.05}>
-              <div className="rounded-[14px] border border-rule bg-surface-alt p-4">
-                <p className="label flex items-center gap-2 text-eyebrow">
-                  <BadgeCheck size={14} strokeWidth={1.9} className="shrink-0" />
-                  Ce qui se vérifie
-                </p>
-                <p className="mt-2 text-sm leading-relaxed">
-                  {/* Mentions raccourcies : « Diplômé guide francophone ·
-                      Depuis octobre 2005 · Je guide en français et anglais ·
-                      Je conduis moi-même » tenait sur trois lignes à 390 px
-                      pour quatre faits. Le mot inutile est celui que le
-                      lecteur reconstitue seul. */}
-                  {[
-                    "Diplômé",
-                    "Depuis 2005",
-                    "Français et anglais",
-                    "Je conduis",
-                  ].join(" · ")}
-                </p>
-                <LienPage href="/agus?de=esprit" className="mt-1">
-                  Tout mon parcours
-                </LienPage>
-              </div>
+              <LienPage href="/agus?de=esprit">
+                Mon parcours, mes diplômes, mes véhicules
+              </LienPage>
             </Reveal>
           </div>
         </div>

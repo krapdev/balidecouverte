@@ -119,43 +119,48 @@ occupe l'angle vide des grandes cartes de chemins.
 3. **Pas de filigrane sur les petites cartes.** Essayé sur les cartes
    d'activités (84 px de haut) : invisible, et il frôlait le texte. Retiré.
 
-### La présentation : une promesse, une preuve, une préférence
+### La présentation : une promesse, puis une préférence
 
 L'argument n'est pas « voilà qui je suis » mais **« vous n'avez rien à
 organiser »**. C'est ce qu'achète quelqu'un qui part à 12 000 km : pas une
-biographie, la certitude qu'un professionnel diplômé prend tout en charge.
+biographie, la certitude que tout est pris en charge.
 
 Le paragraphe **énumère** ce que « tout » recouvre — véhicule, carburant,
 assurances, parkings, entrées, guides de sentier obligatoires, horaires, hôtels
 sur demande. Une promesse sans liste n'est qu'un slogan.
 
-Trois registres, et il en faut trois. En retirer un coûte la moitié du travail :
+Restent deux registres :
 
 1. **La promesse** — ce dont on est déchargé.
-2. **La preuve** — la ligne de certification. Qui ne fait pas confiance ne sera
-   pas ému par des valeurs.
-3. **La préférence** — le panneau bambou. Qui fait confiance sans préférer ne
-   réserve pas non plus.
+2. **La préférence** — le panneau bambou : pourquoi lui plutôt qu'une agence.
 
-#### Le dépliant « Fiche d'identité » a été retiré
+#### Trois blocs de preuve se sont succédé ici, et il n'en reste aucun
 
-Il vivait ici : six faits — certification, ancienneté, langues, union, famille,
-véhicules — repliés derrière un `<details>`, avec cette condition écrite noir
-sur blanc : **« le résumé porte l'essentiel même fermé »**. C'est cette
-condition qui l'a condamné. Sur mobile, personne n'ouvre un dépliant ; la page
-ne montrait donc en pratique **que** sa ligne de résumé. Et depuis que `/agus`
-développe ces faits, garder un tiroir fermé juste au-dessus d'un lien qui mène à
-la version complète, c'était deux fois le même geste.
+Dans l'ordre : un dépliant « Fiche d'identité » de six faits repliés derrière un
+`<details>` ; puis une phrase de trois lignes ; puis une ligne de quatre
+mentions sous l'intitulé « Ce qui se vérifie ». Chacun est tombé pour la même
+raison — il redisait ce qui était dit ailleurs.
 
-Ne reste que la ligne, **à découvert**, et elle est liée au portrait. Ce qui est
-gardé n'est pas choisi au hasard : la certification est le seul de ces faits qui
-répond à une **inquiétude** plutôt qu'à une curiosité. Confier quinze jours à un
-inconnu à 12 000 km, c'est se demander si c'est un professionnel. Ses véhicules,
-son union et sa famille sont intéressants ; ils n'apaisent rien tant que cette
-question-là est ouverte.
+Le dépliant portait cette condition écrite noir sur blanc : **« le résumé porte
+l'essentiel même fermé »**. C'est elle qui l'a condamné : sur mobile personne
+n'ouvre un dépliant, la page ne montrait donc en pratique **que** sa ligne de
+résumé. La phrase, elle, répétait le bandeau du hero et le chapô de la section à
+trois centimètres près — le diplôme s'annonçait **neuf fois** sur le site, et un
+fait répété ne rassure pas davantage : il finit par sonner comme un argument de
+vente. La ligne de mentions est tombée en dernier, après que le bandeau du hero
+eut été retiré à son tour : à ce moment-là, elle était le doublon de `/agus`.
 
-> ⚠️ **Ne pas remettre un `<details>` ici.** Si la ligne devait un jour porter
-> plus, c'est qu'elle porterait trop : le reste a une page.
+> ⚠️ **L'accueil ne dit donc plus nulle part qu'Agus est un professionnel
+> certifié.** La preuve vit sur `/agus` — la fiche l'y développe — et dans le
+> pied de page. C'est un choix assumé, et il a un coût qu'il faut connaître
+> avant d'y toucher : **les deux liens vers le portrait sont devenus le seul
+> chemin vers cette preuve** — celui sous la photo (« Mon portrait, ma famille,
+> mon union ») et celui du bas de la présentation (« Mon parcours, mes diplômes,
+> mes véhicules »), plus celui du panneau des valeurs. Les affaiblir couperait
+> la réassurance du site ; les supprimer la supprimerait.
+>
+> Et **ne pas remettre un `<details>` ici.** Si un bloc devait un jour reporter
+> ces faits, c'est qu'il porterait trop : le reste a une page.
 
 ### La voix : « mon », jamais « son »
 
@@ -288,9 +293,17 @@ des valeurs, et qui fait confiance sans préférer ne réserve pas non plus.
 
 Trois points, tous tirés des mots d'Agus :
 
-- **Ma famille d'abord** — marié, trois enfants ; ce que vous payez les fait
-  vivre, comme il fait vivre le chauffeur et les familles qui accueillent, pas
-  une commission d'intermédiaire.
+- **Ma famille d'abord** — « **vous m'aidez** à faire vivre ma famille », et non
+  « ce que vous payez les fait vivre » : la première formule met le voyageur en
+  position d'**agir**, la seconde en position de **payer**. C'est la même
+  transaction, ce n'est pas le même geste. Suit une phrase sur ce que « famille »
+  veut dire ici — la cour où vivent plusieurs générations autour du temple des
+  ancêtres, et non ce que le mot recouvre en France. La version longue (`texte`,
+  lue par `/agus`) nomme le **tri hita karana**, les trois causes du bonheur :
+  l'entente avec le divin, avec les autres et avec la terre.
+  C'est un concept balinais documenté, nommé comme le sont le *canang sari* ou
+  le *penjor* ailleurs sur le site — **on ne prête à Agus aucune parole qu'il
+  n'aurait pas dite, on nomme une chose de son pays.**
 - **Une union de guides, pas un homme seul** — Agus écrit qu'il travaille « au
   sein d'une union de guides de Bali », avec d'autres francophones et
   anglophones. Quand il n'est pas disponible, il passe le relais à quelqu'un
@@ -343,11 +356,17 @@ disparu.** Il redisait en quatre lignes ce que les fiches circuits montrent déj
 pirogue de Tamblingan — juste après les avoir montrées. Une récapitulation
 n'apporte rien à qui vient de lire.
 
-La page `/tarifs` porte un **sommaire** en tête — trois ancres vers la grille,
-l'inclus/exclus et le « bon à savoir ». Attention au décalage : `html` porte
-déjà `scroll-padding-top: 5rem`, qui dégage la navbar ; ajouter un
-`scroll-margin` sur les cibles **double** l'écart et fait atterrir à 176 px au
-lieu de 80. Ne pas cumuler les deux.
+**Le sommaire de `/tarifs` a été retiré.** Il listait « Les trois formules · Le
+prix de la journée · Ce qui est compris » — soit les trois titres visibles trois
+centimètres plus bas, sur une page qui en compte trois. Un sommaire sert quand
+on ne voit pas la fin ; celui-ci retardait la première ligne utile d'un écran de
+mobile. **Les ancres `#formules`, `#grille` et `#compris` restent posées sur les
+titres** : elles ont pu être partagées ou envoyées par mail.
+
+> Si un sommaire devait revenir un jour, attention au décalage : les cibles
+> portent `[id] { scroll-margin-top: 5rem }` dans `globals.css`, qui dégage la
+> navbar. Ajouter un `scroll-padding-top` sur `html` **doublerait** l'écart et
+> ferait atterrir à 176 px au lieu de 80. Ne pas cumuler les deux.
 
 Les autres îles ne sont plus mentionnées dans les tarifs : les détailler là
 rouvrirait une porte que le parcours a fermée. Une ligne renvoie à un échange
@@ -455,6 +474,14 @@ sert à rien le jour même serait un dépliant d'agence.
 C'est aussi le seul endroit où la culture travaille pour la conversion : le
 nœud du selendang, les dates de Galungan, la préparation de Nyepi sont
 exactement des choses qu'un guide règle et qu'une agence oublie.
+
+Le chapô **annonce le pays, il ne s'excuse pas de la section.** Il disait
+« Rien à réviser : je vous les raconte en route. Elles sont ici pour que le pays
+ne soit pas une surprise muette » — deux phrases pour désamorcer une corvée que
+personne n'avait redoutée, et qui ne disaient rien de Bali. Il dit maintenant
+*« Bali est hindoue et le montre partout : sur les trottoirs, dans les cours, au
+calendrier. Voici ce que vous croiserez. »* — un fait sur le pays, les trois
+endroits où il se voit, et l'annonce de ce qui suit.
 
 Deux règles de rédaction :
 
@@ -825,7 +852,10 @@ un sommaire décoratif posé au-dessus de son propre contenu, et cinq écrans et
 demi de mobile. Un choix qui ne coupe rien n'est pas un choix.
 
 Chaque carte mène désormais à sa page : `/circuit` et `/envies`. **L'accueil
-passe de 17,9 à 12,5 écrans mobiles** (−30 %), et de 11,3 à 8,0 sur grand écran.
+passe de 17,9 à 12,4 écrans mobiles** (−31 %), et de 11,3 à 8,0 sur grand écran.
+Les allègements qui ont suivi (bandeau du hero, ligne « Ce qui se vérifie »,
+sommaire des tarifs) l'y ont maintenu ; `/tarifs` est à 6,8 écrans mobiles,
+`/agus` à 8,0, `/envies` à 5,1 et `/circuit` à 13,0.
 
 #### Ce que ce déplacement exige en retour
 
@@ -1103,11 +1133,14 @@ de la barre, pied de page, glose du menu, en-tête de `/agus`, fiche de `/agus`.
 Un fait répété ne rassure pas davantage ; passé la troisième fois, il finit par
 sonner comme un argument de vente.
 
-Il ne s'annonce plus qu'**une fois sur l'accueil**, dans la ligne « Ce qui se
-vérifie » de la présentation, et une fois dans la fiche de `/agus`. Ont été
-retirés : le bandeau du hero, l'ouverture du chapô de la présentation,
-« diplômé » dans le chapô des valeurs, la glose du menu (« Guide diplômé, vingt
-ans de route » → « Ce dont je vous décharge ») et l'en-tête de `/agus`.
+Il ne s'annonce **plus du tout sur l'accueil**. Ont été retirés, dans cet
+ordre : l'ouverture du chapô de la présentation, « diplômé » dans le chapô des
+valeurs, la glose du menu (« Guide diplômé, vingt ans de route » → « Ce dont je
+vous décharge »), l'en-tête de `/agus`, le bandeau du hero, et enfin la ligne
+« Ce qui se vérifie » de la présentation. Restent la fiche de `/agus` et le pied
+de page — voir l'avertissement de « Trois blocs de preuve se sont succédé ici »
+plus haut : **c'est le lien vers le portrait qui porte désormais toute la
+réassurance de l'accueil.**
 
 ⚠️ **Le bandeau du hero est parti en dernier, et il remplace une règle par une
 autre.** La version précédente de ce paragraphe disait « une fois en pleine
@@ -1389,9 +1422,9 @@ mesurées, toutes à zéro défaut aujourd'hui :
   > pages légales qui vivent *à l'intérieur d'une phrase* — « décrites dans les
   > conditions générales de vente » — sont, eux, bien couverts par l'exception,
   > et il ne faut **pas** les agrandir : ça casserait l'interligne du
-  > paragraphe. Trois cas connus, tous vérifiés : « conditions générales de
-  > vente » et « Tarifs » dans les pages légales, et « Tout mon parcours » dans
-  > la ligne de certification de l'accueil.
+  > paragraphe. Quatre cas connus, tous vérifiés : « conditions générales de
+  > vente », « mentions légales » et « Tarifs » dans les pages légales, et
+  > « Voir les envies » sur l'accueil.
   > L'audit les signale quand même ; c'est à la relecture de
   > trancher, en regardant si le lien est seul sur sa ligne ou pris dans du
   > texte.
@@ -1477,6 +1510,38 @@ règle des 3:1 des composants d'interface (WCAG 1.4.11). D'où `--rule-champ`
 (#9c8a66), mesuré à **3,36** sur le blanc et 3,15 sur la page, réservé aux
 `input`, `select` et `textarea`. **Ne pas l'employer pour les filets de
 texte** : il les rendrait bruyants.
+
+**Et l'audit ne voit pas les mots collés.** JSX **rogne l'espace de tête de
+chaque ligne** d'un texte multiligne. Donc ceci :
+
+```jsx
+<p>
+  je dépose un{" "}
+  <em>canang sari</em> sur le tableau de bord : quelques fleurs
+  dans un panier de feuille de palme tressée.
+</p>
+```
+
+rend `canang sarisur le tableau de bord`. L'espace avant `<em>` est protégé par
+son `{" "}` ; celui **après** ne l'est pas, parce qu'il ouvre une ligne. La
+règle : **dès qu'un texte passe à la ligne, un espace collé à une balise a
+besoin de son `{" "}` des deux côtés.**
+
+Trois occurrences vivaient en production sans que rien ne les signale — ni le
+build, ni le linter, ni l'audit de contraste : `canang sarisur` sur `/agus`,
+`etque l'acompte` sur `/cgv`, `aucun cookieet n'utilise` sur
+`/mentions-legales`. Le contrôle qui les a trouvées, à rejouer après toute
+réécriture de paragraphe :
+
+```sh
+curl -s "$URL" | grep -oE "</(em|b|strong|i|code)>[a-zàâçéèêëîïôûùüÿñæœ]"
+```
+
+Il reste **deux faux positifs légitimes** : `</b>dans votre voyage` dans la
+barre mobile (le `<b>` est en `display:block`, la ligne suivante commence
+ailleurs) et `</span>Éditeur du site` dans les pages légales (conteneur `flex`
+avec `gap`). Un mot collé n'est un défaut que si les deux morceaux sont sur la
+même ligne de texte.
 
 **Et un fond translucide au-dessus d'une illustration est indémontrable.** Le
 bandeau « Photo à venir » était à 82 % d'opacité : selon la couleur de la scène
