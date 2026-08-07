@@ -1,6 +1,6 @@
 import { Eczar, Mulish } from "next/font/google";
 import { TripProvider } from "@/lib/trip-store";
-import { ORIGINE, NOM_SITE, TITRE, DESCRIPTION } from "@/lib/site";
+import { ORIGINE, NOM_SITE, TITRE, DESCRIPTION, INDEXABLE } from "@/lib/site";
 import "./globals.css";
 
 /* Eczar : dessinée pour accompagner le devanagari, elle porte une énergie
@@ -49,11 +49,21 @@ export const metadata = {
     title: TITRE,
     description: DESCRIPTION,
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true, "max-image-preview": "large" },
-  },
+  /* ⚠️ **Piège de Next à connaître avant d'y toucher : les métadonnées
+     d'une page REMPLACENT celles du gabarit, elles ne s'y ajoutent pas.**
+     Une page qui déclare son propre `robots` — /agus, /cgv et
+     /mentions-legales le font, toutes trois en `index: false` — ne verra
+     jamais cette valeur-ci. Ça tombe bien dans ce sens (elles sont plus
+     restrictives), mais si une page déclarait un jour `index: true`, elle
+     s'indexerait **même en préproduction**. Le garde-fou est ici, il
+     n'est pas hérité de force. */
+  robots: INDEXABLE
+    ? {
+        index: true,
+        follow: true,
+        googleBot: { index: true, follow: true, "max-image-preview": "large" },
+      }
+    : { index: false, follow: false, nocache: true },
 };
 
 /* La direction est solaire et n'a pas d'envers : `globals.css` déclare

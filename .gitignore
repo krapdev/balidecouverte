@@ -32,6 +32,9 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# … sauf le gabarit, qui ne contient aucun secret et qui documente les
+# deux seules configurations valides (préproduction et production).
+!.env.example
 
 # vercel
 .vercel

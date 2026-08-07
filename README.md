@@ -668,6 +668,18 @@ npm run dev     # http://localhost:3000
 npm run build   # build de production
 ```
 
+**Pour un lien de relecture** (Agus, un proche, n'importe qui) : rien à poser.
+Le site part alors en `noindex` complet, ce qui est le comportement voulu — voir
+« Le garde-fou d'indexation ». Le seul réglage utile est de faire pointer les
+canoniques sur le domaine de test :
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://mon-domaine-de-test npm run build
+```
+
+**Pour la vraie mise en production**, et une seule fois : `.env.example` donne
+les deux variables à poser. Il n'y a pas de troisième configuration valide.
+
 ## Direction artistique
 
 Registre : **classe, joyeux, zen**. Fond ivoire chaud, beaucoup d'air, et une
@@ -1559,12 +1571,56 @@ image ou d'une illustration exige un fond plein.**
 
 ## Référencement
 
-**Le canonical est le seul réglage qui demande une confirmation d'Agus.**
 `lib/site.js` porte `ORIGINE`, surchargeable par `NEXT_PUBLIC_SITE_URL`. La
-valeur par défaut est `https://www.balidecouverte.fr` — **à vérifier** : un
+valeur par défaut est **le domaine nu, sans www**, confirmé par Agus. Un
 canonical qui désigne un hôte différent de celui qui répond (www contre apex,
-http contre https) est pire que pas de canonical du tout, il envoie Google
+http contre https) est pire que pas de canonical du tout : il envoie Google
 indexer une URL qui redirige.
+
+### Le garde-fou d'indexation
+
+**Un déploiement n'est indexable que si on le demande.** `NEXT_PUBLIC_INDEXABLE`
+doit valoir exactement `1` ; toute autre valeur — `true`, `oui`, vide, absente —
+laisse le site en `noindex` complet, et son `robots.txt` répond `Disallow: /`.
+
+Le sens de la variable est celui qui pardonne, et c'est délibéré. Une
+préproduction est une **copie intégrale du site d'Agus** : indexée, elle entre en
+concurrence avec `balidecouverte.fr` sur ses propres mots, et rien ne le signale
+— pas d'erreur, pas de page cassée, juste deux sites qui se partagent une
+audience. Oublier la variable rend au contraire le site invisible aux moteurs :
+ça se voit en une journée dans la Search Console, et ça se répare en une minute.
+**Entre deux oublis possibles, on choisit celui qui fait du bruit.**
+
+> ⚠️ Les deux variables vont ensemble. `NEXT_PUBLIC_SITE_URL` posée seule
+> enverrait une préproduction déclarer `balidecouverte.fr` dans ses canoniques,
+> son sitemap et son JSON-LD — on demanderait à Google d'indexer le vrai site en
+> lisant la copie. Voir `.env.example`, qui ne décrit que les deux
+> configurations valides.
+
+Le `robots.txt` ne suffit pas à lui seul : il empêche l'**exploration**, pas
+l'**indexation**. Une URL découverte par un lien entrant peut être listée sans
+jamais être lue. C'est le `noindex` du gabarit qui fait le vrai travail, et
+c'est pour ça que les deux se posent — et se lèvent — ensemble.
+
+**Piège de Next à connaître avant d'y toucher : les métadonnées d'une page
+remplacent celles du gabarit, elles ne s'y ajoutent pas.** `/agus`, `/cgv` et
+`/mentions-legales` déclarent leur propre `robots` (toutes trois en
+`index: false`, tant qu'elles portent des marqueurs « à compléter ») : elles ne
+verront **jamais** la valeur du layout. Ça tombe bien dans ce sens — elles sont
+plus restrictives. Mais une page qui déclarerait un jour `index: true`
+s'indexerait **même en préproduction**. Le garde-fou n'est pas hérité de force.
+
+Les deux modes, vérifiés :
+
+| | par défaut | `NEXT_PUBLIC_INDEXABLE=1` |
+| --- | --- | --- |
+| `robots.txt` | `Disallow: /`, pas de sitemap annoncé | `Allow: /` + `Host` + `Sitemap` |
+| les 5 pages publiques | `noindex, nofollow, nocache` | `index, follow` |
+| `/agus`, `/cgv`, `/mentions-legales` | `noindex, follow` | `noindex, follow` |
+| canonique, `og:url`, JSON-LD | suivent `NEXT_PUBLIC_SITE_URL` | idem |
+
+L'adresse e-mail d'Agus contient `balidecouverte.fr` et ne suit évidemment pas
+le domaine : c'est normal de la voir rester en préproduction.
 
 Ce qui a été trouvé cassé, et qui l'était vraiment :
 
@@ -2008,6 +2064,11 @@ plein cadre pour le hero) sont déjà posées, rien d'autre ne bouge.
 
 ## Reste à faire avant une mise en production
 
+- **Poser les deux variables d'environnement** — `NEXT_PUBLIC_SITE_URL` et
+  `NEXT_PUBLIC_INDEXABLE=1`, voir `.env.example`. **Sans elles, le site est
+  invisible aux moteurs**, ce qui est le bon défaut pour une préproduction et
+  le pire des oublis pour une mise en production. C'est la première chose à
+  vérifier le jour J, et la seule qui ne se voit pas en regardant les pages.
 - **Côté hébergement** : faire rediriger `www.balidecouverte.fr` en 301 vers
   l'apex, et vérifier que le certificat couvre l'apex. Le domaine canonique est
   tranché (voir `lib/site.js`), mais ces deux réglages-là vivent hors du dépôt.
