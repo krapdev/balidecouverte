@@ -884,6 +884,24 @@ exception et **tout ce qui le suivait dans `render()` ne s'exécutait plus** —
 jour par jour, le portrait, les envies. Les vues s'affichaient à moitié vides
 sans qu'aucune erreur ne soit visible à l'œil.
 
+### Le sous-titre du hero
+
+Il disait : « Circuits 100 % sur-mesure, authenticité garantie et 0
+intermédiaire. Vous m'écrivez directement — je suis guide balinais
+indépendant. » Trois formules de brochure en une ligne — et **« authenticité
+garantie » est exactement le genre de promesse qu'aucune agence n'a jamais tenue
+en la prononçant.** Un chiffre rond ne prouve rien ; une liste de choses dont on
+est déchargé, si.
+
+> Détendez-vous, je m'occupe de tout : le véhicule, les horaires, les entrées,
+> les bons jours pour chaque endroit. Je suis balinais et indépendant — c'est à
+> moi que vous écrivez, pas à une agence.
+
+Deux registres, dans cet ordre : **le soulagement d'abord** (c'est ce qu'on
+achète en partant à 12 000 km), **l'indépendance ensuite** (c'est ce qui fait
+choisir lui). La liste concrète est ce qui empêche « je m'occupe de tout » de
+n'être qu'un slogan de plus.
+
 ### Le bouton qui devient inerte au deuxième appui
 
 Un bug qu'on ne trouve qu'en le vivant, et qui touchait le bouton le plus
@@ -1085,12 +1103,21 @@ de la barre, pied de page, glose du menu, en-tête de `/agus`, fiche de `/agus`.
 Un fait répété ne rassure pas davantage ; passé la troisième fois, il finit par
 sonner comme un argument de vente.
 
-Il s'annonce désormais **une fois en pleine force, au premier écran** (le
-bandeau du hero), et ne réapparaît que là où il se **vérifie** : la ligne de
-faits de la présentation et la fiche de `/agus`. Ont été retirés : l'ouverture
-du chapô de la présentation, « diplômé » dans le chapô des valeurs, la glose du
-menu (« Guide diplômé, vingt ans de route » → « Ce dont je vous décharge ») et
-l'en-tête de `/agus`.
+Il ne s'annonce plus qu'**une fois sur l'accueil**, dans la ligne « Ce qui se
+vérifie » de la présentation, et une fois dans la fiche de `/agus`. Ont été
+retirés : le bandeau du hero, l'ouverture du chapô de la présentation,
+« diplômé » dans le chapô des valeurs, la glose du menu (« Guide diplômé, vingt
+ans de route » → « Ce dont je vous décharge ») et l'en-tête de `/agus`.
+
+⚠️ **Le bandeau du hero est parti en dernier, et il remplace une règle par une
+autre.** La version précédente de ce paragraphe disait « une fois en pleine
+force, au premier écran ». Elle laissait le diplôme s'annoncer deux fois avant
+qu'on ait lu la moindre ligne sur Agus — dans le hero, puis un écran et demi
+plus bas. La règle est donc maintenant :
+
+> **Le hero vend ce qu'on va ressentir, la présentation donne ce qui se
+> vérifie.** Ne pas remettre de preuve dans le hero : ce serait redire, pas
+> rassurer.
 
 **La ligne de faits a changé de registre**, et c'est le point important. Elle
 disait, en prose : « Diplômé guide francophone, professionnel depuis octobre

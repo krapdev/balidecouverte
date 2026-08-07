@@ -1,4 +1,3 @@
-import { BadgeCheck } from "lucide-react";
 import { JepunBranch } from "./Scene";
 import Photo from "./Photo";
 import { DESTINATIONS } from "@/lib/data";
@@ -62,12 +61,22 @@ export default function Hero() {
             <em className="italic text-soleil">francophone</em> local.
           </h1>
 
+          {/* La phrase disait : « Circuits 100 % sur-mesure, authenticité
+              garantie et 0 intermédiaire. » Trois formules de brochure
+              en une ligne — et « authenticité garantie » est exactement
+              le genre de promesse qu'aucune agence n'a jamais tenue en
+              la prononçant. Un chiffre rond ne prouve rien ; une liste
+              de choses dont on est déchargé, si.
+              Le registre visé : **détendez-vous, je m'occupe de tout**,
+              et c'est un homme qui le dit, pas une centrale. */}
           <p
             style={cran(2)}
             className="monte max-w-[46ch] text-lg leading-relaxed text-on-immersive-soft"
           >
-            Circuits 100 % sur-mesure, authenticité garantie et 0 intermédiaire.
-            Vous m&apos;écrivez directement — je suis guide balinais indépendant.
+            Détendez-vous, je m&apos;occupe de tout : le véhicule, les
+            horaires, les entrées, les bons jours pour chaque endroit. Je suis
+            balinais et indépendant — c&apos;est à moi que vous écrivez, pas à
+            une agence.
           </p>
 
           <div style={cran(3)} className="monte flex flex-wrap gap-3">
@@ -82,21 +91,17 @@ export default function Hero() {
             </a>
           </div>
 
-          <div
-            style={cran(4)}
-            className="monte mt-4 flex w-full flex-wrap items-center gap-3 border-t border-[color-mix(in_srgb,var(--on-immersive)_22%,transparent)] pt-5"
-          >
-            {/* Une note inventée ne vaut rien : on affiche ce qui est
-                vérifiable — le diplôme et vingt ans de métier. */}
-            <BadgeCheck size={18} className="shrink-0 text-soleil" strokeWidth={1.8} />
-            <p className="text-sm text-on-immersive-soft">
-              <b className="font-semibold text-on-immersive">
-                Guide diplômé francophone
-              </b>{" "}
-              — professionnel depuis octobre 2005, membre d&apos;une union de
-              guides de Bali.
-            </p>
-          </div>
+          {/* ⚠️ **Le bandeau « Guide diplômé francophone — professionnel
+              depuis octobre 2005, membre d'une union de guides de Bali »
+              a été retiré d'ici**, et ce n'est pas une perte de
+              réassurance : il faisait doublon avec la ligne « Ce qui se
+              vérifie » de la présentation, à un écran et demi de là. Le
+              diplôme s'y annonçait donc deux fois avant même qu'on ait
+              lu quoi que ce soit sur Agus.
+              La règle qui remplace la précédente (« une fois, au premier
+              écran ») : **le hero vend ce qu'on va ressentir, la
+              présentation donne ce qui se vérifie.** Ne pas remettre de
+              preuve ici — ce serait redire, pas rassurer. */}
         </div>
       </section>
 
