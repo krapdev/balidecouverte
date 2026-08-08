@@ -37,8 +37,11 @@ Agus Yudiarta existe, et le site est son gagne-pain.
 - **Les places secrètes se nomment, leur adresse ne se publie jamais.** On crée
   le désir, on ne donne ni l'itinéraire ni le point GPS.
 - Agus écrit **« une union de guides de Bali »**, jamais « syndicat ».
-- Le texte des valeurs s'écrit **par le positif** — jamais en charge contre des
-  agences nommées.
+- Le texte des valeurs s'écrit **par le positif**. La règle s'est précisée
+  depuis qu'Agus a témoigné de son passage en agence : **jamais d'agence
+  nommée, jamais de grief qu'on ne pourrait attribuer à quelqu'un.** Son vécu
+  lui appartient et il peut le dire ; on ne le généralise pas à sa place.
+- **On ne dit pas « autocar » à Bali** — un bus de touristes est un bus.
 - Le jour par jour de `lib/circuit.js` est **un engagement contractuel**. Ne
   pas arrondir une durée, ne pas retirer une mention « guide de sentier
   obligatoire », ne pas embellir.

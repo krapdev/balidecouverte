@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Users, HandCoins, Heart, AlertTriangle, Mail } from "lucide-react";
+import { Users, Heart, AlertTriangle, Mail, ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Photo from "@/components/Photo";
@@ -200,8 +200,25 @@ export default function PagePortrait() {
           <RetourLien />
         </div>
 
-        <div className="ground-ivoire band pt-[clamp(1.5rem,4vw,2.5rem)]">
-          <div className="shell">
+        {/* ⚠️ **La décoration est en filigrane, jamais en icône.** Un
+            symbole affiché en clair demande à être expliqué — c'est
+            exactement les trois lignes de glose du jepun qu'on vient de
+            retirer. En texture, il ne demande rien : il colore la page en
+            balinais sans rien réclamer au lecteur.
+            Le padma, lotus à huit pétales, est l'assise du dieu suprême et
+            l'orientation de tout temple. Il est posé là où aucun texte ne
+            passe, et `overflow-hidden` l'empêche d'élargir la page — sans
+            quoi il crée un débordement horizontal que l'audit signale mais
+            que l'œil ne trouve pas. */}
+        <div className="ground-ivoire band relative overflow-hidden pt-[clamp(1.5rem,4vw,2.5rem)]">
+          <Symbole
+            nom="padma"
+            size={300}
+            strokeWidth={0.5}
+            className="pointer-events-none absolute -right-24 -top-16 hidden text-accent opacity-[0.07] lg:block"
+            aria-hidden="true"
+          />
+          <div className="shell relative">
             {/* ---------- L'en-tête ---------- */}
             <div className="grid items-start gap-[clamp(1.75rem,5vw,3rem)] md:grid-cols-[0.62fr_1.38fr]">
               <figure className="m-0 mx-auto w-full max-w-[280px] md:max-w-none">
@@ -220,17 +237,32 @@ export default function PagePortrait() {
                   <span className="label block text-faint">
                     Denpasar · 08°39&apos;S 115°13&apos;E
                   </span>
-                  {/* Venu de l'accueil, où il tenait trois lignes
-                      d'atmosphère au milieu du chemin de quelqu'un qui
-                      n'a encore rien décidé. Ici, on est venu pour ça. */}
-                  <span className="mt-2.5 flex items-start gap-3 text-sm leading-relaxed text-soft">
-                    <Jepun size={22} tone="var(--eyebrow)" className="mt-1 shrink-0" />
-                    <span>
-                      La fleur derrière mon oreille est un <em>jepun</em>, le
-                      frangipanier : on la porte au temple, on la dépose sur les
-                      offrandes.
+                  {/* ⚠️ **La glose du jepun a été retirée** — trois lignes
+                      qui expliquaient la fleur derrière son oreille. Elle
+                      avait déjà quitté l'accueil pour venir ici ; elle
+                      quitte maintenant la page pour de bon, et ce n'est pas
+                      une perte : l'usage « les offrandes au sol » de la
+                      section Us et coutumes raconte la même chose en mieux,
+                      avec cinq autres à côté.
+                      La fleur reste, elle ; c'est le lien qui a changé de
+                      destination. Expliquer un symbole coûtait trois
+                      lignes ; **ouvrir la porte de tous les autres** coûte
+                      la même place et mène quelque part. */}
+                  <Link
+                    href="/#usages"
+                    className="group mt-2.5 flex min-h-11 items-center gap-3 text-sm text-accent no-underline"
+                  >
+                    <Jepun size={22} tone="currentColor" className="shrink-0" />
+                    <span className="underline decoration-accent underline-offset-4">
+                      Les traditions que vous croiserez
                     </span>
-                  </span>
+                    <ArrowRight
+                      size={17}
+                      strokeWidth={2.2}
+                      aria-hidden="true"
+                      className="shrink-0 transition-transform group-hover:translate-x-1"
+                    />
+                  </Link>
                 </figcaption>
               </figure>
 
@@ -300,164 +332,137 @@ export default function PagePortrait() {
             </Partie>
 
             {/* ---------- 2. Le français, et l'Histoire ----------
-                **La partie la plus distinctive de la page, et le site
-                n'en disait rien.** Un guide francophone à Bali, il y en
-                a ; un guide qui a appris le français trois ans à
-                l'Alliance Française, qui a vécu en Belgique et qui
-                connaît l'histoire de l'Europe assez pour s'en servir
-                comme miroir, c'est autre chose — et c'est exactement ce
-                qui fait qu'on ne se lasse pas de parler avec lui.
-
-                Le symbole est le `candi bentar`, la porte fendue des
-                temples : un passage entre deux mondes. C'est ce que fait
-                quelqu'un qui explique Bali en s'appuyant sur ce que son
-                interlocuteur connaît déjà. */}
+                Trois paragraphes ramenés à deux : le troisième expliquait
+                pourquoi il préfère guider en français, ce que le lecteur
+                d'une page en français a déjà compris. */}
             <Partie n={2} symbole="candi" titre="Le français, et l'Histoire">
               <p className="text-[1.0625rem] text-ink">
                 J&apos;ai appris le français pendant trois ans à
-                l&apos;Alliance Française, puis j&apos;ai continué seul, et
-                je suis allé le pratiquer là où il se parle — plusieurs
-                séjours en Europe, en Belgique surtout, avec des vacances en
-                France.
+                l&apos;Alliance Française, puis j&apos;ai continué seul, et je
+                suis allé le pratiquer là où il se parle — plusieurs séjours
+                en Europe, en Belgique surtout.
               </p>
               <p>
                 Je suis passionné d&apos;Histoire, et pas seulement de la
                 mienne : celle de l&apos;Europe m&apos;intéresse depuis
-                longtemps, la Belgique et la France en particulier. Ça
-                n&apos;est pas de la curiosité de collectionneur. Quand je
-                vous explique pourquoi un temple est orienté vers le Gunung
-                Agung, ou ce qu&apos;un village décide vraiment quand il se
-                partage l&apos;eau du subak, j&apos;ai besoin de m&apos;appuyer
-                sur quelque chose que vous connaissez déjà — sinon je vous
-                donne des noms, pas une compréhension.
-              </p>
-              <p>
-                C&apos;est aussi pour ça que je préfère guider en français
-                plutôt qu&apos;en anglais quand j&apos;ai le choix. Une
-                langue qu&apos;on parle bien laisse la place aux nuances,
-                aux plaisanteries, aux questions qu&apos;on n&apos;ose pas
-                poser dans une langue approximative. Quinze jours en voiture,
-                ça fait beaucoup d&apos;heures de conversation.
+                longtemps. Ça n&apos;est pas de la curiosité de
+                collectionneur. Quand je vous explique pourquoi un temple est
+                orienté vers le Gunung Agung, ou ce qu&apos;un village décide
+                vraiment quand il se partage l&apos;eau du subak, j&apos;ai
+                besoin de m&apos;appuyer sur quelque chose que vous
+                connaissez déjà — sinon je vous donne des noms, pas une
+                compréhension.
               </p>
             </Partie>
 
             {/* ---------- 3. La famille ---------- */}
             <Partie n={3} symbole="rangs" titre="Ma famille">
               <p className="text-[1.0625rem] text-ink">{AGUS.famille}.</p>
-              {/* La version longue du point « Ma famille d'abord » du
-                  panneau des valeurs — celle que l'accueil ne montre pas.
-                  Elle était recopiée à la main ici, et les deux textes ont
-                  divergé au premier remaniement : c'est `texte` qui est lu
-                  maintenant, comme pour les points 2 et 3 plus bas.
-                  Sa première ligne ne redit pas « Marié, trois enfants » :
-                  `AGUS.famille`, juste au-dessus, le dit en plus précis. */}
-              <p>{VALEURS.points[0].texte}</p>
-              {/* L'aparté : même filet à gauche que la citation d'ouverture,
-                  parce que c'est le même geste — une voix qui sort un
-                  instant de l'argument. C'était une boîte, et une boîte de
-                  plus sur une page qui en avait cinq. */}
+              {/* `court` et non `texte` : la version longue développait le
+                  tri hita karana sur six lignes, sur une page qu'on
+                  raccourcit. Le concept reste nommé dans la partie
+                  suivante, où il porte l'argument au lieu de l'illustrer. */}
+              <p>{VALEURS.points[0].court}</p>
+              {/* L'aparté : filet à gauche, comme la citation d'ouverture.
+                  C'est le même geste — une voix qui sort de l'argument. */}
               <div className="flex items-start gap-4 border-l-3 border-accent pl-5">
-                <Canang size={50} className="mt-0.5 shrink-0" />
+                <Canang size={44} className="mt-0.5 shrink-0" />
                 <p className="text-sm leading-relaxed">
                   Chaque matin, avant de prendre la route, je dépose un{" "}
-                  {/* ⚠️ `{" "}` obligatoire APRÈS la balise, pas seulement
-                      avant : JSX rogne l'espace de tête de chaque ligne
-                      d'un texte multiligne, et le rendu donnait
-                      « canang sarisur le tableau de bord ». */}
                   <em>canang sari</em>{" "}
-                  sur le tableau de bord : quelques fleurs
-                  dans un panier de feuille de palme tressée. C&apos;est trois
-                  minutes, et c&apos;est le vrai début de la journée.
+                  sur le tableau de bord : quelques fleurs dans un panier de
+                  feuille de palme tressée. C&apos;est trois minutes, et
+                  c&apos;est le vrai début de la journée.
                 </p>
               </div>
-              {rangs && (
-                <p>
-                  <b className="font-semibold text-ink">{rangs.titre}.</b>{" "}
-                  {rangs.texte} Mes enfants portent les leurs, comme tout le
-                  monde ici.
-                </p>
-              )}
-
             </Partie>
 
-            {/* ---------- 4. Le pays ---------- */}
-            <Partie n={4} symbole="padma" titre="Mon pays, et ce que j'en montre">
-              <p>{VALEURS.chapo}</p>
-              <p>{VALEURS.chute}</p>
-              <p>
-                Ce que je montre n&apos;est pas ce qu&apos;un autocar peut
-                atteindre. Une saline où personne ne s&apos;arrête, un ficus
-                qui enjambe une route au fond de Munduk, un village qui reçoit
-                chez lui parce qu&apos;on s&apos;y connaît : ces endroits
-                existent parce que quelqu&apos;un du pays y a ses entrées, et
-                ils cessent d&apos;exister le jour où on en publie l&apos;adresse.
-              </p>
-              {/* Son objectif, dans ses mots — la seule phrase de la page
-                  qui énumère ce qu'il montre plutôt que ce qu'il évite.
-                  « Dans la joie et la bonne humeur » est de lui aussi, et
-                  ce n'est pas une formule creuse : le professionnel qui le
-                  recommande écrit « toujours de bonne humeur » en premier,
-                  avant même de parler de ses compétences. */}
-              <p>
-                Ce que je veux vous faire découvrir, c&apos;est ces îles hors
-                des sentiers battus : leurs traditions, la nature, les plats
-                locaux, leurs habitants avec leur façon de vivre, leur
-                religion. Le tout selon vos souhaits — et dans la joie et la
-                bonne humeur.
-              </p>
-            </Partie>
+            {/* ---------- 4. Pourquoi je travaille en direct ----------
+                ⚠️ **C'est le cœur de la page, et c'est nouveau.** Deux
+                parties se sont fondues ici — « Mon pays, et ce que j'en
+                montre » et « Les guides de Bali, et mon union » —, parce
+                qu'elles plaidaient la même chose sans le dire : que
+                travailler en direct fait vivre un métier. Séparées, elles
+                se répétaient sur deux écrans ; ensemble, elles racontent
+                enfin une histoire.
 
-            {/* ---------- 5. L'union de guides ---------- */}
-            <Partie n={5} symbole="gong" titre="Les guides de Bali, et mon union">
-              {/* `AGUS.union` est un libellé de fiche (« Membre d'une
-                  union… ») ; ici c'est une phrase qu'il dit. Ce qu'il
-                  faut préserver mot pour mot, c'est « une union de
-                  guides de Bali » — pas « syndicat ». */}
+                Et cette histoire est la sienne. Le site argumentait
+                jusqu'ici **par le positif** — « voyager en direct fait
+                vivre les guides » — parce qu'aucune charge contre les
+                agences n'était documentée. Elle l'est maintenant : il a
+                commencé en agence, il y a vécu ce système, il en est
+                sorti. Ce n'est plus une thèse, c'est un témoignage.
+
+                ⚠️ **La règle « par le positif » ne disparaît pas, elle se
+                précise** : jamais d'agence nommée, jamais de grief qu'on
+                ne pourrait pas attribuer à quelqu'un. Son vécu lui
+                appartient et il peut le dire ; ce qu'on ne peut pas faire,
+                c'est le généraliser à sa place.
+
+                ⚠️ « J'ai été le premier à en sortir » est **sa formule**,
+                et c'est une revendication forte — premier de son groupe,
+                de sa région, de l'île ? À lui préciser : la question est
+                dans la liste du bas. Écrite telle quelle en attendant,
+                parce que l'atténuer serait déjà l'interpréter. */}
+            <Partie n={4} symbole="gong" titre="Pourquoi je travaille en direct">
               <p className="text-[1.0625rem] text-ink">
-                Je fais partie d&apos;une union de guides de Bali.
+                J&apos;ai commencé comme guide d&apos;agence. Je sais donc de
+                l&apos;intérieur ce que ce système fait à un guide : on lui
+                dit où aller, combien de temps rester, dans quelle boutique
+                s&apos;arrêter, et on garde l&apos;essentiel de ce que le
+                voyageur a payé. Je l&apos;ai vécu, et malheureusement je ne
+                suis pas le seul.
               </p>
-              <p>{VALEURS.points[1].texte}</p>
               <p>
-                Un guide balinais qui travaille en direct fixe son prix, choisit
-                ses journées et répond de son travail devant les voyageurs
-                eux-mêmes. C&apos;est un métier, pas une prestation revendue :
-                il tient debout tant que des guides se tiennent ensemble — pour
-                se passer le relais, se former, et ne pas se laisser mettre en
-                concurrence les uns contre les autres.
+                J&apos;en suis sorti — l&apos;un des premiers à le faire — et
+                j&apos;ai ouvert le chemin pour d&apos;autres. C&apos;est ce
+                que je défends depuis : un métier, et pas une prestation
+                revendue. Un guide balinais qui travaille en direct fixe son
+                prix, choisit ses journées et répond de son travail devant
+                les voyageurs eux-mêmes. Il tient debout tant que des guides
+                se tiennent ensemble — pour se passer le relais, se former,
+                et ne pas se laisser mettre en concurrence les uns contre les
+                autres. C&apos;est pour ça que je fais partie d&apos;une
+                union de guides de Bali.
+              </p>
+              <p>
+                Je ne fais pas ça pour moi seul. Chaque voyage organisé en
+                direct, c&apos;est un guide de plus qui vit de son métier
+                sans dépendre de personne, une famille de Sidemen, de Munduk
+                ou de Tenganan qui reçoit chez elle, et un peu de mon pays
+                qui reste à ceux qui y vivent.
+              </p>
+              <p>
+                Ce que je montre n&apos;est pas ce qu&apos;un bus de
+                touristes peut atteindre. Une saline où personne ne
+                s&apos;arrête, un ficus qui enjambe une route au fond de
+                Munduk, un village qui reçoit chez lui parce qu&apos;on
+                s&apos;y connaît : ces endroits existent parce que
+                quelqu&apos;un du pays y a ses entrées, et ils cessent
+                d&apos;exister le jour où on en publie l&apos;adresse.
               </p>
 
-              {/* Le bloc où presque tout manque. Il était encadré, avec
-                  ses quatre champs alignés par paires — c'était la chose
-                  la plus proche d'un formulaire de toute la page, et
-                  l'argument qui le justifiait ne tient plus : « ce qui
-                  manque doit se voir d'un seul regard ». C'est vrai, et
-                  ce n'est pas le cadre qui le fait — c'est `<Valeur>`,
-                  qui écrit « à compléter » en rouge. Le bandeau du haut
-                  de page le dit déjà une fois de plus.
-                  Même motif que la fiche du métier, donc : la page n'a
-                  plus qu'une seule façon de présenter des faits. */}
+              {/* Le seul bloc entièrement vide qui reste. Même motif que la
+                  fiche du métier — ce qui manque se voit par le rouge de
+                  `<Valeur>`, pas par un cadre. */}
               <ListeFaits
                 items={[
                   ["Son nom", <Valeur key="n" v={UNION.nom} quoi="le nom exact, et sa traduction" />],
                   ["Membre depuis", <Valeur key="d" v={UNION.depuis} quoi="l'année" />],
-                  ["Son rôle", <Valeur key="r" v={UNION.role} quoi="membre, ou une responsabilité" />],
                   ["Combien de guides", <Valeur key="e" v={UNION.effectif} quoi="l'effectif, et les langues" />],
                   ["Ce qu'elle fait", <Valeur key="a" v={UNION.actions} quoi="trois actions concrètes valent mieux qu'une définition" />],
                 ]}
               />
             </Partie>
 
-            {/* ---------- 6. Ce que ça change ---------- */}
-            <Partie n={6} symbole="canang" titre="Ce que ça change pour vous">
-              {/* Même rythme vertical que les listes de faits — filet et
-                  `py-3.5` —, mais l'icône reste : ici il n'y a pas
-                  d'intitulé qu'elle redirait, et les trois pictogrammes
-                  distinguent trois natures de promesse (l'argent, le
-                  relais, la personne). Une icône se garde quand elle
-                  ajoute, se retire quand elle répète. */}
+            {/* ---------- 5. Ce que ça change pour vous ---------- */}
+            <Partie n={5} symbole="canang" titre="Ce que ça change pour vous">
+              {/* Trois points ramenés à deux : le premier — « vous payez le
+                  travail, pas la chaîne » — est devenu le sujet entier de
+                  la partie précédente, il y était dit en trois paragraphes
+                  au lieu d'une ligne. */}
               <ul className="m-0 flex list-none flex-col p-0">
                 {[
-                  [HandCoins, "Vous payez le travail, pas la chaîne. Ce que vous versez va au guide, au chauffeur et aux familles qui vous reçoivent."],
                   [Users, "Si je ne suis pas libre à vos dates, je passe le relais à un guide que je connais — jamais à un inconnu envoyé par une centrale."],
                   [Heart, "Vous écrivez à quelqu'un, pas à un formulaire. C'est moi qui réponds, en français, sous 24 heures."],
                 ].map(([Icon, texte]) => (
@@ -481,12 +486,9 @@ export default function PagePortrait() {
                 </LienPage>
               </div>
 
-              {/* Sa propre plaisanterie, en post-scriptum de sa
-                  présentation. Elle ferme la page sur un sourire plutôt
-                  que sur un bouton, et elle en dit plus long sur l'homme
-                  que trois lignes de qualités.
-                  Registre de l'aparté — filet à gauche, comme la citation
-                  d'ouverture et le canang. Ne pas l'encadrer. */}
+              {/* Sa propre plaisanterie, en post-scriptum. Elle ferme la
+                  page sur un sourire plutôt que sur un bouton, et elle en
+                  dit plus long sur l'homme que trois lignes de qualités. */}
               <p className="mt-8 border-l-3 border-accent pl-5 leading-relaxed">
                 <span className="label block text-faint">
                   Un petit trait d&apos;humour
@@ -501,10 +503,20 @@ export default function PagePortrait() {
               </p>
             </Partie>
 
+            {/* La fleur ferme la lecture comme elle l'ouvre sous le
+                portrait. Purement décoratif, donc `aria-hidden` — et
+                séparé du bloc de travail qui suit, qui n'a rien de
+                décoratif. */}
+            <div className="mt-[clamp(2.5rem,7vw,3.5rem)] flex items-center gap-4" aria-hidden="true">
+              <span className="h-px flex-1 bg-rule" />
+              <Jepun size={26} tone="var(--eyebrow)" />
+              <span className="h-px flex-1 bg-rule" />
+            </div>
+
             {/* ---------- Les questions ---------- */}
             <section className="mt-[clamp(3rem,8vw,4.5rem)] rounded-[16px] border border-eyebrow bg-[color-mix(in_srgb,var(--bougain)_8%,transparent)] p-[clamp(1.25rem,4vw,2rem)]">
               <h2 className="text-[1.25rem] leading-snug">
-                Les six questions à poser à Agus
+                Les questions à poser à Agus
               </h2>
               <p className="mt-2 max-w-[62ch] text-sm leading-relaxed text-soft">
                 Elles sont affichées ici, et non rangées dans un fichier de

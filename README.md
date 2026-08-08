@@ -1036,7 +1036,7 @@ Chaque carte mène désormais à sa page : `/circuit` et `/envies`. **L'accueil
 passe de 17,9 à 12,4 écrans mobiles** (−31 %), et de 11,3 à 8,0 sur grand écran.
 Les allègements qui ont suivi (bandeau du hero, ligne « Ce qui se vérifie »,
 sommaire des tarifs) l'y ont maintenu ; `/tarifs` est à 6,8 écrans mobiles,
-`/agus` à 9,5, `/envies` à 5,1 et `/circuit` à 13,0.
+`/agus` à 8,3, `/envies` à 5,1 et `/circuit` à 13,0.
 
 #### Ce que ce déplacement exige en retour
 
@@ -1530,6 +1530,64 @@ vocale. Le contrôle, à passer sur tout texte collé depuis un site :
 `unicodedata.name()` sur chaque caractère au-dessus de U+2000, et rejeter tout
 ce qui commence par CYRILLIC, GREEK ou FULLWIDTH.
 
+#### « J'ai commencé comme guide d'agence » — la règle qui se précise
+
+Le site a plaidé pendant toute sa construction **par le positif** : « voyager
+en direct fait vivre les guides de Bali », jamais « les agences exploitent ».
+La raison était bonne — on ne peut pas documenter un grief, et une charge
+anonyme contre une profession est une charge qu'on ne peut attribuer à
+personne.
+
+Agus a depuis fourni son propre témoignage : il a commencé en agence, il y a
+vécu ce système, il en est sorti. **Ce n'est plus une thèse, c'est un vécu**, et
+il devient la partie centrale de la page — celle qui explique enfin *pourquoi*
+il travaille en direct, au lieu de se contenter d'affirmer que c'est mieux.
+
+> ⚠️ **La règle « par le positif » ne disparaît pas, elle se précise** : jamais
+> d'agence nommée, jamais de grief qu'on ne pourrait pas attribuer à quelqu'un.
+> Son vécu lui appartient et il peut le dire ; ce qu'on ne peut pas faire, c'est
+> le généraliser à sa place. La formulation retenue décrit **un système**, pas
+> des sociétés.
+>
+> « L'un des premiers à en sortir » est **sa formule**, et c'est une
+> revendication forte — premier de son groupe, de sa région, de l'île ? Écrite
+> telle quelle en attendant sa précision, parce que l'atténuer serait déjà
+> l'interpréter. La question est dans la liste du bas de page.
+
+**Deux parties ont fusionné** pour lui faire place : « Mon pays, et ce que j'en
+montre » et « Les guides de Bali, et mon union » plaidaient la même chose sans
+le dire. Séparées, elles se répétaient sur deux écrans ; ensemble, elles
+racontent une histoire. La page passe de six parties à cinq.
+
+**Trois autres retraits.** La glose du jepun sous le portrait — trois lignes qui
+expliquaient la fleur derrière son oreille — cède la place à un lien vers la
+section Us et coutumes : expliquer un symbole coûtait trois lignes, **ouvrir la
+porte de tous les autres coûte la même place et mène quelque part**. Le mot
+**« autocar »** devient « bus de touristes » : personne ne dit autocar à Bali.
+Et la version longue du point famille (le *tri hita karana* développé sur six
+lignes) laisse la place à sa version courte, le concept restant nommé là où il
+porte l'argument.
+
+**Le résultat, mesuré** : 9,5 → **8,3 écrans mobiles**. Dont **1,2 écran de
+échafaudage** qui disparaîtra — le bandeau « cette page attend les mots d'Agus »
+et le bloc des questions. Le contenu réel tient donc en 7 écrans, pour une page
+qui porte maintenant la licence, le français, l'Histoire, la famille, le
+témoignage sur les agences et l'union.
+
+#### La décoration : en filigrane, jamais en icône
+
+Un symbole affiché en clair demande à être expliqué — c'est exactement les trois
+lignes de glose du jepun qu'on vient de retirer. En texture, il ne demande rien :
+il colore la page en balinais sans rien réclamer au lecteur. D'où le **padma** —
+lotus à huit pétales, assise du dieu suprême — en filigrane dans l'angle de
+l'en-tête, à 7 % d'opacité et seulement à partir de `lg`, et le **jepun** en
+séparateur avant le bloc de travail : la fleur ferme la lecture comme elle
+l'ouvre sous le portrait.
+
+> ⚠️ Un filigrane posé en `absolute` déborde le conteneur et **crée un
+> défilement horizontal** que l'audit signale mais que l'œil ne trouve pas.
+> `overflow-hidden` sur le parent, systématiquement.
+
 #### Les quatre registres de `/agus`, et la règle qui les tient
 
 La page portait **cinq blocs encadrés**. Deux voulaient dire quelque chose, les
@@ -1714,7 +1772,7 @@ en écrans de mobile (390 × 844) :
 | `/` | **12,4** | 12,7 |
 | `/circuit` | 13,0 | 12,6 |
 | `/envies` | 5,1 | 5,2 |
-| `/agus` | 9,5 | 9,1 |
+| `/agus` | 8,3 | 8,5 |
 | `/tarifs` | 6,8 | 6,9 |
 | `/livre-d-or` | 8,6 | 8,7 |
 | `/cgv` | 16,1 | — |
