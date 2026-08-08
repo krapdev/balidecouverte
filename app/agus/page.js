@@ -14,15 +14,16 @@ import { UNION, QUESTIONS } from "@/lib/portrait";
 /**
  * Le portrait — la page qu'on atteint en cliquant sur sa photo.
  *
- * Le README disait le contraire il y a peu : « pourquoi pas une page
- * /agus — ces faits sont exactement ce qui lève le doute, et les envoyer
- * sur une page à part, c'est les mettre là où personne ne va ». La
- * raison était bonne, et elle tient toujours pour **le fait qui lève le
- * doute** : la certification est restée sur l'accueil, en clair. Ce qui
- * part ici, c'est le développement — l'homme, sa famille, son pays, son
- * union de guides, et le détail de ses véhicules. Personne ne lit ça
- * avant d'avoir décidé de faire confiance ; tout le monde le lit après,
- * et c'est ce moment-là qui décide d'écrire ou de refermer.
+ * ⚠️ **Cette page porte désormais TOUTE la preuve du site.** L'accueil
+ * a perdu ses trois blocs de certification l'un après l'autre ; le
+ * diplôme, l'année, les langues et la licence ne se disent plus que
+ * ici et dans le pied de page. Les liens vers le portrait sont donc le
+ * seul chemin vers cette preuve — les affaiblir couperait la
+ * réassurance du site.
+ *
+ * Personne ne lit une biographie avant d'avoir décidé de faire
+ * confiance ; tout le monde la lit après, et c'est ce moment-là qui
+ * décide d'écrire ou de refermer.
  *
  * Toute la page est à la première personne. C'est la règle du site —
  * Agus parle, on ne parle pas de lui — et c'est ici qu'elle compte le
@@ -81,7 +82,7 @@ import { UNION, QUESTIONS } from "@/lib/portrait";
 export const metadata = {
   title: "Agus Yudiarta, guide francophone à Bali",
   description:
-    "Guide balinais diplômé, francophone, je travaille en direct depuis 2005. Ma famille, mon métier, et l'union de guides de Bali dont je fais partie.",
+    "Guide balinais licencié, francophone depuis l'Alliance Française, je travaille en direct depuis 2005. Mon métier, ma famille, et l'union de guides dont je fais partie.",
   alternates: { canonical: "/agus" },
   /* `noindex` tant que la page porte des marqueurs « à compléter ».
      Trois choses vont ensemble le jour où Agus a répondu : ce bloc, le
@@ -121,6 +122,14 @@ export const metadata = {
  */
 const FICHE = [
   ["Ma certification", `Je suis ${AGUS.diplome.toLowerCase()}`],
+  /* ⚠️ **La ligne la plus utile de la page.** « Diplômé en 2005 » se dit
+     d'un homme qui n'a rien fait depuis vingt ans ; « revalidée tous les
+     trois ans » décrit quelqu'un que l'État recontrôle. C'est exactement
+     la question du voyageur qui confie quinze jours à un inconnu à
+     12 000 km — et c'est le seul fait du site qui ne se périme pas.
+     Ne pas la raccourcir en « licence officielle » : ce qui rassure
+     n'est pas le mot licence, c'est le renouvellement. */
+  ["Ma licence", "Délivrée par le gouvernement régional balinais, je la renouvelle tous les trois ans après une formation auprès du ministère du tourisme"],
   ["Mon métier", `Je l'exerce depuis ${AGUS.depuis}`],
   ["Mes langues", `Je guide en ${AGUS.langues}`],
   ["Mes véhicules", `${AGUS.vehicules.map((v) => v.split(" — ")[0]).join(" · ")} — je conduis moi-même`],
@@ -235,9 +244,15 @@ export default function PagePortrait() {
                     l'accueil. Trois fois la même phrase sur le même
                     parcours de lecture : elle ne rassure pas trois fois
                     plus, elle finit par sonner comme un argument. */}
+                {/* Reprise de l'ouverture de son propre texte — « Je suis
+                    Agus Yudiarta, guide francophone à Bali. Balinais… » —
+                    à quoi s'ajoute ce que le site doit dire et que sa
+                    présentation ne dit pas : qu'il n'y a personne entre
+                    lui et le voyageur. */}
                 <p className="mt-4 text-lg leading-relaxed text-soft">
-                  Je suis balinais, je conduis moi-même, je traduis moi-même,
-                  et je travaille en direct — sans agence entre vous et moi.
+                  Je suis balinais, né sur cette île et j&apos;y vis toujours.
+                  Je conduis moi-même, je traduis moi-même, et je travaille en
+                  direct — sans agence entre vous et moi.
                 </p>
 
                 <blockquote className="mt-6 border-l-3 border-accent pl-5 text-[clamp(1.15rem,3.4vw,1.45rem)] italic leading-snug text-pretty">
@@ -284,8 +299,50 @@ export default function PagePortrait() {
               </p>
             </Partie>
 
-            {/* ---------- 2. La famille ---------- */}
-            <Partie n={2} symbole="rangs" titre="Ma famille">
+            {/* ---------- 2. Le français, et l'Histoire ----------
+                **La partie la plus distinctive de la page, et le site
+                n'en disait rien.** Un guide francophone à Bali, il y en
+                a ; un guide qui a appris le français trois ans à
+                l'Alliance Française, qui a vécu en Belgique et qui
+                connaît l'histoire de l'Europe assez pour s'en servir
+                comme miroir, c'est autre chose — et c'est exactement ce
+                qui fait qu'on ne se lasse pas de parler avec lui.
+
+                Le symbole est le `candi bentar`, la porte fendue des
+                temples : un passage entre deux mondes. C'est ce que fait
+                quelqu'un qui explique Bali en s'appuyant sur ce que son
+                interlocuteur connaît déjà. */}
+            <Partie n={2} symbole="candi" titre="Le français, et l'Histoire">
+              <p className="text-[1.0625rem] text-ink">
+                J&apos;ai appris le français pendant trois ans à
+                l&apos;Alliance Française, puis j&apos;ai continué seul, et
+                je suis allé le pratiquer là où il se parle — plusieurs
+                séjours en Europe, en Belgique surtout, avec des vacances en
+                France.
+              </p>
+              <p>
+                Je suis passionné d&apos;Histoire, et pas seulement de la
+                mienne : celle de l&apos;Europe m&apos;intéresse depuis
+                longtemps, la Belgique et la France en particulier. Ça
+                n&apos;est pas de la curiosité de collectionneur. Quand je
+                vous explique pourquoi un temple est orienté vers le Gunung
+                Agung, ou ce qu&apos;un village décide vraiment quand il se
+                partage l&apos;eau du subak, j&apos;ai besoin de m&apos;appuyer
+                sur quelque chose que vous connaissez déjà — sinon je vous
+                donne des noms, pas une compréhension.
+              </p>
+              <p>
+                C&apos;est aussi pour ça que je préfère guider en français
+                plutôt qu&apos;en anglais quand j&apos;ai le choix. Une
+                langue qu&apos;on parle bien laisse la place aux nuances,
+                aux plaisanteries, aux questions qu&apos;on n&apos;ose pas
+                poser dans une langue approximative. Quinze jours en voiture,
+                ça fait beaucoup d&apos;heures de conversation.
+              </p>
+            </Partie>
+
+            {/* ---------- 3. La famille ---------- */}
+            <Partie n={3} symbole="rangs" titre="Ma famille">
               <p className="text-[1.0625rem] text-ink">{AGUS.famille}.</p>
               {/* La version longue du point « Ma famille d'abord » du
                   panneau des valeurs — celle que l'accueil ne montre pas.
@@ -323,8 +380,8 @@ export default function PagePortrait() {
 
             </Partie>
 
-            {/* ---------- 3. Le pays ---------- */}
-            <Partie n={3} symbole="padma" titre="Mon pays, et ce que j'en montre">
+            {/* ---------- 4. Le pays ---------- */}
+            <Partie n={4} symbole="padma" titre="Mon pays, et ce que j'en montre">
               <p>{VALEURS.chapo}</p>
               <p>{VALEURS.chute}</p>
               <p>
@@ -335,10 +392,23 @@ export default function PagePortrait() {
                 existent parce que quelqu&apos;un du pays y a ses entrées, et
                 ils cessent d&apos;exister le jour où on en publie l&apos;adresse.
               </p>
+              {/* Son objectif, dans ses mots — la seule phrase de la page
+                  qui énumère ce qu'il montre plutôt que ce qu'il évite.
+                  « Dans la joie et la bonne humeur » est de lui aussi, et
+                  ce n'est pas une formule creuse : le professionnel qui le
+                  recommande écrit « toujours de bonne humeur » en premier,
+                  avant même de parler de ses compétences. */}
+              <p>
+                Ce que je veux vous faire découvrir, c&apos;est ces îles hors
+                des sentiers battus : leurs traditions, la nature, les plats
+                locaux, leurs habitants avec leur façon de vivre, leur
+                religion. Le tout selon vos souhaits — et dans la joie et la
+                bonne humeur.
+              </p>
             </Partie>
 
-            {/* ---------- 4. L'union de guides ---------- */}
-            <Partie n={4} symbole="gong" titre="Les guides de Bali, et mon union">
+            {/* ---------- 5. L'union de guides ---------- */}
+            <Partie n={5} symbole="gong" titre="Les guides de Bali, et mon union">
               {/* `AGUS.union` est un libellé de fiche (« Membre d'une
                   union… ») ; ici c'est une phrase qu'il dit. Ce qu'il
                   faut préserver mot pour mot, c'est « une union de
@@ -377,8 +447,8 @@ export default function PagePortrait() {
               />
             </Partie>
 
-            {/* ---------- 5. Ce que ça change ---------- */}
-            <Partie n={5} symbole="canang" titre="Ce que ça change pour vous">
+            {/* ---------- 6. Ce que ça change ---------- */}
+            <Partie n={6} symbole="canang" titre="Ce que ça change pour vous">
               {/* Même rythme vertical que les listes de faits — filet et
                   `py-3.5` —, mais l'icône reste : ici il n'y a pas
                   d'intitulé qu'elle redirait, et les trois pictogrammes
@@ -410,6 +480,25 @@ export default function PagePortrait() {
                   Revenir à mon engagement
                 </LienPage>
               </div>
+
+              {/* Sa propre plaisanterie, en post-scriptum de sa
+                  présentation. Elle ferme la page sur un sourire plutôt
+                  que sur un bouton, et elle en dit plus long sur l'homme
+                  que trois lignes de qualités.
+                  Registre de l'aparté — filet à gauche, comme la citation
+                  d'ouverture et le canang. Ne pas l'encadrer. */}
+              <p className="mt-8 border-l-3 border-accent pl-5 leading-relaxed">
+                <span className="label block text-faint">
+                  Un petit trait d&apos;humour
+                </span>
+                <span className="mt-1.5 block">
+                  <b className="font-semibold text-ink">AGUS</b> pour{" "}
+                  <b className="font-semibold text-ink">A</b>gence{" "}
+                  <b className="font-semibold text-ink">G</b>lobale{" "}
+                  <b className="font-semibold text-ink">U</b>niverselle{" "}
+                  (de la) <b className="font-semibold text-ink">S</b>ympathie.
+                </span>
+              </p>
             </Partie>
 
             {/* ---------- Les questions ---------- */}

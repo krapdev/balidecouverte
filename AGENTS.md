@@ -14,6 +14,16 @@ un bug.
 
 Agus Yudiarta existe, et le site est son gagne-pain.
 
+- **Pas d'âge dans une biographie.** Deux sources donnaient trois âges
+  différents pour les mêmes trois enfants : les deux étaient vraies le jour où
+  elles ont été écrites. Une source réelle mais **périmée** est aussi fausse
+  qu'une source inventée, et plus dangereuse parce qu'elle se vérifie.
+  `AGUS.famille` dit « deux filles et un garçon » — ne pas y remettre de
+  chiffres, pas même à jour.
+- **Vérifier les homoglyphes de tout texte collé.** Le texte officiel d'Agus
+  contenait « faҫon » avec un `ҫ` cyrillique (U+04AB). Invisible à l'œil, il
+  casse la recherche et la synthèse vocale. Rejeter tout caractère au-dessus de
+  U+2000 dont `unicodedata.name()` commence par CYRILLIC, GREEK ou FULLWIDTH.
 - **Ne jamais inventer un fait le concernant.** Ce qui n'est ni dans
   `lib/data.js`, ni dans `lib/circuit.js`, ni dans un message de l'utilisateur
   doit porter un marqueur `<AComplete>`. « Formé et enregistré à Bali » a été

@@ -1036,7 +1036,7 @@ Chaque carte mène désormais à sa page : `/circuit` et `/envies`. **L'accueil
 passe de 17,9 à 12,4 écrans mobiles** (−31 %), et de 11,3 à 8,0 sur grand écran.
 Les allègements qui ont suivi (bandeau du hero, ligne « Ce qui se vérifie »,
 sommaire des tarifs) l'y ont maintenu ; `/tarifs` est à 6,8 écrans mobiles,
-`/agus` à 7,9, `/envies` à 5,1 et `/circuit` à 13,0.
+`/agus` à 9,5, `/envies` à 5,1 et `/circuit` à 13,0.
 
 #### Ce que ce déplacement exige en retour
 
@@ -1452,12 +1452,17 @@ su vient de `AGUS` et de `VALEURS`. **Ce qui ne l'est pas porte un marqueur
 rouge** — le même composant que les pages légales, sorti dans
 `components/AComplete.jsx` pour être partagé.
 
-Il manque **neuf choses**, toutes dans `lib/portrait.js`, et aucune ne se
+Il manque **huit choses**, toutes dans `lib/portrait.js`, et aucune ne se
 devine. Cinq portent sur l'union (`UNION`) : son nom exact, depuis quand il en
-est membre, son rôle éventuel, l'effectif, et **ce qu'elle fait
-concrètement**. Quatre portent sur son histoire (`HISTOIRE`) : d'où il vient,
-comment il a appris le français, comment il a commencé le métier, et le prénom
-de son épouse.
+est membre, son rôle éventuel, l'effectif, et **ce qu'elle fait concrètement** —
+c'est le dernier bloc entièrement vide de la page. Trois portent sur son
+histoire (`HISTOIRE`) : le village où il a grandi, ce qui l'a mené au métier en
+2005, et le prénom de son épouse.
+
+La question du français, elle, **est close** : les textes officiels fournis par
+le client y répondent (trois ans à l'Alliance Française, puis plusieurs séjours
+en Europe). Elle a donc quitté la liste, et une autre l'a remplacée — la
+confirmation de la licence, voir plus bas.
 
 Un nom d'association plausible glissé à la place d'un blanc traverse toutes les
 relectures — c'est exactement le genre de détail que personne ne pense à
@@ -1468,6 +1473,62 @@ un fichier de notes ne se rouvre pas.
 Trois choses vont donc ensemble le jour où il a répondu : les marqueurs
 disparaissent, le bandeau d'avertissement de la page part, `robots: { index:
 false }` saute, et la page entre dans `app/sitemap.js`.
+
+#### Ce que les textes officiels ont changé
+
+Le client a fourni deux textes : la **recommandation d'un professionnel du
+voyage** (à la troisième personne) et la **présentation d'Agus lui-même** (à la
+première). Ils ont apporté quatre choses, et failli en faire perdre une.
+
+**1. La licence, et c'est le fait le plus fort du site.** Elle est délivrée par
+le gouvernement régional balinais et **se renouvelle tous les trois ans**, au
+terme d'une formation auprès du ministère du tourisme. Ce qui rassure n'est pas
+le mot « licence » mais le renouvellement : « diplômé en 2005 » se dit d'un
+homme qui n'a rien fait depuis vingt ans, « revalidée tous les trois ans »
+décrit quelqu'un que l'État recontrôle. **C'est aussi le seul fait du site qui
+ne se périme pas.**
+
+> Provenance : la recommandation, pas Agus. C'est un détail administratif qu'un
+> tiers peut approximer de bonne foi — **une question a été ajoutée à la liste**
+> pour qu'il le confirme.
+
+**2. Une partie entière, « Le français, et l'Histoire ».** Trois ans à
+l'Alliance Française, plusieurs séjours en Europe — la Belgique surtout —, et
+une passion pour l'histoire européenne dont il se sert **comme miroir** pour
+expliquer Bali. C'est la chose la plus distinctive des deux textes et le site
+n'en disait rien : un guide francophone à Bali, il y en a ; un guide qui peut
+mettre le subak en perspective avec ce que son interlocuteur connaît déjà, c'est
+autre chose. Son symbole est le `candi bentar`, la porte fendue — un passage
+entre deux mondes.
+
+**3. Son objectif dans ses mots** — « hors des sentiers battus : leurs
+traditions, la nature, les plats locaux, leurs habitants avec leur façon de
+vivre, leur religion. Le tout selon vos souhaits — et dans la joie et la bonne
+humeur. » Et **sa plaisanterie**, qui ferme la page : *AGUS* pour *Agence
+Globale Universelle (de la) Sympathie*.
+
+**4. ⚠️ Le piège : les âges.** Les deux textes donnent « 35 ans », « deux filles
+de 8 et 5 ans et un garçon de 9 mois ». Le site portait « 12 et 9 ans, et 5 ».
+Ce sont **les mêmes trois enfants à quatre ans d'écart** — les textes officiels
+sont donc *plus anciens* que la donnée qu'ils auraient remplacée. Les reprendre
+aurait fait régresser le site sans que rien ne le signale.
+
+> **Règle qui en sort : pas d'âge dans une biographie.** Un âge est une date de
+> péremption qu'on oublie de relire ; au mieux il vieillit mal, au pire il fait
+> mentir un homme sur sa propre famille. `AGUS.famille` dit maintenant « Marié,
+> deux filles et un garçon » — le nombre d'enfants, lui, ne bouge pas. **Ne pas
+> y remettre de chiffres, pas même à jour.**
+>
+> Le corollaire vaut au-delà de ce cas : **une source réelle mais périmée est
+> aussi fausse qu'une source inventée**, et elle est plus dangereuse parce
+> qu'elle se vérifie.
+
+**Et un caractère invisible.** Le texte fourni contenait « faҫon » avec un
+**`ҫ` cyrillique** (U+04AB) au lieu du `ç` français. Rien ne le distingue à
+l'œil ; il casse la recherche, le correcteur orthographique et la synthèse
+vocale. Le contrôle, à passer sur tout texte collé depuis un site :
+`unicodedata.name()` sur chaque caractère au-dessus de U+2000, et rejeter tout
+ce qui commence par CYRILLIC, GREEK ou FULLWIDTH.
 
 #### Les quatre registres de `/agus`, et la règle qui les tient
 
@@ -1653,7 +1714,7 @@ en écrans de mobile (390 × 844) :
 | `/` | **12,4** | 12,7 |
 | `/circuit` | 13,0 | 12,6 |
 | `/envies` | 5,1 | 5,2 |
-| `/agus` | 7,9 | 7,7 |
+| `/agus` | 9,5 | 9,1 |
 | `/tarifs` | 6,8 | 6,9 |
 | `/livre-d-or` | 8,6 | 8,7 |
 | `/cgv` | 16,1 | — |

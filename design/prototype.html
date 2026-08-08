@@ -1816,6 +1816,16 @@
     Sumbawa, Flores, Komodo et Rinca. Ce site est aujourd'hui recentré sur
     Bali, et c'est là que je passe l'essentiel de mes jours.</p>
 
+    <!-- La partie la plus distinctive de la page, et le site n'en disait
+         rien. Un guide francophone à Bali, il y en a ; un guide qui a
+         appris le français trois ans à l'Alliance Française, a vécu en
+         Belgique et connaît l'histoire de l'Europe assez pour s'en servir
+         comme miroir, c'est autre chose.
+         Le symbole est le candi bentar, la porte fendue : un passage
+         entre deux mondes. -->
+    <div class="part-tete"><span class="part-sym" id="symFrancais"></span><h2>Le français, et l'Histoire</h2></div>
+    <div class="portrait-corps" id="portraitFrancais"></div>
+
     <div class="part-tete"><span class="part-sym" id="symFamille"></span><h2>Ma famille</h2></div>
     <div class="portrait-corps" id="portraitFamille"></div>
 
@@ -3319,6 +3329,7 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
       "et je peux donc vous assurer que je travaille professionnellement et " +
       "surtout avec tout mon cœur. »";
     $("symMetier").innerHTML = symbole("tedung", 30);
+    $("symFrancais").innerHTML = symbole("candi", 30);
     $("symFamille").innerHTML = symbole("rangs", 30);
     $("symPays").innerHTML = symbole("padma", 30);
     $("symUnion").innerHTML = symbole("gong", 30);
@@ -3334,6 +3345,10 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
        véhicules ». Le symbole du titre de partie suffit. */
     $("portraitFiche").innerHTML = [
       ["Ma certification", "Je suis diplômé guide francophone"],
+      /* La ligne la plus utile de la page : « diplômé en 2005 » se dit
+         d'un homme qui n'a rien fait depuis vingt ans, « revalidée tous
+         les trois ans » décrit quelqu'un que l'État recontrôle. */
+      ["Ma licence", "Délivrée par le gouvernement régional balinais, je la renouvelle tous les trois ans après une formation auprès du ministère du tourisme"],
       ["Mon métier", "Je l'exerce depuis octobre 2005"],
       ["Mes langues", "Je guide en français et anglais"],
       ["Mes véhicules", AGUS_VEHICULES.map(function (v) { return v.split(" — ")[0]; }).join(" · ") + " — je conduis moi-même"]
@@ -3348,8 +3363,26 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
        sont le canang sari ou le penjor ailleurs sur le site — on ne prête
        à Agus aucune parole qu'il n'aurait pas dite, on nomme une chose de
        son pays. */
+    $("portraitFrancais").innerHTML =
+      '<p class="fort">J\'ai appris le français pendant trois ans à l\'Alliance ' +
+      "Française, puis j'ai continué seul, et je suis allé le pratiquer là où il se " +
+      "parle — plusieurs séjours en Europe, en Belgique surtout, avec des vacances " +
+      "en France.</p>" +
+      "<p>Je suis passionné d'Histoire, et pas seulement de la mienne : celle de " +
+      "l'Europe m'intéresse depuis longtemps, la Belgique et la France en " +
+      "particulier. Ça n'est pas de la curiosité de collectionneur. Quand je vous " +
+      "explique pourquoi un temple est orienté vers le Gunung Agung, ou ce qu'un " +
+      "village décide vraiment quand il se partage l'eau du subak, j'ai besoin de " +
+      "m'appuyer sur quelque chose que vous connaissez déjà — sinon je vous donne " +
+      "des noms, pas une compréhension.</p>" +
+      "<p>C'est aussi pour ça que je préfère guider en français plutôt qu'en anglais " +
+      "quand j'ai le choix. Une langue qu'on parle bien laisse la place aux nuances, " +
+      "aux plaisanteries, aux questions qu'on n'ose pas poser dans une langue " +
+      "approximative. Quinze jours en voiture, ça fait beaucoup d'heures de " +
+      "conversation.</p>";
+
     $("portraitFamille").innerHTML =
-      '<p class="fort">Marié, deux filles de 12 et 9 ans et un garçon de 5 ans.</p>' +
+      '<p class="fort">Marié, deux filles et un garçon.</p>' +
       "<p>Vous m'aidez à faire vivre ma famille — comme vous faites vivre le " +
       "chauffeur et les familles qui vous accueillent chez elles, et non une " +
       "commission d'intermédiaire. À Bali, une maison n'est pas une maison mais " +
@@ -3379,7 +3412,11 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
       "personne ne s'arrête, un ficus qui enjambe une route au fond de Munduk, un " +
       "village qui reçoit chez lui parce qu'on s'y connaît : ces endroits existent " +
       "parce que quelqu'un du pays y a ses entrées, et ils cessent d'exister le jour " +
-      "où on en publie l'adresse.</p>";
+      "où on en publie l'adresse.</p>" +
+      "<p>Ce que je veux vous faire découvrir, c'est ces îles hors des sentiers " +
+      "battus : leurs traditions, la nature, les plats locaux, leurs habitants avec " +
+      "leur façon de vivre, leur religion. Le tout selon vos souhaits — et dans la " +
+      "joie et la bonne humeur.</p>";
 
     $("portraitUnion").innerHTML =
       '<p class="fort">Je fais partie d\'une union de guides de Bali.</p>' +
