@@ -71,7 +71,12 @@ Agus Yudiarta existe, et le site est son gagne-pain.
   conteneur et le déficit ne fait que se diviser par deux. Retirer `truncate`.
 - **Un `<clipPath id>` est global au document.** Deux instances d'un même
   composant SVG avec le même `id` et la première définition s'applique aux
-  deux — voir la convention `uid` de `Marque`, `Scene` et `Photo`.
+  deux — voir la convention `uid` de `Scene` et `Photo`.
+- **Le logo est `public/logo.svg`, servi en `<img>`.** C'est le vrai logo
+  d'Agus, vectorisé depuis son fichier : ne pas le redessiner, ne pas l'inliner
+  dans l'app (80 ko × 8 pages), ne pas lui faire hériter de `currentColor`. La
+  maquette l'inline parce qu'elle est autonome. Il n'est **pas** membre de la
+  famille de `Symboles.jsx`.
 - `useSearchParams` exige une frontière `<Suspense>`, sinon le build de
   prérendu échoue.
 

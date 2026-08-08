@@ -811,63 +811,69 @@ page** au recentrage : c'était la partie la plus conceptuelle, et l'une des
 trois redisait le panneau des valeurs. Le repère reste noté ici, il est bon à
 reprendre si la présentation regagne de la place.
 
-### La marque — le logo d'Agus, sans son texte
+### La marque — le vrai logo d'Agus, vectorisé
 
-`components/Marque.jsx`. Elle a remplacé un logo générique qui n'avait jamais
-été le sien : un disque, deux feuilles et un trait, **dont l'une des feuilles
-était peinte en `#d96b43`** — un orange qui n'est dans aucun jeton de la
-palette, survivant de la direction abandonnée avant le bambou, resté en dur
-dans le seul fichier où personne ne relisait les couleurs. Il s'affichait sur
-les huit pages, en haut à gauche.
+`public/logo.svg`, monté par `components/Marque.jsx`. **Ce n'est pas un
+redessin** : le tracé suit le fichier qu'Agus a fourni, couche de couleur par
+couche de couleur.
 
-> ⚠️ **C'est un redessin, pas une extraction.** Le logo n'a été fourni qu'en
-> image ; il n'y a aucun fichier vectoriel dans le dépôt. Le jour où le fichier
-> source existe (SVG, AI, EPS), **c'est lui qui doit prendre cette place** : un
-> logo est une signature, et une signature refaite de mémoire n'est jamais tout
-> à fait la bonne.
+Deux choses ont occupé cette place avant lui, et aucune n'était la sienne. Un
+**dessin générique** — un disque, deux feuilles et un trait — dont l'une des
+feuilles était peinte en `#d96b43` : une couleur absente de tous les jetons de
+la palette, survivante de la direction abandonnée avant le bambou, restée en dur
+dans le seul fichier où personne ne relisait les couleurs, et affichée sur les
+huit pages. Puis un **redessin à la main**, fait faute de fichier source. Les
+deux sont dans l'historique git ; il n'y a pas de raison d'y revenir.
 
-**L'original est une illustration, pensée pour une carte de visite.** Il porte
-quatre motifs — le disque de rizières en terrasses, deux épis de riz en arche,
-un meru gris, un jepun. À 38 px de haut, quatre motifs ne tiennent pas. Trois
-essais l'ont montré, et chacun a échoué d'une façon différente :
+#### Comment il a été produit, pour pouvoir le refaire
 
-| Ce qui était dessiné | Ce que ça donnait à 38 px |
-| --- | --- |
-| Disque plein + arche à traits radiaux | **un soleil levant sur une colline** |
-| Arche décollée du cercle | **une anse de panier** |
-| Meru en triangles empilés | **un sapin** |
-| Meru en toits plats séparés | **un panneau de signalisation** |
+Le PNG source est propre, mais l'anticrénelage y fabrique **2 500 couleurs** :
+le tracer tel quel donne 1,2 Mo et 2 753 chemins. La chaîne qui marche :
 
-Deux règles en sont sorties, et elles valent au-delà de ce fichier :
+1. **Postériser sur les 7 couleurs réelles** — vert, vert foncé, beige, brun,
+   gris, jaune, jaune pâle — par plus proche voisin pondéré comme la luminance
+   perçue. Sans la pondération, le beige et le brun s'échangent sur les pixels
+   d'anticrénelage.
+2. **Un masque binaire par couleur, tracé séparément** (vtracer, mode `binary`,
+   `spline`). C'est ce qui garantit exactement 7 aplats : le mode couleur, même
+   sur une image déjà postérisée, en ressortait 94.
+3. **Réassembler en `<g fill>`**, du fond vers les contours, coordonnées
+   arrondies au dixième, sur une source réduite à 512 px.
 
-1. **Le haut du cercle doit rester vide.** Dans l'original, le cercle est
-   *fermé par l'épi* en haut et *rempli par les terrasses* en bas. Peindre un
-   fond sur tout le disque le transforme en jeton, et tout ce qu'on pose
-   au-dessus devient un astre. L'épi doit en outre **suivre le cercle** : deux
-   pixels au-dessus et c'est une anse.
-2. **Un motif illisible n'est pas un détail perdu, c'est un motif qui dit un
-   mot faux.** Le meru a donc été retiré de la marque d'en-tête : à cette
-   taille il fait six pixels de haut, et il n'existe pas de dessin de meru qui
-   tienne dans six pixels — il n'existe que des dessins qui ressemblent à autre
-   chose. Ce qui reste — terrasses, épi, jepun — suffit, et c'est vérifié
-   jusqu'à 20 px.
+Résultat : **124 chemins, 7 couleurs, 80 ko** — 28,6 ko une fois compressé.
 
-Les grains de l'épi sont **calculés, pas posés à la main** : ce qui fait lire
-« épi » plutôt qu'« astre » est leur inclinaison d'environ 50° le long de la
-tige, et **le sens de cette inclinaison change au passage du sommet**. Un signe
-constant redonne une roue. Le jepun reprend exactement le pétale de `JepunPuce`
-— la fleur du logo et celle du site sont la même fleur, ce qui n'était vrai
-d'aucune des deux avant.
+> ⚠️ **Chaque `<path>` de vtracer porte son propre
+> `transform="translate(...)"`.** Extraire les seuls attributs `d` fait tout
+> s'effondrer sur l'origine. C'est arrivé, et le résultat ne ressemblait pas à
+> un logo cassé mais à un tas de traits — on cherche la cause dans le tracé
+> alors qu'elle est dans le réassemblage.
 
-> **La marque n'appartient pas à la famille de `Symboles.jsx`** et ne doit pas
-> y être rangée. Ceux-là suivent la règle « un trait, la couleur héritée, aucun
-> remplissage » ; un logo garde ses couleurs partout, c'est ce qui en fait un
-> logo. C'est la seule exception du site, et elle doit le rester.
->
-> `uid` n'est pas décoratif : le détourage passe par un `<clipPath id>`, et les
-> identifiants SVG sont **globaux au document**. Deux marques avec le même `id`
-> et c'est la première définition qui s'applique aux deux — ce qui marche par
-> accident tant qu'elles sont identiques.
+#### Pourquoi un `<img>` et non un SVG en ligne
+
+Le reste des dessins du site est inliné, et c'est le bon choix pour eux : des
+symboles de quelques centaines d'octets qui héritent de `currentColor`. Le logo
+est l'inverse des deux. **Il pèse 80 ko** — inliné, il repartirait dans le HTML
+des huit pages à chaque visite ; en fichier, le navigateur le télécharge une
+fois. Et **il ne doit hériter d'aucune couleur** : un logo garde les siennes
+partout, c'est ce qui en fait un logo.
+
+`alt=""` et `aria-hidden` : le nom est écrit en toutes lettres dans le même
+lien, un texte de remplacement le ferait annoncer deux fois.
+
+> **La maquette, elle, l'inline** — c'est un fichier autonome, elle ne peut rien
+> référencer de l'extérieur, comme pour ses polices en base64. Ne pas recopier
+> ce choix dans l'app.
+
+> ⚠️ **Le logo n'est pas carré** : son `viewBox` fait 512 × 519. Poser
+> `height = width` l'écrase de 1,4 % et réserve la mauvaise boîte. Les deux
+> dimensions doivent être posées en attributs — sans elles, le navigateur
+> réserve zéro pixel et toute la barre saute à l'arrivée du fichier.
+
+**Le favicon est le logo lui-même** (`app/icon.svg`), à deux écarts près : un
+`viewBox` élargi pour de l'air autour du dessin, et un fond ivoire arrondi sans
+quoi les parties claires disparaissent sur un onglet en thème sombre. Il portait
+avant un jepun de substitution, et avant lui **le logo du gabarit Next.js** —
+l'onglet du navigateur affichait Next sur le site d'Agus.
 
 ### Le piège de l'en-tête : `flex-shrink`, qui ne se voit pas à la mesure
 

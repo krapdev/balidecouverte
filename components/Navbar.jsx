@@ -47,16 +47,18 @@ import { JepunPuce } from "./Scene";
  * commentaire du piège `backdrop-filter`, plus bas).
  */
 
-/* ⚠️ **Le logo générique a été remplacé par la vraie marque d'Agus**,
-   redessinée dans `components/Marque.jsx` — voir l'avertissement qui s'y
-   trouve : c'est un redessin d'après l'image, pas le fichier source.
+/* ⚠️ **Le logo est le vrai logo d'Agus**, vectorisé depuis le fichier
+   qu'il a fourni — voir `components/Marque.jsx` et `public/logo.svg`.
 
-   Ce qui était là avant : un disque, deux feuilles et un trait, dont
-   l'une des feuilles était peinte en `#d96b43`. Cette couleur n'est dans
-   aucun jeton de la palette — c'est un **orange survivant de la
-   direction abandonnée avant le bambou**, resté en dur dans le seul
-   fichier où personne ne relisait les couleurs. Il apparaissait sur les
-   huit pages, en haut à gauche. */
+   Deux choses l'ont précédé à cette place, et aucune n'était la sienne.
+   D'abord un dessin générique — un disque, deux feuilles et un trait —
+   dont l'une des feuilles était peinte en `#d96b43` : une couleur
+   absente de tous les jetons de la palette, **survivante de la direction
+   abandonnée avant le bambou**, restée en dur dans le seul fichier où
+   personne ne relisait les couleurs, et affichée sur les huit pages.
+   Ensuite un redessin à la main de son logo, fait faute de fichier
+   source. Les deux sont dans l'historique git ; il n'y a pas de raison
+   d'y revenir maintenant qu'un tracé fidèle existe. */
 
 /**
  * Le bouton du menu : trois traits, mais de largeurs décroissantes.
@@ -210,7 +212,7 @@ export default function Navbar() {
             href={home ? "#top" : "/"}
             className="mr-auto flex min-h-11 min-w-0 items-center gap-2.5 no-underline sm:gap-3"
           >
-            <Marque size={38} />
+            <Marque size={44} />
             <span className="min-w-0 leading-tight">
               <span className="block truncate font-display text-base font-semibold tracking-tight min-[380px]:text-lg">
                 Bali Découverte
