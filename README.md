@@ -811,6 +811,58 @@ page** au recentrage : c'était la partie la plus conceptuelle, et l'une des
 trois redisait le panneau des valeurs. Le repère reste noté ici, il est bon à
 reprendre si la présentation regagne de la place.
 
+### La barre réchauffée — et pourquoi pas le soleil plein
+
+La demande était « le même fond que le bouton *Créer mon voyage* », c'est-à-dire
+le **soleil plein**. Mesuré, il coûtait trop cher :
+
+| | sur soleil plein | sur soleil à 12 % |
+| --- | --- | --- |
+| Texte encre | 7,28 ✅ | **12,06** ✅ |
+| Bouton « Devis » (bambou) | 3,45 — passe, mais vert saturé sur jaune saturé | **5,72** ✅ |
+| **Le CTA soleil** | **1,00 — il disparaît** | 1,66 (hors barre) |
+
+Ce n'est donc pas un problème de lisibilité du texte : c'est que **le soleil est
+la couleur de l'action sur ce site**, pas une surface. Le README le pose depuis
+le début — *« le bambou porte l'action, le soleil éclaire »*. Peindre une surface
+en soleil ne change pas une teinte, ça change **le rôle** d'une couleur, et
+oblige à repeindre le bouton le plus important du site pour qu'il reste visible.
+
+**À 12 %, il réchauffe sans prendre ce rôle.** Le fond de barre vaut `#faefd8`,
+tout passe, et rien d'autre n'a eu à bouger.
+
+> ⚠️ **Ne pas monter le taux sans remesurer le CTA.** C'est le seul garde-fou :
+> le texte de la barre restera lisible très longtemps avant que le bouton ne
+> redevienne visible.
+
+### Le hero porte maintenant deux photos
+
+Dans l'ordre : le titre, puis **un bloc photo d'Agus à gauche / texte à droite**,
+puis **la photo du pays**, puis les boutons. On montre ce qu'on vend au moment
+exact où l'on demande de cliquer.
+
+**Le sous-titre a déménagé dans le bloc, il n'est pas en double.** Poser une
+photo d'Agus sous un paragraphe déjà écrit à la première personne, puis répéter
+ce paragraphe à côté d'elle, aurait fait dire deux fois la même promesse à trois
+centimètres d'écart.
+
+> ⚠️ **Le visage d'Agus apparaît maintenant deux fois sur l'accueil** — ici en
+> petit, et un écran plus bas dans l'arche de la présentation. C'est assumé mais
+> ce n'est pas gratuit : **si la page doit maigrir, la question se pose ici**,
+> pas dans la présentation, qui est le seul chemin vers `/agus`.
+
+**La photo du pays est un bandeau au-delà de 768 px, et ce n'est pas
+cosmétique.** En 16/9 sur toute la gouttière elle faisait **639 px de haut à
+1280** et portait le hero à 1 449 px : le CTA tombait très loin sous la ligne de
+flottaison. En 2,4/1 elle perd 473 px, garde tout son sujet — c'est un paysage
+horizontal, le ciel et l'herbe se rognent sans rien perdre — et le hero
+redescend à 1 291 px. Sur mobile le 16/9 reste : à cette largeur, un bandeau
+serait une fente.
+
+> Le CTA du hero reste sous la ligne de flottaison sur grand écran, et c'est
+> acceptable : **la barre collante porte « Demander un devis » en permanence**,
+> donc il y a toujours un appel à l'action visible.
+
 ### Le hero : une compétence plutôt qu'une opposition
 
 Le titre disait « Bali loin des **foules**. Votre guide **privé francophone
@@ -1793,7 +1845,7 @@ en écrans de mobile (390 × 844) :
 
 | Route | écrans @390 | Vue de la maquette |
 | --- | --- | --- |
-| `/` | **12,4** | 12,7 |
+| `/` | **12,6** | 12,9 |
 | `/circuit` | 13,0 | 12,6 |
 | `/envies` | 5,1 | 5,2 |
 | `/agus` | 8,3 | 8,5 |

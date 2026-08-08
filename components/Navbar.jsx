@@ -202,7 +202,19 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 bg-[color-mix(in_srgb,var(--page)_88%,transparent)] backdrop-blur-lg backdrop-saturate-150">
+      {/* ⚠️ **Le fond de la barre est un soleil dilué, et le taux compte.**
+          La demande était « le même fond que le bouton Créer mon voyage »,
+          c'est-à-dire le soleil plein. Mesuré, il coûtait trop cher : le
+          CTA soleil sur un fond soleil tombe à **1,00 de contraste** — il
+          disparaît —, et le bouton « Devis » en bambou à 3,45, ce qui
+          passe la norme mais donne du vert saturé sur du jaune saturé, en
+          permanence, sur les huit pages.
+          Le soleil est la **couleur de l'action** sur ce site, pas une
+          surface. À 12 %, il réchauffe la barre sans prendre ce rôle : le
+          CTA reste éclatant, le texte encre garde 12 de contraste, et
+          rien d'autre n'a eu à être repeint.
+          **Ne pas monter le taux sans remesurer le CTA.** */}
+      <header className="sticky top-0 z-50 bg-[color-mix(in_srgb,color-mix(in_srgb,var(--soleil)_12%,var(--page))_92%,transparent)] backdrop-blur-lg backdrop-saturate-150">
         {/* Les écarts se resserrent sous 640 px. À 320 — le plus petit
             écran que le site prétend tenir — logo + titre + « Devis » +
             burger faisaient 360 px de large dans 280 px utiles, et le
