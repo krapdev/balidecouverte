@@ -811,6 +811,30 @@ page** au recentrage : c'était la partie la plus conceptuelle, et l'une des
 trois redisait le panneau des valeurs. Le repère reste noté ici, il est bon à
 reprendre si la présentation regagne de la place.
 
+### Le hero : une compétence plutôt qu'une opposition
+
+Le titre disait « Bali loin des **foules**. Votre guide **privé francophone
+local**. » Il dit « Bali loin des **sentiers battus**. Votre guide **local
+francophone privé**. » Deux déplacements, et le second n'est pas cosmétique :
+« loin des foules » décrit ce qu'on fuit, « hors des sentiers battus » décrit ce
+qu'on trouve — et c'est la formule d'Agus lui-même, celle de sa présentation.
+
+⚠️ **La chute du sous-titre a changé d'argument, et c'est le point à connaître.**
+Elle disait « c'est à moi que vous écrivez, pas à une agence » ; elle dit « je
+connais bien mon île ». On troque une **opposition** contre une **compétence**.
+
+Le hero y gagne : opposer sans preuve, au premier écran, oblige le lecteur à
+croire sur parole quelqu'un qu'il ne connaît pas encore. La preuve existe
+désormais — Agus a raconté son passage en agence — mais elle est sur `/agus`, à
+sa place, développée. Au premier écran, « je connais bien mon île » est vérifiable
+par tout ce qui suit ; « pas une agence » ne l'est pas encore.
+
+> **Conséquence : le premier écran ne dit plus qu'il n'y a pas
+> d'intermédiaire.** L'argument vit dans le panneau des valeurs, plus bas sur la
+> même page, et en entier sur le portrait. Si le hero devait le redire un jour,
+> ce serait la troisième fois — voir « Neuf fois “guide diplômé” » pour ce que ça
+> coûte.
+
 ### La marque — le vrai logo d'Agus, vectorisé
 
 `public/logo.svg`, monté par `components/Marque.jsx`. **Ce n'est pas un

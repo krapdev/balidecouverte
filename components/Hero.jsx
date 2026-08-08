@@ -57,8 +57,8 @@ export default function Hero() {
             style={cran(1)}
             className="monte max-w-[15ch] text-[clamp(2.5rem,8.5vw,4.75rem)] tracking-[-0.03em]"
           >
-            Bali loin des foules. Votre guide privé{" "}
-            <em className="italic text-soleil">francophone</em> local.
+            Bali loin des sentiers battus. Votre guide local{" "}
+            <em className="italic text-soleil">francophone</em> privé.
           </h1>
 
           {/* La phrase disait : « Circuits 100 % sur-mesure, authenticité
@@ -68,15 +68,28 @@ export default function Hero() {
               la prononçant. Un chiffre rond ne prouve rien ; une liste
               de choses dont on est déchargé, si.
               Le registre visé : **détendez-vous, je m'occupe de tout**,
-              et c'est un homme qui le dit, pas une centrale. */}
+              et c'est un homme qui le dit, pas une centrale.
+
+              ⚠️ **La chute a changé, et elle a changé d'argument.** Elle
+              disait « c'est à moi que vous écrivez, pas à une agence » ;
+              elle dit « je connais bien mon île ». On troque une
+              *opposition* contre une *compétence* — et le hero y gagne,
+              parce qu'opposer sans preuve, au premier écran, oblige le
+              lecteur à croire sur parole quelqu'un qu'il ne connaît pas
+              encore. La preuve existe désormais, mais elle est sur
+              `/agus`, où il raconte son passage en agence.
+              Conséquence à connaître : **le premier écran ne dit plus
+              qu'il n'y a pas d'intermédiaire.** L'argument vit dans le
+              panneau des valeurs, plus bas sur la même page, et en entier
+              sur le portrait. Si le hero devait le redire un jour, ce
+              serait la troisième fois. */}
           <p
             style={cran(2)}
             className="monte max-w-[46ch] text-lg leading-relaxed text-on-immersive-soft"
           >
             Détendez-vous, je m&apos;occupe de tout : le véhicule, les
             horaires, les entrées, les bons jours pour chaque endroit. Je suis
-            balinais et indépendant — c&apos;est à moi que vous écrivez, pas à
-            une agence.
+            balinais et indépendant, je connais bien mon île.
           </p>
 
           <div style={cran(3)} className="monte flex flex-wrap gap-3">
