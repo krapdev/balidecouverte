@@ -8,6 +8,7 @@ import { urlTarifs } from "@/lib/retours";
 import { versAncre } from "@/lib/ancre";
 import { NAV, ANCRES } from "@/lib/navigation";
 import { Symbole } from "./Symboles";
+import Marque from "./Marque";
 import { JepunPuce } from "./Scene";
 
 /**
@@ -46,29 +47,16 @@ import { JepunPuce } from "./Scene";
  * commentaire du piège `backdrop-filter`, plus bas).
  */
 
-function Logo() {
-  return (
-    <svg
-      viewBox="0 0 40 40"
-      fill="none"
-      className="h-9 w-9 shrink-0"
-      aria-hidden="true"
-    >
-      <circle
-        cx="20"
-        cy="20"
-        r="19"
-        stroke="currentColor"
-        strokeWidth="1"
-        opacity=".35"
-      />
-      <path d="M20 31c0-6.2 3.6-11.4 9-13.4-1 6.6-4.5 11.4-9 13.4Z" fill="#d96b43" />
-      <path d="M20 31c0-6.2-3.6-11.4-9-13.4 1 6.6 4.5 11.4 9 13.4Z" fill="currentColor" />
-      <path d="M20 31V15" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-      <path d="M13 10h14" stroke="#d96b43" strokeWidth="1.4" strokeLinecap="round" />
-    </svg>
-  );
-}
+/* ⚠️ **Le logo générique a été remplacé par la vraie marque d'Agus**,
+   redessinée dans `components/Marque.jsx` — voir l'avertissement qui s'y
+   trouve : c'est un redessin d'après l'image, pas le fichier source.
+
+   Ce qui était là avant : un disque, deux feuilles et un trait, dont
+   l'une des feuilles était peinte en `#d96b43`. Cette couleur n'est dans
+   aucun jeton de la palette — c'est un **orange survivant de la
+   direction abandonnée avant le bambou**, resté en dur dans le seul
+   fichier où personne ne relisait les couleurs. Il apparaissait sur les
+   huit pages, en haut à gauche. */
 
 /**
  * Le bouton du menu : trois traits, mais de largeurs décroissantes.
@@ -222,20 +210,51 @@ export default function Navbar() {
             href={home ? "#top" : "/"}
             className="mr-auto flex min-h-11 min-w-0 items-center gap-2.5 no-underline sm:gap-3"
           >
-            <Logo />
+            <Marque size={38} />
             <span className="min-w-0 leading-tight">
               <span className="block truncate font-display text-base font-semibold tracking-tight min-[380px]:text-lg">
                 Bali Découverte
               </span>
               {/* Masquée sous 640 px plutôt que tronquée : « GUIDE
-                  FRANCOPH… » a l'air d'un bug, l'absence non. */}
-              <span className="label hidden truncate text-faint sm:block">
+                  FRANCOPH… » a l'air d'un bug, l'absence non.
+
+                  ⚠️ **`whitespace-nowrap` et non `truncate`.** Ce libellé
+                  s'affichait « GUIDE FRANCOPHO… » à *toutes* les largeurs,
+                  jusqu'à 1920 px où la barre est à moitié vide. Ce n'était
+                  donc pas un manque de place : `.label` porte
+                  `letter-spacing: 0.16em`, **qui s'applique aussi après la
+                  dernière lettre**, et la boîte finissait deux à quatre
+                  pixels trop courte pour son propre contenu — assez pour
+                  déclencher l'ellipsis, pas assez pour que rien dépasse
+                  vraiment.
+                  Une marge négative a été essayée pour reprendre cet
+                  espace fantôme : elle rétrécit aussi le conteneur, si
+                  bien que le déficit se divisait par deux à chaque essai
+                  sans jamais s'annuler. `truncate` a donc été remplacé par
+                  le seul `whitespace-nowrap` : plus d'`overflow: hidden`,
+                  donc plus d'ellipsis possible, et deux pixels qui
+                  débordent d'une boîte sans bordure ne se voient pas. Le
+                  libellé est masqué sous 640 px, là où la place manque
+                  pour de bon. */}
+              <span className="label hidden whitespace-nowrap text-faint sm:block">
                 Guide francophone
               </span>
             </span>
           </Link>
 
-          <nav className="hidden gap-6 lg:flex" aria-label="Navigation principale">
+          {/* ⚠️ **La barre de liens apparaît à `xl` (1280) et non plus à
+              `lg` (1024).** Entre les deux, elle affichait six liens, le
+              bouton entier et le burger, et le budget était dépassé de
+              plusieurs dizaines de pixels : le bloc de marque tombait à
+              122 px pour 202 px de contenu, et **le nom du site se
+              tronquait en « Bali D… »**. Un site dont l'en-tête n'arrive
+              pas à écrire son propre nom a un problème plus grave que
+              l'absence de liens — et le menu est disponible à toutes les
+              largeurs depuis qu'il a été rendu accessible partout, donc
+              rien n'est perdu dans la bande 1024–1279.
+              1280 est la largeur d'audit et celle de la plupart des
+              portables ; en dessous, c'est le seuil qui sert. */}
+          <nav className="hidden gap-6 xl:flex" aria-label="Navigation principale">
             {NAV.filter((l) => l.barre).map((l) => (
               <Link
                 key={l.href}
@@ -246,7 +265,21 @@ export default function Navbar() {
                    courante, elle, porte un jepun — même information, même
                    place, dessinée. La graisse la double : ni la couleur
                    ni la forme ne portent seules le sens (WCAG 1.4.1). */
-                className={`relative inline-flex min-h-11 items-center border-b border-transparent text-sm no-underline transition-colors hover:border-accent hover:text-ink ${
+                /* ⚠️ `whitespace-nowrap` : **sans lui, tous les libellés de
+                   deux mots se cassaient en deux lignes, à toutes les
+                   largeurs** — « Qui je / suis », « Mon / engagement »,
+                   jusqu'à 1600 px où la place ne manque pourtant pas. Ce
+                   n'est pas un défaut de place mais de flex : ces liens
+                   sont des éléments d'un conteneur `flex`, ils ont donc
+                   `flex-shrink: 1` et se rétrécissent jusqu'à la largeur
+                   de leur mot le plus long avant que le conteneur ne
+                   déborde. Le défaut se voit à l'œil et pas à la mesure :
+                   `min-h-11` impose 44 px à chaque lien, si bien que la
+                   hauteur ne bouge pas quand le texte passe à deux
+                   lignes. Ce qui l'attrape, c'est le nombre de boîtes de
+                   ligne — `document.createRange()` sur le contenu, puis
+                   `getClientRects().length`. */
+                className={`relative inline-flex min-h-11 items-center whitespace-nowrap border-b border-transparent text-sm no-underline transition-colors hover:border-accent hover:text-ink ${
                   iciBarre(l.href) ? "font-semibold text-ink" : "text-soft"
                 }`}
               >
@@ -263,7 +296,12 @@ export default function Navbar() {
           </nav>
 
           <Link
-            className="btn btn-accent hidden lg:inline-flex"
+            /* `whitespace-nowrap` pour la même raison que les liens : c'est
+               un élément d'un conteneur flex, donc il se rétrécit
+               jusqu'à son mot le plus long et rendait « Demander un /
+               devis » sur deux lignes — à 1280 comme à 1500, ce qui
+               montre bien que la place n'y était pour rien. */
+            className="btn btn-accent hidden whitespace-nowrap xl:inline-flex"
             href={hrefFor("#sur-mesure")}
             onClick={surClic("#sur-mesure")}
           >
@@ -275,7 +313,7 @@ export default function Navbar() {
               rien n'a aucune porte de sortie avant onze écrans de défilement
               — la barre du bas ne sort qu'une fois une envie choisie. */}
           <Link
-            className="btn btn-accent h-11 w-11 shrink-0 px-0 min-[380px]:w-auto min-[380px]:px-3.5 lg:hidden"
+            className="btn btn-accent h-11 w-11 shrink-0 px-0 min-[380px]:w-auto min-[380px]:px-3.5 xl:hidden"
             href={hrefFor("#sur-mesure")}
             onClick={surClic("#sur-mesure")}
             aria-label="Demander un devis"

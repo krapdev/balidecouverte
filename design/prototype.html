@@ -1162,22 +1162,29 @@
   .portrait-photo svg { width: 100%; height: 100%; display: block; }
   .portrait-cite { margin-top: 1.5rem; border-left: 3px solid var(--accent); padding-left: 1.25rem; font-style: italic; font-size: clamp(1.15rem, 3.4vw, 1.45rem); line-height: 1.3; }
   .avert { margin-top: 1.75rem; display: flex; gap: 0.9rem; border: 1px solid var(--eyebrow); background: color-mix(in srgb, var(--bougain) 10%, transparent); border-radius: 14px; padding: 1.25rem; font-size: var(--t-sm); line-height: 1.6; }
-  .fiche-grille { list-style: none; margin: 1.5rem 0 0; padding: 0; display: grid; gap: 1rem; }
-  @media (min-width: 640px) { .fiche-grille { grid-template-columns: 1fr 1fr; } }
-  .fiche-grille li { border: 1px solid var(--rule); background: var(--surface); border-radius: 12px; padding: 1rem; }
-  .fiche-grille .label { display: block; color: var(--text-faint); }
-  .fiche-grille span:last-child { font-size: var(--t-sm); line-height: 1.35; }
+  /* Le seul motif de liste de faits de la vue portrait. Il remplace deux
+     présentations qui disaient la même chose en se contredisant : des
+     cartes bordées en grille de deux pour le métier, un <dl> encadré en
+     grille de deux pour l'union. Bordure, fond, coins arrondis, champs
+     alignés par paires — l'œil y lisait un FORMULAIRE, sur une page qui
+     ne demande rien et ne fait que répondre. Ne reste qu'un filet
+     horizontal, le même que sous les titres de partie. */
+  .faits { margin: 1.5rem 0 0; padding: 0; }
+  .faits > div { display: flex; flex-direction: column; gap: 0.25rem; border-bottom: 1px solid var(--rule); padding-block: 0.85rem; }
+  .faits > div:last-child { border-bottom: 0; }
+  @media (min-width: 640px) { .faits > div { flex-direction: row; align-items: baseline; gap: 1.5rem; } .faits dt { flex: none; width: 11rem; } }
+  .faits dt { color: var(--text-faint); }
+  .faits dd { margin: 0; color: var(--text); }
   .portrait-corps { margin-top: 1.25rem; max-width: 64ch; display: flex; flex-direction: column; gap: 1rem; color: var(--text-soft); }
   .portrait-corps .fort { color: var(--text); font-size: 1.0625rem; }
-  .portrait-corps .encart { display: flex; gap: 1rem; border: 1px solid var(--rule); background: var(--surface); border-radius: 14px; padding: 1.25rem; font-size: var(--t-sm); line-height: 1.6; color: var(--text); }
+  /* L'aparté : même filet à gauche que la citation d'ouverture, parce que
+     c'est le même geste — une voix qui sort un instant de l'argument.
+     C'était une boîte, et une boîte de plus sur une vue qui en avait cinq. */
+  .portrait-corps .encart { display: flex; gap: 1rem; border-left: 3px solid var(--accent); padding-left: 1.25rem; font-size: var(--t-sm); line-height: 1.6; color: var(--text); }
   /* Le marqueur de champ manquant. Volontairement laid : ce n'est pas un
      état par défaut élégant à laisser traîner, c'est une alarme. Une case
      vide se voit, une case inventée ne se voit pas. */
   .acompleter { background: color-mix(in srgb, var(--bougain) 18%, transparent); color: var(--eyebrow); font-family: var(--util); font-size: 0.9em; font-weight: 700; padding: 0.1rem 0.35rem; border-radius: 3px; }
-  .union-grille { display: grid; gap: 1rem; border: 1px solid var(--rule); background: var(--surface); border-radius: 14px; padding: 1.25rem; }
-  @media (min-width: 640px) { .union-grille { grid-template-columns: 1fr 1fr; } .union-grille .large { grid-column: 1 / -1; } }
-  .union-grille dt { display: block; }
-  .union-grille dd { margin: 0.25rem 0 0; font-size: var(--t-sm); line-height: 1.4; }
   .questions { margin-top: clamp(3rem, 8vw, 4.5rem); border: 1px solid var(--eyebrow); background: color-mix(in srgb, var(--bougain) 8%, transparent); border-radius: 16px; padding: clamp(1.25rem, 4vw, 2rem); }
   .questions h2 { font-size: 1.25rem; line-height: 1.3; }
   .questions > p { margin-top: 0.5rem; max-width: 62ch; font-size: var(--t-sm); color: var(--text-soft); }
@@ -1244,12 +1251,28 @@
 <header class="nav">
   <div class="shell nav-in">
     <a class="brand" href="#top">
-      <svg class="brand-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true">
-        <circle cx="20" cy="20" r="19" stroke="currentColor" stroke-width="1" opacity=".35"/>
-        <path d="M20 31c0-6.2 3.6-11.4 9-13.4-1 6.6-4.5 11.4-9 13.4Z" fill="#d96b43"/>
-        <path d="M20 31c0-6.2-3.6-11.4-9-13.4 1 6.6 4.5 11.4 9 13.4Z" fill="currentColor"/>
-        <path d="M20 31V15" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-        <path d="M13 10h14" stroke="#d96b43" stroke-width="1.4" stroke-linecap="round"/>
+      <!-- La marque d'Agus, redessinée d'après son logo — voir
+           components/Marque.jsx pour ce qui a été gardé, ce qui a été
+           abandonné (le meru, illisible à 38 px) et pourquoi le haut du
+           cercle reste vide. Le tracé est identique des deux côtés. -->
+      <svg class="brand-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <defs><clipPath id="marqueDisque"><circle cx="24" cy="25" r="15.4"/></clipPath></defs>
+        <g clip-path="url(#marqueDisque)">
+          <path d="M4 30 C 10 21, 26 19, 44 23 L44 46 L4 46 Z" fill="var(--bambou-soft)"/>
+          <path d="M2 35 C 8 26, 25 25, 44 30 L44 46 L2 46 Z" fill="var(--pousse)"/>
+          <path d="M2 41 C 7 32, 24 32, 44 37 L44 46 L2 46 Z" fill="var(--bambou)"/>
+          <g stroke="var(--pousse-pale)" stroke-width=".85" stroke-linecap="round" fill="none" opacity=".75">
+            <path d="M4 30 C 10 21, 26 19, 44 23"/>
+            <path d="M2 35 C 8 26, 25 25, 44 30"/>
+            <path d="M2 41 C 7 32, 24 32, 44 37"/>
+          </g>
+        </g>
+        <path d="M8.68 26.61 A 15.4 15.4 0 1 1 39.32 26.61" stroke="var(--soleil)" stroke-width="1.5" stroke-linecap="round"/>
+        <g fill="var(--soleil)"><path transform="translate(8.38 26.64) rotate(-238.0)" d="M0 0 C 1.9 -1.7, 4.4 -1.7, 5.6 0 C 4.4 1.7, 1.9 1.7, 0 0 Z"/><path transform="translate(8.53 22.27) rotate(-222.0)" d="M0 0 C 1.9 -1.7, 4.4 -1.7, 5.6 0 C 4.4 1.7, 1.9 1.7, 0 0 Z"/><path transform="translate(9.88 18.11) rotate(-206.0)" d="M0 0 C 1.9 -1.7, 4.4 -1.7, 5.6 0 C 4.4 1.7, 1.9 1.7, 0 0 Z"/><path transform="translate(12.33 14.49) rotate(-190.0)" d="M0 0 C 1.9 -1.7, 4.4 -1.7, 5.6 0 C 4.4 1.7, 1.9 1.7, 0 0 Z"/><path transform="translate(15.68 11.68) rotate(-174.0)" d="M0 0 C 1.9 -1.7, 4.4 -1.7, 5.6 0 C 4.4 1.7, 1.9 1.7, 0 0 Z"/><path transform="translate(19.67 9.90) rotate(-158.0)" d="M0 0 C 1.9 -1.7, 4.4 -1.7, 5.6 0 C 4.4 1.7, 1.9 1.7, 0 0 Z"/><path transform="translate(24.00 9.29) rotate(-38.0)" d="M0 0 C 1.9 -1.7, 4.4 -1.7, 5.6 0 C 4.4 1.7, 1.9 1.7, 0 0 Z"/><path transform="translate(28.33 9.90) rotate(-22.0)" d="M0 0 C 1.9 -1.7, 4.4 -1.7, 5.6 0 C 4.4 1.7, 1.9 1.7, 0 0 Z"/><path transform="translate(32.32 11.68) rotate(-6.0)" d="M0 0 C 1.9 -1.7, 4.4 -1.7, 5.6 0 C 4.4 1.7, 1.9 1.7, 0 0 Z"/><path transform="translate(35.67 14.49) rotate(10.0)" d="M0 0 C 1.9 -1.7, 4.4 -1.7, 5.6 0 C 4.4 1.7, 1.9 1.7, 0 0 Z"/><path transform="translate(38.12 18.11) rotate(26.0)" d="M0 0 C 1.9 -1.7, 4.4 -1.7, 5.6 0 C 4.4 1.7, 1.9 1.7, 0 0 Z"/><path transform="translate(39.47 22.27) rotate(42.0)" d="M0 0 C 1.9 -1.7, 4.4 -1.7, 5.6 0 C 4.4 1.7, 1.9 1.7, 0 0 Z"/><path transform="translate(39.62 26.64) rotate(58.0)" d="M0 0 C 1.9 -1.7, 4.4 -1.7, 5.6 0 C 4.4 1.7, 1.9 1.7, 0 0 Z"/></g>
+        <g transform="translate(37.4 36.2) scale(0.168)">
+          <g fill="var(--soleil)"><path transform="rotate(0)" d="M0 2 C 13 -6, 27 -22, 19 -36 C 13 -46, -5 -47, -12 -35 C -19 -22, -9 -7, 0 2 Z"/><path transform="rotate(72)" d="M0 2 C 13 -6, 27 -22, 19 -36 C 13 -46, -5 -47, -12 -35 C -19 -22, -9 -7, 0 2 Z"/><path transform="rotate(144)" d="M0 2 C 13 -6, 27 -22, 19 -36 C 13 -46, -5 -47, -12 -35 C -19 -22, -9 -7, 0 2 Z"/><path transform="rotate(216)" d="M0 2 C 13 -6, 27 -22, 19 -36 C 13 -46, -5 -47, -12 -35 C -19 -22, -9 -7, 0 2 Z"/><path transform="rotate(288)" d="M0 2 C 13 -6, 27 -22, 19 -36 C 13 -46, -5 -47, -12 -35 C -19 -22, -9 -7, 0 2 Z"/></g>
+          <circle r="12" fill="var(--soleil-pale)"/>
+        </g>
       </svg>
       <span>
         <span class="brand-name">Bali Découverte</span><br>
@@ -1795,11 +1818,13 @@
       </div>
     </div>
 
-    <div class="part-tete"><span class="part-sym" id="symMetier"></span><h2>Le métier, en faits</h2></div>
-    <p class="portrait-corps">Avant de vous raconter quoi que ce soit, voici ce
-    qui se vérifie. Le reste de cette page ne vaut que si ces quatre lignes-là
-    tiennent.</p>
-    <ul class="fiche-grille" id="portraitFiche"></ul>
+    <!-- Le titre disait « Le métier, en faits », précédé d'une phrase qui
+         annonçait qu'on allait lire quatre lignes vérifiables. Les deux
+         commentaient la page au lieu de la faire : « en faits » annonce le
+         registre d'une liste qui est déjà visiblement une liste, et la
+         phrase était plus longue que ce qu'elle présentait. -->
+    <div class="part-tete"><span class="part-sym" id="symMetier"></span><h2>Mon métier</h2></div>
+    <dl class="faits" id="portraitFiche"></dl>
     <p class="portrait-corps">Je guide à Bali, Lombok, Java Centre et Est,
     Sumbawa, Flores, Komodo et Rinca. Ce site est aujourd'hui recentré sur
     Bali, et c'est là que je passe l'essentiel de mes jours.</p>
@@ -3317,13 +3342,16 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
        paragraphe va dire ne résume pas : elle dit deux fois. Ne restent
        que les faits qui n'ont pas leur développement ailleurs, et tous
        sont à la première personne. */
+    /* Plus d'icône par ligne : chacune redisait son propre intitulé — un
+       écusson devant « Ma certification », une voiture devant « Mes
+       véhicules ». Le symbole du titre de partie suffit. */
     $("portraitFiche").innerHTML = [
       ["Ma certification", "Je suis diplômé guide francophone"],
       ["Mon métier", "Je l'exerce depuis octobre 2005"],
       ["Mes langues", "Je guide en français et anglais"],
       ["Mes véhicules", AGUS_VEHICULES.map(function (v) { return v.split(" — ")[0]; }).join(" · ") + " — je conduis moi-même"]
     ].map(function (x) {
-      return '<li><span class="label">' + x[0] + '</span><span>' + x[1] + '</span></li>';
+      return '<div><dt class="label">' + x[0] + '</dt><dd>' + x[1] + '</dd></div>';
     }).join("");
 
     /* La version longue du point « Ma famille d'abord » — celle que
@@ -3377,16 +3405,20 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
       "une prestation revendue : il tient debout tant que des guides se tiennent " +
       "ensemble — pour se passer le relais, se former, et ne pas se laisser mettre en " +
       "concurrence les uns contre les autres.</p>" +
-      '<dl class="union-grille">' +
+      /* Le bloc où presque tout manque. Il était encadré, avec ses quatre
+         champs alignés par paires — la chose la plus proche d'un formulaire
+         de toute la vue. L'argument qui le justifiait était « ce qui manque
+         doit se voir d'un seul regard » : c'est vrai, et ce n'est pas le
+         cadre qui le fait, c'est valeur() qui écrit « à compléter » en
+         rouge. Même motif que la fiche du métier, donc. */
+      '<dl class="faits">' +
         [["Son nom", UNION.nom, "le nom exact, et sa traduction"],
          ["Membre depuis", UNION.depuis, "l'année"],
          ["Son rôle", UNION.role, "membre, ou une responsabilité"],
-         ["Combien de guides", UNION.effectif, "l'effectif, et les langues"]].map(function (x) {
-          return '<div><dt class="label" style="color: var(--text-faint)">' + x[0] +
-            '</dt><dd>' + valeur(x[1], x[2]) + '</dd></div>';
+         ["Combien de guides", UNION.effectif, "l'effectif, et les langues"],
+         ["Ce qu'elle fait", UNION.actions, "trois actions concrètes valent mieux qu'une définition"]].map(function (x) {
+          return '<div><dt class="label">' + x[0] + '</dt><dd>' + valeur(x[1], x[2]) + '</dd></div>';
         }).join("") +
-        '<div class="large"><dt class="label" style="color: var(--text-faint)">Ce qu\'elle fait</dt>' +
-        '<dd>' + valeur(UNION.actions, "trois actions concrètes valent mieux qu'une définition") + '</dd></div>' +
       '</dl>';
 
     $("portraitQuestions").innerHTML = QUESTIONS.map(function (q) {

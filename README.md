@@ -811,6 +811,106 @@ page** au recentrage : c'était la partie la plus conceptuelle, et l'une des
 trois redisait le panneau des valeurs. Le repère reste noté ici, il est bon à
 reprendre si la présentation regagne de la place.
 
+### La marque — le logo d'Agus, sans son texte
+
+`components/Marque.jsx`. Elle a remplacé un logo générique qui n'avait jamais
+été le sien : un disque, deux feuilles et un trait, **dont l'une des feuilles
+était peinte en `#d96b43`** — un orange qui n'est dans aucun jeton de la
+palette, survivant de la direction abandonnée avant le bambou, resté en dur
+dans le seul fichier où personne ne relisait les couleurs. Il s'affichait sur
+les huit pages, en haut à gauche.
+
+> ⚠️ **C'est un redessin, pas une extraction.** Le logo n'a été fourni qu'en
+> image ; il n'y a aucun fichier vectoriel dans le dépôt. Le jour où le fichier
+> source existe (SVG, AI, EPS), **c'est lui qui doit prendre cette place** : un
+> logo est une signature, et une signature refaite de mémoire n'est jamais tout
+> à fait la bonne.
+
+**L'original est une illustration, pensée pour une carte de visite.** Il porte
+quatre motifs — le disque de rizières en terrasses, deux épis de riz en arche,
+un meru gris, un jepun. À 38 px de haut, quatre motifs ne tiennent pas. Trois
+essais l'ont montré, et chacun a échoué d'une façon différente :
+
+| Ce qui était dessiné | Ce que ça donnait à 38 px |
+| --- | --- |
+| Disque plein + arche à traits radiaux | **un soleil levant sur une colline** |
+| Arche décollée du cercle | **une anse de panier** |
+| Meru en triangles empilés | **un sapin** |
+| Meru en toits plats séparés | **un panneau de signalisation** |
+
+Deux règles en sont sorties, et elles valent au-delà de ce fichier :
+
+1. **Le haut du cercle doit rester vide.** Dans l'original, le cercle est
+   *fermé par l'épi* en haut et *rempli par les terrasses* en bas. Peindre un
+   fond sur tout le disque le transforme en jeton, et tout ce qu'on pose
+   au-dessus devient un astre. L'épi doit en outre **suivre le cercle** : deux
+   pixels au-dessus et c'est une anse.
+2. **Un motif illisible n'est pas un détail perdu, c'est un motif qui dit un
+   mot faux.** Le meru a donc été retiré de la marque d'en-tête : à cette
+   taille il fait six pixels de haut, et il n'existe pas de dessin de meru qui
+   tienne dans six pixels — il n'existe que des dessins qui ressemblent à autre
+   chose. Ce qui reste — terrasses, épi, jepun — suffit, et c'est vérifié
+   jusqu'à 20 px.
+
+Les grains de l'épi sont **calculés, pas posés à la main** : ce qui fait lire
+« épi » plutôt qu'« astre » est leur inclinaison d'environ 50° le long de la
+tige, et **le sens de cette inclinaison change au passage du sommet**. Un signe
+constant redonne une roue. Le jepun reprend exactement le pétale de `JepunPuce`
+— la fleur du logo et celle du site sont la même fleur, ce qui n'était vrai
+d'aucune des deux avant.
+
+> **La marque n'appartient pas à la famille de `Symboles.jsx`** et ne doit pas
+> y être rangée. Ceux-là suivent la règle « un trait, la couleur héritée, aucun
+> remplissage » ; un logo garde ses couleurs partout, c'est ce qui en fait un
+> logo. C'est la seule exception du site, et elle doit le rester.
+>
+> `uid` n'est pas décoratif : le détourage passe par un `<clipPath id>`, et les
+> identifiants SVG sont **globaux au document**. Deux marques avec le même `id`
+> et c'est la première définition qui s'applique aux deux — ce qui marche par
+> accident tant qu'elles sont identiques.
+
+### Le piège de l'en-tête : `flex-shrink`, qui ne se voit pas à la mesure
+
+Quatre défauts d'affichage ont été trouvés dans la barre, **tous les quatre
+présents à toutes les largeurs, y compris 1920 px où elle est à moitié vide**.
+Ce n'étaient donc pas des manques de place, et c'est ce qui les rendait
+difficiles à croire :
+
+- Tous les libellés de deux mots se cassaient en deux lignes — « Qui je /
+  suis », « Mon / engagement ».
+- Le bouton affichait « Demander un / devis ».
+- Le sous-titre affichait « GUIDE FRANCOPHO… ».
+- À 1024 px, le **nom du site** se tronquait en « Bali D… ».
+
+Les trois premiers ont la même cause : ce sont des éléments d'un conteneur
+`flex`, donc ils portent `flex-shrink: 1` et **se rétrécissent jusqu'à leur mot
+le plus long** avant que le conteneur ne déborde. D'où `whitespace-nowrap` sur
+les liens et sur le bouton.
+
+> **Ce défaut ne se voit pas à la mesure.** `min-h-11` impose 44 px à chaque
+> lien : la hauteur ne bouge pas quand le texte passe à deux lignes, et un
+> audit qui compare des hauteurs ne voit rien. Ce qui l'attrape, c'est le
+> nombre de **boîtes de ligne** — `document.createRange()` sur le contenu, puis
+> `getClientRects().length`. Sur un conteneur `flex`, viser le **nœud texte**
+> et non l'élément : un élément flex rend une boîte par enfant, ce qui donne
+> trois « lignes » pour un bouton parfaitement sur une seule.
+
+Le sous-titre, lui, débordait de 2 à 4 px parce que `.label` porte
+`letter-spacing: 0.16em` **qui s'applique aussi après la dernière lettre** —
+assez pour déclencher l'ellipsis, pas assez pour que rien dépasse vraiment. Une
+marge négative a été essayée : elle rétrécit aussi le conteneur, si bien que le
+déficit se divisait par deux à chaque essai sans jamais s'annuler. `truncate` a
+donc été remplacé par le seul `whitespace-nowrap` — plus d'`overflow: hidden`,
+donc plus d'ellipsis possible, et deux pixels qui débordent d'une boîte sans
+bordure ne se voient pas.
+
+**Et la barre de liens est passée de `lg` (1024) à `xl` (1280).** Entre les
+deux, elle affichait six liens, le bouton entier et le burger : le budget était
+dépassé de plusieurs dizaines de pixels et le bloc de marque tombait à 122 px
+pour 202 px de contenu. Un site dont l'en-tête n'arrive pas à écrire son propre
+nom a un problème plus grave que l'absence de liens — et le menu est disponible
+à toutes les largeurs, donc rien n'est perdu dans la bande 1024–1279.
+
 ### La famille de symboles
 
 `components/Symboles.jsx` porte neuf dessins balinais — tedung, penjor, candi
@@ -930,7 +1030,7 @@ Chaque carte mène désormais à sa page : `/circuit` et `/envies`. **L'accueil
 passe de 17,9 à 12,4 écrans mobiles** (−31 %), et de 11,3 à 8,0 sur grand écran.
 Les allègements qui ont suivi (bandeau du hero, ligne « Ce qui se vérifie »,
 sommaire des tarifs) l'y ont maintenu ; `/tarifs` est à 6,8 écrans mobiles,
-`/agus` à 8,0, `/envies` à 5,1 et `/circuit` à 13,0.
+`/agus` à 7,9, `/envies` à 5,1 et `/circuit` à 13,0.
 
 #### Ce que ce déplacement exige en retour
 
@@ -1363,6 +1463,53 @@ Trois choses vont donc ensemble le jour où il a répondu : les marqueurs
 disparaissent, le bandeau d'avertissement de la page part, `robots: { index:
 false }` saute, et la page entre dans `app/sitemap.js`.
 
+#### Les quatre registres de `/agus`, et la règle qui les tient
+
+La page portait **cinq blocs encadrés**. Deux voulaient dire quelque chose, les
+trois autres étaient des boîtes pour faire des boîtes — et l'effet cumulé était
+celui d'**un formulaire** : des champs bordés, alignés par paires, un intitulé
+au-dessus de chaque valeur. Sur une page qui ne demande rien et ne fait que
+répondre.
+
+Il n'en reste que quatre registres, et **chacun se distingue par ce qu'il veut
+dire, jamais par le seul plaisir de border** :
+
+1. **Le texte courant** — aucun ornement.
+2. **Les faits** — `<ListeFaits>` : un filet horizontal, l'intitulé à gauche,
+   la valeur à droite. Ni fond, ni bordure, ni coin arrondi. C'est le même
+   trait que sous les titres de partie et sous la légende du portrait, donc la
+   page n'a plus qu'une seule façon de séparer deux choses — et c'est plus
+   court, les cartes coûtaient leur padding et leur bordure sur chaque ligne.
+3. **L'aparté** — filet vertical à gauche. La citation d'ouverture et le canang
+   du tableau de bord le partagent : c'est le même geste, une voix qui sort un
+   instant de l'argument.
+4. **Le travail en cours** — bordure bougainvillier et fond teinté. Le bandeau
+   du haut et les six questions du bas, et eux seuls. **C'est le seul registre
+   qui a le droit d'encadrer**, justement parce qu'il signale ce qui n'est pas
+   fini — et les deux blocs partiront ensemble le jour où Agus aura répondu.
+
+> ⚠️ **Ne pas rajouter de bloc `border-rule bg-surface` sur cette page.** C'est
+> exactement ce qui en a été retiré, et c'est le réflexe qui revient dès qu'un
+> contenu semble « mériter d'être mis en avant ». Un fait mis en avant par un
+> cadre ressemble à un champ à remplir ; ce qui met un fait en avant ici, c'est
+> sa place dans la liste.
+
+Deux corollaires. **L'icône par ligne a sauté** : chacune redisait son propre
+intitulé — un écusson devant « Ma certification », une voiture devant « Mes
+véhicules ». Une icône se garde quand elle ajoute (les trois de « Ce que ça
+change » distinguent l'argent, le relais et la personne), elle se retire quand
+elle répète. Et **le bloc de l'union a perdu son cadre** malgré l'argument qui
+le justifiait — « ce qui manque doit se voir d'un seul regard ». C'est vrai, et
+ce n'est pas le cadre qui le fait : c'est `<Valeur>`, qui écrit « à compléter »
+en rouge, et le bandeau du haut qui le dit déjà.
+
+Le titre de la première partie disait « Le métier, en faits », précédé de
+« Avant de vous raconter quoi que ce soit, voici ce qui se vérifie ». Les deux
+ont sauté ensemble : ils **commentaient la page au lieu de la faire**. « En
+faits » annonce le registre d'une liste qui est déjà visiblement une liste, et
+la phrase était plus longue que les quatre lignes qu'elle présentait. Le titre
+est maintenant **« Mon métier »**.
+
 ### Le circuit en entier — `/circuit`
 
 ⚠️ **Cette page renverse une règle inscrite plus haut dans ce fichier**, et il
@@ -1500,7 +1647,7 @@ en écrans de mobile (390 × 844) :
 | `/` | **12,4** | 12,7 |
 | `/circuit` | 13,0 | 12,6 |
 | `/envies` | 5,1 | 5,2 |
-| `/agus` | 8,0 | 7,8 |
+| `/agus` | 7,9 | 7,7 |
 | `/tarifs` | 6,8 | 6,9 |
 | `/livre-d-or` | 8,6 | 8,7 |
 | `/cgv` | 16,1 | — |

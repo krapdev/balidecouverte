@@ -57,6 +57,21 @@ Agus Yudiarta existe, et le site est son gagne-pain.
 - **Les métadonnées d'une page remplacent celles du gabarit**, elles ne s'y
   ajoutent pas. Une page qui déclarerait `robots: { index: true }` s'indexerait
   même en préproduction.
+- **Un texte dans un conteneur `flex` se casse en deux lignes sans manquer de
+  place.** `flex-shrink: 1` le rétrécit jusqu'à son mot le plus long — quatre
+  défauts de l'en-tête venaient de là, tous présents jusqu'à 1920 px. D'où
+  `whitespace-nowrap` sur les liens et les boutons de barre. **Ça ne se voit pas
+  à la mesure** : `min-h-11` fige la hauteur. Compter les boîtes de ligne —
+  `document.createRange()` sur le contenu puis `getClientRects().length`, en
+  visant le **nœud texte** et non l'élément, sinon chaque enfant flex compte
+  pour une ligne.
+- **`letter-spacing` s'applique aussi après la dernière lettre.** Un `.label`
+  en `truncate` affichait une ellipsis pour 2 px fantômes, à toutes les
+  largeurs. Ne pas compenser par une marge négative : elle rétrécit aussi le
+  conteneur et le déficit ne fait que se diviser par deux. Retirer `truncate`.
+- **Un `<clipPath id>` est global au document.** Deux instances d'un même
+  composant SVG avec le même `id` et la première définition s'applique aux
+  deux — voir la convention `uid` de `Marque`, `Scene` et `Photo`.
 - `useSearchParams` exige une frontière `<Suspense>`, sinon le build de
   prérendu échoue.
 

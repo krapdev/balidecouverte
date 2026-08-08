@@ -1,15 +1,5 @@
 import Link from "next/link";
-import {
-  BadgeCheck,
-  CalendarClock,
-  Languages,
-  Users,
-  Car,
-  HandCoins,
-  Heart,
-  AlertTriangle,
-  Mail,
-} from "lucide-react";
+import { Users, HandCoins, Heart, AlertTriangle, Mail } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Photo from "@/components/Photo";
@@ -50,6 +40,42 @@ import { UNION, QUESTIONS } from "@/lib/portrait";
  *  2. **Toujours par le positif.** L'union de guides se raconte par ce
  *     qu'elle permet, jamais comme une charge contre des agences qu'on
  *     ne peut pas documenter.
+ *
+ * ---
+ *
+ * ## Les quatre registres de la page, et la règle qui les tient
+ *
+ * La page portait **cinq blocs encadrés** — quatre cartes de faits, un
+ * aparté illustré, une fiche d'union, un bandeau d'avertissement, un
+ * bloc de questions. Deux d'entre eux voulaient dire quelque chose, les
+ * trois autres étaient des boîtes pour faire des boîtes, et l'effet
+ * cumulé était celui d'un **formulaire** : des champs bordés, alignés
+ * par paires, avec un intitulé au-dessus de chaque valeur. Sur une page
+ * qui ne demande rien et ne fait que répondre.
+ *
+ * Il n'en reste que quatre registres, et **chacun se distingue par ce
+ * qu'il veut dire, jamais par le seul plaisir de border** :
+ *
+ *  1. **Le texte courant** — aucun ornement.
+ *  2. **Les faits** — `<ListeFaits>` : un filet horizontal, l'intitulé à
+ *     gauche, la valeur à droite. Ni fond, ni bordure, ni coin arrondi.
+ *     C'est le même trait que sous les titres de partie et sous la
+ *     légende du portrait : la page n'a plus qu'une seule façon de
+ *     séparer deux choses.
+ *  3. **L'aparté** — filet vertical à gauche. La citation d'ouverture et
+ *     le canang du tableau de bord le partagent, parce que c'est le même
+ *     geste : une voix qui sort un instant de l'argument.
+ *  4. **Le travail en cours** — bordure bougainvillier et fond teinté.
+ *     Le bandeau du haut et les six questions du bas, et eux seuls.
+ *     **C'est le seul registre qui a le droit d'encadrer**, justement
+ *     parce qu'il signale ce qui n'est pas fini — et les deux blocs
+ *     partiront ensemble le jour où Agus aura répondu.
+ *
+ * > ⚠️ **Ne pas rajouter de bloc `border-rule bg-surface` ici.** C'est
+ * > exactement ce qui a été retiré, et c'est le réflexe qui revient dès
+ * > qu'un contenu semble « mériter d'être mis en avant ». Un fait mis en
+ * > avant par un cadre ressemble à un champ à remplir ; ce qui met un
+ * > fait en avant sur cette page, c'est sa place dans la liste.
  */
 
 export const metadata = {
@@ -86,13 +112,55 @@ export const metadata = {
  *
  * Tout est à la première personne, comme le reste du site : ces lignes
  * sont dites par Agus, pas par un annuaire qui parlerait de lui.
+ *
+ * ⚠️ **Plus d'icône par ligne.** Chacune redisait son propre intitulé —
+ * un écusson devant « Ma certification », une voiture devant « Mes
+ * véhicules ». Une icône qui répète le mot d'à côté n'aide personne à
+ * lire ; elle prend la place où la valeur pourrait tenir sur une ligne
+ * de moins. Le symbole du titre de partie suffit à situer le passage.
  */
 const FICHE = [
-  { icon: BadgeCheck, label: "Ma certification", valeur: `Je suis ${AGUS.diplome.toLowerCase()}` },
-  { icon: CalendarClock, label: "Mon métier", valeur: `Je l'exerce depuis ${AGUS.depuis}` },
-  { icon: Languages, label: "Mes langues", valeur: `Je guide en ${AGUS.langues}` },
-  { icon: Car, label: "Mes véhicules", valeur: `${AGUS.vehicules.map((v) => v.split(" — ")[0]).join(" · ")} — je conduis moi-même` },
+  ["Ma certification", `Je suis ${AGUS.diplome.toLowerCase()}`],
+  ["Mon métier", `Je l'exerce depuis ${AGUS.depuis}`],
+  ["Mes langues", `Je guide en ${AGUS.langues}`],
+  ["Mes véhicules", `${AGUS.vehicules.map((v) => v.split(" — ")[0]).join(" · ")} — je conduis moi-même`],
 ];
+
+/**
+ * **Le seul motif de liste de faits de la page.**
+ *
+ * Il remplace deux présentations différentes qui disaient la même chose
+ * en se contredisant visuellement : quatre cartes bordées en grille de
+ * deux pour le métier, et un `<dl>` encadré en grille de deux pour
+ * l'union. Bordure, fond, coins arrondis, champs alignés par paires —
+ * l'œil y lisait **un formulaire**, sur une page qui ne demande rien et
+ * ne fait que répondre.
+ *
+ * Ce qui reste : un filet horizontal entre deux faits. C'est le même
+ * geste que le `figcaption` du portrait et que le trait sous les titres
+ * de partie, donc la page n'a plus qu'une seule façon de séparer deux
+ * choses. Et c'est **plus court** — les cartes coûtaient leur padding et
+ * leur bordure sur chaque ligne.
+ *
+ * L'intitulé passe à gauche à partir de `sm` et au-dessus en deçà :
+ * « Ma certification » et sa valeur ne tiennent pas côte à côte dans
+ * 288 px utiles.
+ */
+function ListeFaits({ items }) {
+  return (
+    <dl className="m-0 p-0">
+      {items.map(([label, valeur]) => (
+        <div
+          key={label}
+          className="flex flex-col gap-1 border-b border-rule py-3.5 last:border-b-0 sm:flex-row sm:items-baseline sm:gap-6"
+        >
+          <dt className="label shrink-0 text-faint sm:w-[11rem]">{label}</dt>
+          <dd className="m-0 text-ink">{valeur}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
 
 /** Un titre de partie, avec son symbole. Pas de `Reveal` : on ne fait
     pas apparaître en fondu un texte qu'on lit pour se décider. */
@@ -196,26 +264,19 @@ export default function PagePortrait() {
             </div>
 
             {/* ---------- 1. Le métier ---------- */}
-            <Partie n={1} symbole="tedung" titre="Le métier, en faits">
-              <p>
-                Avant de vous raconter quoi que ce soit, voici ce qui se
-                vérifie. Le reste de cette page ne vaut que si ces quatre
-                lignes-là tiennent.
-              </p>
-              <ul className="m-0 grid list-none gap-4 p-0 sm:grid-cols-2">
-                {FICHE.map(({ icon: Icon, label, valeur }) => (
-                  <li
-                    key={label}
-                    className="flex items-start gap-3 rounded-[12px] border border-rule bg-surface p-4"
-                  >
-                    <Icon size={17} className="mt-0.5 shrink-0 text-accent" strokeWidth={1.7} />
-                    <span>
-                      <span className="label block text-faint">{label}</span>
-                      <span className="text-sm leading-snug text-ink">{valeur}</span>
-                    </span>
-                  </li>
-                ))}
-              </ul>
+            {/* Le titre disait « Le métier, en faits », et une phrase le
+                précédait : « Avant de vous raconter quoi que ce soit,
+                voici ce qui se vérifie. Le reste de cette page ne vaut
+                que si ces quatre lignes-là tiennent. »
+                Les deux ont sauté ensemble, et pour la même raison : ils
+                **commentaient la page au lieu de la faire**. « En faits »
+                annonce le registre d'une liste qui est déjà visiblement
+                une liste ; la phrase expliquait pourquoi on allait lire
+                quatre lignes qu'on aurait lues plus vite que son
+                explication. Une page qui se présente elle-même retarde ce
+                qu'elle a à dire. */}
+            <Partie n={1} symbole="tedung" titre="Mon métier">
+              <ListeFaits items={FICHE} />
               <p>
                 Je guide à {AGUS.territoires.toLowerCase()}. Ce site est
                 aujourd&apos;hui recentré sur Bali, et c&apos;est là que je
@@ -234,7 +295,11 @@ export default function PagePortrait() {
                   Sa première ligne ne redit pas « Marié, trois enfants » :
                   `AGUS.famille`, juste au-dessus, le dit en plus précis. */}
               <p>{VALEURS.points[0].texte}</p>
-              <div className="flex items-start gap-4 rounded-[14px] border border-rule bg-surface p-5">
+              {/* L'aparté : même filet à gauche que la citation d'ouverture,
+                  parce que c'est le même geste — une voix qui sort un
+                  instant de l'argument. C'était une boîte, et une boîte de
+                  plus sur une page qui en avait cinq. */}
+              <div className="flex items-start gap-4 border-l-3 border-accent pl-5">
                 <Canang size={50} className="mt-0.5 shrink-0" />
                 <p className="text-sm leading-relaxed">
                   Chaque matin, avant de prendre la route, je dépose un{" "}
@@ -291,44 +356,45 @@ export default function PagePortrait() {
                 concurrence les uns contre les autres.
               </p>
 
-              {/* Le bloc où presque tout manque. Il est présenté comme un
-                  bloc et non fondu dans le texte : ce qui manque doit se
-                  voir d'un seul regard, sinon on le lit sans le voir. */}
-              <dl className="m-0 grid gap-4 rounded-[14px] border border-rule bg-surface p-5 sm:grid-cols-2">
-                {[
-                  ["Son nom", UNION.nom, "le nom exact, et sa traduction"],
-                  ["Membre depuis", UNION.depuis, "l'année"],
-                  ["Son rôle", UNION.role, "membre, ou une responsabilité"],
-                  ["Combien de guides", UNION.effectif, "l'effectif, et les langues"],
-                ].map(([label, v, quoi]) => (
-                  <div key={label}>
-                    <dt className="label text-faint">{label}</dt>
-                    <dd className="m-0 mt-1 text-sm leading-snug">
-                      <Valeur v={v} quoi={quoi} />
-                    </dd>
-                  </div>
-                ))}
-                <div className="sm:col-span-2">
-                  <dt className="label text-faint">Ce qu&apos;elle fait</dt>
-                  <dd className="m-0 mt-1 text-sm leading-relaxed">
-                    <Valeur
-                      v={UNION.actions}
-                      quoi="trois actions concrètes valent mieux qu'une définition"
-                    />
-                  </dd>
-                </div>
-              </dl>
+              {/* Le bloc où presque tout manque. Il était encadré, avec
+                  ses quatre champs alignés par paires — c'était la chose
+                  la plus proche d'un formulaire de toute la page, et
+                  l'argument qui le justifiait ne tient plus : « ce qui
+                  manque doit se voir d'un seul regard ». C'est vrai, et
+                  ce n'est pas le cadre qui le fait — c'est `<Valeur>`,
+                  qui écrit « à compléter » en rouge. Le bandeau du haut
+                  de page le dit déjà une fois de plus.
+                  Même motif que la fiche du métier, donc : la page n'a
+                  plus qu'une seule façon de présenter des faits. */}
+              <ListeFaits
+                items={[
+                  ["Son nom", <Valeur key="n" v={UNION.nom} quoi="le nom exact, et sa traduction" />],
+                  ["Membre depuis", <Valeur key="d" v={UNION.depuis} quoi="l'année" />],
+                  ["Son rôle", <Valeur key="r" v={UNION.role} quoi="membre, ou une responsabilité" />],
+                  ["Combien de guides", <Valeur key="e" v={UNION.effectif} quoi="l'effectif, et les langues" />],
+                  ["Ce qu'elle fait", <Valeur key="a" v={UNION.actions} quoi="trois actions concrètes valent mieux qu'une définition" />],
+                ]}
+              />
             </Partie>
 
             {/* ---------- 5. Ce que ça change ---------- */}
             <Partie n={5} symbole="canang" titre="Ce que ça change pour vous">
-              <ul className="m-0 flex list-none flex-col gap-3 p-0">
+              {/* Même rythme vertical que les listes de faits — filet et
+                  `py-3.5` —, mais l'icône reste : ici il n'y a pas
+                  d'intitulé qu'elle redirait, et les trois pictogrammes
+                  distinguent trois natures de promesse (l'argent, le
+                  relais, la personne). Une icône se garde quand elle
+                  ajoute, se retire quand elle répète. */}
+              <ul className="m-0 flex list-none flex-col p-0">
                 {[
                   [HandCoins, "Vous payez le travail, pas la chaîne. Ce que vous versez va au guide, au chauffeur et aux familles qui vous reçoivent."],
                   [Users, "Si je ne suis pas libre à vos dates, je passe le relais à un guide que je connais — jamais à un inconnu envoyé par une centrale."],
                   [Heart, "Vous écrivez à quelqu'un, pas à un formulaire. C'est moi qui réponds, en français, sous 24 heures."],
                 ].map(([Icon, texte]) => (
-                  <li key={texte} className="flex items-start gap-3.5">
+                  <li
+                    key={texte}
+                    className="flex items-start gap-3.5 border-b border-rule py-3.5 last:border-b-0"
+                  >
                     <Icon size={18} className="mt-1 shrink-0 text-accent" strokeWidth={1.6} />
                     <span>{texte}</span>
                   </li>
