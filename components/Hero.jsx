@@ -46,13 +46,15 @@ export default function Hero() {
         <JepunBranch className="pointer-events-none absolute -top-4 right-0 z-[1] w-[min(52vw,440px)] opacity-90" />
 
         <div className="shell relative z-10 flex min-h-[min(88vh,780px)] flex-col items-start justify-end gap-6 pb-[clamp(3rem,9vw,5.5rem)] pt-[clamp(3.5rem,12vw,7rem)]">
-          <p
-            style={cran(0)}
-            className="monte label flex items-center gap-3 text-on-immersive before:h-px before:w-8 before:bg-soleil before:content-['']"
-          >
-            Sidemen · Munduk · Est de Bali
-          </p>
-
+          {/* ⚠️ **La ligne « Sidemen · Munduk · Est de Bali » a été
+              retirée.** Elle nommait trois lieux avant que le lecteur
+              sache de quoi on parle : à cet endroit, trois noms de
+              villages balinais ne situent rien pour quelqu'un qui n'y est
+              jamais allé — ils demandent au contraire un effort au
+              moment où la page devrait en épargner un.
+              Les trois noms n'ont pas disparu du site : le bandeau
+              défilant sous le hero les fait passer, et le circuit les
+              détaille. */}
           <h1
             style={cran(1)}
             className="monte max-w-[15ch] text-[clamp(2.5rem,8.5vw,4.75rem)] tracking-[-0.03em]"
@@ -99,7 +101,7 @@ export default function Hero() {
             style={cran(2)}
             className="monte flex items-center gap-4 sm:gap-5"
           >
-            <span className="arch block w-[92px] shrink-0 bg-immersive-deep shadow-[0_18px_40px_-20px_rgba(0,0,0,0.8)] sm:w-[116px]">
+            <span className="arch block w-[124px] shrink-0 bg-immersive-deep shadow-[0_18px_40px_-20px_rgba(0,0,0,0.8)] sm:w-[140px]">
               <Photo
                 src="/agus-portrait.jpg"
                 sources={[
@@ -109,7 +111,7 @@ export default function Hero() {
                       "/agus-portrait-600.webp 600w, /agus-portrait.webp 840w",
                   },
                 ]}
-                sizes="(min-width: 640px) 116px, 92px"
+                sizes="(min-width: 640px) 140px, 124px"
                 uid="agus-hero"
                 ratio="aspect-[46/50]"
                 priority
@@ -152,7 +154,7 @@ export default function Hero() {
                  rien perdre — et le hero redevient proportionné.
                  Sur mobile le 16/9 reste : la largeur y est si faible que
                  l'image serait une fente. */
-              ratio="aspect-[16/9] md:aspect-[2.4/1]"
+              ratio="aspect-[1.8/1] md:aspect-[2.8/1]"
               alt="Rizières en terrasses et bale traditionnel sous les cocotiers, dans l'intérieur de Bali"
               className="w-full"
             />

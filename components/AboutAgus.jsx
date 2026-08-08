@@ -1,9 +1,7 @@
 import Link from "next/link";
 import { Users, HandCoins, Heart, ArrowRight } from "lucide-react";
-import { PortraitAgus } from "./Scene";
 import { Symbole } from "./Symboles";
 import LienPage from "./LienPage";
-import Photo from "./Photo";
 import SectionHead from "./SectionHead";
 import Reveal from "./Reveal";
 import { AGUS, VALEURS } from "@/lib/data";
@@ -56,87 +54,26 @@ export default function AboutAgus() {
           je m&apos;occupe de tout.
         </SectionHead>
 
-        <div className="grid items-start gap-[clamp(2rem,6vw,3.5rem)] md:grid-cols-[0.72fr_1.28fr]">
-          {/* Le portrait est cliquable, et **il le dit**. Une photo qui
-              navigue sans le montrer est un piège : on l'apprend en
-              cliquant par hasard, ou jamais. D'où la ligne d'appel sous
-              la légende — c'est elle qui porte l'affordance, la photo ne
-              fait que l'élargir à une cible confortable.
+        {/* ⚠️ **La photo a été retirée d'ici, et la grille avec elle.**
+            Elle apparaissait deux fois sur la même page : dans le hero, à
+            un demi-écran de là, et ici en grand. Deux fois le même visage
+            sur un seul défilement, c'est le visage qui perd de sa force,
+            pas la page qui en gagne.
 
-              `?de=esprit` : le retour depuis /agus ramènera ici, pas en
-              haut de l'accueil (voir lib/retours.js). */}
-          <Reveal
-            as="figure"
-            className="m-0 mx-auto w-full max-w-[300px] md:max-w-none"
-          >
-            <Link
-              href="/agus?de=esprit"
-              className="group block no-underline"
-              aria-label="Mon portrait : ma famille, mon pays, mon union de guides"
-            >
-              <span className="arch block bg-immersive-deep shadow-[0_30px_70px_-30px_rgba(0,0,0,0.7)]">
-                {/* ⚠️ **La première vraie photo du site.** Les 41 autres
-                    emplacements restent des illustrations — voir le
-                    bandeau « Photo à venir » qu'ils portent encore.
+            ⚠️ **Ce qui NE DOIT PAS partir avec elle, c'est le lien.** La
+            photo était la cible cliquable vers `/agus` — et `/agus` porte
+            désormais toute la preuve du site : le diplôme, la licence
+            renouvelée tous les trois ans, les langues. L'accueil ne les
+            dit plus nulle part. Le lien ci-dessous, et celui du panneau
+            des valeurs, sont donc **le seul chemin** vers cette preuve ;
+            les supprimer la supprimerait.
 
-                    Cadrage : la source est un paysage 3/2 où Agus occupe
-                    le tiers droit ; le recadrage en 46/50 le place au
-                    tiers droit de l'arche, l'horizon et la plage
-                    remplissant la gauche. **Ne pas recadrer plus serré
-                    sur le visage** — la moitié de ce que dit cette photo
-                    est qu'il est chez lui, et ça se voit dans le décor.
-
-                    `sizes` n'est pas décoratif : sans lui le navigateur
-                    suppose l'image large comme la fenêtre et télécharge
-                    la variante 840 pour un cadre de 300 px. */}
-                <Photo
-                  src="/agus-portrait.jpg"
-                  sources={[
-                    {
-                      type: "image/webp",
-                      srcSet:
-                        "/agus-portrait-600.webp 600w, /agus-portrait.webp 840w",
-                    },
-                  ]}
-                  sizes="(min-width: 768px) 410px, 300px"
-                  uid="agus"
-                  ratio="aspect-[46/50]"
-                  priority
-                  alt="Agus Yudiarta sur une plage de galets de l'est de Bali, au soleil couchant"
-                  className="w-full"
-                />
-              </span>
-              {/* Même habillage que LienPage, posé à la main : la cible
-                  cliquable, ici, c'est la photo entière. */}
-              <span className="mt-3.5 flex min-h-11 items-center gap-2.5 border-t border-rule pt-3 text-sm text-accent">
-                <span className="underline decoration-accent underline-offset-4">
-                  Mon portrait, ma famille, mon union
-                </span>
-                <ArrowRight
-                  size={18}
-                  strokeWidth={2.2}
-                  aria-hidden="true"
-                  className="shrink-0 transition-transform group-hover:translate-x-1"
-                />
-              </span>
-            </Link>
-            {/* L'explication du jepun est partie sur /agus. C'était trois
-                lignes d'atmosphère sur une page qui doit encore
-                présenter un circuit, des envies et un formulaire — et le
-                lecteur qui veut savoir ce qu'est cette fleur est
-                exactement celui qui clique sur le portrait. */}
-            {/* Une seule ligne. Le nom et les coordonnées se partageaient
-                la largeur en `justify-between` : à 390 px, « AGUS
-                YUDIARTA » passait à la ligne dans sa moitié et la légende
-                tenait sur deux étages juste sous le lien. Les coordonnées
-                GPS — le « fait dur » qui tient la direction — sont sur
-                /agus, où elles ont la place. */}
-            <figcaption className="label text-faint">
-              {AGUS.nom} · Denpasar, Bali
-            </figcaption>
-          </Reveal>
-
-          <div className="flex flex-col gap-6 md:mt-16">
+            Il était habillé à la main pour épouser la photo ; il reprend
+            maintenant `LienPage`, le motif de lien de page du site.
+            `?de=esprit` : le retour depuis /agus ramène ici, pas en haut
+            de l'accueil (voir lib/retours.js). */}
+        <div>
+          <div className="flex flex-col gap-6">
             {/* Trois blocs ont quitté cet endroit, et chacun pour une
                 raison qui lui est propre — ce n'est pas un dégraissage
                 à la louche :

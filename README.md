@@ -811,29 +811,68 @@ page** au recentrage : c'était la partie la plus conceptuelle, et l'une des
 trois redisait le panneau des valeurs. Le repère reste noté ici, il est bon à
 reprendre si la présentation regagne de la place.
 
-### La barre réchauffée — et pourquoi pas le soleil plein
+### La barre réchauffée — jusqu'où exactement
 
-La demande était « le même fond que le bouton *Créer mon voyage* », c'est-à-dire
-le **soleil plein**. Mesuré, il coûtait trop cher :
+La demande était « le même fond que le bouton *Créer mon voyage* », soit le
+soleil plein. Elle a été satisfaite à **25 %**, et le plafond n'est pas celui
+qu'on croit.
 
-| | sur soleil plein | sur soleil à 12 % |
-| --- | --- | --- |
-| Texte encre | 7,28 ✅ | **12,06** ✅ |
-| Bouton « Devis » (bambou) | 3,45 — passe, mais vert saturé sur jaune saturé | **5,72** ✅ |
-| **Le CTA soleil** | **1,00 — il disparaît** | 1,66 (hors barre) |
+> ⚠️ **Correction d'un argument donné trop vite dans une version précédente de
+> ce fichier.** Il disait que le soleil plein ferait disparaître le CTA
+> (contraste 1,00). C'est vrai dans l'absolu et **faux dans cette mise en page** :
+> le bouton soleil vit sur le hero sombre, il n'est jamais adjacent à la barre.
+> L'argument ne tenait pas.
 
-Ce n'est donc pas un problème de lisibilité du texte : c'est que **le soleil est
-la couleur de l'action sur ce site**, pas une surface. Le README le pose depuis
-le début — *« le bambou porte l'action, le soleil éclaire »*. Peindre une surface
-en soleil ne change pas une teinte, ça change **le rôle** d'une couleur, et
-oblige à repeindre le bouton le plus important du site pour qu'il reste visible.
+Le vrai plafond est plus bas, et il tient à la couleur la plus discrète de la
+barre :
 
-**À 12 %, il réchauffe sans prendre ce rôle.** Le fond de barre vaut `#faefd8`,
-tout passe, et rien d'autre n'a eu à bouger.
+| soleil | fond | encre | **liens (`--text-soft`)** | bouton bambou |
+| --- | --- | --- | --- | --- |
+| 12 % | `#faefd8` | 12,06 | 4,96 | 5,72 |
+| **25 %** | **`#f9e6c0`** | **11,21** | **4,62** ✅ | **5,31** |
+| 30 % | `#f8e2b6` | 10,84 | **4,46** ❌ | 5,14 |
+| 100 % | `#f2b134` | 7,28 | 3,00 ❌ | 3,45 |
 
-> ⚠️ **Ne pas monter le taux sans remesurer le CTA.** C'est le seul garde-fou :
-> le texte de la barre restera lisible très longtemps avant que le bouton ne
-> redevienne visible.
+**Les liens de la barre tombent sous le seuil AA dès 30 %.** L'encre y est
+encore à 10,84 et le bouton à 5,14 : c'est donc le texte le moins visible qui
+fixe la limite, pas le plus visible. **Ne pas monter le taux sans remesurer
+`--text-soft`.**
+
+### Le nom du site a coûté le bouton « Devis » mobile
+
+Le logo est passé à 56 px et le nom du site d'un cran. Le budget de la barre n'a
+pas suivi : mesuré, **le nom se tronquait de 20 px à 320 et de 14 px à 390** — et
+*plus* à 390 qu'à 360, parce que le bouton y passe de l'icône seule au mot
+entier. Entre un bouton de plus et le nom du site écrit en entier, c'est le nom
+qui gagne.
+
+La maquette n'a jamais eu ce bouton sous 1280 ; **l'app la rejoint**, ce qui
+supprime au passage une divergence dont personne n'avait connaissance.
+
+> **Ce qui reste comme porte de sortie sur mobile** : le CTA du hero, visible au
+> premier écran ; l'entrée « Demander un devis » du menu ; et la barre du bas dès
+> qu'une envie est cochée. Si le nom du site raccourcissait un jour, ce bouton
+> est le premier à remettre.
+
+### La ligne d'étapes du hero a été retirée
+
+« Sidemen · Munduk · Est de Bali » nommait trois lieux **avant** que le lecteur
+sache de quoi on parle. Trois noms de villages balinais ne situent rien pour qui
+n'y est jamais allé : ils demandent un effort au moment précis où la page devrait
+en épargner un. Les trois noms n'ont pas quitté le site — le bandeau défilant
+sous le hero les fait passer, et le circuit les détaille.
+
+### La photo d'Agus a quitté la présentation
+
+Elle apparaissait deux fois sur l'accueil : dans le hero, et un demi-écran plus
+bas dans l'arche de la présentation. Deux fois le même visage sur un seul
+défilement, c'est le visage qui perd de sa force.
+
+> ⚠️ **Ce qui ne devait pas partir avec elle, c'est le lien.** La photo était la
+> cible cliquable vers `/agus`, et `/agus` porte désormais **toute la preuve du
+> site** — diplôme, licence renouvelée tous les trois ans, langues. L'accueil ne
+> les dit plus nulle part. Les deux liens qui restent — celui de la présentation
+> et celui du panneau des valeurs — sont le seul chemin vers cette preuve.
 
 ### Le hero porte maintenant deux photos
 
@@ -1845,7 +1884,7 @@ en écrans de mobile (390 × 844) :
 
 | Route | écrans @390 | Vue de la maquette |
 | --- | --- | --- |
-| `/` | **12,6** | 12,9 |
+| `/` | **12,1** | 12,3 |
 | `/circuit` | 13,0 | 12,6 |
 | `/envies` | 5,1 | 5,2 |
 | `/agus` | 8,3 | 8,5 |

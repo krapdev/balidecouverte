@@ -209,12 +209,18 @@ export default function Navbar() {
           disparaît —, et le bouton « Devis » en bambou à 3,45, ce qui
           passe la norme mais donne du vert saturé sur du jaune saturé, en
           permanence, sur les huit pages.
-          Le soleil est la **couleur de l'action** sur ce site, pas une
-          surface. À 12 %, il réchauffe la barre sans prendre ce rôle : le
-          CTA reste éclatant, le texte encre garde 12 de contraste, et
-          rien d'autre n'a eu à être repeint.
-          **Ne pas monter le taux sans remesurer le CTA.** */}
-      <header className="sticky top-0 z-50 bg-[color-mix(in_srgb,color-mix(in_srgb,var(--soleil)_12%,var(--page))_92%,transparent)] backdrop-blur-lg backdrop-saturate-150">
+          ⚠️ **Correction d'un argument donné trop vite** : le « CTA qui
+          disparaît » supposait une adjacence qui n'existe pas — le bouton
+          soleil vit sur le hero sombre, jamais sur la barre. Le vrai
+          plafond est ailleurs, et il est plus bas :
+
+          **les liens de la barre sont en `--text-soft`, qui tombe à 4,46
+          dès 30 % de soleil** — sous le seuil AA de 4,5. À 25 % il vaut
+          4,62, l'encre 11,21 et le bambou du bouton 5,31. C'est donc la
+          limite, et elle tient à la couleur la plus discrète de la barre,
+          pas à la plus visible.
+          **Ne pas monter le taux sans remesurer `--text-soft`.** */}
+      <header className="sticky top-0 z-50 bg-[color-mix(in_srgb,color-mix(in_srgb,var(--soleil)_25%,var(--page))_92%,transparent)] backdrop-blur-lg backdrop-saturate-150">
         {/* Les écarts se resserrent sous 640 px. À 320 — le plus petit
             écran que le site prétend tenir — logo + titre + « Devis » +
             burger faisaient 360 px de large dans 280 px utiles, et le
@@ -224,9 +230,9 @@ export default function Navbar() {
             href={home ? "#top" : "/"}
             className="mr-auto flex min-h-11 min-w-0 items-center gap-2.5 no-underline sm:gap-3"
           >
-            <Marque size={44} />
+            <Marque size={56} />
             <span className="min-w-0 leading-tight">
-              <span className="block truncate font-display text-base font-semibold tracking-tight min-[380px]:text-lg">
+              <span className="block truncate font-display text-lg font-semibold tracking-tight min-[380px]:text-xl">
                 Bali Découverte
               </span>
               {/* Masquée sous 640 px plutôt que tronquée : « GUIDE
@@ -323,20 +329,23 @@ export default function Navbar() {
             Demander un devis
           </Link>
 
-          {/* Version courte pour mobile : sans elle, quelqu'un qui ne coche
-              rien n'a aucune porte de sortie avant onze écrans de défilement
-              — la barre du bas ne sort qu'une fois une envie choisie. */}
-          <Link
-            className="btn btn-accent h-11 w-11 shrink-0 px-0 min-[380px]:w-auto min-[380px]:px-3.5 xl:hidden"
-            href={hrefFor("#sur-mesure")}
-            onClick={surClic("#sur-mesure")}
-            aria-label="Demander un devis"
-          >
-            <Mail size={16} />
-            {/* Le mot tombe sous 380 px ; l'aria-label porte le sens, et
-                la cible reste 44 × 44. */}
-            <span className="hidden text-sm min-[380px]:inline">Devis</span>
-          </Link>
+          {/* ⚠️ **Le bouton « Devis » mobile a été retiré**, et c'est un
+              arbitrage, pas un nettoyage. Il était là pour une bonne
+              raison — donner une porte de sortie à qui ne coche rien —,
+              mais il ne tenait plus dans le budget de la barre une fois
+              le logo passé à 56 px et le nom du site d'un cran : mesuré,
+              **le nom se tronquait de 20 px à 320 et de 14 à 390**, et il
+              se tronquait *plus* à 390 qu'à 360 parce que le bouton y
+              passe de l'icône seule au mot entier.
+              Entre un bouton de plus et le nom du site écrit en entier,
+              c'est le nom qui gagne. La maquette n'a jamais eu ce bouton
+              sous 1280 ; l'app la rejoint.
+
+              **Ce qui reste comme porte de sortie sur mobile** : le CTA du
+              hero, visible au premier écran ; l'entrée « Demander un
+              devis » du menu ; et la barre du bas dès qu'une envie est
+              cochée. Si le nom du site raccourcissait un jour, ce bouton
+              est le premier à remettre. */}
 
           <button
             type="button"

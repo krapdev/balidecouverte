@@ -235,11 +235,15 @@
     /* ⚠️ Soleil dilué à 12 %, et le taux compte. La demande était « le
        même fond que le bouton Créer mon voyage », soit le soleil plein :
        mesuré, le CTA soleil y tombe à 1,00 de contraste — il disparaît —
-       et le bouton Devis en bambou à 3,45. Le soleil est la COULEUR DE
-       L'ACTION de ce site, pas une surface. À 12 % il réchauffe sans
-       prendre ce rôle : encre 12,06, bambou 5,72. Ne pas monter le taux
-       sans remesurer le CTA. */
-    background: color-mix(in srgb, color-mix(in srgb, var(--soleil) 12%, var(--page)) 92%, transparent);
+       et le bouton Devis en bambou à 3,45.
+       ⚠️ Correction d'un argument donné trop vite : le « CTA qui
+       disparaît » supposait une adjacence qui n'existe pas — le bouton
+       soleil vit sur le hero sombre, jamais sur la barre. Le vrai plafond
+       est plus bas : les liens de la barre sont en --text-soft, qui tombe
+       à 4,46 dès 30 % de soleil, sous le seuil AA. À 25 % il vaut 4,62,
+       l'encre 11,21 et le bambou 5,31. Ne pas monter sans remesurer
+       --text-soft. */
+    background: color-mix(in srgb, color-mix(in srgb, var(--soleil) 25%, var(--page)) 92%, transparent);
     backdrop-filter: blur(14px) saturate(1.2);
   }
   /* Le linteau — la frise de dents sculptée au-dessus des portes de
@@ -258,8 +262,8 @@
   /* 44 px et non 34 : le logo est un dessin dense, il paraissait grêle
      à côté de l'Eczar gras du nom. Hauteur `auto` — son viewBox fait
      512 × 519, le forcer carré l'écraserait de 1,4 %. */
-  .brand-mark { width: 44px; height: auto; flex: none; }
-  .brand-name { font-family: var(--display); font-size: var(--t-lg); font-weight: 600; letter-spacing: -0.01em; line-height: 1.05; }
+  .brand-mark { width: 56px; height: auto; flex: none; }
+  .brand-name { font-family: var(--display); font-size: var(--t-xl); font-weight: 600; letter-spacing: -0.01em; line-height: 1.05; }
   /* Masquée sous 640 px plutôt que tronquée : « GUIDE FRANCOPH… » a
      l'air d'un bug, l'absence non. */
   .brand-sub { display: none; font-family: var(--util); font-size: var(--t-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-faint); }
@@ -367,12 +371,12 @@
   .hero-sub { font-size: var(--t-lg); color: var(--on-immersive-soft); max-width: 46ch; line-height: 1.55; }
   .hero-bloc { display: flex; align-items: center; gap: 1rem; }
   @media (min-width: 640px) { .hero-bloc { gap: 1.25rem; } }
-  .hero-portrait { display: block; flex: none; width: 92px; background: var(--immersive-deep); box-shadow: 0 18px 40px -20px rgba(0,0,0,.8); }
-  @media (min-width: 640px) { .hero-portrait { width: 116px; } }
+  .hero-portrait { display: block; flex: none; width: 124px; background: var(--immersive-deep); box-shadow: 0 18px 40px -20px rgba(0,0,0,.8); }
+  @media (min-width: 640px) { .hero-portrait { width: 140px; } }
   .hero-portrait img { display: block; width: 100%; aspect-ratio: 46/50; object-fit: cover; }
   .hero-photo { width: 100%; overflow: hidden; border-radius: 16px; box-shadow: 0 24px 60px -30px rgba(0,0,0,.8); }
-  .hero-photo img { display: block; width: 100%; aspect-ratio: 16/9; object-fit: cover; }
-  @media (min-width: 768px) { .hero-photo img { aspect-ratio: 2.4/1; } }
+  .hero-photo img { display: block; width: 100%; aspect-ratio: 1.8/1; object-fit: cover; }
+  @media (min-width: 768px) { .hero-photo img { aspect-ratio: 2.8/1; } }
   .hero-cta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.4rem; }
   .hero-trust {
     display: flex; align-items: center; gap: 0.85rem; flex-wrap: wrap;
@@ -1334,7 +1338,12 @@
   <div class="glow" style="left: 52%; top: 46%; width: 46vh; height: 46vh; opacity: .7; --glow-blur: 120px" aria-hidden="true"></div>
   <div class="hero-branch" id="heroBranch" aria-hidden="true"></div>
   <div class="shell hero-in">
-    <p class="label hero-eyebrow">Sidemen · Munduk · Est de Bali</p>
+    <!-- ⚠️ La ligne « Sidemen · Munduk · Est de Bali » a été retirée. Elle
+         nommait trois lieux avant que le lecteur sache de quoi on parle :
+         trois noms de villages balinais ne situent rien pour qui n'y est
+         jamais allé, ils demandent un effort au moment où la page devrait
+         en épargner un. Les trois noms restent dans le bandeau défilant
+         sous le hero, et le circuit les détaille. -->
     <h1>Bali loin des sentiers battus. Votre guide local <em>francophone</em> privé.</h1>
     <!-- La phrase disait : « Circuits 100 % sur-mesure, authenticité
          garantie et 0 intermédiaire. » Trois formules de brochure en une
@@ -1403,25 +1412,17 @@
       louer, ni billets à prendre, ni horaires à caler : je m'occupe de tout.</p>
     </div>
 
-    <div class="agus-grid">
-      <figure class="portrait-frame reveal" style="margin: 0">
-        <!-- Le portrait est cliquable, et **il le dit**. Une photo qui
-             navigue sans le montrer est un piège : on l'apprend en cliquant
-             par hasard, ou jamais. La ligne d'appel porte l'affordance, la
-             photo ne fait que l'élargir à une cible confortable. -->
-        <a href="#portrait-agus" data-goto="portrait" data-de="esprit" class="portrait-lien">
-          <div class="portrait" id="portrait"></div>
-          <span class="portrait-appel"><span class="portrait-appel-porte"></span><span class="portrait-appel-txt">Mon portrait, ma famille, mon union</span></span>
-        </a>
-        <!-- Une seule ligne, et sans les coordonnées. Le nom et le GPS se
-             partageaient la largeur : à 390 px, « AGUS YUDIARTA » passait à
-             la ligne dans sa moitié et la légende tenait sur deux étages
-             juste sous le lien. Les coordonnées et l'explication du jepun
-             sont sur la vue portrait — trois lignes d'atmosphère au milieu
-             du chemin de quelqu'un qui n'a encore rien décidé, c'est là
-             qu'on les perd. -->
-        <figcaption class="label" style="color: var(--text-faint)">Agus Yudiarta · Denpasar, Bali</figcaption>
-      </figure>
+    <!-- ⚠️ La photo a été retirée d'ici, et la grille avec elle. Elle
+         apparaissait deux fois sur la même page : dans le hero, à un
+         demi-écran de là, et ici en grand. Deux fois le même visage sur un
+         seul défilement, c'est le visage qui perd de sa force.
+         ⚠️ Ce qui NE DOIT PAS partir avec elle, c'est le LIEN : la photo
+         était la cible cliquable vers la vue portrait, et cette vue porte
+         désormais toute la preuve du site — diplôme, licence renouvelée
+         tous les trois ans, langues. L'accueil ne les dit plus nulle part.
+         Les deux liens qui restent (celui de la présentation et celui du
+         panneau des valeurs) sont le seul chemin vers cette preuve. -->
+    <div>
 
       <div class="agus-body">
         <!-- Trois blocs ont quitté cet endroit, chacun pour sa propre raison.
@@ -3041,7 +3042,6 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
   $("heroBranch").innerHTML = jepunBranch();
   /* Plus de bandeau « Photo à venir » ici : il n'est rendu que dans la
      branche sans photo, comme dans components/Photo.jsx. */
-  $("portrait").innerHTML = PHOTO_AGUS;
   $("heroPortrait").innerHTML = PHOTO_AGUS;
   $("canangFooter").innerHTML = canang(54);
   document.querySelector(".jepun-mark").outerHTML = jepun(38, "currentColor");
