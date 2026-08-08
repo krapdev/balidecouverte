@@ -3,3 +3,90 @@
 
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 <!-- END:nextjs-agent-rules -->
+
+# Bali Découverte — les règles du projet
+
+Le `README.md` explique le pourquoi de chaque choix. Ce fichier-ci ne liste que
+ce qui **casse quelque chose en silence** si on l'ignore. Chaque ligne a coûté
+un bug.
+
+## Le contenu parle d'un homme réel
+
+Agus Yudiarta existe, et le site est son gagne-pain.
+
+- **Ne jamais inventer un fait le concernant.** Ce qui n'est ni dans
+  `lib/data.js`, ni dans `lib/circuit.js`, ni dans un message de l'utilisateur
+  doit porter un marqueur `<AComplete>`. « Formé et enregistré à Bali » a été
+  écrit puis retiré : ce n'était nulle part dans les sources.
+- **Ne jamais inventer un témoignage ni une note.** Les sept de
+  `lib/temoignages.js` sont réels et fournis par le client. Le JSON-LD ne porte
+  **ni `aggregateRating` ni `reviewRating`** : personne n'a donné d'étoiles, et
+  en déduire « visiblement 5/5 » fabriquerait une donnée que nul n'a produite —
+  c'est aussi une violation des règles de Google, sanctionnée par la perte de
+  tous les résultats enrichis du domaine.
+- **Les places secrètes se nomment, leur adresse ne se publie jamais.** On crée
+  le désir, on ne donne ni l'itinéraire ni le point GPS.
+- Agus écrit **« une union de guides de Bali »**, jamais « syndicat ».
+- Le texte des valeurs s'écrit **par le positif** — jamais en charge contre des
+  agences nommées.
+- Le jour par jour de `lib/circuit.js` est **un engagement contractuel**. Ne
+  pas arrondir une durée, ne pas retirer une mention « guide de sentier
+  obligatoire », ne pas embellir.
+- Les données des quatre circuits retirés et des îles sœurs sont **dans
+  l'historique git** (`git show <commit>:lib/data.js`). Les restaurer, jamais
+  les réécrire de mémoire : on produirait des prix faux.
+
+## Les pièges techniques
+
+- **`lib/data.js` ne se modifie pas au script sans vérifier après.** Une
+  réécriture par tranche a déjà avalé un export entier. Il y en a **20** ;
+  les recompter après toute édition scriptée.
+- **Tout lien interne passe par `next/link`.** Le magasin du voyageur vit dans
+  `app/layout.js` ; un `<a href="/…">` provoque un chargement complet qui
+  recrée le gabarit et **vide la sélection**, sans le moindre message.
+- **Naviguer vers le fragment où l'on se trouve déjà n'émet rien.** D'où
+  `lib/ancre.js`. Quand on teste un lien d'ancre, **cliquer deux fois** : le
+  premier clic marche toujours.
+- **Ne pas remettre de `scroll-padding-top` sur `html`.** Le dégagement vit dans
+  `[id] { scroll-margin-top: 5rem }` ; cumuler les deux fait atterrir à 176 px
+  au lieu de 80.
+- **JSX rogne l'espace de tête de chaque ligne d'un texte multiligne.** Un
+  espace collé à une balise a besoin de son `{" "}` **des deux côtés** dès que
+  le paragraphe passe à la ligne — sinon « canang sarisur le tableau de bord ».
+  Contrôle : `curl -s "$URL" | grep -oE "</(em|b|strong|i|code)>[a-zàâçéèêëîïôûùüÿñæœ]"`.
+- **Les métadonnées d'une page remplacent celles du gabarit**, elles ne s'y
+  ajoutent pas. Une page qui déclarerait `robots: { index: true }` s'indexerait
+  même en préproduction.
+- `useSearchParams` exige une frontière `<Suspense>`, sinon le build de
+  prérendu échoue.
+
+## La maquette `design/prototype.html`
+
+- **Six vues** (`home`, `circuit`, `envies`, `portrait`, `tarifs`, `livre`) via
+  `<body data-view>`. Toute modification de l'app s'y porte, et réciproquement.
+- **Retirer du balisage sans retirer son rendu tue tout ce qui suit.** Une
+  fonction de rendu qui écrit dans un élément supprimé lève une exception, et
+  **aucune des fonctions appelées après elle ne s'exécute** — des écrans vides,
+  sans message. Après toute suppression : ouvrir la console **et** parcourir les
+  six vues.
+- **Ne jamais réindenter un bloc extrait contenant des gabarits.** Deux espaces
+  ajoutés après chaque retour à la ligne ont transformé les lignes vides en
+  lignes de deux espaces : `split("\n\n")` n'a plus rien trouvé et les sept
+  témoignages se sont affichés d'un seul tenant, sans erreur visible.
+- Le fichier n'a **pas de `<head>`** et embarque ses polices en base64.
+
+## L'audit
+
+Boucle établie : `npm run build` → `setsid npx next start -p NNNN` **dans une
+commande séparée** (`pkill -f "next start"` tue la chaîne du shell qui
+l'exécute) → Playwright sur les huit routes et les six vues, à 1280 / 390 / 320
+→ `npm uninstall --no-save playwright` **avant** de committer.
+
+- Chromium est à `/opt/pw-browsers/chromium-1194/chrome-linux/chrome`.
+- **Le décodage des couleurs passe par un canvas.** `color-mix()` se sérialise
+  tantôt en `color(srgb …)`, tantôt en `oklab(…)` ; les parser à la main a
+  produit **24 échecs fantômes** en une passe. Peindre la couleur sur un canvas
+  1 × 1 et relire les octets, et **composer les couches translucides**.
+- WCAG visées : 2.5.5 (44 × 44), 2.5.8 (24 × 24, avec l'exception « lien en
+  pleine phrase »), 1.4.11 (3:1 pour les objets graphiques, **contour des champs
+  de saisie compris**), 1.4.1 (jamais la couleur seule).

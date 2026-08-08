@@ -7,28 +7,61 @@ L'objectif produit tient en une phrase : amener le visiteur à envoyer une
 demande de devis **déjà rédigée** dans la messagerie du voyageur, sans formulaire, sans
 compte, sans intermédiaire.
 
+**Où en est le site.** Huit routes, un accueil de 12,4 écrans de mobile, une
+maquette autonome à six vues, et un audit qui passe au vert sur les trois
+largeurs. Ce qui manque tient en trois lignes : **les 42 photos** (les briefs
+sont écrits, aucune image n'est posée), **la relecture d'Agus** sur les textes
+rédigés d'après ses pages et les neuf trous de son portrait, et **six sujets
+légaux** que lui seul peut renseigner. Voir « Reste à faire avant une mise en
+production », en bas.
+
 ## Statut du contenu — à lire avant de reprendre le projet
 
 Le site existant est **https://www.balidecouverte.fr/**. Il renvoie 403 à toute
 récupération automatisée : le contenu ci-dessous a été fourni par copier-coller.
 
-`lib/data.js` sépare explicitement deux natures de données :
+Le contenu est réparti sur cinq fichiers, et la nature des données n'y est pas
+la même :
 
-| Bloc | Nature |
-| --- | --- |
-| `CONTACT`, `AGUS`, `TARIFS`, `CIRCUIT` | **Contenu réel du site.** À ne corriger que sur indication d'Agus. |
-| `CIRCUITS` | **Le circuit réel de 15 jours**, résumé à ses étapes. |
-| `ACTIVITES` | **Réel** : excursions à la journée et places secrètes tirées des pages d'Agus, résumées à une ligne. |
+| Fichier | Ce qu'il porte | Nature |
+| --- | --- | --- |
+| `lib/data.js` | 20 exports — `CONTACT`, `AGUS`, `TARIFS`, `CIRCUITS`, `ACTIVITES`, `CHEMINS`, `VALEURS`, `USAGES`… | **Réel**, tiré des pages d'Agus. À ne corriger que sur son indication. |
+| `lib/circuit.js` | `CADRE`, `JOURS` (15), `COMPRIS`, `NON_COMPRIS`, `TEMPS_FORTS` | **Réel** — c'est le devis d'Agus, mot pour mot. Un programme est un engagement : **ne pas embellir.** |
+| `lib/temoignages.js` | `TEMOIGNAGES` (7), `TEMOIGNAGES_VEDETTE`, `LIVRE_OR` | **Réel**, fourni par le client. |
+| `lib/portrait.js` | `UNION`, `HISTOIRE`, `QUESTIONS` | **Neuf trous** que seul Agus peut combler — cinq sur l'union, quatre sur son histoire. |
+| `lib/legal.js` | `EDITEUR`, `ASSURANCE`, `MEDIATEUR`… | **Brouillon** : douze champs à `null`, sur six sujets, plus un acompte non confirmé (`acompteValide: false`). |
+
+⚠️ **Ce qui n'est ni dans `data.js`, ni dans les pastes d'Agus, porte un
+marqueur `<AComplete>`.** Les 14 textes `recit`, le bloc `VALEURS` et les
+citations sont **rédigés d'après ses pages, pas dictés par lui** : à faire
+relire avant mise en ligne.
+
+> **Trois règles qui ne se négocient pas**, et qui ont chacune failli être
+> enfreintes :
+> **1.** Ne jamais inventer un témoignage ni une note. Les sept sont réels ;
+> le JSON-LD ne porte **ni `aggregateRating` ni `reviewRating`**, parce que
+> personne n'a donné d'étoiles — déduire « visiblement 5/5 » du ton
+> fabriquerait une donnée que nul n'a produite.
+> **2.** Ne jamais inventer un fait sur un homme réel. « Formé et enregistré à
+> Bali » a été écrit puis retiré : ce n'était nulle part dans les sources.
+> **3.** Les places secrètes se **nomment**, leur adresse et leur itinéraire ne
+> se publient jamais. Elles existent parce que quelqu'un du pays y a ses
+> entrées, et cessent d'exister le jour où on en publie l'accès.
 
 ### Le parcours : deux chemins, et un seul but
 
 Le voyageur ne choisit pas un produit : il choisit **par où il entre dans la
 conversation**. `CHEMINS` pose la fourche avant tout le reste :
 
-| Chemin | Ce qu'il fait | Section |
+| Chemin | Ce qu'il fait | Où il mène |
 | --- | --- | --- |
-| **Partir de son circuit** | Le circuit de 15 jours devient la base (`baseCircuit`), à déformer. | `Circuit.jsx` |
-| **Partir de vos envies** | Les activités cochées deviennent le squelette du sur-mesure. | `Activites.jsx` |
+| **Partir de mon circuit** | Le circuit de 15 jours devient la base (`baseCircuit`), à déformer. | `/circuit` — le jour par jour complet |
+| **Partir de vos envies** | Les activités cochées deviennent le squelette du sur-mesure. | `/envies` — les 14 activités, cochables |
+
+⚠️ **Les deux chemins ne sont plus des sections de l'accueil mais des pages**,
+et c'est ce qui donne enfin un sens à la fourche — voir « La fourche coupe
+enfin quelque chose ». `components/Chemins.jsx` ne porte que les deux cartes ;
+le contenu vit dans `app/circuit/page.js` et `app/envies/page.js`.
 
 Les deux mènent au même endroit, et se cumulent : on peut prendre le circuit
 pour base **et** cocher des envies. L'e-mail dit lequel a servi de
@@ -529,10 +562,13 @@ la charge du voyageur *par défaut*, mais **Agus peut les choisir, les proposer
 et les réserver**. Ce n'est pas un détail logistique, c'est un argument — le
 voyageur peut tout lui confier et partir l'esprit tranquille.
 
-La ligne exacte figure dans les fiches circuits (`components/Circuits.jsx`) et
-le bloc `HEBERGEMENT` s'affiche dans le configurateur, juste au-dessus de
-l'aperçu du message. Ne pas la réduire à « hébergements non compris » : ce
-serait perdre l'argument.
+La formule exacte est posée à trois endroits, et les trois doivent rester
+d'accord : la liste du non-compris de `lib/circuit.js` (« Vos hébergements —
+mais je peux les choisir, vous les proposer et les réserver »), le dernier
+paragraphe de `app/circuit/page.js`, et le bloc `HEBERGEMENT` que
+`components/TripBuilder.jsx` affiche juste au-dessus de l'aperçu du message.
+**Ne pas la réduire à « hébergements non compris »** : ce serait perdre
+l'argument.
 
 ### La co-construction
 
@@ -648,17 +684,44 @@ plus tard. Il reste facultatif — rien ici n'est un formulaire à valider.
 | Fichier | Rôle |
 | --- | --- |
 | `design/prototype.html` | Maquette autonome, un seul fichier, ouvrable directement dans un navigateur. Polices intégrées en base64 : aucune requête sortante. Sert à valider la direction artistique sans rien installer. |
-| L'app Next.js (racine) | L'implémentation componentisée de cette même maquette, en deux routes : `/` et `/tarifs`. |
+| L'app Next.js (racine) | L'implémentation componentisée de cette même maquette, en **huit routes**. |
 
-Le site ayant désormais deux pages, la maquette simule les deux dans son fichier
-unique : `<body data-view>` bascule entre `.view-home` et `.view-tarifs`, les
-déclencheurs portant `data-goto`.
+### Les huit routes, et les six vues qui les simulent
+
+| Route | Ce qu'on y trouve | Vue de la maquette |
+| --- | --- | --- |
+| `/` | Hero, présentation, valeurs, la fourche, us et coutumes, témoignages, configurateur | `home` |
+| `/circuit` | Le jour par jour des 15 jours, le cadre, le compris/non-compris | `circuit` |
+| `/envies` | Les 14 activités cochables, classiques et places secrètes | `envies` |
+| `/agus` | Le portrait : son parcours, sa famille, son pays, son union | `portrait` |
+| `/tarifs` | Les trois formules, la grille par saison, le compris | `tarifs` |
+| `/livre-d-or` | Les sept témoignages réels, en entier | `livre` |
+| `/cgv`, `/mentions-legales` | Les pages légales, encore en brouillon | *(aucune)* |
+
+La maquette simule les six premières dans son fichier unique : `<body data-view>`
+bascule entre `.view-home`, `.view-circuit`, `.view-envies`, `.view-portrait`,
+`.view-tarifs` et `.view-livre`, les déclencheurs portant `data-goto`. Les deux
+pages légales n'y sont pas : ce sont des documents de travail, pas des écrans à
+valider visuellement.
+
+> **À six vues, écrire les règles d'affichage en toutes lettres plutôt qu'en
+> négation.** « Tout sauf la vue courante » est déjà illisible à trois, et
+> devient une source de bugs muets à six : un bloc oublié dans la négation
+> s'affiche sur cinq écrans où il n'a rien à faire.
 
 > Piège rencontré : le déclencheur s'appelait d'abord `data-view="tarifs"`.
 > Comme l'état de vue vit sur `<body data-view>`, `closest('[data-view="tarifs"]')`
 > remontait jusqu'au `<body>` lui-même — **chaque clic de la vue tarifs partait
 > dans cette branche et se faisait `preventDefault()`**. Ne jamais donner à un
 > déclencheur le nom de l'attribut d'état qui le contient.
+
+> ⚠️ **Retirer du balisage sans retirer son rendu tue tout ce qui suit.**
+> `renderCircuit()` écrivait encore dans un `#circuitUn` supprimé de la
+> maquette : la fonction levait une exception, et **toutes les fonctions de
+> rendu appelées après elle ne s'exécutaient plus** — jour par jour vide,
+> portrait vide, envies à moitié remplies. Aucun message visible, juste des
+> écrans creux. Après toute suppression de balisage dans la maquette, ouvrir la
+> console **et** parcourir les six vues.
 
 ## Démarrer
 
@@ -1283,13 +1346,18 @@ su vient de `AGUS` et de `VALEURS`. **Ce qui ne l'est pas porte un marqueur
 rouge** — le même composant que les pages légales, sorti dans
 `components/AComplete.jsx` pour être partagé.
 
-Il manque cinq choses, toutes dans `lib/portrait.js`, et aucune ne se devine :
-le nom exact de l'union de guides, depuis quand il en est membre, son rôle
-éventuel, l'effectif, et **ce que l'union fait concrètement**. Un nom
-d'association plausible glissé à la place d'un blanc traverse toutes les
-relectures. Les six questions à lui poser sont affichées **en bas de la page
-elle-même**, pas dans un fichier de notes : un fichier de notes ne se rouvre
-pas.
+Il manque **neuf choses**, toutes dans `lib/portrait.js`, et aucune ne se
+devine. Cinq portent sur l'union (`UNION`) : son nom exact, depuis quand il en
+est membre, son rôle éventuel, l'effectif, et **ce qu'elle fait
+concrètement**. Quatre portent sur son histoire (`HISTOIRE`) : d'où il vient,
+comment il a appris le français, comment il a commencé le métier, et le prénom
+de son épouse.
+
+Un nom d'association plausible glissé à la place d'un blanc traverse toutes les
+relectures — c'est exactement le genre de détail que personne ne pense à
+vérifier parce qu'il a l'air d'avoir été vérifié. Les six questions à lui poser
+sont affichées **en bas de la page elle-même**, pas dans un fichier de notes :
+un fichier de notes ne se rouvre pas.
 
 Trois choses vont donc ensemble le jour où il a répondu : les marqueurs
 disparaissent, le bandeau d'avertissement de la page part, `robots: { index:
@@ -1421,6 +1489,29 @@ mesurées, toutes à zéro défaut aujourd'hui :
 | Champs de saisie | **16 px exactement** | En dessous, **iOS zoome à la mise au point** et recadre la page. Un `0.9375rem` suffit à déclencher le zoom. |
 | Débordement horizontal | **0** | Un pixel de trop et la page se décale au moindre balayage. |
 | Contraste | seuils WCAG | Inchangé, motifs compris. |
+
+**L'état mesuré aujourd'hui**, sur les huit routes et les six vues de la
+maquette, à 1280 / 390 / 320 : aucun débordement, aucune erreur de console,
+aucun défaut de contraste, aucune cible tactile hors norme. En hauteur, exprimée
+en écrans de mobile (390 × 844) :
+
+| Route | écrans @390 | Vue de la maquette |
+| --- | --- | --- |
+| `/` | **12,4** | 12,7 |
+| `/circuit` | 13,0 | 12,6 |
+| `/envies` | 5,1 | 5,2 |
+| `/agus` | 8,0 | 7,8 |
+| `/tarifs` | 6,8 | 6,9 |
+| `/livre-d-or` | 8,6 | 8,7 |
+| `/cgv` | 16,1 | — |
+| `/mentions-legales` | 8,2 | — |
+
+Les seuls signalements restants sont des **liens en pleine phrase** de moins de
+24 px, couverts par l'exception WCAG 2.5.8 : « Voir les envies » sur l'accueil,
+« conditions générales de vente », « mentions légales » et « Tarifs » dans les
+pages légales. Les agrandir casserait l'interligne du paragraphe. **L'audit les
+signale quand même** — c'est à la relecture de trancher, en regardant si le lien
+est seul sur sa ligne ou pris dans du texte.
 
 **Pièges rencontrés, à ne pas rejouer :**
 
@@ -1745,10 +1836,15 @@ est la perte de tous les résultats enrichis du domaine.
 > **Un bouton qui pointe vers sa propre section ne va nulle part.** Dans la
 > maquette, « Lire les 7 témoignages » était une ancre `#temoignages` — or le
 > bouton *est* dans cette section. Rien ne bougeait, et rien n'avait l'air
-> cassé. La maquette a désormais **trois vues** (`home`, `tarifs`, `livre`) au
-> lieu de deux, et le bouton porte `data-goto="livre"`. À trois vues, écrire
-> les règles d'affichage en toutes lettres plutôt qu'en négation : « tout sauf
-> la vue courante » devient illisible dès la troisième.
+> cassé. Le bouton porte désormais `data-goto="livre"` — c'est le passage qui a
+> fait naître la troisième vue de la maquette, avant les six actuelles.
+>
+> **Le même piège existe dans l'app, sous une autre forme, et il a resurgi.**
+> Naviguer vers le fragment sur lequel on se trouve déjà n'émet rien : le
+> bouton du panier était donc inerte au deuxième appui. D'où `lib/ancre.js`,
+> qui intercepte le clic et fait le `scrollIntoView` à la main. **Quand on teste
+> un lien d'ancre, il faut cliquer deux fois** — le premier clic marche
+> toujours.
 >
 > **Ne jamais réindenter un bloc extrait qui contient des gabarits.** Le script
 > de portage ajoutait deux espaces après chaque retour à la ligne « pour faire
@@ -1965,41 +2061,62 @@ toujours.
 
 ```
 app/
-  layout.js          polices, métadonnées, thème
-  page.js            assemblage de la page d'accueil
-  globals.css        tokens de design, thème sombre, classes de base
+  layout.js            polices, métadonnées, garde-fou d'indexation,
+                       et le TripProvider qui enveloppe tout le site
+  globals.css          tokens de design, classes de base
+  page.js              l'accueil
+  circuit/page.js      le jour par jour des 15 jours
+  envies/page.js       les 14 activités cochables
+  agus/page.js         le portrait d'Agus
+  tarifs/page.js       les formules et la grille par saison
+  livre-d-or/page.js   les sept témoignages, en entier
+  cgv/page.js          )  brouillons : bandeau d'avertissement,
+  mentions-legales/    )  noindex, absents du sitemap
 components/
-  Navbar.jsx         nav collante + menu plein écran mobile
+  Navbar.jsx         nav collante, linteau, menu Meru à toutes les largeurs
   Hero.jsx           panneau immersif, entrée en cascade, bandeau des étapes
-  AboutAgus.jsx      la promesse, la fiche dépliable, le panneau des valeurs
-  Chemins.jsx        la fourche : partir du circuit, ou de ses envies
-  Circuit.jsx        le circuit de 15 jours, déplié d'emblée
-  Activites.jsx      classiques et places secrètes, cochables
-  Tarifs.jsx         trois formules, grille, exemple chiffré, supplément
+  AboutAgus.jsx      la promesse, puis le panneau des valeurs
+  Chemins.jsx        la fourche : deux cartes, deux pages
+  Activites.jsx      classiques et places secrètes, cochables (/envies)
+  Tarifs.jsx         trois formules, grille par saison, compris
   Usages.jsx         six usages balinais, sur bande pleine
   Temoignages.jsx    trois avis sur l'accueil, avant la demande
   Symboles.jsx       les neuf symboles balinais au trait
-  RetourLien.jsx     le retour des tarifs, vers la section d'origine
+  LienPage.jsx       le lien vers une autre page : libellé souligné + flèche
+  RetourLien.jsx     le retour, vers la section d'origine
   LienTarifs.jsx     le lien vers les tarifs, lesté de sa provenance
+  PreselectionCircuit.jsx  lit ?circuit= et pose la sélection à l'arrivée
   Photo.jsx          emplacement photo — placeholder porteur du brief
-  Lightbox.jsx       visionneuse plein écran, swipe et clavier
+  Lightbox.jsx       visionneuse plein écran, swipe, clavier et pastilles
   TripBuilder.jsx    configurateur + rédaction de l'e-mail
   MobileBar.jsx      rappel du voyage en cours, sur mobile
-  Scene.jsx          paysages SVG + ornements (jepun, puce jepun, canang, séparateur)
-  PageLegale.jsx     gabarit des pages légales + marqueur « à compléter »
+  Scene.jsx          paysages SVG + ornements (jepun, canang, séparateur)
+  PageLegale.jsx     gabarit des pages légales
+  AComplete.jsx      le marqueur « à compléter », partout où il en faut
   Reveal.jsx         apparition au scroll (serveur, pure CSS)
   RevealObserver.jsx l'unique IntersectionObserver, monté par page
   DonneesStructurees.jsx  le graphe JSON-LD
   SectionHead.jsx    en-tête de section
 lib/
-  data.js            données de démonstration, îles sœurs, notes de saison
+  data.js            le contenu du site — 20 exports, voir l'avertissement
+  circuit.js         le jour par jour, le cadre, le compris/non-compris
+  portrait.js        les faits du portrait, et ses neuf trous
+  temoignages.js     les sept témoignages réels du livre d'or
+  legal.js           identité, assurance, barèmes — et les trous
   trip-store.jsx     état partagé (Context + useReducer)
   message.js         objet, corps et lien mailto:
+  navigation.js      les entrées du menu et leurs gloses
   retours.js         d'où l'on vient, et comment y retourner
-  site.js            origine canonique, titre, description
-  legal.js           identité, assurance, barèmes — et les trous
-  temoignages.js     les sept témoignages réels du livre d'or
+  ancre.js           le clic d'ancre fait à la main — voir plus bas
+  site.js            origine canonique, titre, description, indexabilité
 ```
+
+⚠️ **`app/layout.js` porte le `<TripProvider>`, et ce n'est pas un détail
+d'organisation.** Le magasin vit dans le gabarit pour survivre aux navigations
+entre pages. Conséquence directe : **tout lien interne doit passer par
+`next/link`.** Un `<a href="/…">` provoque un chargement complet, qui recrée le
+gabarit et **vide la sélection du voyageur** — le panier retombe à zéro entre
+`/envies` et le formulaire, sans le moindre message d'erreur.
 
 `app/` porte aussi les conventions de fichiers de Next : `robots.js`,
 `sitemap.js`, `icon.svg`, `apple-icon.png` et `opengraph-image.png`. Aucune
@@ -2058,9 +2175,21 @@ baies de Padar. Le même fichier abrite les ornements réutilisables : `Jepun`,
 `JepunBranch`, `Canang`, `Divider`. Aucune dépendance externe, aucun chargement,
 un rendu identique partout.
 
-Pour passer à de vraies photos : remplacer `<Scene>` par `<Image>` dans
-`Hero.jsx` et `ExperienceCard.jsx`. Les proportions (`16/10` pour les cartes,
-plein cadre pour le hero) sont déjà posées, rien d'autre ne bouge.
+**Pour passer à de vraies photos, il n'y a rien à remplacer.**
+`components/Photo.jsx` porte déjà les deux états : si `src` est posé, il rend
+un `<img>` ; sinon il rend la scène SVG **et le brief de prise de vue** en
+bandeau. La section devient de fait la liste des photos à faire, au lieu d'une
+note perdue dans un fichier à part.
+
+Il y a **42 emplacements, tous vides** — 14 activités × 3 photos — plus le
+portrait d'Agus et le hero. Le jour où une photo existe : poser `src` et `alt`
+dans `lib/data.js`, rien d'autre ne bouge, ni ici ni chez les appelants.
+
+> ⚠️ **`Photo.jsx` sert un `<img>` brut, sans redimensionnement.** Tant que les
+> emplacements sont vides ça ne coûte rien ; le jour où on y verse 42 photos de
+> téléphone à 4 Mo, le site devient plus lent que tout ce qu'on a gagné en
+> allégeant les pages. Un pipeline de traitement des images est un prérequis à
+> l'intégration des photos, pas une optimisation à faire ensuite.
 
 ## Reste à faire avant une mise en production
 
