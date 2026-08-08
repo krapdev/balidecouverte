@@ -2447,6 +2447,49 @@ baies de Padar. Le même fichier abrite les ornements réutilisables : `Jepun`,
 `JepunBranch`, `Canang`, `Divider`. Aucune dépendance externe, aucun chargement,
 un rendu identique partout.
 
+### La première vraie photo
+
+`public/agus-portrait.{jpg,webp}` — Agus sur une plage de galets de l'est de
+Bali, au soleil couchant. Elle remplit les deux arches du site : celle de
+l'accueil et celle du portrait. **Les 41 autres emplacements restent des
+illustrations** et portent toujours leur bandeau « Photo à venir ».
+
+Pourquoi celle-ci marche, et il vaut la peine de le savoir pour choisir les
+suivantes :
+
+- **La lumière est celle de la palette.** Or, ambre, ivoire — la photo n'a pas
+  eu à être réchauffée pour s'accorder au site, elle l'était déjà.
+- **Le lieu est dans le cadre.** Mer, montagnes, galets volcaniques : elle ne
+  dit pas seulement « voici un homme », elle dit « il est chez lui ». C'est
+  exactement l'argument de la page.
+- **Elle est décontractée** — casquette, t-shirt. C'est un atout et non un
+  défaut ici : tout le site plaide qu'on écrit à **un homme, pas à une
+  agence**. Une photo en chemise aurait plaidé le contraire.
+
+> ⚠️ **Le cadrage est le vrai travail.** La source est un paysage 3/2 où Agus
+> occupe le tiers droit ; les cadres du site sont des arches en 46/50, presque
+> carrées. Trois recadrages ont été comparés dans le vrai gabarit — pas dans un
+> éditeur d'images, **dans le masque d'arche**, parce que la forme change tout :
+> elle ronge les deux angles supérieurs, et un cadrage qui semble juste en
+> rectangle décapite en arche.
+>
+> Celui retenu place le visage au tiers droit et garde l'horizon et la plage à
+> gauche. **Ne pas recadrer plus serré sur le visage** : la moitié de ce que dit
+> cette photo est dans le décor.
+
+`components/Photo.jsx` sert désormais un `<picture>` : WebP en deux largeurs
+(600 et 840) avec un JPEG en repli universel, et un `sizes` par appelant.
+**`sizes` n'est pas décoratif** — sans lui le navigateur suppose l'image large
+comme la fenêtre et télécharge la variante 840 pour un cadre de 280 px.
+
+> Le bandeau du brief disparaît de lui-même : il n'est rendu que dans la branche
+> sans `src`. Il n'y a donc rien à retirer à la main quand une photo arrive — et
+> **l'illustration de repli reste**, les 41 autres emplacements s'en servent.
+
+**La maquette l'embarque en base64** (WebP 700 px, 47 ko → 62 ko encodés) parce
+qu'elle est un fichier autonome. Elle pèse maintenant 464 ko. Ne pas recopier ce
+choix dans l'app.
+
 **Pour passer à de vraies photos, il n'y a rien à remplacer.**
 `components/Photo.jsx` porte déjà les deux états : si `src` est posé, il rend
 un `<img>` ; sinon il rend la scène SVG **et le brief de prise de vue** en

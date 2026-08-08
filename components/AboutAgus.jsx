@@ -75,13 +75,34 @@ export default function AboutAgus() {
               aria-label="Mon portrait : ma famille, mon pays, mon union de guides"
             >
               <span className="arch block bg-immersive-deep shadow-[0_30px_70px_-30px_rgba(0,0,0,0.7)]">
+                {/* ⚠️ **La première vraie photo du site.** Les 41 autres
+                    emplacements restent des illustrations — voir le
+                    bandeau « Photo à venir » qu'ils portent encore.
+
+                    Cadrage : la source est un paysage 3/2 où Agus occupe
+                    le tiers droit ; le recadrage en 46/50 le place au
+                    tiers droit de l'arche, l'horizon et la plage
+                    remplissant la gauche. **Ne pas recadrer plus serré
+                    sur le visage** — la moitié de ce que dit cette photo
+                    est qu'il est chez lui, et ça se voit dans le décor.
+
+                    `sizes` n'est pas décoratif : sans lui le navigateur
+                    suppose l'image large comme la fenêtre et télécharge
+                    la variante 840 pour un cadre de 300 px. */}
                 <Photo
-                  fallback={<PortraitAgus className="h-full w-full" />}
+                  src="/agus-portrait.jpg"
+                  sources={[
+                    {
+                      type: "image/webp",
+                      srcSet:
+                        "/agus-portrait-600.webp 600w, /agus-portrait.webp 840w",
+                    },
+                  ]}
+                  sizes="(min-width: 768px) 410px, 300px"
                   uid="agus"
                   ratio="aspect-[46/50]"
                   priority
-                  brief="LA photo à faire en premier — Agus de face, en extérieur, lumière douce"
-                  alt="Agus Yudiarta, guide francophone à Bali"
+                  alt="Agus Yudiarta sur une plage de galets de l'est de Bali, au soleil couchant"
                   className="w-full"
                 />
               </span>

@@ -223,13 +223,23 @@ export default function PagePortrait() {
             <div className="grid items-start gap-[clamp(1.75rem,5vw,3rem)] md:grid-cols-[0.62fr_1.38fr]">
               <figure className="m-0 mx-auto w-full max-w-[280px] md:max-w-none">
                 <div className="arch bg-immersive-deep shadow-[0_30px_70px_-30px_rgba(0,0,0,0.7)]">
+                  {/* La même photo que l'accueil, dans un cadre un peu plus
+                      petit — c'est voulu : reconnaître le visage qu'on
+                      vient de quitter fait partie de l'arrivée. */}
                   <Photo
-                    fallback={<PortraitAgus className="h-full w-full" />}
+                    src="/agus-portrait.jpg"
+                    sources={[
+                      {
+                        type: "image/webp",
+                        srcSet:
+                          "/agus-portrait-600.webp 600w, /agus-portrait.webp 840w",
+                      },
+                    ]}
+                    sizes="(min-width: 768px) 360px, 280px"
                     uid="agus-portrait"
                     ratio="aspect-[46/50]"
                     priority
-                    brief="Agus de face, en extérieur, lumière douce — la même que sur l'accueil, en plus grand"
-                    alt="Agus Yudiarta, guide francophone à Bali"
+                    alt="Agus Yudiarta sur une plage de galets de l'est de Bali, au soleil couchant"
                     className="w-full"
                   />
                 </div>

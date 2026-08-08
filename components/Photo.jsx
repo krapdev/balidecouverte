@@ -14,10 +14,27 @@ import Scene from "./Scene";
  *     donner à Agus, au lieu d'une note perdue dans un fichier à part.
  *
  * Le jour où la photo existe : passer `src` (et `alt`). Rien d'autre à
- * changer, ni ici ni chez les appelants.
+ * changer, ni ici ni chez les appelants — le bandeau du brief disparaît
+ * de lui-même, puisqu'il n'est rendu que dans la branche sans `src`.
+ *
+ * ⚠️ **Le cadre est réservé par `ratio`, pas par la photo.** C'est ce qui
+ * évite le décalage de mise en page à l'arrivée de l'image : le `aspect-*`
+ * tient la boîte avant même que le premier octet soit là. Ne pas retirer
+ * `ratio` en croyant que l'image suffit à donner sa hauteur.
  */
 export default function Photo({
   src,
+  /**
+   * Les variantes servies avant `src`, dans l'ordre de préférence :
+   * `[{ type: "image/webp", srcSet: "…600.webp 600w, ….webp 840w" }]`.
+   * `src` reste le **repli universel** — un JPEG que tout navigateur lit.
+   *
+   * ⚠️ `sizes` n'est pas décoratif : sans lui le navigateur suppose que
+   * l'image occupe toute la largeur de la fenêtre et télécharge la plus
+   * grande variante pour un cadre de 280 px.
+   */
+  sources,
+  sizes,
   alt,
   scene = "terraces",
   /* Certaines illustrations ne sont pas des `kind` de <Scene> — le
@@ -32,13 +49,21 @@ export default function Photo({
   return (
     <span className={`relative block overflow-hidden ${ratio} ${className}`}>
       {src ? (
-        /* eslint-disable-next-line @next/next/no-img-element */
-        <img
-          src={src}
-          alt={alt ?? ""}
-          loading={priority ? "eager" : "lazy"}
-          className="h-full w-full object-cover"
-        />
+        <picture>
+          {sources?.map((s) => (
+            <source key={s.type} type={s.type} srcSet={s.srcSet} sizes={sizes} />
+          ))}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={src}
+            sizes={sizes}
+            alt={alt ?? ""}
+            loading={priority ? "eager" : "lazy"}
+            fetchPriority={priority ? "high" : undefined}
+            decoding="async"
+            className="h-full w-full object-cover"
+          />
+        </picture>
       ) : (
         <>
           {fallback ?? (
