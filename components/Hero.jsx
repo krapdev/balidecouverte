@@ -237,7 +237,7 @@ export default function Hero() {
               baissent. */}
           <div style={cran(4)} className="monte flex flex-wrap gap-3">
             <a
-              className="btn btn-ivoire btn-lg"
+              className="btn btn-ivoire btn-lg btn-une-ligne"
               href="#chemins"
             >
               Créons ensemble le voyage de vos rêves

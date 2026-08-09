@@ -204,6 +204,22 @@
   .btn-wa { background: var(--whatsapp); color: #fff; }
   .btn-wa:hover { background: var(--whatsapp-hi); box-shadow: 0 0 34px -6px color-mix(in srgb, var(--whatsapp) 70%, transparent); }
   .btn-lg { padding: 1.15em 2em; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.13em; }
+  /* Le libellé le plus long du site — 38 caractères en capitales — tenu
+     sur UNE SEULE LIGNE à toute largeur.
+     ⚠️ Réduire la police seule ne suffisait pas : il aurait fallu 11 px à
+     390 et 8,8 à 320. Le letter-spacing de 0,13em est le vrai coupable —
+     sur 38 caractères il ajoute près de 5em. Ramené à 0,05em, la taille
+     tenable remonte à 12,6 px à 390.
+     La taille est fluide et non paliée : un seul palier ne peut pas servir
+     320 et 390, la borne basse imposant à 390 une police calculée pour 320.
+     `nowrap` est une assertion, pas une ceinture : si le calcul se trompe,
+     la page déborde et l'audit le voit. */
+  .btn-une-ligne {
+    white-space: nowrap;
+    letter-spacing: 0.05em;
+    font-size: clamp(0.61rem, calc(3.49vw - 1.4px), 0.8125rem);
+    padding-inline: 1.5em;
+  }
 
   /* Deux surfaces de lecture qui alternent, et une bande pleine bambou */
   /* Sérigraphie très pâle : le tressage de la feuille de palme, celui du
@@ -1555,7 +1571,7 @@
            la place au nom du site. Quelqu'un qui arrive, ne coche rien et
            ne touche pas au menu n'a plus de bouton d'action avant douze
            écrans. Arbitrage assumé, réparable en une ligne. -->
-      <a class="btn btn-ivoire btn-lg" href="#chemins">Créons ensemble le voyage de vos rêves</a>
+      <a class="btn btn-ivoire btn-lg btn-une-ligne" href="#chemins">Créons ensemble le voyage de vos rêves</a>
     </div>
     <!-- ⚠️ Le bandeau « Guide diplômé francophone — professionnel depuis
          octobre 2005 » a été retiré d'ici, et ce n'est pas une perte de

@@ -967,10 +967,39 @@ L'eyebrow des usages devient **« À savoir »**, et le titre
 dans la section, ce qui garde le lien avec l'entrée de menu « Us et
 coutumes ».
 
-### Le bouton du hero
+### Le bouton du hero, tenu sur une ligne
 
-« Créons ensemble le voyage de vos rêves ». Une ligne à 1280 px, deux sur
-mobile, sans débordement à 320.
+« Créons ensemble le voyage de vos rêves » — 38 caractères en capitales, le
+libellé le plus long du site. Il passait à deux lignes sous 414 px.
+
+**Réduire la police seule ne suffisait pas.** Mesuré : pour tenir sur une
+ligne il aurait fallu descendre à **11 px à 390** et **8,8 px à 320** —
+illisible, et loin d'une réduction « légère ».
+
+Le vrai coupable est le `letter-spacing` de 0,13 em : sur 38 caractères il
+ajoute près de **5 em**, soit un cinquième de la largeur du bouton.
+
+| tracking | marge intérieure | taille tenable à 390 |
+| --- | --- | --- |
+| 0,13 em | 2 em | 11,00 px |
+| 0,08 em | 1,5 em | 12,10 px |
+| **0,05 em** | **1,5 em** | **12,60 px** |
+| 0,03 em | 1,15 em | 13 px (pleine taille) |
+
+**La taille est fluide, pas paliée.** Un seul palier ne peut pas servir 320
+et 390 : la borne basse imposerait à 390 une police calculée pour 320.
+`clamp(0.61rem, 3.49vw − 1.4px, 0.8125rem)` suit la largeur utile.
+
+| | 320 | 360 | 390 | 414 et au-delà |
+| --- | --- | --- | --- | --- |
+| police | 9,8 px | 11,2 px | 12,2 px | **13 px, pleine taille** |
+| lignes | 1 | 1 | 1 | 1 |
+| débordement | 0 | 0 | 0 | 0 |
+
+> ⚠️ **`nowrap` n'est pas une ceinture de sécurité, c'est une assertion.**
+> Si le calcul se trompe, la page déborde et l'audit le voit. Un retour à
+> la ligne, lui, serait passé inaperçu — c'est exactement comme ça que le
+> défaut est arrivé.
 
 > Deux coquilles corrigées au passage : « de **vous** rêves » → « de
 > **vos** rêves », et « six us et **coutumed** » → « **coutumes** ».
