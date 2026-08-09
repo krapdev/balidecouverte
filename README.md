@@ -880,6 +880,56 @@ Sur la barre soleil : la correction de contraste avait été faite dans l'app et
 `flex-shrink` ci-dessous, qui dormait dans la maquette depuis que le nom du
 site a grossi.
 
+### Le menu à six, et le devis qui sort de la barre
+
+**« Qui je suis » disparaît, « Mon portrait » prend sa place** — barre
+comprise. Les deux disaient la même chose à deux profondeurs : l'une menait
+à la présentation de l'accueil, l'autre à la page qui la développe. Une
+entrée par destination, et c'est la page qui l'emporte : on tombe de toute
+façon sur la présentation en descendant l'accueil.
+
+`#esprit` existe toujours, elle n'a simplement plus d'entrée de menu —
+comme `#valeurs` et `#chemins` avant elle.
+
+**Le bouton « Demander un devis » sort de la barre et du bas du menu.**
+C'est le changement qui aurait été impossible il y a trois commits :
+
+| page | chemin vers le formulaire |
+| --- | --- |
+| `/` | le formulaire **est** sur la page |
+| `/agus` | « Lui écrire » |
+| `/circuit` | « Partir de ce circuit et l'ajuster » |
+| `/envies` | « Ou m'écrire directement », ou le bouton d'envoi si une envie est cochée |
+| `/tarifs` | « Demander un devis » |
+| `/livre-d-or` | « M'écrire » |
+
+C'est `components/Suite.jsx` qui rend ce retrait tenable. Sans le travail
+sur les impasses, trois pages n'auraient plus eu **aucun** chemin vers la
+demande.
+
+### Le panneau des valeurs, réécrit par Agus
+
+| avant | après |
+| --- | --- |
+| « Ma famille d'abord » | **« La famille, le cœur »** |
+| « …ma famille — pas une commission d'intermédiaire. Ici, on vit à plusieurs générations dans la même cour, autour du temple des ancêtres. » | « …ma famille — **c'est le centre de gravité absolu de la vie quotidienne, spirituelle et communautaire à Bali.** » |
+| « …un guide que je connais — jamais à une centrale. » | « …un guide que je connais — **c'est cette entraide qui nous permet de vivre et de vous apporter la meilleure expérience du voyage.** » |
+
+Les deux remplacements vont dans le même sens, et c'est la règle du site
+qui se resserre encore : **définir par ce qui est, pas par ce qui n'est
+pas**. « Pas une commission d'intermédiaire » et « jamais à une centrale »
+étaient des contre-arguments ; « le centre de gravité » et « cette
+entraide » sont des affirmations.
+
+Le lien **« Ma famille, mon pays, mon union »** est retiré du bas du
+panneau : il promettait mot pour mot les trois points qu'on venait de lire.
+Le portrait reste desservi par « Mon parcours, mes diplômes, mes
+véhicules », plus haut dans la présentation, et par le menu.
+
+> ⚠️ **Une correction de grammaire, signalée.** Le texte fourni disait
+> « et vous s'apporter la meilleure expérience ». Écrit « et **de vous
+> apporter** ».
+
 ### Les fleurs sur toutes les pages
 
 Quatre pages sur six n'avaient **aucune** couture : `/circuit`, `/envies`,

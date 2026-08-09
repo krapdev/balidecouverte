@@ -497,7 +497,7 @@ export default function PagePortrait() {
                   au lieu d'une ligne. */}
               <ul className="m-0 flex list-none flex-col p-0">
                 {[
-                  [Users, "Si je ne suis pas libre à vos dates, je passe le relais à un guide que je connais — jamais à un inconnu envoyé par une centrale."],
+                  [Users, "Si je ne suis pas libre à vos dates, je passe le relais à un guide que je connais — c'est cette entraide qui nous permet de vivre et de vous apporter la meilleure expérience du voyage."],
                   [Heart, "Vous écrivez à quelqu'un, pas à un formulaire. C'est moi qui réponds, en français, sous 24 heures."],
                 ].map(([Icon, texte]) => (
                   <li

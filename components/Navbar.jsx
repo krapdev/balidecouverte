@@ -334,19 +334,12 @@ export default function Navbar() {
             ))}
           </nav>
 
-          <Link
-            /* `whitespace-nowrap` pour la même raison que les liens : c'est
-               un élément d'un conteneur flex, donc il se rétrécit
-               jusqu'à son mot le plus long et rendait « Demander un /
-               devis » sur deux lignes — à 1280 comme à 1500, ce qui
-               montre bien que la place n'y était pour rien. */
-            className="btn btn-accent hidden whitespace-nowrap xl:inline-flex"
-            href={hrefFor("#sur-mesure")}
-            onClick={surClic("#sur-mesure")}
-          >
-            <Mail size={16} />
-            Demander un devis
-          </Link>
+          {/* ⚠️ **Le bouton « Demander un devis » a été retiré de la barre
+              et du bas du menu.** Ce qui rend le retrait tenable, c'est
+              `components/Suite.jsx` : chaque page se termine désormais
+              sur un pas suivant, et le formulaire est atteignable depuis
+              le corps de toutes. Sans ce travail-là, trois pages
+              n'auraient plus eu aucun chemin vers la demande. */}
 
           {/* ⚠️ **Le bouton « Devis » mobile a été retiré**, et c'est un
               arbitrage, pas un nettoyage. Il était là pour une bonne
@@ -487,17 +480,6 @@ export default function Navbar() {
               })}
             </ul>
 
-            <Link
-              className="btn btn-accent btn-lg mt-6 w-full"
-              href={hrefFor("#sur-mesure")}
-              onClick={(e) => {
-                setOpen(false);
-                surClic("#sur-mesure")(e);
-              }}
-            >
-              <Mail size={18} />
-              Demander un devis
-            </Link>
             {/* La porte fendue ferme le panneau — le seuil qu'on vient
                 de franchir. Elle a d'abord été posée en filigrane dans
                 l'angle haut, comme le padma du panneau des valeurs : à

@@ -407,10 +407,8 @@
   /* Même correctif que les liens, et pour la même raison : enfant flex,
      donc rétréci jusqu'à son mot le plus long. Il rendait « Demander un /
      devis » à 1280 comme à 1500 px — la place n'y était pour rien. */
-  .nav-wa { display: none; flex: none; white-space: nowrap; }
   @media (min-width: 900px) {
     .nav-links { display: flex; }
-    .nav-wa { display: inline-flex; }
   }
 
   /* ============================================================
@@ -1416,7 +1414,7 @@
            seconde destination.
            « Mon portrait » reste hors barre tant que la page porte ses
            marqueurs « à compléter ». -->
-      <a href="#esprit">Qui je suis</a>
+      <a href="#portrait-agus" data-goto="portrait">Mon portrait</a>
       <a href="#circuit-detail" data-goto="circuit">Le circuit</a>
       <a href="#envies" data-goto="envies">Vos envies</a>
       <a href="#usages">Us et coutumes</a>
@@ -1432,10 +1430,10 @@
            plus balinais et parfaitement illisible. -->
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M8 6.5h8M5.5 12h13M3 17.5h18"/></svg>
     </button>
-    <a class="btn btn-accent nav-wa" href="#sur-mesure">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-      Demander un devis
-    </a>
+    <!-- ⚠️ Le bouton « Demander un devis » a été retiré de la barre et
+         du bas du menu. Ce qui rend le retrait tenable, c'est la sortie
+         posée au bas de chaque vue : le formulaire est atteignable
+         depuis le corps de toutes. -->
   
   </div>
 
@@ -1625,22 +1623,23 @@
 
       <ul class="valeurs">
         <li>
-          <h4><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--soleil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17"/><path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"/><path d="m2 16 6 6"/><circle cx="16" cy="9" r="2.9"/><circle cx="6" cy="5" r="3"/></svg>Ma famille d'abord</h4>
+          <h4><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--soleil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17"/><path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"/><path d="m2 16 6 6"/><circle cx="16" cy="9" r="2.9"/><circle cx="6" cy="5" r="3"/></svg>La famille, le cœur</h4>
           <!-- « Vous m'aidez à faire vivre ma famille » plutôt que « ce que
                vous payez les fait vivre » : la première formule met le
                voyageur en position d'agir, la seconde en position de payer.
                Même transaction, pas le même geste.
-               La phrase sur la cour n'est pas de l'ornement : elle dit ce
-               que « famille » veut dire ici, et ce n'est pas ce que le mot
-               recouvre en France. -->
-          <p>Vous m'aidez à faire vivre ma famille — pas une commission
-          d'intermédiaire. Ici, on vit à plusieurs générations dans la même
-          cour, autour du temple des ancêtres.</p>
+               La seconde phrase est d'Agus. Elle a remplacé « pas une
+               commission d'intermédiaire », qui définissait la famille par
+               ce qu'elle n'est pas. -->
+          <p>Vous m'aidez à faire vivre ma famille — c'est le centre de
+          gravité absolu de la vie quotidienne, spirituelle et communautaire
+          à Bali.</p>
         </li>
         <li>
           <h4><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--soleil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Une union de guides, pas un homme seul</h4>
           <p>Si je ne suis pas libre, je passe le relais à un guide que je
-          connais — jamais à une centrale.</p>
+          connais — c'est cette entraide qui nous permet de vivre et de vous
+          apporter la meilleure expérience du voyage.</p>
         </li>
         <li>
           <h4><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--soleil)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>Ambassadeur de mon pays</h4>
@@ -1649,12 +1648,10 @@
         </li>
       </ul>
 
-      <!-- La chute du panneau a déménagé sur la vue portrait, où elle ouvre
-           le développement. L'accueil garde ce qui embarque — le titre, le
-           chapô, les trois points — et pas la démonstration complète, qui
-           ajoutait un écran de défilement à une page qui en fait déjà
-           dix-neuf. -->
-      <p class="valeurs-chute"><a href="#portrait-agus" data-goto="portrait" data-de="valeurs" class="valeurs-lien"><span class="valeurs-lien-porte"></span><span class="valeurs-lien-txt">Ma famille, mon pays, mon union</span></a></p>
+      <!-- ⚠️ Le lien « Ma famille, mon pays, mon union » a été retiré :
+           il promettait mot pour mot les trois points qu'on venait de
+           lire. Le portrait reste desservi par « Mon parcours, mes
+           diplômes, mes véhicules » plus haut, et par le menu. -->
     </div>
   </div>
 </section>
@@ -3738,13 +3735,6 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
       return '<div><dt class="label">' + x[0] + '</dt><dd>' + x[1] + '</dd></div>';
     }).join("");
 
-    /* La version longue du point « Ma famille d'abord » — celle que
-       l'accueil ne montre pas. Elle ne redit pas « Marié, trois enfants » :
-       la ligne au-dessus le dit déjà, et en plus précis.
-       Le tri hita karana est un concept balinais documenté, nommé comme le
-       sont le canang sari ou le penjor ailleurs sur le site — on ne prête
-       à Agus aucune parole qu'il n'aurait pas dite, on nomme une chose de
-       son pays. */
     $("portraitFrancais").innerHTML =
       '<p class="fort">J\'ai appris le français pendant trois ans à l\'Alliance ' +
       "Française, puis j'ai continué seul, et je suis allé le pratiquer là où il se " +
@@ -3822,7 +3812,8 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
 
     $("portraitChange").innerHTML =
       "<p>Si je ne suis pas libre à vos dates, je passe le relais à un guide que " +
-      "je connais — jamais à un inconnu envoyé par une centrale.</p>" +
+      "je connais — c'est cette entraide qui nous permet de vivre et de vous " +
+      "apporter la meilleure expérience du voyage.</p>" +
       "<p>Vous écrivez à quelqu'un, pas à un formulaire. C'est moi qui réponds, " +
       "en français, sous 24 heures.</p>" +
       "<p class=\"humour\"><b>Un petit trait d'humour</b> — <b>AGUS</b> pour " +
@@ -4283,8 +4274,8 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
      sommaire.
 
      Sur-Mesure n'y est plus : le panneau se termine par le bouton
-     « Demander un devis », qui mène au même endroit. L'ancienne version
-     affichait les deux, à trois centimètres l'un de l'autre. */
+     « Demander un devis », lui aussi retiré. Le formulaire reste
+     atteignable depuis la sortie du bas de chaque vue. */
   /* Rien à droite des plaques sauf le jepun de la section courante.
      Deux marques ont été essayées pour signaler les entrées qui quittent
      la page — une porte balinaise, puis une flèche — et toutes deux
@@ -4304,7 +4295,9 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
          dessous dans le menu. Elle reste desservie par le bouton du hero,
          où elle a un sens : là, on n'a encore rien listé. */
   var MENU = [
-    ["#esprit", "Qui je suis", "Ce dont je vous décharge, ce que le direct fait vivre", "canang"],
+    /* ⚠️ « Qui je suis » retirée, « Mon portrait » prend sa place, barre
+       comprise : les deux disaient la même chose à deux profondeurs. On
+       tombe de toute façon sur la présentation en descendant l'accueil. */
     ["#portrait-agus", "Mon portrait", "Mon métier, le français, mon parcours", "rangs", "portrait"],
     ["#circuit-detail", "Le circuit", "Quinze jours, sept étapes", "penjor", "circuit"],
     ["#envies", "Vos envies", "Classiques et places secrètes", "tedung", "envies"],
@@ -4331,7 +4324,6 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
         '<span class="plaque-puce"></span>' +
       '</a>';
     }).join("") +
-    '<a class="btn btn-accent btn-lg" href="#sur-mesure">Demander un devis</a>' +
     '<span class="nav-seuil">' + symbole("candi", 44, 1.1) +
       '<p>Om Swastiastu — réponse sous 24 h, en français.</p></span>';
 

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Users, HandCoins, Heart, ArrowRight } from "lucide-react";
+import { Users, HandCoins, Heart } from "lucide-react";
 import { Symbole } from "./Symboles";
 import LienPage from "./LienPage";
 import SectionHead from "./SectionHead";
@@ -204,24 +204,11 @@ export default function AboutAgus() {
                 complète, qui ajoutait un écran de défilement à une page
                 qui en fait déjà dix-neuf, et qui trouve sa vraie place
                 là où quelqu'un a choisi d'aller lire. */}
-            <p className="relative mt-10">
-              {/* Posé à la main plutôt que par LienPage : le bambou du
-                  composant serait illisible sur ce fond. */}
-              <Link
-                href="/agus?de=valeurs"
-                className="group inline-flex min-h-11 items-center gap-3 font-display text-[clamp(1.05rem,2.8vw,1.3rem)] leading-snug text-on-immersive no-underline"
-              >
-                <span className="underline decoration-soleil underline-offset-[6px]">
-                  Ma famille, mon pays, mon union
-                </span>
-                <ArrowRight
-                  size={20}
-                  strokeWidth={2.2}
-                  aria-hidden="true"
-                  className="shrink-0 text-soleil transition-transform group-hover:translate-x-1"
-                />
-              </Link>
-            </p>
+            {/* ⚠️ **Le lien « Ma famille, mon pays, mon union » a été
+                retiré.** Il promettait mot pour mot les trois points
+                qu'on venait de lire, et le portrait reste desservi par
+                « Mon parcours, mes diplômes, mes véhicules » plus haut
+                dans la présentation, ainsi que par le menu. */}
           </div>
         </div>
       </div>
