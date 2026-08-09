@@ -67,6 +67,14 @@ Agus Yudiarta existe, et le site est son gagne-pain.
   espace collé à une balise a besoin de son `{" "}` **des deux côtés** dès que
   le paragraphe passe à la ligne — sinon « canang sarisur le tableau de bord ».
   Contrôle : `curl -s "$URL" | grep -oE "</(em|b|strong|i|code)>[a-zàâçéèêëîïôûùüÿñæœ]"`.
+  ⚠️ **`display: block` ne sauve pas.** La barre du bas donnait « 0 envie
+  **dans** votre voyage » sur deux lignes à l'écran et « 0 enviedans votre
+  voyage » dans la couche texte — celle que lit un lecteur d'écran. La coupure
+  était visuelle, pas textuelle.
+  ⚠️ Les `</b>` suivis d'une minuscule sur `/agus` sont l'acronyme AGUS déplié
+  (**A**gence **G**lobale **U**niverselle…) : le seul faux positif connu du
+  contrôle. Ne pas le ranger avec eux sans regarder le contexte — c'est
+  exactement l'erreur qui a laissé passer celui de la barre du bas.
 - **Les métadonnées d'une page remplacent celles du gabarit**, elles ne s'y
   ajoutent pas. Une page qui déclarerait `robots: { index: true }` s'indexerait
   même en préproduction.

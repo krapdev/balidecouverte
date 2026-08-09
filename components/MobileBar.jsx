@@ -35,7 +35,11 @@ export default function MobileBar() {
       <p className="font-sans text-xs leading-tight text-soft">
         <b className="block font-sans text-base font-bold text-ink">
           {count} envie{count > 1 ? "s" : ""}
-        </b>
+        </b>{" "}
+        {/* ⚠️ Le `{" "}` est nécessaire bien que le `<b>` soit en
+            `display: block` : la coupure de ligne est visuelle, la couche
+            texte, elle, collait « 0 enviedans votre voyage » — c'est ce
+            que lit un lecteur d'écran et ce qu'extrait une recherche. */}
         dans votre voyage
       </p>
       {/* Deux pièges se croisent sur ce seul bouton, et il a fallu les
