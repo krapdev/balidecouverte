@@ -949,11 +949,66 @@ cascade, plage — sept secondes chacune, fondu de 1,1 s. Le cycle complet dure
 28 s, et les quatre couvrent l'intérieur, le sacré, la jungle et la côte : c'est
 le seul endroit du site qui montre l'île entière d'un coup.
 
-> ⚠️ **Le plus grand cran de la plage s'arrête à 1447 px**, pas 1600 comme les
-> trois autres : c'est la largeur native du fichier fourni. Déclarer `1600w` sur
-> une image agrandie ferait choisir au navigateur **un fichier plus lourd pour
-> une image moins nette** — le pire des deux mondes. Le descripteur `w` décrit
-> le fichier, il ne recopie pas le gabarit du voisin.
+#### La netteté des photos : trois pertes empilées
+
+La question « comment améliorer la qualité ? » a trois réponses, et une seule
+est hors de portée du code.
+
+**1. La maquette agrandissait de 43 %.** Elle embarquait des images de 760 px
+dans un cadre de 1084. C'est le plus gros écart des trois, et c'est le fichier
+qu'on ouvre pour valider le design : il donnait donc l'avis le plus sévère sur
+des photos que l'app servait mieux. Les images embarquées font maintenant
+**1084 px, la largeur exacte du cadre**.
+
+**2. Deux fichiers étaient agrandis à la fabrication.** `bali-temple-1600` et
+`bali-cascade-1600` étaient produits à partir de sources de 1447 px : des
+fichiers de 1600 px ne portant que 1447 px de détail, **plus lourds et moins
+nets** que la source. Chaque cran s'arrête maintenant à la largeur native —
+1672 pour les rizières, 1447 pour les trois autres.
+
+> ⚠️ **Un descripteur `w` décrit le fichier, il ne recopie pas le voisin.**
+> Annoncer `1600w` sur une image agrandie fait choisir au navigateur le pire
+> des deux mondes.
+
+**3. La compression était trop agressive.** Passage de q78 à **q86** (avec
+`effort: 6` et `smartSubsample`). Mesuré en RMSE contre la source non
+compressée, à 1000 px :
+
+| | q78 | q86 | q92 |
+| --- | --- | --- | --- |
+| rizières | 4,30 · 151 ko | **2,82 · 201 ko** | 1,92 · 254 ko |
+| temple | 4,13 · 214 ko | **2,85 · 277 ko** | 1,94 · 351 ko |
+| cascade | 4,36 · 249 ko | **2,92 · 326 ko** | 2,03 · 407 ko |
+| plage | 3,51 · 103 ko | **2,45 · 149 ko** | 1,81 · 206 ko |
+
+q86 divise l'erreur par 1,5 pour +32 % de poids ; q92 par 2,2 pour +65 %. Le
+premier palier vaut son prix, le second non.
+
+> ⚠️ **Ne pas ajouter de netteté artificielle.** Testé : un `unsharp` léger
+> après réduction *dégrade* la fidélité sur trois photos sur quatre (RMSE de
+> 4,24 à 4,60 sur les rizières). Ce qu'on croit gagner en piqué, on le paie en
+> halos sur le feuillage.
+
+#### Ce que le code ne peut pas réparer
+
+Le cadre fait **1084 px CSS**. Un écran à DPR 2 — tout portable récent — en
+réclame donc 2168, et le meilleur fichier disponible en offre 1672. Le
+navigateur agrandit de 30 %, et de 95 % à DPR 3.
+
+| | pixels requis | meilleur fichier | |
+| --- | --- | --- | --- |
+| Mobile, tous DPR | 560 – 1050 | 1447 – 1672 | ✅ net |
+| Bureau DPR 1 | 1084 | 1672 | ✅ net |
+| Bureau DPR 2 | 2168 | 1672 | ⚠️ agrandi ×1,30 |
+| Bureau DPR 3 | 3252 | 1672 | ⚠️ agrandi ×1,95 |
+
+**Aucun réglage de compression ne crée du détail absent.** Les quatre sources
+mesurent 1447 à 1672 px — les largeurs typiques d'une photo passée par une
+messagerie, qui recompresse à l'envoi. Pour que le diaporama soit net sur un
+écran de bureau récent, il faut **les originaux, à 2400 px de large au
+minimum** : ceux qui sortent de l'appareil, pas ceux qu'on s'est renvoyés.
+
+C'est la seule action qui reste, et elle n'est pas technique.
 
 **1. WCAG 2.2.2, niveau A.** Tout contenu qui démarre seul, dure plus de cinq
 secondes et cohabite avec d'autres contenus **doit offrir un moyen de

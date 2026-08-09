@@ -36,35 +36,44 @@ const cran = (n) => ({ animationDelay: `${0.05 + n * 0.09}s` });
  * jamais en relisant le code qui les produit. Après toute génération
  * d'images : en faire une planche et l'ouvrir.
  */
-const SIZES = "(min-width: 1280px) 1136px, 92vw";
+/* ⚠️ **Chaque cran s'arrête à la largeur native de son fichier** — 1672
+   pour les rizières, 1447 pour les trois autres — et jamais au gabarit du
+   voisin. Deux fichiers ont porté `1600w` pour une source de 1447 : le
+   navigateur téléchargeait donc *plus lourd* pour une image *moins nette*,
+   le pire des deux mondes. Un descripteur `w` décrit le fichier.
+
+   ⚠️ **Le plafond de netteté est la source, pas l'encodage.** Le cadre fait
+   1084 px CSS ; un écran à DPR 2 en réclame 2168 et le meilleur fichier en
+   offre 1600 — le navigateur agrandit de 35 %, et de 103 % à DPR 3. Aucun
+   réglage de compression ne rattrape ça : il faut des originaux d'au moins
+   2400 px. Les fichiers actuels plafonnent à 1447–1672, largeurs typiques
+   d'une photo passée par une messagerie. */
+/* 1084 px et non 1136 : c'est la largeur mesurée du cadre, identique à
+   1280 comme à 1440 puisque la coquille est plafonnée. Annoncer 52 px de
+   trop faisait franchir un cran à certains écrans pour rien. */
+const SIZES = "(min-width: 1280px) 1084px, 92vw";
 const PHOTOS = [
   {
     src: "/bali-rizieres.jpg",
-    webp: "/bali-rizieres-640.webp 640w, /bali-rizieres-1000.webp 1000w, /bali-rizieres-1600.webp 1600w",
+    webp: "/bali-rizieres-640.webp 640w, /bali-rizieres-1000.webp 1000w, /bali-rizieres-1672.webp 1672w",
     sizes: SIZES,
     alt: "Rizières en terrasses et bale traditionnel sous les cocotiers, dans l'intérieur de Bali",
   },
   {
     src: "/bali-temple.jpg",
-    webp: "/bali-temple-640.webp 640w, /bali-temple-1000.webp 1000w, /bali-temple-1600.webp 1600w",
+    webp: "/bali-temple-640.webp 640w, /bali-temple-1000.webp 1000w, /bali-temple-1447.webp 1447w",
     sizes: SIZES,
     position: "center 38%",
     alt: "Un temple balinais et son escalier gardé par des naga, sous les parasols dorés",
   },
   {
     src: "/bali-cascade.jpg",
-    webp: "/bali-cascade-640.webp 640w, /bali-cascade-1000.webp 1000w, /bali-cascade-1600.webp 1600w",
+    webp: "/bali-cascade-640.webp 640w, /bali-cascade-1000.webp 1000w, /bali-cascade-1447.webp 1447w",
     sizes: SIZES,
     position: "center 45%",
     alt: "Une cascade en rideau dans la jungle, et son bassin d'eau turquoise",
   },
   {
-    /* ⚠️ Le plus grand cran s'arrête à **1447 px et non 1600** : c'est la
-       largeur native du fichier fourni. Déclarer `1600w` sur une image
-       agrandie fait choisir au navigateur un fichier plus lourd pour une
-       image moins nette — le pire des deux mondes. Le descripteur doit
-       dire la vérité sur le fichier, pas répéter le gabarit des trois
-       autres. */
     src: "/bali-plage.jpg",
     webp: "/bali-plage-640.webp 640w, /bali-plage-1000.webp 1000w, /bali-plage-1447.webp 1447w",
     sizes: SIZES,

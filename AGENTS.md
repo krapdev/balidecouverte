@@ -89,9 +89,19 @@ Agus Yudiarta existe, et le site est son gagne-pain.
   leur **nombre** qui était le signal, et il a fallu trois itérations pour le
   lire. Ne pas remettre de fond au logo : ni plaque, ni disque, ni fond sombre
   (le bambou profond avale les terrasses).
-- **Un descripteur `w` décrit le fichier, il ne recopie pas le voisin.** La
-  photo de plage est native en 1447 px : lui déclarer `1600w` comme aux trois
-  autres ferait choisir un fichier **plus lourd et moins net**.
+- **Un descripteur `w` décrit le fichier, il ne recopie pas le voisin.** Les
+  sources font 1447 à 1672 px ; deux crans annonçaient `1600w` pour 1447 px de
+  détail réel — **plus lourds et moins nets** que leur propre source. Chaque
+  cran s'arrête à la largeur native.
+- **Le plafond de netteté est la source, jamais l'encodage.** Le cadre du
+  diaporama fait 1084 px CSS, donc 2168 sur un écran DPR 2. Avant de toucher à
+  la compression, mesurer ce que l'écran réclame. Et **ne pas ajouter de
+  netteté artificielle** : un `unsharp` après réduction dégrade la fidélité sur
+  trois photos sur quatre.
+- **La maquette embarque ses images à la largeur exacte de son cadre**
+  (1084 px). Elles ont fait 760 px pendant tout un temps : la maquette
+  agrandissait de 43 % et donnait donc, du site, un avis photographique plus
+  sévère que l'app — alors que c'est elle qu'on ouvre pour valider le design.
 - **`letter-spacing` s'applique aussi après la dernière lettre.** Un `.label`
   en `truncate` affichait une ellipsis pour 2 px fantômes, à toutes les
   largeurs. Ne pas compenser par une marge négative : elle rétrécit aussi le
