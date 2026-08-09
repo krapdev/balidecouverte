@@ -9,6 +9,7 @@ import {
   Mail,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import Separateur from "@/components/Separateur";
 import Suite from "@/components/Suite";
 import Footer from "@/components/Footer";
 import Photo from "@/components/Photo";
@@ -126,6 +127,11 @@ export default function PageCircuit() {
               </span>
             </div>
 
+            {/* La couture bougainvillier — voir components/Separateur.jsx.
+                Une tous les ~2 700 px, le rythme de l'accueil : assez pour
+                que la page respire en couleur, assez rare pour qu'elle ne
+                devienne pas un motif de fond. */}
+            <Separateur className="mt-[clamp(3rem,8vw,4.5rem)]" />
             {/* ---------- Six journées sur quinze ----------
                 Ce bloc vivait sur l'accueil, dans la section « Mon
                 circuit » qui n'existe plus. Il n'est pas redondant avec
@@ -189,6 +195,7 @@ export default function PageCircuit() {
               </ol>
             </section>
 
+            <Separateur className="mt-[clamp(3rem,8vw,4.5rem)]" />
             {/* ---------- Le jour par jour ---------- */}
             <section className="mt-[clamp(3rem,8vw,4.5rem)]" id="jour-par-jour">
               <div className="flex items-center gap-3.5 border-b border-rule pb-4">
@@ -242,6 +249,7 @@ export default function PageCircuit() {
             </section>
 
             {/* ---------- Le prix, en détail ---------- */}
+            <Separateur className="mt-[clamp(3rem,8vw,4.5rem)]" />
             <section className="mt-[clamp(3rem,8vw,4.5rem)]" id="ce-que-comprend-le-prix">
               <div className="flex items-center gap-3.5 border-b border-rule pb-4">
                 <Symbole nom="poleng" size={30} className="shrink-0 text-accent" />
@@ -291,6 +299,7 @@ export default function PageCircuit() {
                 départ. Le magasin n'existe que sur l'accueil —
                 l'intention doit donc voyager dans l'URL. Voir
                 components/PreselectionCircuit.jsx. */}
+            <Separateur className="mt-[clamp(3rem,8vw,4.5rem)]" />
             <Suite
               className="mt-[clamp(3rem,8vw,4.5rem)]"
               titre="Maintenant, dites-moi ce que vous en gardez."

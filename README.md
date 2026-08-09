@@ -880,6 +880,63 @@ Sur la barre soleil : la correction de contraste avait été faite dans l'app et
 `flex-shrink` ci-dessous, qui dormait dans la maquette depuis que le nom du
 site a grossi.
 
+### Les fleurs sur toutes les pages
+
+Quatre pages sur six n'avaient **aucune** couture : `/circuit`, `/envies`,
+`/tarifs`, `/livre-d-or`. Et `/agus` en avait une pour neuf écrans. Seul
+l'accueil respirait.
+
+Le motif existait pourtant — `components/Separateur.jsx`, le filet
+interrompu par un jepun bougainvillier. Il n'avait simplement jamais quitté
+la page d'accueil.
+
+#### Le rythme, mesuré et non estimé
+
+L'accueil pose une couture tous les **2 568 px**. C'est cette cadence qui a
+servi de règle, page par page :
+
+| page | hauteur | coutures | une tous les |
+| --- | --- | --- | --- |
+| `/` | 10 272 | 4 | 2 568 px |
+| `/agus` | 7 758 | 3 | 2 586 px |
+| `/circuit` | 11 311 | 4 | 2 828 px |
+| `/envies` | 4 871 | 2 | 2 436 px |
+| `/tarifs` | 6 438 | 3 | 2 146 px |
+| `/livre-d-or` | 7 392 | 2 | 3 696 px |
+
+Chacune est posée à une **frontière de section réelle** — jamais tous les
+N pixels. Sur `/livre-d-or`, qui n'a pas de sections, c'est une couture
+tous les trois témoignages.
+
+#### La lisibilité, qui était la condition
+
+| | contraste |
+| --- | --- |
+| Le texte courant | **12,87** |
+| La fleur sur l'ivoire | 4,39 |
+| La fleur sur le sable | 3,90 |
+| Le filet à 45 % | 1,81 – 1,93 |
+
+La fleur se voit — au-dessus du seuil de 3:1 des objets graphiques, alors
+même qu'elle en est dispensée puisqu'elle est décorative et
+`aria-hidden`. Mais elle reste **trois fois plus discrète que le texte** :
+elle ponctue, elle ne dispute rien. Le filet, lui, est un murmure.
+
+> ⚠️ **Un doublon qu'il a fallu voir pour comprendre.** Les sections de
+> `/tarifs` et `/envies` portaient déjà un `border-t` gris. Avec la
+> couture au-dessus, on lisait un filet rose, un blanc, puis un filet
+> gris — un accident, pas un motif. Le gris a été retiré **là où la
+> couture le remplace**, et gardé là où elle est absente : sur `/envies`,
+> la première famille garde son filet, la seconde reçoit la fleur.
+
+> ⚠️ **Dans la maquette, une couture créée par `innerHTML` reste vide.**
+> Le remplissage des `.jepun-mark` tourne une fois au démarrage, avant
+> `render()`. Les coutures des envies et du livre d'or, elles, naissent
+> plus tard : elles passent par `couture()`, qui inline la fleur.
+
+Les deux pages légales restent sans fleur, et c'est volontaire : ce n'est
+pas le registre.
+
 ### La resynchronisation app / maquette
 
 Les deux avaient dérivé. Mesuré en découpant le texte visible des six pages

@@ -1,5 +1,6 @@
 "use client";
 
+import Separateur from "@/components/Separateur";
 import Suite from "@/components/Suite";
 import Link from "next/link";
 import { useState } from "react";
@@ -74,8 +75,18 @@ export default function Activites({ niveau = 2 }) {
           const liste = ACTIVITES.filter((a) => a.famille === f.id);
           return (
             <div key={f.id} className={fi ? "mt-14" : ""}>
+              {/* La couture ouvre la seconde famille — « Les places
+                  secrètes » — et pas la première, qui suit déjà le
+                  chapô. Voir components/Separateur.jsx : une couture
+                  appartient à ce qu'elle introduit. */}
+              {fi > 0 && <Separateur className="mb-10" />}
               <Reveal>
-                <div className="mb-6 border-t border-rule pt-5">
+                {/* Pas de `border-t` : la couture bougainvillier qui précède EST la
+             séparation. Les deux ensemble donnaient un filet rose, un blanc,
+             puis un filet gris — on lisait un accident, pas un motif. */}
+                <div
+                  className={`mb-6 pt-5 ${fi ? "" : "border-t border-rule"}`}
+                >
                   <h3 className="font-display text-[1.5rem] leading-tight">
                     {f.titre}
                   </h3>
@@ -184,6 +195,8 @@ export default function Activites({ niveau = 2 }) {
             `/#sur-mesure` et non `#sur-mesure` : depuis /envies, une
             ancre nue ne mène nulle part. La sélection, elle, survit — le
             magasin vit dans le gabarit (layout.js). */}
+        <Separateur className="mt-[clamp(2.5rem,7vw,3.5rem)]" />
+
         {count > 0 ? (
           <Reveal>
             <p className="mt-8">

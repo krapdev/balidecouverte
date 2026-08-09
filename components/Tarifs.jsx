@@ -3,6 +3,7 @@ import { TARIFS, AGUS, CIRCUITS } from "@/lib/data";
 import { Symbole } from "./Symboles";
 import SectionHead from "./SectionHead";
 import Reveal from "./Reveal";
+import Separateur from "@/components/Separateur";
 
 /**
  * La grille tarifaire du site actuel, reprise telle quelle — mais dite
@@ -74,9 +75,14 @@ export default function Tarifs() {
           </ul>
         </Reveal>
 
+        {/* La couture bougainvillier, une tous les ~2 000 px sur cette
+            page. Elle ouvre la section qui suit — voir
+            components/Separateur.jsx. */}
+        <Separateur className="mt-14" />
+
         {/* ---------- 2. La grille de la journée ---------- */}
         <Reveal>
-          <div className="mt-14 flex items-start gap-4 border-t border-rule pt-8">
+          <div className="mt-10 flex items-start gap-4 pt-8">
             <Symbole nom="tedung" size={38} className="mt-1 hidden shrink-0 text-accent sm:block" />
             <div>
               <h2 id="grille">La journée, par saison</h2>
@@ -230,8 +236,10 @@ export default function Tarifs() {
           </div>
         </Reveal>
 
+        <Separateur className="mt-14" />
+
         {/* ---------- 5. Compris / à régler sur place ---------- */}
-        <div className="mt-14 grid gap-8 border-t border-rule pt-8 sm:grid-cols-2">
+        <div className="mt-10 grid gap-8 pt-8 sm:grid-cols-2">
           <Reveal delay={0.06}>
             <h2 id="compris" className="mb-4 text-xl">
               Compris dans la journée
@@ -266,9 +274,11 @@ export default function Tarifs() {
           </Reveal>
         </div>
 
+        <Separateur className="mt-14" />
+
         {/* ---------- 6. Les deux autres formules, et le véhicule ---------- */}
         <Reveal delay={0.1}>
-          <div className="mt-14 flex items-start gap-4 border-t border-rule pt-8">
+          <div className="mt-10 flex items-start gap-4 pt-8">
             <Symbole nom="gong" size={38} className="mt-1 hidden shrink-0 text-accent sm:block" />
             <h2 id="savoir">Les deux autres formules</h2>
           </div>

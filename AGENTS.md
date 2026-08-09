@@ -205,6 +205,9 @@ Agus Yudiarta existe, et le site est son gagne-pain.
   ajoutés après chaque retour à la ligne ont transformé les lignes vides en
   lignes de deux espaces : `split("\n\n")` n'a plus rien trouvé et les sept
   témoignages se sont affichés d'un seul tenant, sans erreur visible.
+- **Une couture créée par `innerHTML` reste vide.** Le remplissage des
+  `.jepun-mark` tourne une fois au démarrage, avant `render()` ; ce qui naît
+  ensuite passe par `couture()`, qui inline la fleur.
 - **`querySelector` est singulier.** La fleur des coutures était posée par un
   `querySelector` : avec quatre coutures, trois sont restées des `<span>` vides
   sans qu'aucune erreur ne soit levée. Vérifier le compte après coup.

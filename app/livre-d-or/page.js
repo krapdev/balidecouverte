@@ -10,6 +10,7 @@ import Reveal from "@/components/Reveal";
 import { Symbole } from "@/components/Symboles";
 import { TEMOIGNAGES, LIVRE_OR } from "@/lib/temoignages";
 import { NOM_SITE } from "@/lib/site";
+import Separateur from "@/components/Separateur";
 
 const DESCRIPTION = `Les ${LIVRE_OR.nombre} témoignages de voyageurs partis avec Agus Yudiarta, guide privé francophone à Bali, recopiés du livre d'or sans être retouchés.`;
 
@@ -67,8 +68,19 @@ export default function LivreDOr() {
             </SectionHead>
 
             <ul className="m-0 grid max-w-[80ch] list-none gap-4 p-0">
+              {/* ⚠️ La couture tous les trois témoignages, et **dans la
+                  liste** : posée entre deux `<li>` elle serait un enfant
+                  direct de `<ul>` que le balisage n'autorise pas, et les
+                  lecteurs d'écran annonceraient sept éléments là où il y
+                  en a sept plus deux ornements. Elle vit donc DANS le
+                  `<li>` qu'elle ouvre, sous son `aria-hidden`.
+                  Deux coutures sur sept mots : la page fait 7 200 px, on
+                  reste au rythme d'une tous les ~2 400. */}
               {TEMOIGNAGES.map((t, i) => (
                 <Reveal as="li" key={t.id} delay={(i % 3) * 0.05}>
+                  {i > 0 && i % 3 === 0 && (
+                    <Separateur className="mb-8 mt-4" />
+                  )}
                   <figure className="m-0 rounded-[14px] border border-rule bg-surface p-[clamp(1.25rem,4vw,2rem)]">
                     <figcaption className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b border-rule pb-3.5">
                       <span className="flex items-center gap-3">

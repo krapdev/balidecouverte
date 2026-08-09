@@ -932,7 +932,10 @@
   .formules .resume { font-family: var(--display); font-size: 1.15rem; line-height: 1.3; }
   .formules p { font-size: var(--t-sm); color: var(--text-soft); line-height: 1.6; }
 
-  .tarifs-tete { display: flex; align-items: flex-start; gap: 1rem; border-top: 1px solid var(--rule); margin-top: 3.5rem; padding-top: 2rem; }
+  /* Plus de `border-top` : la couture bougainvillier qui précède EST la
+     séparation. Les deux ensemble donnaient un filet rose, un blanc, puis
+     un filet gris — on lisait un accident, pas un motif. */
+  .tarifs-tete { display: flex; align-items: flex-start; gap: 1rem; margin-top: 2.5rem; padding-top: 0; }
   .tarifs-symbole { flex: none; color: var(--accent); margin-top: 0.25rem; display: none; }
   @media (min-width: 640px) { .tarifs-symbole { display: block; } }
   .tarifs-tete p { margin-top: 0.5rem; max-width: 62ch; font-size: var(--t-sm); color: var(--text-soft); line-height: 1.6; }
@@ -1715,6 +1718,9 @@
      choisit ensuite : qui parcourait la liste sans rien cocher arrivait au
      vide. Le bouton d'envoi, lui, reste conditionnel — le proposer avec une
      sélection vide serait un mensonge. -->
+<div class="shell view-envies" style="padding-top: clamp(1rem, 3vw, 1.5rem)">
+  <div class="divider" aria-hidden="true" style="margin: 1rem 0 0"><span></span><span class="jepun-mark"></span><span></span></div>
+</div>
 <div class="shell view-envies" id="enviesSuite" style="padding-top: clamp(1rem, 3vw, 1.5rem)">
     <div class="sortie">
       <h2>Rien ne vous saute aux yeux ?</h2>
@@ -1773,6 +1779,7 @@
       <ul class="formules" id="formulesList"></ul>
     </div>
 
+    <div class="divider" aria-hidden="true" style="margin: 2.5rem 0"><span></span><span class="jepun-mark"></span><span></span></div>
     <!-- 2. La grille de la journée -->
     <div class="reveal tarifs-tete">
       <span class="tarifs-symbole" id="symTedung"></span>
@@ -1792,6 +1799,7 @@
          poste qui fait monter l'addition. -->
     <div class="reveal supplement" id="supplement"></div>
 
+    <div class="divider" aria-hidden="true" style="margin: 2.5rem 0"><span></span><span class="jepun-mark"></span><span></span></div>
     <!-- 5. Compris / à régler sur place -->
     <div class="tarifs-cols">
       <div class="reveal">
@@ -1804,6 +1812,7 @@
       </div>
     </div>
 
+    <div class="divider" aria-hidden="true" style="margin: 2.5rem 0"><span></span><span class="jepun-mark"></span><span></span></div>
     <!-- 6. Les deux autres formules, et le véhicule -->
     <div class="reveal tarifs-tete">
       <span class="tarifs-symbole" id="symGong"></span>
@@ -1950,15 +1959,18 @@
          qu'on FAIT là où le programme dit ce qui se passe, et il tient en
          six lignes. C'est ce qu'on lit avant de décider si on lit les
          quinze journées. -->
+    <div class="divider" aria-hidden="true" style="margin: 2.5rem 0"><span></span><span class="jepun-mark"></span><span></span></div>
     <div class="part-tete"><span class="part-sym" id="symTempsForts"></span><h2>Six journées sur quinze</h2></div>
     <ul class="temps-forts" id="tempsForts"></ul>
 
     <div class="part-tete"><span class="part-sym" id="symEtapes"></span><h2>Où vous dormez</h2></div>
     <ol class="etapes" id="circuitEtapes"></ol>
 
+    <div class="divider" aria-hidden="true" style="margin: 2.5rem 0"><span></span><span class="jepun-mark"></span><span></span></div>
     <div class="part-tete"><span class="part-sym" id="symJours"></span><h2>Le jour par jour</h2></div>
     <ol class="jours" id="circuitJours"></ol>
 
+    <div class="divider" aria-hidden="true" style="margin: 2.5rem 0"><span></span><span class="jepun-mark"></span><span></span></div>
     <div class="part-tete"><span class="part-sym" id="symPrix"></span><h2>Ce que le prix comprend</h2></div>
     <p style="margin-top: 1rem; max-width: 64ch; color: var(--text-soft)" id="circuitPrixNote"></p>
     <div class="compris-grille">
@@ -1966,6 +1978,7 @@
       <ul class="compris non-compris" id="circuitNonCompris"></ul>
     </div>
 
+    <div class="divider" aria-hidden="true" style="margin: 2.5rem 0"><span></span><span class="jepun-mark"></span><span></span></div>
     <div class="sortie">
       <h2>Maintenant, dites-moi ce que vous en gardez.</h2>
       <p>Ce programme est un point de départ, pas un produit. On enlève une
@@ -2058,6 +2071,7 @@
     <div class="part-tete"><span class="part-sym" id="symFrancais"></span><h2>Le français, et l'Histoire</h2></div>
     <div class="portrait-corps" id="portraitFrancais"></div>
 
+    <div class="divider" aria-hidden="true" style="margin: 2.5rem 0"><span></span><span class="jepun-mark"></span><span></span></div>
     <div class="part-tete"><span class="part-sym" id="symFamille"></span><h2>Ma famille</h2></div>
     <div class="portrait-corps" id="portraitFamille"></div>
 
@@ -2071,9 +2085,11 @@
     <!-- Cette partie manquait à la maquette alors qu'elle porte, dans
          l'app, la seule promesse opérationnelle de la page : ce qui se
          passe concrètement quand on écrit. -->
+    <div class="divider" aria-hidden="true" style="margin: 2.5rem 0"><span></span><span class="jepun-mark"></span><span></span></div>
     <div class="part-tete"><span class="part-sym" id="symChange"></span><h2>Ce que ça change pour vous</h2></div>
     <div class="portrait-corps" id="portraitChange"></div>
 
+    <div class="divider" aria-hidden="true" style="margin: 2.5rem 0"><span></span><span class="jepun-mark"></span><span></span></div>
     <div class="sortie">
       <h2>Vous savez qui je suis. Voyons le voyage.</h2>
       <p>Quinze jours que j'ai déjà conduits des dizaines de fois, ou une liste
@@ -3321,6 +3337,15 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
   Array.prototype.slice.call(document.querySelectorAll(".jepun-mark"))
     .forEach(function (n) { n.outerHTML = jepun(34, "var(--bougain)"); });
 
+  /* ⚠️ Ce remplissage tourne AVANT `render()`. Une couture créée plus
+     tard par un `innerHTML` resterait donc un <span> vide : pour
+     celles-là, `couture()` inline la fleur directement. */
+  function couture(marge) {
+    return '<div class="divider" aria-hidden="true"' +
+      (marge ? ' style="' + marge + '"' : "") + '><span></span>' +
+      jepun(34, "var(--bougain)") + "<span></span></div>";
+  }
+
   /* ---------- Rendu : les deux chemins ---------- */
   function renderChemins() {
     $("cheminList").innerHTML = CHEMINS.map(function (c) {
@@ -3819,7 +3844,11 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
     $("familles").innerHTML = FAMILLES.map(function (f, fi) {
       var liste = ACTIVITES.filter(function (a) { return a.famille === f.id; });
       return '<div class="famille' + (fi ? " famille-suivante" : "") + '">' +
-        '<div class="famille-tete reveal">' +
+        /* La couture ouvre la seconde famille, pas la première qui suit
+           déjà le chapô. Le filet gris de `.famille-tete` disparaît avec
+           elle : les deux ensemble donnaient un accident, pas un motif. */
+        (fi ? couture("margin-bottom: 2.5rem") : "") +
+        '<div class="famille-tete reveal"' + (fi ? ' style="border-top: 0; padding-top: 0"' : "") + '>' +
           '<h3>' + f.titre + '</h3>' +
           '<p>' + f.texte + '</p>' +
         '</div>' +
@@ -3878,8 +3907,13 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
     $("livreChapo").textContent =
       "Ces mots sont les leurs, recopiés du livre d'or sans être retouchés. " +
       "Je n'ai corrigé que des fautes de frappe.";
-    $("livreList").innerHTML = TEMOIGNAGES.map(function (t) {
-      return '<li class="reveal"><figure><figcaption>' +
+    /* Une couture tous les trois témoignages, DANS le <li> qu'elle ouvre :
+       posée entre deux <li> elle serait un enfant direct de <ul>, que le
+       balisage n'autorise pas. */
+    $("livreList").innerHTML = TEMOIGNAGES.map(function (t, i) {
+      return '<li class="reveal">' +
+        (i > 0 && i % 3 === 0 ? couture("margin: 1rem 0 2rem") : "") +
+        '<figure><figcaption>' +
         '<span class="qui">' + symbole("padma", 22) +
         '<span class="nom">' + t.auteur + "</span></span>" +
         '<span class="label">' + t.pays + " \u00B7 " + t.quand + "</span>" +

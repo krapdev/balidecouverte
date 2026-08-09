@@ -384,6 +384,12 @@ export default function PagePortrait() {
             </Partie>
 
             {/* ---------- 3. La famille ---------- */}
+            {/* La page faisait neuf écrans pour une seule couture. Deux
+                de plus, aux deux pivots : là où le portrait passe du
+                métier à l'homme, puis de l'homme à ce que ça change pour
+                le voyageur. */}
+            <Separateur className="mt-[clamp(2.5rem,7vw,3.5rem)]" size={28} />
+
             <Partie n={3} symbole="rangs" titre="Ma famille">
               <p className="text-[1.0625rem] text-ink">{AGUS.famille}.</p>
               {/* `court` et non `texte` : la version longue développait le
@@ -482,6 +488,8 @@ export default function PagePortrait() {
             </Partie>
 
             {/* ---------- 5. Ce que ça change pour vous ---------- */}
+            <Separateur className="mt-[clamp(2.5rem,7vw,3.5rem)]" size={28} />
+
             <Partie n={5} symbole="canang" titre="Ce que ça change pour vous">
               {/* Trois points ramenés à deux : le premier — « vous payez le
                   travail, pas la chaîne » — est devenu le sujet entier de
