@@ -94,6 +94,10 @@ Agus Yudiarta existe, et le site est son gagne-pain.
 - **Après toute génération d'images, en faire une planche et la regarder.** Deux
   fichiers ont été produits inversés d'après leur date de téléversement ; aucune
   assertion sur le DOM ne l'attrape, seul l'œil le voit.
+- **Une police « traditionnelle Bali » n'existe pas en alphabet latin.** Celles
+  vendues sous ce nom imitent l'aksara et donnent du bar à cocktails. Prendre
+  une police dessinée **pour** une écriture brahmique — Kadwa porte le logotype,
+  Eczar les titres — et comparer à la taille réelle sur le fond réel.
 - **Le logo est `public/logo.svg`, servi en `<img>`.** C'est le vrai logo
   d'Agus, vectorisé depuis son fichier : ne pas le redessiner, ne pas l'inliner
   dans l'app (80 ko × 8 pages), ne pas lui faire hériter de `currentColor`. La

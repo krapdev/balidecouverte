@@ -231,11 +231,30 @@ export default function Navbar() {
         <div className="shell flex h-[68px] items-center gap-3 sm:gap-6">
           <Link
             href={home ? "#top" : "/"}
-            className="mr-auto flex min-h-11 min-w-0 items-center gap-2.5 no-underline sm:gap-3"
+            /* ⚠️ `sm:shrink-0` : au-delà de 640 px, **le bloc de marque ne se
+               comprime plus**. Mesuré à 1280 : la barre avait 68 px de marge
+               disponible et la marque était pourtant rognée de 32 px, le nom
+               du site tronqué de 47. C'est le même piège que les liens et le
+               bouton — `flex-shrink: 1` rétrécit un élément avant même que le
+               conteneur ne déborde.
+               Il reste compressible **sous** 640 px, et il le faut : à 320 la
+               place manque pour de bon, et mieux vaut une ellipsis qu'un
+               débordement. */
+            className="mr-auto flex min-h-11 min-w-0 items-center gap-2.5 no-underline sm:shrink-0 sm:gap-3"
           >
-            <Marque size={56} />
+            {/* ⚠️ **La plaque blanche n'est pas décorative.** Sur la
+                barre soleil, trois des cinq couleurs du logo sont
+                noyées — mesuré : l'épi d'or à 1,40 de contraste, le
+                cœur de fleur à 1,58, le vert clair à 1,43. Le dessin
+                devient une tache. Sur blanc il se détache.
+                Le blanc et non l'ivoire : le logo a été dessiné sur
+                blanc, c'est son fond natif. Et surtout pas un fond
+                sombre — testé, le bambou profond avale les terrasses. */}
+            <span className="grid shrink-0 place-items-center rounded-full bg-white p-1.5">
+              <Marque size={52} />
+            </span>
             <span className="min-w-0 leading-tight">
-              <span className="block truncate font-display text-lg font-semibold tracking-tight min-[380px]:text-xl">
+              <span className="block truncate font-logo text-lg leading-none tracking-tight min-[360px]:text-xl min-[380px]:text-2xl">
                 Bali Découverte
               </span>
               {/* Masquée sous 640 px plutôt que tronquée : « GUIDE

@@ -903,6 +903,58 @@ la jungle » sur une photo de temple.
 > en relisant le code qui les produit, et aucune assertion sur le DOM ne
 > l'attrape. Après toute génération d'images : en faire une planche et l'ouvrir.
 
+### Le logotype : sa propre police, et une plaque blanche
+
+**La plaque blanche n'est pas décorative.** Sur la barre soleil, **trois des
+cinq couleurs du logo sont noyées** : l'épi d'or à 1,40 de contraste, le cœur de
+fleur à 1,58, le vert clair à 1,43. Le dessin devient une tache. Sur blanc il se
+détache.
+
+Blanc et non ivoire : le logo a été dessiné sur blanc, c'est son fond natif. Et
+**surtout pas un fond sombre** — testé, le bambou profond avale les terrasses.
+
+#### Kadwa, et pourquoi pas une police « Bali »
+
+La demande était « une police plus traditionnelle Bali ». Le piège est connu :
+les polices vendues sous ce nom **imitent l'aksara balinais en alphabet latin**
+et donnent du bar à cocktails — illisibles, et fausses, puisqu'elles miment une
+écriture qu'elles n'écrivent pas.
+
+La voie honnête est de prendre une police **dessinée pour une écriture
+brahmique**, dont le latin porte la trace du même ductus. Six ont été comparées
+côte à côte, **à la taille réelle et sur le fond réel de la barre** — pas dans un
+échantillonneur :
+
+| | origine | largeur vs Eczar |
+| --- | --- | --- |
+| Eczar (titres) | devanagari | référence |
+| Rozha One | devanagari, fort contraste | +1 % |
+| Yatra One | devanagari, décorative | +8 % |
+| **Kadwa** | **devanagari, à empattements** | **+10 %** |
+| Trirong | thaïe, romaine | +9 % |
+| Chonburi | thaïe, à empattements | **+24 %** |
+
+**Kadwa** gagne sur trois points : elle porte le **trait horizontal supérieur**
+du devanagari — la caractéristique visuelle la plus proche de l'aksara balinais ;
+c'est une linéale à empattements carrés, donc elle tient à 20 px là où une
+display à fort contraste se disloque ; et à +10 % elle entre dans le budget de la
+barre. Chonburi, plus frappante, le faisait sauter à +24 %.
+
+> **Un logotype a le droit d'avoir sa propre police.** Kadwa ne sert **qu'au nom
+> du site** : les titres restent en Eczar. Deux polices d'affichage sur un site
+> est une de trop pour du texte courant, mais un logotype n'est pas du texte.
+
+#### `sm:shrink-0` sur le bloc de marque
+
+Mesuré à 1280 : **la barre avait 68 px de marge disponible et la marque était
+pourtant rognée de 32 px**, le nom du site tronqué de 47. C'est le même piège que
+les liens et le bouton — `flex-shrink: 1` rétrécit un élément **avant même que
+le conteneur ne déborde**.
+
+Le bloc reste compressible **sous 640 px**, et il le faut : à 320 la place manque
+pour de bon, et mieux vaut une ellipsis qu'un débordement. D'où l'échelle du nom :
+18 px, puis 20 à 360, puis 24 à 380 — vérifiée à huit largeurs jusqu'à 1920.
+
 ### Le nom du site a coûté le bouton « Devis » mobile
 
 Le logo est passé à 56 px et le nom du site d'un cran. Le budget de la barre n'a

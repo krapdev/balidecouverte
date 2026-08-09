@@ -1,4 +1,4 @@
-import { Eczar, Mulish } from "next/font/google";
+import { Eczar, Mulish, Kadwa } from "next/font/google";
 import { TripProvider } from "@/lib/trip-store";
 import { ORIGINE, NOM_SITE, TITRE, DESCRIPTION, INDEXABLE } from "@/lib/site";
 import "./globals.css";
@@ -13,6 +13,37 @@ const display = Eczar({
   display: "swap",
   variable: "--font-display",
 });
+/**
+ * ⚠️ **Kadwa ne sert QU'au logotype**, pas aux titres.
+ *
+ * La demande était « une police plus traditionnelle Bali ». Le piège est
+ * connu : les polices vendues sous le nom « Bali » imitent l'aksara
+ * balinais en alphabet latin et donnent du bar à cocktails — illisibles,
+ * et fausses, puisqu'elles miment une écriture qu'elles n'écrivent pas.
+ *
+ * La voie honnête est de prendre une police **dessinée pour une écriture
+ * brahmique**, dont le latin porte la trace du même ductus. Six ont été
+ * comparées côte à côte, à la taille réelle, sur le fond réel de la
+ * barre : Eczar, Rozha One, Yatra One, Chonburi, Trirong, Kadwa.
+ *
+ * Kadwa gagne sur trois points. Elle porte le **trait horizontal
+ * supérieur** du devanagari — la caractéristique visuelle la plus proche
+ * de l'aksara balinais. C'est une linéale à empattements carrés, donc
+ * elle tient à 20 px là où une display à fort contraste se disloque. Et
+ * elle ne coûte que **+10 % de largeur** contre Eczar : Chonburi, plus
+ * frappante, en coûtait +24 %, ce qui ferait sauter le budget de la barre
+ * qu'on vient tout juste d'équilibrer.
+ *
+ * **Un logotype a le droit d'avoir sa propre police.** Les titres restent
+ * en Eczar, dont le choix est défendu ci-dessus et dans le README.
+ */
+const logotype = Kadwa({
+  subsets: ["latin"],
+  weight: "700",
+  display: "swap",
+  variable: "--font-logo",
+});
+
 const body = Mulish({
   subsets: ["latin"],
   display: "swap",
@@ -82,7 +113,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="fr"
-      className={`${display.variable} ${body.variable} antialiased`}
+      className={`${display.variable} ${body.variable} ${logotype.variable} antialiased`}
     >
       {/* ⚠️ Le `TripProvider` est ici, et non dans la page d'accueil.
           C'est ce qui rend possible le découpage en pages : depuis que
