@@ -905,13 +905,26 @@ la jungle » sur une photo de temple.
 
 ### Le logotype : sa propre police, et une plaque blanche
 
-**La plaque blanche n'est pas décorative.** Sur la barre soleil, **trois des
-cinq couleurs du logo sont noyées** : l'épi d'or à 1,40 de contraste, le cœur de
-fleur à 1,58, le vert clair à 1,43. Le dessin devient une tache. Sur blanc il se
+**Le fond blanc n'est pas décoratif.** Sur la barre soleil, **trois des cinq
+couleurs du logo sont noyées** : l'épi d'or à 1,40 de contraste, le cœur de fleur
+à 1,58, le vert clair à 1,43. Le dessin devient une tache. Sur blanc il se
 détache.
 
 Blanc et non ivoire : le logo a été dessiné sur blanc, c'est son fond natif. Et
 **surtout pas un fond sombre** — testé, le bambou profond avale les terrasses.
+
+> ⚠️ **Le disque blanc est DANS `public/logo.svg`, pas autour.** Une plaque posée
+> dans la barre a d'abord été essayée : elle débordait le dessin et le cerclait
+> d'un halo. Le blanc s'arrête maintenant là où s'arrête le disque des terrasses.
+>
+> La géométrie — `cx=234 cy=248 r=208` — vient d'une mesure du cercle que
+> décrivent les terrasses dans le PNG source (centre 468/490, rayon 402 sur
+> 1024 px), puis d'un ajustement à l'œil sur le fond réel. **Un rayon plus grand
+> laisse voir une lune blanche à gauche, un plus petit laisse les terrasses
+> déborder en bas** : les deux ont été rendus côte à côte avant de trancher.
+>
+> Le porter dans le fichier rend le logo posable sur n'importe quelle couleur —
+> et c'est fidèle, puisque son fond natif est le blanc.
 
 #### Kadwa, et pourquoi pas une police « Bali »
 
@@ -953,7 +966,9 @@ le conteneur ne déborde**.
 
 Le bloc reste compressible **sous 640 px**, et il le faut : à 320 la place manque
 pour de bon, et mieux vaut une ellipsis qu'un débordement. D'où l'échelle du nom :
-18 px, puis 20 à 360, puis 24 à 380 — vérifiée à huit largeurs jusqu'à 1920.
+**20 px, puis 24 à 360, puis 28 à 380** — vérifiée à six largeurs jusqu'à 1920.
+Elle a gagné un cran partout le jour où la plaque extérieure est rentrée dans le
+fichier : ses 12 px de rembourrage sont revenus au titre.
 
 ### Le nom du site a coûté le bouton « Devis » mobile
 

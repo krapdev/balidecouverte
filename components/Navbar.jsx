@@ -242,19 +242,18 @@ export default function Navbar() {
                débordement. */
             className="mr-auto flex min-h-11 min-w-0 items-center gap-2.5 no-underline sm:shrink-0 sm:gap-3"
           >
-            {/* ⚠️ **La plaque blanche n'est pas décorative.** Sur la
-                barre soleil, trois des cinq couleurs du logo sont
-                noyées — mesuré : l'épi d'or à 1,40 de contraste, le
-                cœur de fleur à 1,58, le vert clair à 1,43. Le dessin
-                devient une tache. Sur blanc il se détache.
-                Le blanc et non l'ivoire : le logo a été dessiné sur
-                blanc, c'est son fond natif. Et surtout pas un fond
-                sombre — testé, le bambou profond avale les terrasses. */}
-            <span className="grid shrink-0 place-items-center rounded-full bg-white p-1.5">
-              <Marque size={52} />
-            </span>
+            {/* ⚠️ **Le fond blanc du logo est DANS le fichier**, pas
+                autour. Une plaque posée ici a d'abord été essayée : elle
+                débordait le dessin et le cerclait d'un halo.
+
+                Il est nécessaire et non décoratif : sur la barre soleil,
+                trois des cinq couleurs du logo sont noyées — l'épi d'or
+                à 1,40 de contraste, le cœur de fleur à 1,58, le vert
+                clair à 1,43. Le dessin devient une tache.
+                Voir `public/logo.svg` pour la géométrie du disque. */}
+            <Marque size={56} />
             <span className="min-w-0 leading-tight">
-              <span className="block truncate font-logo text-lg leading-none tracking-tight min-[360px]:text-xl min-[380px]:text-2xl">
+              <span className="block truncate font-logo text-xl leading-none tracking-tight min-[360px]:text-2xl min-[380px]:text-[1.75rem]">
                 Bali Découverte
               </span>
               {/* Masquée sous 640 px plutôt que tronquée : « GUIDE
