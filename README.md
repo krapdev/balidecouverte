@@ -880,6 +880,43 @@ Sur la barre soleil : la correction de contraste avait été faite dans l'app et
 `flex-shrink` ci-dessous, qui dormait dans la maquette depuis que le nom du
 site a grossi.
 
+### Le dernier bloc rouge, supprimé sans être rempli
+
+Le portrait portait quatre marqueurs rouges : le nom de l'union, son année
+de fondation, son effectif, ses actions. Ils attendaient une réponse
+d'Agus. Elle est venue, et elle n'était pas celle qu'on attendait :
+
+> « Ce n'est pas une association officielle des guides actuellement,
+> uniquement une entraide et union des guides indépendants. »
+
+Les quatre champs supposaient tous une **association constituée**. Il n'y
+en a pas. Le bloc n'a donc pas été rempli — il a été **supprimé**, avec les
+trois questions qui l'accompagnaient.
+
+> ⚠️ **Un formulaire vide n'est neutre que si la chose qu'il décrit
+> existe.** Quatre cases en attente d'un nom d'association affirmaient, par
+> leur seule présence, qu'une association existait — c'est-à-dire
+> exactement le genre de fait inventé que `lib/portrait.js` est censé
+> empêcher. Le marqueur rouge protège contre la valeur inventée, pas
+> contre la **question** mal posée.
+
+Le texte dit maintenant : « Ce n'est pas une association officielle :
+c'est une entraide, une union de guides indépendants. » Le mot « union »
+reste — c'est le sien —, la précision est ajoutée.
+
+La donnée longue de `VALEURS` disait encore « au sein d'une union de guides
+de Bali » ; elle est corrigée bien qu'elle ne soit affichée nulle part,
+parce qu'une donnée fausse en réserve finit par sortir.
+
+| | avant | après |
+| --- | --- | --- |
+| Marqueurs rouges sur `/agus` | 4 | **0** |
+| Questions ouvertes | 8 | **5** |
+
+Il reste cinq questions : le village, ce qui l'a mené au métier en 2005,
+la précision sur « l'un des premiers », la licence, et ce qu'il veut qu'on
+dise de sa famille.
+
 ### Deux entrées de menu mortes, dans la maquette seule
 
 « Us et coutumes » et « Livre d'or » sont les deux seules entrées qui

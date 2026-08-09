@@ -3772,7 +3772,6 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
   /* ---------- Rendu : le portrait ---------- */
   /* `null` dans PORTRAIT = une chose que seul Agus peut dire. Elle sort
      en marqueur rouge, jamais en phrase plausible. */
-  var UNION = { nom: null, depuis: null, role: null, effectif: null, actions: null };
   /* ⚠️ Copie conforme de `lib/portrait.js` : ces questions partent à
      Agus et l'app les numérote. La maquette en portait six, dont une
      — « Où avez-vous grandi, et où avez-vous appris le français ? » —
@@ -3787,9 +3786,6 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
   ];
 
   var QUESTIONS = [
-    "Comment s'appelle exactement votre union de guides, et depuis quand en faites-vous partie ?",
-    "Que fait-elle concrètement ? Trois exemples valent mieux qu'une définition.",
-    "Combien de guides êtes-vous, et dans quelles langues travaillez-vous ?",
     "Dans quel village avez-vous grandi ?",
     "Qu'est-ce qui vous a fait devenir guide en 2005 ?",
     "Vous dites avoir été l'un des premiers à quitter le système des agences — premier de votre groupe, de votre région, de l'île ? C'est écrit tel quel en attendant votre précision.",
@@ -3797,9 +3793,11 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
     "Que voulez-vous qu'on dise de votre famille — et que préférez-vous garder pour vous ?"
   ];
 
-  function valeur(v, quoi) {
-    return v ? v : '<mark class="acompleter">[à compléter — ' + quoi + ']</mark>';
-  }
+  /* `valeur()` et la classe `.acompleter` ont été retirées avec le bloc
+     de l'union : plus rien n'attend de valeur sur la vue portrait. Elles
+     reviendront telles quelles le jour où un champ redevient inconnu —
+     voir components/AComplete.jsx dans l'app, qui reste, lui, en service
+     sur les pages légales. */
 
   function renderPortrait() {
     $("portraitPhoto").innerHTML = PHOTO_AGUS;
@@ -3893,7 +3891,8 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
       "pour d'autres. C'est ce que je défends depuis : un métier, et pas une " +
       "prestation revendue. Un guide balinais qui travaille en direct répond de son " +
       "travail devant les voyageurs eux-mêmes, et leur fait profiter de son " +
-      "expérience. Je fais partie d'une union de guides de Bali.</p>" +
+      "expérience. Ce n'est pas une association officielle : c'est une entraide, " +
+      "une union de guides indépendants.</p>" +
       "<p>Je ne fais pas ça pour moi seul. Chaque voyage organisé en direct, c'est un " +
       "guide de plus qui vit de son métier sans dépendre de personne, une famille de " +
       "Sidemen, de Munduk ou de Tenganan qui reçoit chez elle, et un peu de mon pays " +
@@ -3903,14 +3902,12 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
       "Munduk, un village qui reçoit chez lui parce qu'on s'y connaît : ces endroits " +
       "existent parce que quelqu'un du pays y a ses entrées, et ils cessent d'exister " +
       "le jour où on en publie l'adresse.</p>" +
-      '<dl class="faits">' +
-        [["Son nom", UNION.nom, "le nom exact, et sa traduction"],
-         ["Membre depuis", UNION.depuis, "l'année"],
-         ["Combien de guides", UNION.effectif, "l'effectif, et les langues"],
-         ["Ce qu'elle fait", UNION.actions, "trois actions concrètes valent mieux qu'une définition"]].map(function (x) {
-          return '<div><dt class="label">' + x[0] + '</dt><dd>' + valeur(x[1], x[2]) + '</dd></div>';
-        }).join("") +
-      '</dl>';
+      "";
+      /* ⚠️ Le dernier bloc rouge est parti, et pas parce qu'on l'a rempli :
+         il demandait le nom, l'année, l'effectif et les actions d'une
+         association constituée. Agus a précisé qu'il n'y en a pas. Un
+         formulaire vide n'est neutre que si la chose qu'il décrit
+         existe. */
 
     $("portraitChange").innerHTML =
       "<p>Si je ne suis pas libre à vos dates, je passe le relais à un guide que " +

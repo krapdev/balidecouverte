@@ -36,7 +36,14 @@ Agus Yudiarta existe, et le site est son gagne-pain.
   tous les résultats enrichis du domaine.
 - **Les places secrètes se nomment, leur adresse ne se publie jamais.** On crée
   le désir, on ne donne ni l'itinéraire ni le point GPS.
-- Agus écrit **« une union de guides de Bali »**, jamais « syndicat ».
+- **L'union n'est pas une association constituée.** Agus a précisé : « ce
+  n'est pas une association officielle des guides actuellement, uniquement
+  une entraide et union des guides indépendants ». Il écrit **« une union de
+  guides »**, jamais « syndicat » ni « association ». Le bloc `UNION` de
+  `lib/portrait.js` a été supprimé pour cette raison — **un formulaire vide
+  n'est neutre que si la chose qu'il décrit existe.** Quatre cases en
+  attente d'un nom d'association affirmaient, par leur seule présence,
+  qu'une association existait. Ne pas le recréer.
 - Le texte des valeurs s'écrit **par le positif**. La règle s'est précisée
   depuis qu'Agus a témoigné de son passage en agence : **jamais d'agence
   nommée, jamais de grief qu'on ne pourrait attribuer à quelqu'un.** Son vécu

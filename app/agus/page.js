@@ -4,14 +4,13 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Photo from "@/components/Photo";
 import RetourLien from "@/components/RetourLien";
-import { Valeur } from "@/components/AComplete";
 import LienPage from "@/components/LienPage";
 import { Symbole } from "@/components/Symboles";
 import { Jepun, Canang } from "@/components/Scene";
 import Separateur from "@/components/Separateur";
 import Suite from "@/components/Suite";
 import { AGUS, VALEURS, USAGES } from "@/lib/data";
-import { UNION, QUESTIONS } from "@/lib/portrait";
+import { QUESTIONS } from "@/lib/portrait";
 
 /**
  * Le portrait — la page qu'on atteint en cliquant sur sa photo.
@@ -454,8 +453,9 @@ export default function PagePortrait() {
                 que je défends depuis : un métier, et pas une prestation
                 revendue. Un guide balinais qui travaille en direct
                 répond de son travail devant les voyageurs eux-mêmes, et leur
-                fait profiter de son expérience. Je fais partie d&apos;une
-                union de guides de Bali.
+                fait profiter de son expérience. Ce n&apos;est pas une
+                association officielle : c&apos;est une entraide, une union
+                de guides indépendants.
               </p>
               <p>
                 Je ne fais pas ça pour moi seul. Chaque voyage organisé en
@@ -474,17 +474,13 @@ export default function PagePortrait() {
                 d&apos;exister le jour où on en publie l&apos;adresse.
               </p>
 
-              {/* Le seul bloc entièrement vide qui reste. Même motif que la
-                  fiche du métier — ce qui manque se voit par le rouge de
-                  `<Valeur>`, pas par un cadre. */}
-              <ListeFaits
-                items={[
-                  ["Son nom", <Valeur key="n" v={UNION.nom} quoi="le nom exact, et sa traduction" />],
-                  ["Membre depuis", <Valeur key="d" v={UNION.depuis} quoi="l'année" />],
-                  ["Combien de guides", <Valeur key="e" v={UNION.effectif} quoi="l'effectif, et les langues" />],
-                  ["Ce qu'elle fait", <Valeur key="a" v={UNION.actions} quoi="trois actions concrètes valent mieux qu'une définition" />],
-                ]}
-              />
+              {/* ⚠️ **Le dernier bloc rouge de la page est parti, et pas
+                  parce qu'on l'a rempli — parce que la question ne se
+                  posait pas.** Il demandait le nom de l'union, son année
+                  de fondation, son effectif, ses actions : quatre champs
+                  qui supposaient une association constituée. Agus a
+                  précisé qu'il n'y en a pas. Un formulaire vide n'est
+                  neutre que si la chose qu'il décrit existe. */}
             </Partie>
 
             {/* ---------- 5. Ce que ça change pour vous ---------- */}
