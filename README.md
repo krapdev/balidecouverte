@@ -851,6 +851,58 @@ un sélecteur différent. Six échecs de contraste, sur cinq vues, à 1280 seule
 — la largeur où la barre affiche ses liens. Rien ne l'aurait montré à l'œil sur
 une seule vue.
 
+### Le diaporama du hero — trois photos, et deux règles non négociables
+
+`components/Diaporama.jsx`. Trois photos de Bali en fondu, sept secondes
+chacune, fondu de 1,1 s.
+
+**1. WCAG 2.2.2, niveau A.** Tout contenu qui démarre seul, dure plus de cinq
+secondes et cohabite avec d'autres contenus **doit offrir un moyen de
+l'arrêter**. Le bouton pause n'est donc pas un confort : sans lui le site échoue
+à un critère de niveau A.
+
+**2. `prefers-reduced-motion` empêche le défilement de *démarrer*** — pas de le
+ralentir, pas de supprimer le fondu. Pour certaines personnes c'est une question
+de nausée, pas de goût. Les pastilles et la navigation manuelle restent ; le
+bouton pause disparaît, puisque plus rien ne bouge.
+
+Le reste des choix : **fondu et non glissement** (un glissement déplace le
+regard, un fondu laisse l'œil où il est — c'est ce que « doucement » veut dire),
+et **le survol ne met pas en pause** (inutile au tactile, imprévisible à la
+souris : on ne sait plus si c'est arrêté ou lent).
+
+> ⚠️ **Les trois images sont en `loading="eager"`, et c'est contre-intuitif.**
+> Avec `lazy`, la photo qui apparaît n'est pas encore téléchargée au moment du
+> fondu : son opacité passe à 1 sur une image vide et **on voit à travers celle
+> du dessous**. Mesuré — un clic sur la troisième pastille affichait la
+> deuxième photo. Les trois occupent le même cadre visible, elles sont donc
+> toutes « au-dessus de la ligne de flottaison » même quand deux sont
+> transparentes. `fetchPriority` fait le tri.
+
+> ⚠️ **`object-position` est posé photo par photo.** Les trois n'ont pas le même
+> format — 16/9 pour les rizières, 4/3 pour le temple et la cascade — et le
+> cadre est un bandeau. Recadrées au centre, le temple perdait sa tour et la
+> cascade sa chute. Le bandeau est d'ailleurs passé de 2,8/1 à **2,2/1** sur
+> grand écran pour cette raison : un format extrême est hostile à des photos qui
+> n'ont pas toutes la même forme.
+
+**Les légendes ne nomment aucun lieu**, et c'est délibéré : le temple et la
+cascade sont reconnaissables pour qui connaît l'île, mais ils ne peuvent pas
+être identifiés avec certitude — et une légende qui nomme le mauvais temple sur
+le site d'un guide balinais est pire qu'une légende qui décrit.
+
+#### Et une erreur qui serait passée
+
+Les deux nouveaux fichiers ont d'abord été produits **inversés**, en associant
+le nom au fichier source d'après sa date de téléversement : `bali-cascade`
+contenait le temple. Le DOM était juste, l'opacité était juste, le composant
+marchait parfaitement — et un lecteur d'écran aurait annoncé « une cascade dans
+la jungle » sur une photo de temple.
+
+> **Ce genre d'erreur ne se voit qu'en regardant les fichiers produits**, jamais
+> en relisant le code qui les produit, et aucune assertion sur le DOM ne
+> l'attrape. Après toute génération d'images : en faire une planche et l'ouvrir.
+
 ### Le nom du site a coûté le bouton « Devis » mobile
 
 Le logo est passé à 56 px et le nom du site d'un cran. Le budget de la barre n'a

@@ -1,5 +1,6 @@
 import { JepunBranch } from "./Scene";
 import Photo from "./Photo";
+import Diaporama from "./Diaporama";
 import { DESTINATIONS } from "@/lib/data";
 
 /**
@@ -13,6 +14,52 @@ import { DESTINATIONS } from "@/lib/data";
  * ne dépend plus du JavaScript.
  */
 const cran = (n) => ({ animationDelay: `${0.05 + n * 0.09}s` });
+
+/**
+ * Les trois photos du diaporama.
+ *
+ * ⚠️ **Les légendes ne nomment aucun lieu**, et c'est délibéré. Le temple
+ * et la cascade sont reconnaissables pour qui connaît l'île, mais je ne
+ * peux pas les identifier avec certitude — et une légende qui nomme le
+ * mauvais temple sur le site d'un guide balinais est pire qu'une légende
+ * qui décrit. Le jour où Agus les nomme, elles se précisent.
+ *
+ * `position` : les trois n'ont pas le même format — 16/9 pour les
+ * rizières, 4/3 pour les deux autres — et le cadre est un bandeau.
+ * Recadrées au centre, le temple perdait sa tour et la cascade sa chute.
+ *
+ * ⚠️ **Les deux fichiers ont été produits inversés une première fois**, en
+ * associant le nom au fichier source d'après sa date de téléversement.
+ * `bali-cascade` contenait le temple. Le DOM était juste, l'opacité était
+ * juste, le composant marchait — et le lecteur d'écran aurait annoncé
+ * « une cascade dans la jungle » sur une photo de temple.
+ * **Ce genre d'erreur ne se voit qu'en regardant les fichiers produits**,
+ * jamais en relisant le code qui les produit. Après toute génération
+ * d'images : en faire une planche et l'ouvrir.
+ */
+const SIZES = "(min-width: 1280px) 1136px, 92vw";
+const PHOTOS = [
+  {
+    src: "/bali-rizieres.jpg",
+    webp: "/bali-rizieres-640.webp 640w, /bali-rizieres-1000.webp 1000w, /bali-rizieres-1600.webp 1600w",
+    sizes: SIZES,
+    alt: "Rizières en terrasses et bale traditionnel sous les cocotiers, dans l'intérieur de Bali",
+  },
+  {
+    src: "/bali-temple.jpg",
+    webp: "/bali-temple-640.webp 640w, /bali-temple-1000.webp 1000w, /bali-temple-1600.webp 1600w",
+    sizes: SIZES,
+    position: "center 38%",
+    alt: "Un temple balinais et son escalier gardé par des naga, sous les parasols dorés",
+  },
+  {
+    src: "/bali-cascade.jpg",
+    webp: "/bali-cascade-640.webp 640w, /bali-cascade-1000.webp 1000w, /bali-cascade-1600.webp 1600w",
+    sizes: SIZES,
+    position: "center 45%",
+    alt: "Une cascade en rideau dans la jungle, et son bassin d'eau turquoise",
+  },
+];
 
 export default function Hero() {
   return (
@@ -134,37 +181,15 @@ export default function Hero() {
             </p>
           </div>
 
-          {/* La photo du pays, juste avant l'appel à l'action : on montre
-              ce qu'on vend au moment exact où l'on demande de cliquer.
-              `w-full` et non pleine largeur d'écran — elle reste dans la
-              gouttière du `shell`, alignée sur le titre au-dessus. */}
-          <div
-            style={cran(3)}
-            className="monte w-full overflow-hidden rounded-[16px] shadow-[0_24px_60px_-30px_rgba(0,0,0,0.8)]"
-          >
-            <Photo
-              src="/bali-rizieres.jpg"
-              sources={[
-                {
-                  type: "image/webp",
-                  srcSet:
-                    "/bali-rizieres-640.webp 640w, /bali-rizieres-1000.webp 1000w, /bali-rizieres-1600.webp 1600w",
-                },
-              ]}
-              sizes="(min-width: 1280px) 1136px, 92vw"
-              uid="bali-hero"
-              /* ⚠️ **Bandeau au-delà de `md`, et ce n'est pas cosmétique.**
-                 En 16/9 sur toute la gouttière, la photo faisait 639 px
-                 de haut à 1280 et poussait le hero à 1 449 px : le CTA
-                 tombait très loin sous la ligne de flottaison. En 2,4/1
-                 elle en fait 473 de moins, garde tout son sujet — c'est
-                 un paysage horizontal, le ciel et l'herbe se rognent sans
-                 rien perdre — et le hero redevient proportionné.
-                 Sur mobile le 16/9 reste : la largeur y est si faible que
-                 l'image serait une fente. */
-              ratio="aspect-[1.8/1] md:aspect-[2.8/1]"
-              alt="Rizières en terrasses et bale traditionnel sous les cocotiers, dans l'intérieur de Bali"
+          {/* Les photos du pays, juste avant l'appel à l'action : on
+              montre ce qu'on vend au moment exact où l'on demande de
+              cliquer. Trois, en fondu lent — voir components/Diaporama.jsx
+              pour les deux règles d'accessibilité qui l'encadrent, et
+              pourquoi `object-position` est posé photo par photo. */}
+          <div style={cran(3)} className="monte w-full">
+            <Diaporama
               className="w-full"
+              photos={PHOTOS}
             />
           </div>
 

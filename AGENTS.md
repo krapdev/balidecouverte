@@ -85,6 +85,15 @@ Agus Yudiarta existe, et le site est son gagne-pain.
 - **Un `<clipPath id>` est global au document.** Deux instances d'un même
   composant SVG avec le même `id` et la première définition s'applique aux
   deux — voir la convention `uid` de `Scene` et `Photo`.
+- **Un défilement automatique impose deux choses.** WCAG 2.2.2 (niveau A) : un
+  moyen de l'arrêter au-delà de cinq secondes. Et `prefers-reduced-motion` doit
+  **l'empêcher de démarrer**, pas le ralentir.
+- **Dans un diaporama, toutes les images sont en `loading="eager"`.** Avec
+  `lazy`, celle qui apparaît n'est pas chargée au moment du fondu et on voit à
+  travers celle du dessous — le DOM est juste, le rendu est faux.
+- **Après toute génération d'images, en faire une planche et la regarder.** Deux
+  fichiers ont été produits inversés d'après leur date de téléversement ; aucune
+  assertion sur le DOM ne l'attrape, seul l'œil le voit.
 - **Le logo est `public/logo.svg`, servi en `<img>`.** C'est le vrai logo
   d'Agus, vectorisé depuis son fichier : ne pas le redessiner, ne pas l'inliner
   dans l'app (80 ko × 8 pages), ne pas lui faire hériter de `currentColor`. La
