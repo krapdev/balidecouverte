@@ -141,6 +141,14 @@
 
 @layer base {
   html {
+    /* ⚠️ **Un repli, plus le mécanisme principal.** Sa durée croît avec
+       la distance et n'est pas réglable : mesuré, le clic sur « Par où
+       commencer » mettait **683 ms** pour parcourir 2 723 px. Les liens
+       d'ancre passent maintenant par `lib/ancre.js`, qui plafonne la
+       durée à 420 ms. Cette ligne ne sert plus qu'aux
+       défilements qu'on ne déclenche pas nous-mêmes, et au cas où
+       JavaScript ne répond pas. Ne pas la retirer, ne pas compter
+       dessus. */
     scroll-behavior: smooth;
     background: var(--page);
   }

@@ -1,6 +1,7 @@
 import { Eczar, Mulish, Kadwa } from "next/font/google";
 import { TripProvider } from "@/lib/trip-store";
 import { ORIGINE, NOM_SITE, TITRE, DESCRIPTION, INDEXABLE } from "@/lib/site";
+import Ancres from "@/components/Ancres";
 import "./globals.css";
 
 /* Eczar : dessinée pour accompagner le devanagari, elle porte une énergie
@@ -128,6 +129,10 @@ export default function RootLayout({ children }) {
           n'est pas de déplacer le provider mais de le doubler d'un
           `sessionStorage`. */}
       <body className="flex min-h-screen flex-col">
+        {/* Un écouteur délégué, aucun balisage : il rend tous les liens
+            d'ancre du site rapides, y compris ceux des composants
+            serveur comme le bouton du hero. Voir `lib/ancre.js`. */}
+        <Ancres />
         <TripProvider>{children}</TripProvider>
       </body>
     </html>

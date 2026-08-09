@@ -127,6 +127,27 @@ Agus Yudiarta existe, et le site est son gagne-pain.
   dans l'app (80 ko × 8 pages), ne pas lui faire hériter de `currentColor`. La
   maquette l'inline parce qu'elle est autonome. Il n'est **pas** membre de la
   famille de `Symboles.jsx`.
+- **Le défilement vers une ancre passe par `lib/ancre.js`, jamais par le
+  CSS.** `scroll-behavior: smooth` n'a aucune durée réglable et la sienne
+  croît avec la distance : 683 ms pour les 2 723 px qui séparent le bouton du
+  hero de la fourche. Le plafond est à 420 ms. `behavior: "instant"` sur
+  chaque image est **obligatoire** — sans lui le CSS ré-anime chaque petit
+  saut et les deux animations se combattent.
+- **Annuler un lien d'ancre pour l'animer retire le focus** que le navigateur
+  déplaçait tout seul. Le rendre à la main (`tabindex="-1"` posé à la volée,
+  retiré au `blur`), sinon le lien devient inutile au clavier et au lecteur
+  d'écran.
+- **L'écouteur d'ancres est délégué, dans `<Ancres />`.** Le hero est un
+  composant serveur : son bouton est un `<a>` nu. La délégation évite de
+  passer tout le hero au client pour une ligne, et couvre les liens à venir.
+  Elle se retire devant `defaultPrevented` — sinon deux animations partent
+  ensemble sur les liens qui appellent déjà `versAncre`.
+- **Playwright fait défiler jusqu'à l'élément avant de cliquer.** Une mesure
+  de durée de défilement partie de là est fausse : le point de départ n'est
+  pas celui qu'on croit. Placer le défilement à la main, puis mesurer — et
+  comparer deux chemins **depuis le même point**. Une première mesure a
+  annoncé 2,2 s pour 683 ms réelles, un facteur trois sur le chiffre censé
+  justifier le correctif.
 - `useSearchParams` exige une frontière `<Suspense>`, sinon le build de
   prérendu échoue.
 

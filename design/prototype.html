@@ -4409,6 +4409,81 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
     document.querySelectorAll(".reveal:not([data-in])").forEach(function (el) { io.observe(el); });
   }
 
+  /* ---------- Le défilement vers une ancre, à durée plafonnée ----------
+
+     ⚠️ `scroll-behavior: smooth` en CSS n'a aucune durée réglable, et la
+     sienne croît avec la distance : 2 723 px du bouton « Par où
+     commencer » à la fourche, 683 ms de trajet. Plafonné ici à 420.
+
+     La règle est la même que dans l'app (`lib/ancre.js`) et doit le
+     rester. `behavior: "instant"` sur chaque image est obligatoire :
+     sans lui le CSS ré-anime chaque petit saut et les deux animations se
+     combattent. */
+  var PLANCHER = 240, PENTE = 0.07, PLAFOND = 420;
+  var annuler = null;
+
+  function defilerVers(cible) {
+    if (!cible) return;
+    var marge = parseFloat(getComputedStyle(cible).scrollMarginTop) || 0;
+    var depart = window.scrollY;
+    var arrivee = Math.max(0, Math.min(
+      cible.getBoundingClientRect().top + depart - marge,
+      document.documentElement.scrollHeight - window.innerHeight));
+    var distance = arrivee - depart;
+    if (Math.abs(distance) < 2) return;
+
+    /* Mouvement réduit : on saute, on ne ralentit pas. */
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      window.scrollTo({ top: arrivee, behavior: "instant" });
+      return;
+    }
+
+    if (annuler) annuler();
+    var duree = Math.min(PLAFOND, PLANCHER + Math.abs(distance) * PENTE);
+    var t0 = performance.now(), image = 0;
+    var gestes = ["wheel", "touchstart", "keydown", "pointerdown"];
+    /* La personne reprend la main : on s'arrête net. */
+    var rendreLaMain = function () { if (annuler) annuler(); };
+    gestes.forEach(function (g) { window.addEventListener(g, rendreLaMain, { passive: true, once: true }); });
+    annuler = function () {
+      cancelAnimationFrame(image);
+      gestes.forEach(function (g) { window.removeEventListener(g, rendreLaMain); });
+      annuler = null;
+    };
+    var pas = function (t) {
+      var q = Math.min(1, (t - t0) / duree);
+      var e = 1 - Math.pow(1 - q, 3);            /* easeOutCubic */
+      window.scrollTo({ top: depart + distance * e, behavior: "instant" });
+      if (q < 1) image = requestAnimationFrame(pas);
+      else if (annuler) annuler();
+    };
+    image = requestAnimationFrame(pas);
+  }
+
+  /* Délégué, et posé APRÈS le gestionnaire des vues : celui-ci consomme
+     ses propres clics, et `defaultPrevented` nous tient à l'écart. */
+  document.addEventListener("click", function (ev) {
+    if (ev.defaultPrevented || ev.button !== 0) return;
+    if (ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return;
+    var lien = ev.target.closest && ev.target.closest('a[href^="#"]');
+    if (!lien || lien.target === "_blank" || lien.hasAttribute("data-goto")) return;
+    var href = lien.getAttribute("href");
+    if (!href || href === "#") return;
+    var cible = document.getElementById(href.slice(1));
+    if (!cible) return;
+    ev.preventDefault();
+    history.replaceState(null, "", href);
+    /* Le focus, que `preventDefault` nous a fait perdre : un lien d'ancre
+       natif le déplace, et l'annuler retirerait au clavier la seule chose
+       qui rend le lien utile. */
+    if (cible.tabIndex < 0 && !cible.hasAttribute("tabindex")) {
+      cible.setAttribute("tabindex", "-1");
+      cible.addEventListener("blur", function () { cible.removeAttribute("tabindex"); }, { once: true });
+    }
+    cible.focus({ preventScroll: true });
+    defilerVers(cible);
+  });
+
   render();
   observeReveals();
 })();

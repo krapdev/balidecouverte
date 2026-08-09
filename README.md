@@ -880,6 +880,70 @@ Sur la barre soleil : la correction de contraste avait été faite dans l'app et
 `flex-shrink` ci-dessous, qui dormait dans la maquette depuis que le nom du
 site a grossi.
 
+### Le défilement d'ancre, et une mesure qui mentait
+
+Le clic sur « Par où commencer » était lent. Il l'était vraiment, mais pas
+pour la raison que la première mesure indiquait — et cette mesure-là mérite
+d'être racontée avant le correctif.
+
+**Elle annonçait 2,2 s. La vraie valeur était 683 ms.** Deux erreurs se
+cumulaient : Playwright fait défiler jusqu'à l'élément avant de le cliquer,
+donc le départ n'était pas celui qu'on croyait ; et le repère de fin comptait
+des variations d'un demi-pixel bien après l'arrêt réel. Un facteur trois sur
+le chiffre censé justifier le travail. La mesure honnête compare les deux
+chemins **depuis la même position de départ**, et c'est la seule qui compte.
+
+#### Le vrai problème
+
+`scroll-behavior: smooth` en CSS **n'a aucune durée réglable**, et la sienne
+croît avec la distance. Or il y a 2 723 px entre le bouton du hero et la
+fourche `#chemins` — toute la section « Qui je suis » est entre les deux.
+
+`lib/ancre.js` anime donc le défilement à la main, avec une durée
+**plafonnée à 420 ms** quelle que soit la distance (`240 + 0,07 × distance`).
+Mesuré : 683 → **397 ms** à 1280 px, 400 ms à 390 px, **aucune image sautée**
+même avec le processeur bridé au quart.
+
+| | avant | après |
+| --- | --- | --- |
+| 1280 px | 683 ms | **397 ms** |
+| 390 px | 683 ms | **400 ms** |
+| mouvement réduit | — | **0 ms**, saut direct |
+
+> ⚠️ **`behavior: "instant"` sur chaque image est obligatoire.** Sans lui, le
+> `scroll-behavior: smooth` du CSS ré-anime chacun des petits sauts et les
+> deux animations se combattent : le défilement devient poisseux et n'arrive
+> jamais tout à fait. Le CSS reste déclaré comme repli, il ne pilote plus rien.
+
+#### Trois choses que le correctif devait rendre
+
+**Le focus.** Un lien d'ancre natif déplace le focus vers sa cible ;
+l'annuler pour animer retirait donc, sans le vouloir, la seule chose qui
+rendait le lien utile au clavier et au lecteur d'écran. Il est rendu à la
+main — `tabindex="-1"` posé à la volée, retiré au premier `blur`.
+
+**La main à l'utilisateur.** Molette, doigt ou touche pendant l'animation
+l'arrêtent net. Un défilement automatique qui lutte contre le geste de la
+personne est pire que pas de défilement du tout.
+
+**Le saut, et non le ralenti**, sous `prefers-reduced-motion`. Même règle que
+le diaporama : pour certaines personnes c'est une question de nausée.
+
+#### Pourquoi un écouteur délégué
+
+Le hero est un **composant serveur**, et son bouton un `<a href="#chemins">`
+nu. Lui accrocher un gestionnaire aurait imposé de passer tout le hero au
+client pour une ligne. `<Ancres />` pose donc un seul écouteur délégué dans
+le gabarit : il corrige tous les liens d'ancre du site d'un coup, y compris
+ceux qu'on écrira demain.
+
+> ⚠️ Il se retire devant `defaultPrevented`. La barre et la barre du bas
+> appellent déjà `versAncre` elles-mêmes ; sans cette garde, deux animations
+> partiraient ensemble sur le même lien.
+
+**La destination, elle, était déjà la bonne** : `#chemins` est la fourche
+« Deux façons de partir » — le circuit d'un côté, les envies de l'autre.
+
 ### La couture bougainvillier, et deux retraits qui coûtent
 
 #### Le motif
