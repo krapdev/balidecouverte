@@ -58,6 +58,19 @@ const PHOTOS = [
     position: "center 45%",
     alt: "Une cascade en rideau dans la jungle, et son bassin d'eau turquoise",
   },
+  {
+    /* ⚠️ Le plus grand cran s'arrête à **1447 px et non 1600** : c'est la
+       largeur native du fichier fourni. Déclarer `1600w` sur une image
+       agrandie fait choisir au navigateur un fichier plus lourd pour une
+       image moins nette — le pire des deux mondes. Le descripteur doit
+       dire la vérité sur le fichier, pas répéter le gabarit des trois
+       autres. */
+    src: "/bali-plage.jpg",
+    webp: "/bali-plage-640.webp 640w, /bali-plage-1000.webp 1000w, /bali-plage-1447.webp 1447w",
+    sizes: SIZES,
+    position: "center 55%",
+    alt: "Une plage de sable clair bordée d'arbres, son eau turquoise et deux bateaux à l'ancre",
+  },
 ];
 
 export default function Hero() {
@@ -212,7 +225,7 @@ export default function Hero() {
               baissent. */}
           <div style={cran(4)} className="monte flex flex-wrap gap-3">
             <a
-              className="btn btn-outline btn-lg text-on-immersive"
+              className="btn btn-ivoire btn-lg"
               href="#chemins"
             >
               Par où commencer

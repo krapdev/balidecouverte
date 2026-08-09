@@ -811,45 +811,74 @@ page** au recentrage : c'était la partie la plus conceptuelle, et l'une des
 trois redisait le panneau des valeurs. Le repère reste noté ici, il est bon à
 reprendre si la présentation regagne de la place.
 
-### La barre est exactement la couleur du bouton — et ce que ça a coûté
+### La barre : quatre fonds, et le seul qui ne demandait rien
 
-Le fond de la barre est `--soleil` plein, **le même `rgb(242, 177, 52)` que
-« Créer mon voyage sur-mesure »**, vérifié en comparant les deux valeurs
-calculées.
+Le fond de la barre est **l'ivoire de la page**, à 92 % avec son
+`backdrop-filter`. Quatre fonds se sont succédé pour y arriver — ivoire, soleil
+à 12 %, soleil à 25 %, soleil plein — et c'est le plein qui a enfin rendu le
+problème lisible.
 
-Deux versions diluées l'ont précédé, à 12 % puis 25 %, et l'argument qui les
-justifiait était **mal posé**. Il disait « les seuils tombent au-delà de 25 % ».
-C'est vrai — mais la conclusion à en tirer n'était pas « diluer le fond », c'était
-**corriger les couleurs posées dessus** :
+Sur du soleil, la mesure demandait de repeindre **tout ce qu'on posait
+dessus** : deux jetons inventés pour l'occasion (`--barre-encre`,
+`--barre-filet`) pour les liens et le filet du burger, le linteau relevé de
+32 % à 70 % d'opacité, et surtout **un disque blanc construit dans le fichier
+du logo**, parce que trois de ses cinq couleurs tombaient sous 1,6 de
+contraste.
 
-| | sur soleil plein | corrigé en |
+Ce disque a été la pièce de trop. Il tenait la mesure et **il se voyait quand
+même** : un autocollant blanc dans une barre jaune.
+
+Sur l'ivoire, tout ça disparaît d'un coup :
+
+| | sur soleil plein | sur ivoire |
 | --- | --- | --- |
-| Liens de la barre (`--text-soft`) | 3,56 ❌ | `--barre-encre` → **5,37** ✅ |
-| Sous-titre (`--text-faint`) | 2,93 ❌ | `--barre-encre` → **5,37** ✅ |
-| Filet du burger (`--rule`) | 1,34 ❌ | `--barre-filet` → **3,32** ✅ |
-| Linteau (vert à 32 %) | 1,14 ❌ | même vert à **70 %** |
-| Nom du site (encre) | 7,28 ✅ | inchangé |
-| Bouton « Devis » (bambou) | 3,45 ✅ | inchangé |
+| Vert clair du logo `#73ad46` | 1,43 | **2,52** |
+| Vert foncé du logo `#1a5626` | 4,62 | **8,17** |
+| Épi d'or `#fbde22` | 1,40 | 1,26 |
+| Liens (`--text-soft`) | 3,56 ❌ | **6,10** ✅ |
+| Burger et linteau (`--bambou-deep`) | 2,08 ❌ | **9,61** ✅ |
 
-Les deux jetons sont **portés par le `<header>` lui-même** et non par le thème
-global : ils ne valent que là où le fond est soleil, et ne peuvent donc pas
-dériver ailleurs.
+Les deux jetons `--barre-*` ont été **supprimés**, et le disque blanc retiré de
+`public/logo.svg` : la barre est redevenue une barre qui n'exige rien de ce
+qu'on lui confie.
 
-> ⚠️ **Le linteau n'est pas un ornement, c'est la séparation.** À 32 % d'opacité
-> il valait 1,14 sur le soleil — invisible. C'est un objet graphique soumis au
-> seuil de 3:1, pas une texture libre.
+> **La leçon, et elle vaut au-delà d'une barre de navigation :** un fond qui
+> oblige à repeindre ce qu'on pose dessus n'est pas le bon fond. Chaque
+> correctif se défendait tout seul — c'est leur nombre qui était le signal, et
+> personne ne l'a lu comme tel pendant trois itérations.
 
-> ⚠️ **Le fond est opaque, et il devait l'être.** Il était translucide à 92 %
-> avec un `backdrop-filter` : la barre prenait donc la couleur de ce qui défilait
-> dessous, ce qui est exactement l'inverse de « le même fond que le bouton ». Le
-> `backdrop-filter` reste déclaré mais devient inerte — **ne pas le retirer**, il
-> tient le piège documenté du panneau mobile hors du `<header>`.
+L'épi d'or reste sous les seuils, et c'est sans conséquence : c'est un rehaut
+de quelques pixels dans un dessin, pas un objet graphique porteur
+d'information, et il se lit par sa teinte au milieu des verts, pas par sa
+clarté.
 
-**C'est l'audit qui a rattrapé la moitié du travail** : la correction avait été
-faite dans l'app et **pas dans la maquette**, dont les liens de barre utilisent
-un sélecteur différent. Six échecs de contraste, sur cinq vues, à 1280 seulement
-— la largeur où la barre affiche ses liens. Rien ne l'aurait montré à l'œil sur
-une seule vue.
+#### Le linteau et le burger partagent une couleur
+
+`--bambou-deep` `#2f4720`, opaque, **9,61 sur l'ivoire**. Ce sont les deux
+seuls traits dessinés de la barre — un filet d'un pixel chacun — et les faire
+se répondre était la demande.
+
+**Vert et non noir :** le site n'a aucun noir. `--encre` `#22302b` en est un,
+mais c'est **la couleur du texte** ; une frise dans cette teinte
+concurrencerait la typographie au lieu de la border.
+
+> ⚠️ **Le linteau n'est pas un ornement, c'est la séparation** — il remplace le
+> `border-b`. Objet graphique, seuil 3:1, pas une texture libre. Ses trois
+> valeurs successives (32 %, 70 %, plein) suivent celles de la barre.
+
+#### Le bouton du hero passe au plein ivoire
+
+`.btn-ivoire` n'existe que pour « Par où commencer », **devenu le seul bouton
+du hero** depuis le retrait de « Créer mon voyage sur-mesure ». Un contour seul
+ne portait plus cette charge-là. Encre sur ivoire **12,87** ; le bouton sur la
+photo du hero **9,61**.
+
+**C'est l'audit qui a rattrapé la moitié du travail**, deux fois plutôt qu'une.
+Sur la barre soleil : la correction de contraste avait été faite dans l'app et
+**pas dans la maquette**, dont les liens utilisent un sélecteur différent — six
+échecs sur cinq vues, à 1280 seulement. Sur la barre ivoire : voir le piège
+`flex-shrink` ci-dessous, qui dormait dans la maquette depuis que le nom du
+site a grossi.
 
 ### La couture bougainvillier, et deux retraits qui coûtent
 
@@ -913,10 +942,18 @@ une.
 > posée par un `querySelector` **singulier** : avec quatre coutures, trois
 > seraient restées des `<span>` vides sans que rien ne le signale.
 
-### Le diaporama du hero — trois photos, et deux règles non négociables
+### Le diaporama du hero — quatre photos, et deux règles non négociables
 
-`components/Diaporama.jsx`. Trois photos de Bali en fondu, sept secondes
-chacune, fondu de 1,1 s.
+`components/Diaporama.jsx`. Quatre photos de Bali en fondu — rizières, temple,
+cascade, plage — sept secondes chacune, fondu de 1,1 s. Le cycle complet dure
+28 s, et les quatre couvrent l'intérieur, le sacré, la jungle et la côte : c'est
+le seul endroit du site qui montre l'île entière d'un coup.
+
+> ⚠️ **Le plus grand cran de la plage s'arrête à 1447 px**, pas 1600 comme les
+> trois autres : c'est la largeur native du fichier fourni. Déclarer `1600w` sur
+> une image agrandie ferait choisir au navigateur **un fichier plus lourd pour
+> une image moins nette** — le pire des deux mondes. Le descripteur `w` décrit
+> le fichier, il ne recopie pas le gabarit du voisin.
 
 **1. WCAG 2.2.2, niveau A.** Tout contenu qui démarre seul, dure plus de cinq
 secondes et cohabite avec d'autres contenus **doit offrir un moyen de
@@ -965,28 +1002,27 @@ la jungle » sur une photo de temple.
 > en relisant le code qui les produit, et aucune assertion sur le DOM ne
 > l'attrape. Après toute génération d'images : en faire une planche et l'ouvrir.
 
-### Le logotype : sa propre police, et une plaque blanche
+### Le logotype : sa propre police, et un fond qu'il a fini par ne plus avoir
 
-**Le fond blanc n'est pas décoratif.** Sur la barre soleil, **trois des cinq
-couleurs du logo sont noyées** : l'épi d'or à 1,40 de contraste, le cœur de fleur
-à 1,58, le vert clair à 1,43. Le dessin devient une tache. Sur blanc il se
-détache.
+Le logo n'a **aucun fond**, et il faut deux essais ratés pour comprendre
+pourquoi.
 
-Blanc et non ivoire : le logo a été dessiné sur blanc, c'est son fond natif. Et
-**surtout pas un fond sombre** — testé, le bambou profond avale les terrasses.
+Sur la barre soleil, trois des cinq couleurs du dessin étaient noyées — l'épi
+d'or à 1,40, le cœur de fleur à 1,58, le vert clair à 1,43. Il fallait donc lui
+bâtir un fond blanc. **Première tentative**, une plaque posée dans la barre :
+elle débordait le dessin et le cerclait d'un halo. **Deuxième**, un disque
+construit à l'intérieur même du fichier — `cx=234 cy=248 r=208`, mesuré sur le
+cercle que décrivent les terrasses dans le PNG source puis ajusté à l'œil sur
+le fond réel. La géométrie était juste, et le résultat ressemblait à un
+autocollant.
 
-> ⚠️ **Le disque blanc est DANS `public/logo.svg`, pas autour.** Une plaque posée
-> dans la barre a d'abord été essayée : elle débordait le dessin et le cerclait
-> d'un halo. Le blanc s'arrête maintenant là où s'arrête le disque des terrasses.
->
-> La géométrie — `cx=234 cy=248 r=208` — vient d'une mesure du cercle que
-> décrivent les terrasses dans le PNG source (centre 468/490, rayon 402 sur
-> 1024 px), puis d'un ajustement à l'œil sur le fond réel. **Un rayon plus grand
-> laisse voir une lune blanche à gauche, un plus petit laisse les terrasses
-> déborder en bas** : les deux ont été rendus côte à côte avant de trancher.
->
-> Le porter dans le fichier rend le logo posable sur n'importe quelle couleur —
-> et c'est fidèle, puisque son fond natif est le blanc.
+C'était le fond de la barre qu'il fallait changer, pas le logo. Sur l'ivoire,
+ses deux verts remontent à **2,52** et **8,17** et le dessin se tient tout
+seul : le disque a été retiré du fichier.
+
+> ⚠️ **Ne pas lui remettre de fond.** Ni plaque, ni disque, ni carte blanche.
+> Les deux ont été essayés, les deux se voyaient. Et **surtout pas un fond
+> sombre** — testé aussi, le bambou profond avale les terrasses.
 
 #### Kadwa, et pourquoi pas une police « Bali »
 

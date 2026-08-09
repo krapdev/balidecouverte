@@ -202,28 +202,22 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ⚠️ **Le fond de la barre est exactement celui du bouton
-          « Créer mon voyage sur-mesure » : `--soleil` plein.** Deux
-          versions diluées l'ont précédé (12 % puis 25 %) parce que la
-          mesure disait que les seuils tombaient. Ils tombent bel et bien
-          — mais **ce sont les couleurs posées dessus qu'il fallait
-          corriger, pas la teinte du fond.** C'est ce qui a été fait :
+      {/* ⚠️ **La barre est revenue à l'ivoire, et le disque blanc du logo
+          est parti avec.** Trois fonds se sont succédé — ivoire, soleil à
+          12 % puis à 25 %, soleil plein — et le plein a montré pourquoi
+          aucun ne tenait : sur du soleil, **trois des cinq couleurs du
+          logo tombent sous 1,6 de contraste**, y compris ses verts. Il
+          fallait alors lui construire un fond blanc, et ce fond se voyait.
 
-            liens `--text-soft` #505f58   3,56 ❌ → `--barre-encre`  5,37 ✅
-            sous-titre `--text-faint`     2,93 ❌ → `--barre-encre`  5,37 ✅
-            filet du burger `--rule`      1,34 ❌ → `--barre-filet`  3,32 ✅
-            linteau, vert à 32 %          1,14 ❌ → même vert à 70 %
+          Sur l'ivoire, les verts remontent à 2,52 et 8,17 : le dessin se
+          tient tout seul. Seul l'or de l'épi reste faible (1,26), et c'est
+          sans conséquence — c'est un rehaut, pas le sujet, et il se lit par
+          sa teinte au milieu des verts, pas par sa clarté.
 
-          Le nom du site (encre, 7,28) et le bouton Devis (bambou, 3,45 en
-          objet graphique) passaient déjà, ils n'ont pas bougé.
-
-          ⚠️ **Le fond est opaque et non plus translucide.** « Le même
-          fond que le bouton » ne tolère pas les 8 % de page qui le
-          traversaient : la barre prenait la couleur de ce qui défilait
-          dessous. `backdrop-filter` reste déclaré mais devient inerte —
-          ne pas le retirer, il tient le piège documenté du panneau
-          mobile hors du `<header>`. */}
-      <header className="sticky top-0 z-50 bg-soleil [--barre-encre:#39443d] [--barre-filet:#6f5e40]">
+          **La leçon vaut d'être retenue** : un fond qui oblige à repeindre
+          ce qu'on pose dessus n'est pas le bon fond. */}
+      <header
+        className="sticky top-0 z-50 bg-[color-mix(in_srgb,var(--page)_92%,transparent)] backdrop-blur-lg backdrop-saturate-150">
         {/* Les écarts se resserrent sous 640 px. À 320 — le plus petit
             écran que le site prétend tenir — logo + titre + « Devis » +
             burger faisaient 360 px de large dans 280 px utiles, et le
@@ -242,15 +236,15 @@ export default function Navbar() {
                débordement. */
             className="mr-auto flex min-h-11 min-w-0 items-center gap-2.5 no-underline sm:shrink-0 sm:gap-3"
           >
-            {/* ⚠️ **Le fond blanc du logo est DANS le fichier**, pas
-                autour. Une plaque posée ici a d'abord été essayée : elle
-                débordait le dessin et le cerclait d'un halo.
+            {/* ⚠️ **Ne pas remettre de fond au logo.** Deux essais :
+                une plaque blanche posée ici — elle débordait le dessin et
+                le cerclait d'un halo — puis un disque blanc à l'intérieur
+                même du fichier, qui tenait la géométrie mais se voyait
+                quand même, comme un autocollant.
 
-                Il est nécessaire et non décoratif : sur la barre soleil,
-                trois des cinq couleurs du logo sont noyées — l'épi d'or
-                à 1,40 de contraste, le cœur de fleur à 1,58, le vert
-                clair à 1,43. Le dessin devient une tache.
-                Voir `public/logo.svg` pour la géométrie du disque. */}
+                Le fond n'était nécessaire que parce que la barre était en
+                soleil plein. Sur l'ivoire, le logo n'a plus besoin de
+                rien : ses deux verts remontent à 2,52 et 8,17. */}
             <Marque size={56} />
             <span className="min-w-0 leading-tight">
               <span className="block truncate font-logo text-xl leading-none tracking-tight min-[360px]:text-2xl min-[380px]:text-[1.75rem]">
@@ -277,7 +271,7 @@ export default function Navbar() {
                   débordent d'une boîte sans bordure ne se voient pas. Le
                   libellé est masqué sous 640 px, là où la place manque
                   pour de bon. */}
-              <span className="label hidden whitespace-nowrap text-[var(--barre-encre)] sm:block">
+              <span className="label hidden whitespace-nowrap text-soft sm:block">
                 Guide francophone
               </span>
             </span>
@@ -321,7 +315,7 @@ export default function Navbar() {
                    ligne — `document.createRange()` sur le contenu, puis
                    `getClientRects().length`. */
                 className={`relative inline-flex min-h-11 items-center whitespace-nowrap border-b border-transparent text-sm no-underline transition-colors hover:border-ink hover:text-ink ${
-                  iciBarre(l.href) ? "font-semibold text-ink" : "text-[var(--barre-encre)]"
+                  iciBarre(l.href) ? "font-semibold text-ink" : "text-soft"
                 }`}
               >
                 {l.label}
@@ -381,7 +375,16 @@ export default function Navbar() {
                justement la seule chose qu'ils n'avaient pas.
                Le meru est donc là partout. La barre garde ses six
                raccourcis, le menu porte le sommaire complet. */
-            className="grid h-11 w-11 shrink-0 place-items-center rounded border border-[var(--barre-filet)] text-[var(--barre-encre)]"
+            /* ⚠️ **Le burger et le linteau partagent une seule couleur, et
+               c'est un vert et non un noir.** Le site n'a pas de noir :
+               `--encre` (#22302b) est déjà un noir verdi, et c'est la
+               couleur du texte — s'en servir pour une frise décorative la
+               mettrait en concurrence avec la typographie.
+               `--bambou-deep` (#2f4720) mesure **9,61 sur l'ivoire** : plus
+               sombre que le bambou courant (6,10), largement au-dessus des
+               seuils, et sans ambiguïté vert. Le noir pur (19,64) serait
+               plus contrasté et étranger à la palette. */
+            className="grid h-11 w-11 shrink-0 place-items-center rounded border border-bambou-deep text-bambou-deep"
             aria-expanded={open}
             aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
           >

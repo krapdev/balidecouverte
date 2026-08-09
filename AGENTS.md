@@ -71,13 +71,27 @@ Agus Yudiarta existe, et le site est son gagne-pain.
   ajoutent pas. Une page qui déclarerait `robots: { index: true }` s'indexerait
   même en préproduction.
 - **Un texte dans un conteneur `flex` se casse en deux lignes sans manquer de
-  place.** `flex-shrink: 1` le rétrécit jusqu'à son mot le plus long — quatre
-  défauts de l'en-tête venaient de là, tous présents jusqu'à 1920 px. D'où
+  place.** `flex-shrink: 1` le rétrécit jusqu'à son mot le plus long — **six**
+  défauts sont venus de là, tous présents jusqu'à 1920 px. D'où
   `whitespace-nowrap` sur les liens et les boutons de barre. **Ça ne se voit pas
   à la mesure** : `min-h-11` fige la hauteur. Compter les boîtes de ligne —
   `document.createRange()` sur le contenu puis `getClientRects().length`, en
   visant le **nœud texte** et non l'élément, sinon chaque enfant flex compte
   pour une ligne.
+  ⚠️ **Corriger dans l'app ne corrige pas la maquette**, qui a ses propres
+  sélecteurs. Les deux derniers cas dormaient dans `design/prototype.html`
+  depuis que le nom du site avait grossi dans l'app seule.
+- **Un fond qui oblige à repeindre ce qu'on pose dessus n'est pas le bon
+  fond.** La barre en soleil plein a demandé deux jetons de couleur inventés
+  pour l'occasion, un linteau relevé de 32 % à 70 %, puis **un disque blanc
+  construit dans `public/logo.svg`** — et ce disque se voyait. Sur l'ivoire,
+  rien de tout ça n'est nécessaire. Chaque correctif se défendait seul ; c'est
+  leur **nombre** qui était le signal, et il a fallu trois itérations pour le
+  lire. Ne pas remettre de fond au logo : ni plaque, ni disque, ni fond sombre
+  (le bambou profond avale les terrasses).
+- **Un descripteur `w` décrit le fichier, il ne recopie pas le voisin.** La
+  photo de plage est native en 1447 px : lui déclarer `1600w` comme aux trois
+  autres ferait choisir un fichier **plus lourd et moins net**.
 - **`letter-spacing` s'applique aussi après la dernière lettre.** Un `.label`
   en `truncate` affichait une ellipsis pour 2 px fantômes, à toutes les
   largeurs. Ne pas compenser par une marge négative : elle rétrécit aussi le
