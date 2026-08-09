@@ -1,6 +1,8 @@
 import { NOM_SITE } from "@/lib/site";
 import Navbar from "@/components/Navbar";
 import Tarifs from "@/components/Tarifs";
+import Suite from "@/components/Suite";
+import { Mail } from "lucide-react";
 import RetourLien from "@/components/RetourLien";
 import Footer from "@/components/Footer";
 import DonneesStructurees from "@/components/DonneesStructurees";
@@ -64,10 +66,34 @@ export default function TarifsPage() {
           <RetourLien />
         </div>
         <Tarifs />
-        {/* Le même retour en bas. La page fait quatre écrans sur
-            mobile : sans lui, il faut tout remonter pour repartir. */}
+        {/* ⚠️ **Le retour n'est pas une suite.** Il était seul en bas de
+            page : après avoir lu les prix, on renvoyait le voyageur d'où
+            il venait, alors que c'est le moment précis où il veut
+            demander. Les deux cohabitent maintenant — la suite d'abord,
+            le retour ensuite, plus discret.
+            Le retour reste : la page fait presque sept écrans sur mobile,
+            sans lui il faudrait tout remonter pour repartir. */}
         <div className="shell pb-[clamp(3rem,8vw,4.5rem)]">
-          <RetourLien />
+          <Suite
+            titre="Un prix juste se calcule sur un vrai programme."
+            principal={{
+              href: "/#sur-mesure",
+              label: "Demander un devis",
+              icone: <Mail size={17} />,
+            }}
+            secondaire={{
+              href: "/circuit",
+              label: "Voir le circuit, jour par jour",
+            }}
+          >
+            Ces montants disent comment je compte, pas ce que votre voyage
+            coûtera : ça dépend des journées, du véhicule et de ce que vous
+            gardez. Dites-moi ce que vous voulez faire et je refais le
+            compte.
+          </Suite>
+          <div className="mt-[clamp(2rem,5vw,2.5rem)]">
+            <RetourLien />
+          </div>
         </div>
       </main>
       <Footer />

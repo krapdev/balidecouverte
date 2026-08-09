@@ -7,9 +7,9 @@ import {
   Check,
   X as Croix,
   Mail,
-  ArrowRight,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import Suite from "@/components/Suite";
 import Footer from "@/components/Footer";
 import Photo from "@/components/Photo";
 import RetourLien from "@/components/RetourLien";
@@ -284,42 +284,32 @@ export default function PageCircuit() {
               </div>
             </section>
 
-            {/* ---------- La sortie ---------- */}
-            <section className="mt-[clamp(3rem,8vw,4.5rem)] rounded-[18px] bg-immersive px-[clamp(1.5rem,5vw,3rem)] py-[clamp(2rem,6vw,3rem)] text-on-immersive">
-              <h2 className="max-w-[24ch] text-[clamp(1.5rem,4.5vw,2rem)] leading-tight">
-                Maintenant, dites-moi ce que vous en gardez.
-              </h2>
-              <p className="mt-4 max-w-[62ch] leading-relaxed text-on-immersive-soft">
-                Ce programme est un point de départ, pas un produit. On enlève
-                une journée de temples, on rallonge Munduk, on ajoute Nusa
-                Penida, on supprime le rafting : dites-le-moi et je refais le
-                compte. Si vous préférez n&apos;avoir à penser à rien, je
-                choisis et je réserve aussi vos hôtels.
-              </p>
-              <div className="mt-7 flex flex-wrap items-center gap-3">
-                {/* `?circuit=` et non `#sur-mesure` tout seul : le lien
-                    nu menait à un formulaire vide, sans que rien ne dise
-                    de quoi on venait de parler, et le message partait
-                    sans la base de départ. Le magasin n'existe que sur
-                    l'accueil — l'intention doit donc voyager dans l'URL.
-                    Voir components/PreselectionCircuit.jsx. */}
-                <Link className="btn btn-sun" href={`/?circuit=${c.id}#sur-mesure`}>
-                  <Mail size={17} />
-                  Partir de ce circuit et l&apos;ajuster
-                </Link>
-                {/* Posé à la main : le bambou de LienPage serait
-                    illisible sur ce fond. */}
-                <Link
-                  className="group flex min-h-11 items-center gap-2.5 text-sm text-on-immersive-soft no-underline hover:text-on-immersive"
-                  href="/tarifs?de=circuit"
-                >
-                  <span className="underline decoration-[color-mix(in_srgb,var(--on-immersive)_45%,transparent)] underline-offset-4">
-                    Les trois façons de compter
-                  </span>
-                  <ArrowRight size={18} strokeWidth={2.2} aria-hidden="true" className="shrink-0" />
-                </Link>
-              </div>
-            </section>
+            {/* ---------- La suite ----------
+                ⚠️ `?circuit=` et non `#sur-mesure` tout seul : le lien nu
+                menait à un formulaire vide, sans que rien ne dise de quoi
+                on venait de parler, et le message partait sans sa base de
+                départ. Le magasin n'existe que sur l'accueil —
+                l'intention doit donc voyager dans l'URL. Voir
+                components/PreselectionCircuit.jsx. */}
+            <Suite
+              className="mt-[clamp(3rem,8vw,4.5rem)]"
+              titre="Maintenant, dites-moi ce que vous en gardez."
+              principal={{
+                href: `/?circuit=${c.id}#sur-mesure`,
+                label: "Partir de ce circuit et l'ajuster",
+                icone: <Mail size={17} />,
+              }}
+              secondaire={{
+                href: "/tarifs?de=circuit",
+                label: "Les trois façons de compter",
+              }}
+            >
+              Ce programme est un point de départ, pas un produit. On enlève
+              une journée de temples, on rallonge Munduk, on ajoute Nusa
+              Penida, on supprime le rafting : dites-le-moi et je refais le
+              compte. Si vous préférez n&apos;avoir à penser à rien, je
+              choisis et je réserve aussi vos hôtels.
+            </Suite>
           </div>
         </div>
       </main>

@@ -1,8 +1,9 @@
 "use client";
 
+import Suite from "@/components/Suite";
 import Link from "next/link";
 import { useState } from "react";
-import { Images } from "lucide-react";
+import { Images, Route } from "lucide-react";
 import { JepunPuce } from "./Scene";
 import Photo from "./Photo";
 import Lightbox from "./Lightbox";
@@ -171,16 +172,43 @@ export default function Activites({ niveau = 2 }) {
           </p>
         </Reveal>
 
-        {count > 0 && (
+        {/* ⚠️ **La sortie ne dépend plus d'avoir coché.** Elle était
+            sous `count > 0`, et la page se terminait donc sur rien pour
+            qui parcourt la liste sans rien cocher — c'est-à-dire pour
+            qui lit d'abord et choisit ensuite, soit le cas ordinaire.
+            Le bouton d'envoi reste conditionnel : proposer « préparer ma
+            demande » avec une sélection vide serait un mensonge. C'est
+            la *suite* qui devient inconditionnelle, en changeant de
+            destination selon l'état.
+
+            `/#sur-mesure` et non `#sur-mesure` : depuis /envies, une
+            ancre nue ne mène nulle part. La sélection, elle, survit — le
+            magasin vit dans le gabarit (layout.js). */}
+        {count > 0 ? (
           <Reveal>
             <p className="mt-8">
-              {/* `/#sur-mesure` et non `#sur-mesure` : depuis /envies,
-                  une ancre nue ne mène nulle part. La sélection, elle,
-                  survit — le magasin vit dans le gabarit (layout.js). */}
               <Link className="btn btn-accent btn-lg" href="/#sur-mesure">
                 {count} envie{count > 1 ? "s" : ""} — préparer ma demande
               </Link>
             </p>
+          </Reveal>
+        ) : (
+          <Reveal>
+            <Suite
+              className="mt-[clamp(2.5rem,7vw,3.5rem)]"
+              titre="Rien ne vous saute aux yeux ?"
+              principal={{
+                href: "/circuit",
+                label: "Le circuit, jour par jour",
+                icone: <Route size={17} />,
+              }}
+              secondaire={{ href: "/#sur-mesure", label: "Ou m'écrire directement" }}
+            >
+              Cochez ce qui vous attire et j&apos;en fais un itinéraire — mais
+              rien ne vous y oblige. Quinze jours déjà construits vous
+              diront peut-être mieux ce dont vous avez envie qu&apos;une
+              liste à trier.
+            </Suite>
           </Reveal>
         )}
       </div>

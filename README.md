@@ -880,6 +880,64 @@ Sur la barre soleil : la correction de contraste avait été faite dans l'app et
 `flex-shrink` ci-dessous, qui dormait dans la maquette depuis que le nom du
 site a grossi.
 
+### La navigation d'ensemble : trois pages sur cinq étaient des impasses
+
+Le menu réparé, restait la question d'après : une fois **dans** une page,
+où va-t-on ? Relevé au bas de chaque page, avant le pied :
+
+| page | ce qu'on trouvait à la fin |
+| --- | --- |
+| `/agus` | **rien** |
+| `/envies` | **rien**, tant qu'on n'avait rien coché |
+| `/tarifs` | « Retour à l'accueil » |
+| `/circuit` | deux sorties ✅ |
+| `/livre-d-or` | « M'écrire » ✅ |
+
+**`/agus` était le cas le plus coûteux.** Huit écrans, la page qui
+convainc — celle où l'on décide qu'on a envie de voyager avec cet
+homme-là — et pour seule issue le pied de page. On venait d'être
+convaincu, et on n'avait aucun moyen d'aller voir le voyage.
+
+**`/envies` ne s'ouvrait qu'à ceux qui avaient déjà coché.** L'appel à
+l'action vivait sous `count > 0`. Or on lit d'abord et on choisit ensuite :
+le visiteur qui parcourt la liste sans rien cocher — le cas ordinaire —
+arrivait au vide.
+
+**`/tarifs` proposait un retour, pas une suite.** Après avoir lu les prix,
+on renvoyait le voyageur d'où il venait, alors que c'est le moment précis
+où il veut demander.
+
+#### `components/Suite.jsx`
+
+Le motif existait déjà, écrit à la main dans `/circuit` : une carte
+immersive, un titre, un paragraphe, un bouton plein et un lien secondaire.
+Il est devenu un composant, et **`/circuit` s'en sert aussi** — le laisser
+en double aurait rejoué ce qui est arrivé aux entrées de navigation, qui
+ont vécu en trois exemplaires avant de diverger.
+
+| page | pas suivant | second |
+| --- | --- | --- |
+| `/agus` | Le circuit, jour par jour | Ou partir de vos envies |
+| `/circuit` | Partir de ce circuit et l'ajuster | Les trois façons de compter |
+| `/envies` *(rien coché)* | Le circuit, jour par jour | Ou m'écrire directement |
+| `/tarifs` | Demander un devis | Voir le circuit, jour par jour |
+| `/livre-d-or` | M'écrire | — |
+
+> ⚠️ Sur `/agus`, la suite est posée **avant** le bloc « Les questions à
+> poser à Agus » — un bloc de travail destiné à disparaître le jour où les
+> réponses seront dans `lib/portrait.js`. La sortie du voyageur ne doit pas
+> dépendre de la présence d'un échafaudage.
+
+> ⚠️ Sur `/envies`, c'est la **suite** qui devient inconditionnelle, pas le
+> bouton d'envoi. Proposer « préparer ma demande » avec une sélection vide
+> serait un mensonge ; la suite change donc de destination selon l'état, et
+> s'efface dès qu'une envie est cochée pour ne pas doubler l'appel à
+> l'action.
+
+Résultat mesuré : les six pages du parcours mènent toutes quelque part
+sans passer par le menu, et le formulaire de devis est atteignable depuis
+le corps de chacune.
+
 ### Le menu : neuf entrées, six destinations
 
 Trois entrées n'emmenaient nulle part de nouveau. Ce n'est pas une

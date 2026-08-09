@@ -1700,6 +1700,22 @@
     <p class="journees-reste reveal" id="activitesReste"></p>
   </div>
 </section>
+<!-- ⚠️ **La sortie ne dépend pas d'avoir coché.** On lit d'abord et on
+     choisit ensuite : qui parcourait la liste sans rien cocher arrivait au
+     vide. Le bouton d'envoi, lui, reste conditionnel — le proposer avec une
+     sélection vide serait un mensonge. -->
+<div class="shell view-envies" id="enviesSuite" style="padding-top: clamp(1rem, 3vw, 1.5rem)">
+    <div class="sortie">
+      <h2>Rien ne vous saute aux yeux ?</h2>
+      <p>Cochez ce qui vous attire et j'en fais un itinéraire — mais rien ne vous y
+      oblige. Quinze jours déjà construits vous diront peut-être mieux ce dont
+      vous avez envie qu'une liste à trier.</p>
+      <a class="btn btn-sun" href="#circuit-detail" data-goto="circuit">Le circuit, jour par jour</a>
+      <a class="lien-page" href="#sur-mesure" data-goto="home" data-de="sur-mesure" style="color: var(--on-immersive-soft); margin-left: 1rem">
+        <span style="text-decoration-color: color-mix(in srgb, var(--on-immersive) 45%, transparent)">Ou m'écrire directement</span>
+      </a>
+    </div>
+</div>
 <div class="shell back-home view-envies" style="padding-bottom: clamp(3rem, 8vw, 4.5rem)">
   <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
     <span class="retour-porte"></span><span class="retour-libelle">Retour à l'accueil</span>
@@ -1793,6 +1809,21 @@
 </section>
 
 <!-- Le même retour en bas : la page fait quatre écrans sur mobile. -->
+<!-- ⚠️ **Le retour n'est pas une suite.** Il était seul en bas : après
+     avoir lu les prix, on renvoyait le voyageur d'où il venait, alors que
+     c'est le moment précis où il veut demander. -->
+<div class="shell view-tarifs" style="padding-top: clamp(1rem, 3vw, 1.5rem)">
+    <div class="sortie">
+      <h2>Un prix juste se calcule sur un vrai programme.</h2>
+      <p>Ces montants disent comment je compte, pas ce que votre voyage coûtera :
+      ça dépend des journées, du véhicule et de ce que vous gardez. Dites-moi ce
+      que vous voulez faire et je refais le compte.</p>
+      <a class="btn btn-sun" href="#sur-mesure" data-goto="home" data-de="sur-mesure">Demander un devis</a>
+      <a class="lien-page" href="#circuit-detail" data-goto="circuit" style="color: var(--on-immersive-soft); margin-left: 1rem">
+        <span style="text-decoration-color: color-mix(in srgb, var(--on-immersive) 45%, transparent)">Voir le circuit, jour par jour</span>
+      </a>
+    </div>
+</div>
 <div class="shell back-home view-tarifs" style="padding-bottom: clamp(3rem, 8vw, 4.5rem)">
   <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
 <span class="retour-porte"></span><span class="retour-libelle">Retour à l'accueil</span>
@@ -1862,6 +1893,13 @@
   </div>
 </section>
 
+<!-- La vue finissait sur le seul retour, alors que l'app propose
+     « M'écrire » : le livre d'or travaille au moment du doute, juste
+     avant qu'on écrive à un inconnu à 12 000 km. Le laisser sans suite,
+     c'est convaincre puis raccrocher. -->
+<div class="shell view-livre" style="padding-top: clamp(1rem, 3vw, 1.5rem)">
+  <a class="btn btn-accent btn-lg" href="#sur-mesure" data-goto="home" data-de="sur-mesure">M'écrire</a>
+</div>
 <div class="shell back-home view-livre" style="padding-bottom: clamp(3rem, 8vw, 4.5rem)">
   <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
 <span class="retour-porte"></span><span class="retour-libelle">Retour à l'accueil</span>
@@ -2004,6 +2042,20 @@
     <div class="part-tete"><span class="part-sym" id="symPays"></span><h2>Pourquoi je travaille en direct</h2></div>
     <div class="portrait-corps" id="portraitPays"></div>
 
+    <div class="sortie">
+      <h2>Vous savez qui je suis. Voyons le voyage.</h2>
+      <p>Quinze jours que j'ai déjà conduits des dizaines de fois, ou une liste
+      d'envies dont je fais un itinéraire. Les deux mènent au même endroit :
+      un message que vous m'écrivez, et un voyage qu'on ajuste ensemble.</p>
+      <a class="btn btn-sun" href="#circuit-detail" data-goto="circuit">Le circuit, jour par jour</a>
+      <a class="lien-page" href="#envies" data-goto="envies" style="color: var(--on-immersive-soft); margin-left: 1rem">
+        <span style="text-decoration-color: color-mix(in srgb, var(--on-immersive) 45%, transparent)">Ou partir de vos envies</span>
+      </a>
+    </div>
+
+    <!-- ⚠️ La sortie est AVANT ce bloc, qui est un bloc de travail
+         destiné à disparaître : la sortie du voyageur ne doit pas
+         dépendre de sa présence. -->
     <div class="questions">
       <h2>Les questions à poser à Agus</h2>
       <p>Elles sont affichées ici, et non rangées dans un fichier de notes,
@@ -4029,6 +4081,18 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
     }
     renderCart();
     renderMessage();
+    majSuiteEnvies();
+  }
+
+  /**
+   * La suite du bas de « Vos envies » s'efface dès qu'une envie est
+   * cochée : à partir de là c'est le bouton d'envoi qui fait office de
+   * pas suivant, et deux appels à l'action à trois centimètres l'un de
+   * l'autre s'annulent. Elle revient si l'on décoche tout.
+   */
+  function majSuiteEnvies() {
+    var bloc = $("enviesSuite");
+    if (bloc) bloc.hidden = actIds.length > 0;
   }
 
   /**
@@ -4496,6 +4560,7 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
   });
 
   render();
+  majSuiteEnvies();
   observeReveals();
 })();
 </script>

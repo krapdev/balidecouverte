@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Users, Heart, AlertTriangle, Mail, ArrowRight } from "lucide-react";
+import { Users, Heart, AlertTriangle, Mail, ArrowRight, Route } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Photo from "@/components/Photo";
@@ -9,6 +9,7 @@ import LienPage from "@/components/LienPage";
 import { Symbole } from "@/components/Symboles";
 import { Jepun, Canang } from "@/components/Scene";
 import Separateur from "@/components/Separateur";
+import Suite from "@/components/Suite";
 import { AGUS, VALEURS, USAGES } from "@/lib/data";
 import { UNION, QUESTIONS } from "@/lib/portrait";
 
@@ -517,6 +518,29 @@ export default function PagePortrait() {
                 Il ferme la lecture comme la fleur l'ouvre sous le
                 portrait. */}
             <Separateur className="mt-[clamp(2.5rem,7vw,3.5rem)]" size={28} />
+
+            {/* ---------- La suite ----------
+                ⚠️ Elle est **avant** le bloc des questions, qui est un
+                bloc de travail destiné à disparaître : la sortie du
+                voyageur ne doit pas dépendre de sa présence.
+                Deux sorties parce que la page mène honnêtement à deux
+                endroits — c'est la même fourche que sur l'accueil, et on
+                arrive ici en ayant déjà lu qui tient le volant. */}
+            <Suite
+              className="mt-[clamp(3rem,8vw,4.5rem)]"
+              titre="Vous savez qui je suis. Voyons le voyage."
+              principal={{
+                href: "/circuit",
+                label: "Le circuit, jour par jour",
+                icone: <Route size={17} />,
+              }}
+              secondaire={{ href: "/envies", label: "Ou partir de vos envies" }}
+            >
+              Quinze jours que j&apos;ai déjà conduits des dizaines de fois,
+              ou une liste d&apos;envies dont je fais un itinéraire. Les deux
+              mènent au même endroit : un message que vous m&apos;écrivez, et
+              un voyage qu&apos;on ajuste ensemble.
+            </Suite>
 
             {/* ---------- Les questions ---------- */}
             <section className="mt-[clamp(3rem,8vw,4.5rem)] rounded-[16px] border border-eyebrow bg-[color-mix(in_srgb,var(--bougain)_8%,transparent)] p-[clamp(1.25rem,4vw,2rem)]">

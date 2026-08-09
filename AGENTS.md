@@ -54,6 +54,16 @@ Agus Yudiarta existe, et le site est son gagne-pain.
 - **`lib/data.js` ne se modifie pas au script sans vérifier après.** Une
   réécriture par tranche a déjà avalé un export entier. Il y en a **20** ;
   les recompter après toute édition scriptée.
+- **Une page qui se termine sans pas suivant est une impasse.** Trois sur cinq
+  en étaient : `/agus` ne proposait rien du tout, `/envies` rien tant qu'on
+  n'avait pas coché, `/tarifs` un retour et non une suite. Le pas suivant vit
+  dans `components/Suite.jsx`, et `/circuit` s'en sert aussi — le motif y était
+  écrit à la main, le laisser en double l'aurait fait diverger. Vérifier au bas
+  du contenu et **avant le pied de page**, pas dans le pied.
+- **Une sortie ne doit pas dépendre d'un état ni d'un échafaudage.** Sur
+  `/agus` la suite est posée avant le bloc des questions, qui disparaîtra ; sur
+  `/envies` c'est la suite qui est inconditionnelle et non le bouton d'envoi,
+  qui mentirait avec une sélection vide.
 - **Une entrée de menu par destination, et une destination par entrée.**
   `lib/navigation.js` en portait neuf pour six endroits : `#valeurs` est à
   l'intérieur de `#esprit` (le saut sur l'un pose déjà l'autre à l'écran),
