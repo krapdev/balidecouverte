@@ -880,6 +880,23 @@ Sur la barre soleil : la correction de contraste avait été faite dans l'app et
 `flex-shrink` ci-dessous, qui dormait dans la maquette depuis que le nom du
 site a grossi.
 
+### Le chapô des valeurs, et un chiffre qui vieillissait tout seul
+
+| avant | après |
+| --- | --- |
+| « Je suis balinais et je travaille en direct **depuis vingt ans**. Ce n'est pas seulement une façon de baisser le prix : c'est une façon de faire vivre un métier, et de tenir la promesse que je fais à mon pays. » | « Je suis balinais et je travaille en direct. Ce n'est pas seulement pour faire baisser le prix, c'est la **meilleure solution pour vivre la meilleure expérience** et faire vivre mon métier. » |
+
+**« Depuis vingt ans » disparaît, et c'est un gain.** Le chiffre était une
+approximation qui se périmait toute seule : octobre 2005 fait vingt et un
+ans en 2026, vingt-deux l'an prochain. C'est exactement le piège de la
+règle des âges — une source réelle mais périmée est aussi fausse qu'une
+source inventée, et plus dangereuse parce qu'elle se vérifie.
+
+La date exacte, elle, reste partout où elle compte : `AGUS.depuis`,
+`lib/legal.js`, le JSON-LD `foundingDate`, et la ligne « Je l'exerce
+depuis octobre 2005 » sur `/agus`. Vérifié après coup — le fait n'est
+perdu nulle part.
+
 ### Les dix incontournables, intégrés aux classiques
 
 Liste fournie par le client, reprise telle quelle et dans son ordre. Six
