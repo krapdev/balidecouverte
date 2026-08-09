@@ -141,13 +141,15 @@ export default function Hero() {
               le genre de promesse qu'aucune agence n'a jamais tenue en
               la prononçant. Un chiffre rond ne prouve rien ; une liste
               de choses dont on est déchargé, si.
-              Le registre visé : **détendez-vous, je m'occupe de tout**,
-              et c'est un homme qui le dit, pas une centrale.
+              Le registre visé : **laissez-vous guider, je m'occupe de
+              tout**, et c'est un homme qui le dit, pas une centrale.
 
-              ⚠️ **La chute a changé, et elle a changé d'argument.** Elle
-              disait « c'est à moi que vous écrivez, pas à une agence » ;
-              elle dit « je connais bien mon île ». On troque une
-              *opposition* contre une *compétence* — et le hero y gagne,
+              ⚠️ **La chute a changé deux fois, et chaque fois d'argument.**
+              Elle disait « c'est à moi que vous écrivez, pas à une agence »,
+              puis « je connais bien mon île », et maintenant « les lieux que
+              seul un Balinais peut vous faire découvrir ». D'une
+              *opposition* à une *compétence*, puis d'une compétence à ce
+              qu'elle **donne** — le hero y gagne,
               parce qu'opposer sans preuve, au premier écran, oblige le
               lecteur à croire sur parole quelqu'un qu'il ne connaît pas
               encore. La preuve existe désormais, mais elle est sur
@@ -196,9 +198,10 @@ export default function Hero() {
                 de 124 px, et l'écart entre les deux tailles se voit
                 surtout là où la colonne est étroite. */}
             <p className="max-w-[46ch] text-base leading-relaxed text-on-immersive-soft sm:text-lg">
-              Détendez-vous, je m&apos;occupe de tout : le véhicule, les
-              horaires, les entrées, les bons jours pour chaque endroit. Je
-              suis balinais et indépendant, je connais bien mon île.
+              Je vous emmène à la découverte de mon île. Laissez-vous guider,
+              je m&apos;occupe de tout : l&apos;organisation, la conduite, les
+              horaires, les entrées, les lieux que seul un Balinais peut vous
+              faire découvrir.
             </p>
           </div>
 

@@ -880,6 +880,29 @@ Sur la barre soleil : la correction de contraste avait été faite dans l'app et
 `flex-shrink` ci-dessous, qui dormait dans la maquette depuis que le nom du
 site a grossi.
 
+### Le sous-titre du hero, troisième version
+
+| | |
+| --- | --- |
+| avant | « Détendez-vous, je m'occupe de tout : le véhicule, les horaires, les entrées, les bons jours pour chaque endroit. Je suis balinais et indépendant, je connais bien mon île. » |
+| après | « Je vous emmène à la découverte de mon île. **Laissez-vous guider**, je m'occupe de tout : l'organisation, la conduite, les horaires, les entrées, **les lieux que seul un Balinais peut vous faire découvrir**. » |
+
+La chute a maintenant changé trois fois, et chaque fois d'argument : « c'est
+à moi que vous écrivez, pas à une agence » → « je connais bien mon île » →
+« les lieux que seul un Balinais peut vous faire découvrir ». D'une
+**opposition** à une **compétence**, puis de la compétence à **ce qu'elle
+donne**. C'est la progression la plus utile des trois.
+
+> ⚠️ **Le hero dit maintenant « Laissez-vous guider », et la section
+> « Qui je suis » s'appelle toujours « Laissez-vous guider. »** Deux
+> écrans les séparent. C'est peut-être un écho voulu ; si ça ne l'est pas,
+> c'est le titre de la section qu'il faut changer, pas le hero.
+
+Deux corrections de graphie au passage : **« Laissez-vous »** prend son
+trait d'union, et **« un Balinais »** sa majuscule — nom de nationalité, là
+où l'adjectif (« guide balinais ») reste en bas de casse, comme partout
+ailleurs sur le site.
+
 ### Le chapô des valeurs, et un chiffre qui vieillissait tout seul
 
 | avant | après |
