@@ -43,7 +43,11 @@ export default function Hero() {
           aria-hidden="true"
         />
 
-        <JepunBranch className="pointer-events-none absolute -top-4 right-0 z-[1] w-[min(52vw,440px)] opacity-90" />
+        {/* Décalée vers la droite : elle mordait sur le titre au lieu de
+          le border. `-right-10` la sort partiellement du cadre, ce que
+          `overflow-hidden` de la section rattrape — c'est voulu, une
+          branche qui s'arrête net au bord se lit comme un autocollant. */}
+        <JepunBranch className="pointer-events-none absolute -top-4 -right-10 z-[1] w-[min(52vw,440px)] opacity-90 sm:-right-16" />
 
         <div className="shell relative z-10 flex min-h-[min(88vh,780px)] flex-col items-start justify-end gap-6 pb-[clamp(3rem,9vw,5.5rem)] pt-[clamp(3.5rem,12vw,7rem)]">
           {/* ⚠️ **La ligne « Sidemen · Munduk · Est de Bali » a été
@@ -119,7 +123,11 @@ export default function Hero() {
                 className="w-full"
               />
             </span>
-            <p className="max-w-[46ch] text-lg leading-relaxed text-on-immersive-soft">
+            {/* `text-base` sur mobile et `text-lg` à partir de `sm` : à 390 px,
+                le paragraphe tenait sur sept lignes à côté d'un portrait
+                de 124 px, et l'écart entre les deux tailles se voit
+                surtout là où la colonne est étroite. */}
+            <p className="max-w-[46ch] text-base leading-relaxed text-on-immersive-soft sm:text-lg">
               Détendez-vous, je m&apos;occupe de tout : le véhicule, les
               horaires, les entrées, les bons jours pour chaque endroit. Je
               suis balinais et indépendant, je connais bien mon île.

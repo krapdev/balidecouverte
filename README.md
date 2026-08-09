@@ -811,32 +811,45 @@ page** au recentrage : c'était la partie la plus conceptuelle, et l'une des
 trois redisait le panneau des valeurs. Le repère reste noté ici, il est bon à
 reprendre si la présentation regagne de la place.
 
-### La barre réchauffée — jusqu'où exactement
+### La barre est exactement la couleur du bouton — et ce que ça a coûté
 
-La demande était « le même fond que le bouton *Créer mon voyage* », soit le
-soleil plein. Elle a été satisfaite à **25 %**, et le plafond n'est pas celui
-qu'on croit.
+Le fond de la barre est `--soleil` plein, **le même `rgb(242, 177, 52)` que
+« Créer mon voyage sur-mesure »**, vérifié en comparant les deux valeurs
+calculées.
 
-> ⚠️ **Correction d'un argument donné trop vite dans une version précédente de
-> ce fichier.** Il disait que le soleil plein ferait disparaître le CTA
-> (contraste 1,00). C'est vrai dans l'absolu et **faux dans cette mise en page** :
-> le bouton soleil vit sur le hero sombre, il n'est jamais adjacent à la barre.
-> L'argument ne tenait pas.
+Deux versions diluées l'ont précédé, à 12 % puis 25 %, et l'argument qui les
+justifiait était **mal posé**. Il disait « les seuils tombent au-delà de 25 % ».
+C'est vrai — mais la conclusion à en tirer n'était pas « diluer le fond », c'était
+**corriger les couleurs posées dessus** :
 
-Le vrai plafond est plus bas, et il tient à la couleur la plus discrète de la
-barre :
+| | sur soleil plein | corrigé en |
+| --- | --- | --- |
+| Liens de la barre (`--text-soft`) | 3,56 ❌ | `--barre-encre` → **5,37** ✅ |
+| Sous-titre (`--text-faint`) | 2,93 ❌ | `--barre-encre` → **5,37** ✅ |
+| Filet du burger (`--rule`) | 1,34 ❌ | `--barre-filet` → **3,32** ✅ |
+| Linteau (vert à 32 %) | 1,14 ❌ | même vert à **70 %** |
+| Nom du site (encre) | 7,28 ✅ | inchangé |
+| Bouton « Devis » (bambou) | 3,45 ✅ | inchangé |
 
-| soleil | fond | encre | **liens (`--text-soft`)** | bouton bambou |
-| --- | --- | --- | --- | --- |
-| 12 % | `#faefd8` | 12,06 | 4,96 | 5,72 |
-| **25 %** | **`#f9e6c0`** | **11,21** | **4,62** ✅ | **5,31** |
-| 30 % | `#f8e2b6` | 10,84 | **4,46** ❌ | 5,14 |
-| 100 % | `#f2b134` | 7,28 | 3,00 ❌ | 3,45 |
+Les deux jetons sont **portés par le `<header>` lui-même** et non par le thème
+global : ils ne valent que là où le fond est soleil, et ne peuvent donc pas
+dériver ailleurs.
 
-**Les liens de la barre tombent sous le seuil AA dès 30 %.** L'encre y est
-encore à 10,84 et le bouton à 5,14 : c'est donc le texte le moins visible qui
-fixe la limite, pas le plus visible. **Ne pas monter le taux sans remesurer
-`--text-soft`.**
+> ⚠️ **Le linteau n'est pas un ornement, c'est la séparation.** À 32 % d'opacité
+> il valait 1,14 sur le soleil — invisible. C'est un objet graphique soumis au
+> seuil de 3:1, pas une texture libre.
+
+> ⚠️ **Le fond est opaque, et il devait l'être.** Il était translucide à 92 %
+> avec un `backdrop-filter` : la barre prenait donc la couleur de ce qui défilait
+> dessous, ce qui est exactement l'inverse de « le même fond que le bouton ». Le
+> `backdrop-filter` reste déclaré mais devient inerte — **ne pas le retirer**, il
+> tient le piège documenté du panneau mobile hors du `<header>`.
+
+**C'est l'audit qui a rattrapé la moitié du travail** : la correction avait été
+faite dans l'app et **pas dans la maquette**, dont les liens de barre utilisent
+un sélecteur différent. Six échecs de contraste, sur cinq vues, à 1280 seulement
+— la largeur où la barre affiche ses liens. Rien ne l'aurait montré à l'œil sur
+une seule vue.
 
 ### Le nom du site a coûté le bouton « Devis » mobile
 

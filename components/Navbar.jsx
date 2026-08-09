@@ -202,25 +202,28 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ⚠️ **Le fond de la barre est un soleil dilué, et le taux compte.**
-          La demande était « le même fond que le bouton Créer mon voyage »,
-          c'est-à-dire le soleil plein. Mesuré, il coûtait trop cher : le
-          CTA soleil sur un fond soleil tombe à **1,00 de contraste** — il
-          disparaît —, et le bouton « Devis » en bambou à 3,45, ce qui
-          passe la norme mais donne du vert saturé sur du jaune saturé, en
-          permanence, sur les huit pages.
-          ⚠️ **Correction d'un argument donné trop vite** : le « CTA qui
-          disparaît » supposait une adjacence qui n'existe pas — le bouton
-          soleil vit sur le hero sombre, jamais sur la barre. Le vrai
-          plafond est ailleurs, et il est plus bas :
+      {/* ⚠️ **Le fond de la barre est exactement celui du bouton
+          « Créer mon voyage sur-mesure » : `--soleil` plein.** Deux
+          versions diluées l'ont précédé (12 % puis 25 %) parce que la
+          mesure disait que les seuils tombaient. Ils tombent bel et bien
+          — mais **ce sont les couleurs posées dessus qu'il fallait
+          corriger, pas la teinte du fond.** C'est ce qui a été fait :
 
-          **les liens de la barre sont en `--text-soft`, qui tombe à 4,46
-          dès 30 % de soleil** — sous le seuil AA de 4,5. À 25 % il vaut
-          4,62, l'encre 11,21 et le bambou du bouton 5,31. C'est donc la
-          limite, et elle tient à la couleur la plus discrète de la barre,
-          pas à la plus visible.
-          **Ne pas monter le taux sans remesurer `--text-soft`.** */}
-      <header className="sticky top-0 z-50 bg-[color-mix(in_srgb,color-mix(in_srgb,var(--soleil)_25%,var(--page))_92%,transparent)] backdrop-blur-lg backdrop-saturate-150">
+            liens `--text-soft` #505f58   3,56 ❌ → `--barre-encre`  5,37 ✅
+            sous-titre `--text-faint`     2,93 ❌ → `--barre-encre`  5,37 ✅
+            filet du burger `--rule`      1,34 ❌ → `--barre-filet`  3,32 ✅
+            linteau, vert à 32 %          1,14 ❌ → même vert à 70 %
+
+          Le nom du site (encre, 7,28) et le bouton Devis (bambou, 3,45 en
+          objet graphique) passaient déjà, ils n'ont pas bougé.
+
+          ⚠️ **Le fond est opaque et non plus translucide.** « Le même
+          fond que le bouton » ne tolère pas les 8 % de page qui le
+          traversaient : la barre prenait la couleur de ce qui défilait
+          dessous. `backdrop-filter` reste déclaré mais devient inerte —
+          ne pas le retirer, il tient le piège documenté du panneau
+          mobile hors du `<header>`. */}
+      <header className="sticky top-0 z-50 bg-soleil [--barre-encre:#39443d] [--barre-filet:#6f5e40]">
         {/* Les écarts se resserrent sous 640 px. À 320 — le plus petit
             écran que le site prétend tenir — logo + titre + « Devis » +
             burger faisaient 360 px de large dans 280 px utiles, et le
@@ -256,7 +259,7 @@ export default function Navbar() {
                   débordent d'une boîte sans bordure ne se voient pas. Le
                   libellé est masqué sous 640 px, là où la place manque
                   pour de bon. */}
-              <span className="label hidden whitespace-nowrap text-faint sm:block">
+              <span className="label hidden whitespace-nowrap text-[var(--barre-encre)] sm:block">
                 Guide francophone
               </span>
             </span>
@@ -299,8 +302,8 @@ export default function Navbar() {
                    lignes. Ce qui l'attrape, c'est le nombre de boîtes de
                    ligne — `document.createRange()` sur le contenu, puis
                    `getClientRects().length`. */
-                className={`relative inline-flex min-h-11 items-center whitespace-nowrap border-b border-transparent text-sm no-underline transition-colors hover:border-accent hover:text-ink ${
-                  iciBarre(l.href) ? "font-semibold text-ink" : "text-soft"
+                className={`relative inline-flex min-h-11 items-center whitespace-nowrap border-b border-transparent text-sm no-underline transition-colors hover:border-ink hover:text-ink ${
+                  iciBarre(l.href) ? "font-semibold text-ink" : "text-[var(--barre-encre)]"
                 }`}
               >
                 {l.label}
@@ -360,7 +363,7 @@ export default function Navbar() {
                justement la seule chose qu'ils n'avaient pas.
                Le meru est donc là partout. La barre garde ses six
                raccourcis, le menu porte le sommaire complet. */
-            className="grid h-11 w-11 shrink-0 place-items-center rounded border border-rule text-soft"
+            className="grid h-11 w-11 shrink-0 place-items-center rounded border border-[var(--barre-filet)] text-[var(--barre-encre)]"
             aria-expanded={open}
             aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
           >
