@@ -237,7 +237,7 @@ export default function Hero() {
               className="btn btn-ivoire btn-lg"
               href="#chemins"
             >
-              Par où commencer
+              Commencer mon circuit
             </a>
           </div>
 

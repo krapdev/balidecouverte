@@ -420,21 +420,19 @@ export default function PagePortrait() {
                 J&apos;ai commencé comme guide d&apos;agence. Je sais donc de
                 l&apos;intérieur ce que ce système fait à un guide : on lui
                 dit où aller, combien de temps rester, dans quelle boutique
-                s&apos;arrêter, et on garde l&apos;essentiel de ce que le
-                voyageur a payé. Je l&apos;ai vécu, et malheureusement je ne
+                s&apos;arrêter, sans considération et prendre en compte son
+                expérience et on garde l&apos;essentiel de ce que le voyageur
+                a payé. Je l&apos;ai vécu, et malheureusement je ne
                 suis pas le seul.
               </p>
               <p>
                 J&apos;en suis sorti — l&apos;un des premiers à le faire — et
                 j&apos;ai ouvert le chemin pour d&apos;autres. C&apos;est ce
                 que je défends depuis : un métier, et pas une prestation
-                revendue. Un guide balinais qui travaille en direct fixe son
-                prix, choisit ses journées et répond de son travail devant
-                les voyageurs eux-mêmes. Il tient debout tant que des guides
-                se tiennent ensemble — pour se passer le relais, se former,
-                et ne pas se laisser mettre en concurrence les uns contre les
-                autres. C&apos;est pour ça que je fais partie d&apos;une
-                union de guides de Bali.
+                revendue. Un guide balinais qui travaille en direct
+                répond de son travail devant les voyageurs eux-mêmes et leur
+                profiter de son expérience. C&apos;est pour ça que je fais
+                partie d&apos;une union de guides de Bali.
               </p>
               <p>
                 Je ne fais pas ça pour moi seul. Chaque voyage organisé en
