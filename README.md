@@ -880,6 +880,72 @@ Sur la barre soleil : la correction de contraste avait été faite dans l'app et
 `flex-shrink` ci-dessous, qui dormait dans la maquette depuis que le nom du
 site a grossi.
 
+### Les dix incontournables, intégrés aux classiques
+
+Liste fournie par le client, reprise telle quelle et dans son ordre. Six
+entrées existaient déjà ou recoupaient la liste ; huit ont été écrites.
+
+| # | entrée | |
+| --- | --- | --- |
+| 1 | Ubud | nouvelle |
+| 2 | Le temple d'Uluwatu | nouvelle |
+| 3 | Le temple sur le lac Bratan | nouvelle |
+| 4 | Les bains sacrés de Tirta Empul | nouvelle |
+| 5 | Tanah Lot | nouvelle |
+| 6 | Les rizières de Jatiluwih | existait |
+| 7 | Nusa Penida | existait |
+| 8 | Canggu et Seminyak | nouvelle |
+| 9 | Amed et Tulamben | nouvelle |
+| 10 | Le lever du soleil au Batur | nouvelle |
+
+Les trois « points d'intérêt » de chaque entrée deviennent **les trois
+emplacements photo** : le gabarit du site en prévoit exactement trois par
+activité, et la correspondance était donc naturelle. Le « En bref »
+devient le `texte` de la carte, et le `recit` — celui qu'on lit dans la
+visionneuse — a été écrit à partir de ces trois points.
+
+#### Ce qui a été gardé au-delà des dix
+
+Cinq entrées restent après la liste, et ce n'est pas un oubli : **ce sont
+les journées d'Agus**, pas des lieux.
+
+| | pourquoi |
+| --- | --- |
+| Les temples autour d'Ubud | Goa Gajah, la Lune de Pejeng, Gunung Kawi, Penglipuran — rien de tout ça n'est dans la liste des dix |
+| Besakih et le Batur | le temple mère, et la marche dans la coulée de lave |
+| Les dauphins de Lovina | **au programme du circuit de quinze jours**, J11 |
+| Cuisine balinaise | **au circuit**, J8 |
+| Journée sportive | **au circuit**, J7 |
+
+Les trois dernières sont un engagement contractuel du jour par jour : les
+retirer de la liste à cocher les aurait rendues invisibles là où on les
+choisit.
+
+> ⚠️ **Une désambiguïsation nécessaire.** L'entrée existante s'appelait
+> « Ubud et ses temples » ; avec « Ubud » juste au-dessus, deux cartes
+> commençaient par le même mot. Elle devient **« Les temples autour
+> d'Ubud »**, et Tirta Empul en sort — il a maintenant sa propre entrée.
+
+> ⚠️ **`ACTIVITES_RESTE` citait Tanah Lot** parmi les régions *non*
+> listées (« il y en a d'autres… le sud-ouest et Tanah Lot »). Ce n'est
+> plus vrai : la mention est retirée. Une liste qui grandit rend faux ce
+> qui disait ce qu'elle ne contenait pas.
+
+#### Ce que ça coûte en photos
+
+Les emplacements passent de 42 à **66**, tous encore vides. Chaque
+nouvelle entrée en demande trois, et chacun porte déjà son `brief` — ce
+qu'il faut photographier — et son `alt`.
+
+#### Un point à trancher
+
+**Canggu et Seminyak** est la seule entrée qui tire à l'opposé du reste du
+site. Le hero dit « Bali loin des sentiers battus », les places secrètes
+sont vendues comme « ce que je suis à peu près seul à montrer », et cette
+carte annonce des clubs de plage et de la vie nocturne. Le texte le dit
+franchement — « on y vient pour ça, ou on l'évite » — mais l'arbitrage
+reste à confirmer.
+
 ### Le menu à six, et le devis qui sort de la barre
 
 **« Qui je suis » disparaît, « Mon portrait » prend sa place** — barre
