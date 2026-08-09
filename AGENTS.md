@@ -86,7 +86,13 @@ Agus Yudiarta existe, et le site est son gagne-pain.
 - **JSX rogne l'espace de tête de chaque ligne d'un texte multiligne.** Un
   espace collé à une balise a besoin de son `{" "}` **des deux côtés** dès que
   le paragraphe passe à la ligne — sinon « canang sarisur le tableau de bord ».
-  Contrôle : `curl -s "$URL" | grep -oE "</(em|b|strong|i|code)>[a-zàâçéèêëîïôûùüÿñæœ]"`.
+  Contrôle : `curl -s "$URL" | grep -oE "</(em|b|strong|i|code)>[A-Za-zÀ-ÿ]"`.
+  ⚠️ **La classe de caractères doit contenir les majuscules.** Elle n'avait que
+  les minuscules, et cinq mots collés ont vécu des mois derrière : « d'Agus.Les
+  faits », « seule.Le Guide », « collecte.Le formulaire », « traité.Le
+  courriel », « droits.Vous disposez » — tous suivis d'une capitale, donc tous
+  invisibles au contrôle censé les trouver. Ils ont été révélés par une
+  comparaison app/maquette, pas par le contrôle.
   ⚠️ **`display: block` ne sauve pas.** La barre du bas donnait « 0 envie
   **dans** votre voyage » sur deux lignes à l'écran et « 0 enviedans votre
   voyage » dans la couche texte — celle que lit un lecteur d'écran. La coupure
@@ -183,6 +189,13 @@ Agus Yudiarta existe, et le site est son gagne-pain.
 
 - **Six vues** (`home`, `circuit`, `envies`, `portrait`, `tarifs`, `livre`) via
   `<body data-view>`. Toute modification de l'app s'y porte, et réciproquement.
+  ⚠️ **Ça dérive vite et en silence.** Un relevé a trouvé 42 phrases propres à
+  l'app et 40 à la maquette : quatre passages à la troisième personne, un fait
+  non sourcé, deux sections entières manquantes. Comparer les textes rendus des
+  deux côtés, pas les fichiers. Écarts légitimes et à conserver : le pied qui se
+  nomme (« Prototype » / « Maquette »), les « Retour à l'accueil » des vues (la
+  maquette n'a pas d'historique de navigateur), et ce qui ne peut pas exister
+  dans un fichier unique.
 - **Retirer du balisage sans retirer son rendu tue tout ce qui suit.** Une
   fonction de rendu qui écrit dans un élément supprimé lève une exception, et
   **aucune des fonctions appelées après elle ne s'exécute** — des écrans vides,

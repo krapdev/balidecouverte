@@ -106,7 +106,8 @@ export default function CGV() {
       <Article n={3} titre="Nature des prestations">
         <p>Le Guide propose deux natures de prestations distinctes.</p>
         <p>
-          <b>a) La prestation de guidage et de transport seule.</b> Le Guide met
+          <b>a) La prestation de guidage et de transport seule.</b>{" "}
+                Le Guide met
           à disposition un véhicule avec chauffeur-guide francophone, à la
           journée ou sur plusieurs jours, et accompagne le Client sur les sites
           visités. Le Client réserve lui-même son hébergement et contracte

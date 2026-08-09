@@ -313,7 +313,8 @@ export default function PagePortrait() {
                     strokeWidth={1.8}
                   />
                   <p className="text-sm leading-relaxed">
-                    <b>Cette page attend les mots d&apos;Agus.</b> Les faits
+                    <b>Cette page attend les mots d&apos;Agus.</b>{" "}
+                Les faits
                     vérifiés y sont ; ce qui est signalé en rouge ne peut venir
                     que de lui, et n&apos;a surtout pas à être deviné. Les
                     questions sont listées en bas de page.
@@ -364,6 +365,21 @@ export default function PagePortrait() {
                 besoin de m&apos;appuyer sur quelque chose que vous
                 connaissez déjà — sinon je vous donne des noms, pas une
                 compréhension.
+              </p>
+              {/* ⚠️ Ce paragraphe vivait dans la maquette et pas dans
+                  l'app : il était tombé quand la page a été raccourcie.
+                  Il est remis parce qu'il porte l'argument central de la
+                  page — pourquoi le français change quelque chose au
+                  voyage — et parce que c'est la seule chose que le
+                  raccourcissement avait fait perdre, plutôt que
+                  simplement resserré. */}
+              <p>
+                C&apos;est aussi pour ça que je préfère guider en français
+                plutôt qu&apos;en anglais quand j&apos;ai le choix. Partager la
+                même langue c&apos;est laisser la place aux nuances, aux
+                plaisanteries, aux questions qu&apos;on n&apos;ose pas poser
+                dans une langue approximative. Quinze jours en voiture, ça
+                fait beaucoup d&apos;heures de conversation.
               </p>
             </Partie>
 

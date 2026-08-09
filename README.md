@@ -880,6 +880,78 @@ Sur la barre soleil : la correction de contraste avait été faite dans l'app et
 `flex-shrink` ci-dessous, qui dormait dans la maquette depuis que le nom du
 site a grossi.
 
+### La resynchronisation app / maquette
+
+Les deux avaient dérivé. Mesuré en découpant le texte visible des six pages
+en phrases et en comparant les ensembles : **42 phrases propres à l'app,
+40 propres à la maquette**. Après resynchronisation : 18 et 18, et toutes
+délibérées.
+
+#### Ce que la maquette avait gardé de périmé
+
+- **La troisième personne, quatre fois.** « Agus vous proposera un
+  itinéraire », « demandez à Agus si elles tombent », « Agus vous confirme
+  la date ». C'est exactement la faute que le site s'interdit — le visiteur
+  ne se formule pas la raison, mais il enregistre qu'on lui parle d'Agus
+  par moments et qu'Agus lui parle à d'autres.
+- **Un fait qui n'est nulle part.** « L'Histoire de l'Europe m'intéresse,
+  **la Belgique et la France en particulier** ». Les séjours en Belgique
+  sont sourcés ; cet intérêt historique-là ne l'est pas. Retiré.
+- **La version longue du texte « Ma famille »**, alors que l'app était
+  passée à la courte quand la page a été raccourcie — six lignes de
+  *tri hita karana* et le passage sur les rangs de naissance, ce dernier
+  déjà présent dans « Us et coutumes ».
+- **Six questions au lieu de huit**, dont une qui n'existait plus.
+- **Le courriel après WhatsApp** dans le pied, alors que c'est le canal
+  qu'Agus relève et celui que la page promet « sous 24 h ».
+
+#### Ce que la maquette n'avait pas du tout
+
+- La partie **« Ce que ça change pour vous »**, qui porte la seule
+  promesse opérationnelle du portrait.
+- La section **« Six journées sur quinze »** du circuit.
+- Le bloc de fin du **livre d'or**, qui explique pourquoi la page n'a pas
+  de formulaire ouvert.
+
+#### Ce que l'app n'avait pas
+
+Un seul passage, remis : **« Partager la même langue c'est laisser la place
+aux nuances… »**. Il était tombé au raccourcissement, et c'est la seule
+chose que celui-ci avait fait *perdre* plutôt que resserrer — il porte
+l'argument central de la page.
+
+#### Cinq mots collés que le contrôle ne pouvait pas voir
+
+La comparaison a révélé ce que le contrôle des mots collés laissait
+passer depuis toujours : sa classe de caractères **n'avait que les
+minuscules**.
+
+| | |
+| --- | --- |
+| `/agus` | d'Agus.**L**es faits |
+| `/cgv` | seule.**L**e Guide |
+| `/mentions-legales` | collecte.**L**e formulaire · traité.**L**e courriel · droits.**V**ous disposez |
+
+Tous suivis d'une capitale, donc tous invisibles au contrôle censé les
+trouver. La commande est corrigée dans `AGENTS.md`.
+
+> **La leçon** : un contrôle qui ne trouve rien n'est pas la preuve qu'il
+> n'y a rien. Ce sont deux vues du même contenu, comparées l'une à
+> l'autre, qui ont fait apparaître ce qu'aucune des deux ne montrait
+> seule.
+
+#### Les écarts qui restent, et pourquoi ils restent
+
+- **« Prototype » / « Maquette »** dans le pied : chaque fichier se nomme.
+  Celui de l'app est un marqueur de préproduction, **à retirer avant la
+  mise en ligne**.
+- **« Retour à l'accueil »** dans les vues de la maquette : elle n'a pas
+  d'historique de navigateur entre ses six vues, l'app si.
+- **« Remontez choisir »** au lieu du lien « Voir les envies » : la
+  maquette est un fichier unique, elle ne peut pas pointer vers une page.
+- **« Photo à venir »** sur `/circuit` : l'app attend une photo, la
+  maquette embarque les siennes.
+
 ### La navigation d'ensemble : trois pages sur cinq étaient des impasses
 
 Le menu réparé, restait la question d'après : une fois **dans** une page,

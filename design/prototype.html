@@ -1238,6 +1238,17 @@
      ============================================================ */
   .part-tete { display: flex; align-items: center; gap: 0.9rem; border-bottom: 1px solid var(--rule); padding-bottom: 1rem; margin-top: clamp(3rem, 8vw, 4.5rem); }
   .part-sym { display: grid; flex: none; color: var(--accent); }
+  .questions ol { list-style: none; padding: 0; }
+  .questions li { display: flex; gap: 0.75rem; }
+  .q-num { flex: none; font-family: var(--util); font-size: var(--t-xs);
+           font-variant-numeric: tabular-nums; color: var(--eyebrow); }
+  .temps-forts { list-style: none; margin: 1rem 0 0; padding: 0; }
+  .temps-forts li { display: flex; align-items: center; gap: 0.875rem; padding: 0.5rem 0; border-bottom: 1px solid var(--rule); }
+  .temps-forts li:last-child { border-bottom: 0; }
+  .tf-jour { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; flex: none;
+             font-variant-numeric: tabular-nums; color: var(--eyebrow); text-decoration: underline;
+             text-underline-offset: 4px; }
+  .temps-forts span { font-size: var(--t-sm); line-height: 1.6; }
   .part-tete h2 { font-size: clamp(1.375rem, 4vw, 1.75rem); line-height: 1.15; }
 
   .circuit-detail-scene { margin-top: 2rem; border: 1px solid var(--rule); border-radius: 18px; overflow: hidden; position: relative; aspect-ratio: 21 / 9; }
@@ -1898,7 +1909,14 @@
      avant qu'on écrive à un inconnu à 12 000 km. Le laisser sans suite,
      c'est convaincre puis raccrocher. -->
 <div class="shell view-livre" style="padding-top: clamp(1rem, 3vw, 1.5rem)">
-  <a class="btn btn-accent btn-lg" href="#sur-mesure" data-goto="home" data-de="sur-mesure">M'écrire</a>
+  <!-- Ce bloc manquait : il dit pourquoi la page n'a pas de formulaire
+       ouvert, et c'est la seule réponse à la question que se pose celui
+       qui vient de lire sept témoignages. -->
+  <p style="max-width: 62ch"><b>Vous êtes parti avec moi et vous voulez ajouter un mot ?</b>
+  Écrivez-le-moi, je l'ajoute ici tel quel. Cette page n'a pas de formulaire
+  ouvert : l'ancien livre d'or se remplissait tout seul de publicités, et vos
+  mots s'y perdaient au milieu.</p>
+  <a class="btn btn-accent btn-lg" href="#sur-mesure" data-goto="home" data-de="sur-mesure" style="margin-top: 1.25rem">M'écrire</a>
 </div>
 <div class="shell back-home view-livre" style="padding-bottom: clamp(3rem, 8vw, 4.5rem)">
   <a href="#top" class="label retour-tarifs" data-goto="home" style="display: inline-flex; align-items: center; min-height: 44px; gap: 0.5rem; color: var(--accent)">
@@ -1926,6 +1944,14 @@
     <div class="circuit-detail-scene" id="circuitDetailScene"></div>
     <div class="cadre-grille" id="circuitCadre"></div>
     <div class="cadre-prix" id="circuitPrix"></div>
+
+    <!-- Six journées sur quinze — absent de la maquette alors que l'app
+         le porte. Ce n'est pas un doublon du jour par jour : il dit ce
+         qu'on FAIT là où le programme dit ce qui se passe, et il tient en
+         six lignes. C'est ce qu'on lit avant de décider si on lit les
+         quinze journées. -->
+    <div class="part-tete"><span class="part-sym" id="symTempsForts"></span><h2>Six journées sur quinze</h2></div>
+    <ul class="temps-forts" id="tempsForts"></ul>
 
     <div class="part-tete"><span class="part-sym" id="symEtapes"></span><h2>Où vous dormez</h2></div>
     <ol class="etapes" id="circuitEtapes"></ol>
@@ -2041,6 +2067,12 @@
          histoire — la sienne. -->
     <div class="part-tete"><span class="part-sym" id="symPays"></span><h2>Pourquoi je travaille en direct</h2></div>
     <div class="portrait-corps" id="portraitPays"></div>
+
+    <!-- Cette partie manquait à la maquette alors qu'elle porte, dans
+         l'app, la seule promesse opérationnelle de la page : ce qui se
+         passe concrètement quand on écrit. -->
+    <div class="part-tete"><span class="part-sym" id="symChange"></span><h2>Ce que ça change pour vous</h2></div>
+    <div class="portrait-corps" id="portraitChange"></div>
 
     <div class="sortie">
       <h2>Vous savez qui je suis. Voyons le voyage.</h2>
@@ -2208,8 +2240,10 @@
          tenue : le menu s'ouvre désormais à toutes les largeurs. -->
     <div class="footer-col">
       <p class="label">Contact direct</p>
-      <a href="https://wa.me/628123688936" target="_blank" rel="noopener">WhatsApp · +62 81 236 88 936</a>
+      <!-- Le courriel d'abord, comme dans l'app : c'est le canal qu'Agus
+           relève, et celui que la page promet « sous 24 h ». -->
       <a href="mailto:agus.yudiarta@balidecouverte.fr">agus.yudiarta@balidecouverte.fr</a>
+      <a href="https://wa.me/628123688936" target="_blank" rel="noopener">WhatsApp · +62 81 236 88 936</a>
       <a href="https://www.facebook.com/agus.guidebali" target="_blank" rel="noopener">Facebook · agus.guidebali</a>
       <a href="https://www.instagram.com/agus.guidebali" target="_blank" rel="noopener">Instagram · agus.guidebali</a>
       <p>J'y publie mes photos des endroits où j'accompagne mes voyageurs.</p>
@@ -2356,9 +2390,9 @@
       notes.push("Haute saison : Sidemen et Munduk se réservent des mois à l'avance.");
     }
     if (m === "Mars") {
-      notes.push("Nyepi tombe en mars : 24 h où l'île s'arrête, aucun vol, personne dehors. Rare, mais ça se prépare — Agus vous confirme la date.");
+      notes.push("Nyepi tombe en mars : 24 h où l'île s'arrête, aucun vol, personne dehors. Rare, mais ça se prépare — je vous confirme la date.");
     }
-    notes.push("Galungan et Kuningan se déplacent chaque année : demandez à Agus si elles tombent pendant votre séjour.");
+    notes.push("Galungan et Kuningan se déplacent chaque année : demandez-moi si elles tombent pendant votre séjour.");
     return { saison: estSec ? "Saison sèche" : "Saison des pluies", notes: notes };
   }
 
@@ -3556,7 +3590,17 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
       "signé : il est là pour que vous sachiez exactement ce que vous achetez, " +
       "et pour que vous puissiez me dire ce que vous voulez en retirer. " + CADRE.degressif;
     $("circuitDetailScene").innerHTML = scene(c.scene, 1200, 515, "circuit-detail");
+    $("symTempsForts").innerHTML = symbole("tedung", 30);
     $("symEtapes").innerHTML = symbole("candi", 30);
+    /* ⚠️ `min-height: 44px; min-width: 44px` sur « J3 » : le libellé fait
+       20 px de haut et 24 de large, et l'exception « lien en pleine
+       phrase » de la WCAG 2.5.8 ne le couvre pas — il est seul dans sa
+       colonne. */
+    $("tempsForts").innerHTML = TEMPS_FORTS.map(function (t) {
+      return '<li><a class="label tf-jour" href="#jour-' + t.jour +
+        '" aria-label="Aller au jour ' + t.jour + '">J' + t.jour + '</a>' +
+        '<span>' + t.texte + '</span></li>';
+    }).join("");
     $("symJours").innerHTML = symbole("penjor", 30);
     $("symPrix").innerHTML = symbole("poleng", 30);
 
@@ -3605,14 +3649,30 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
   /* `null` dans PORTRAIT = une chose que seul Agus peut dire. Elle sort
      en marqueur rouge, jamais en phrase plausible. */
   var UNION = { nom: null, depuis: null, role: null, effectif: null, actions: null };
+  /* ⚠️ Copie conforme de `lib/portrait.js` : ces questions partent à
+     Agus et l'app les numérote. La maquette en portait six, dont une
+     — « Où avez-vous grandi, et où avez-vous appris le français ? » —
+     qui n'existait plus dans l'app, et il en manquait trois. */
+  var TEMPS_FORTS = [
+    { jour: 3, texte: "Deux heures et demie à pied jusqu'à Tenganan, par les rizières" },
+    { jour: 7, texte: "La descente du Batur à vélo, puis le rafting dans les gorges de l'Ayung" },
+    { jour: 8, texte: "Cuisiner chez l'habitant à Munduk, et dîner de ce qu'on a fait" },
+    { jour: 10, texte: "Deux heures de marche jusqu'à la cascade de Sekumpul, et la baignade" },
+    { jour: 11, texte: "Les dauphins à 5 h 45, en bateau à balancier" },
+    { jour: 12, texte: "Les quatre cents hectares de la saline de Pemuteran, sans personne" }
+  ];
+
   var QUESTIONS = [
     "Comment s'appelle exactement votre union de guides, et depuis quand en faites-vous partie ?",
     "Que fait-elle concrètement ? Trois exemples valent mieux qu'une définition.",
     "Combien de guides êtes-vous, et dans quelles langues travaillez-vous ?",
-    "Où avez-vous grandi, et où avez-vous appris le français ?",
+    "Dans quel village avez-vous grandi ?",
     "Qu'est-ce qui vous a fait devenir guide en 2005 ?",
+    "Vous dites avoir été l'un des premiers à quitter le système des agences — premier de votre groupe, de votre région, de l'île ? C'est écrit tel quel en attendant votre précision.",
+    "Votre licence : délivrée par le gouvernement régional, renouvelée tous les trois ans auprès du ministère du tourisme — est-ce exact ?",
     "Que voulez-vous qu'on dise de votre famille — et que préférez-vous garder pour vous ?"
   ];
+
   function valeur(v, quoi) {
     return v ? v : '<mark class="acompleter">[à compléter — ' + quoi + ']</mark>';
   }
@@ -3628,6 +3688,7 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
     $("symFrancais").innerHTML = symbole("candi", 30);
     $("symFamille").innerHTML = symbole("rangs", 30);
     $("symPays").innerHTML = symbole("gong", 30);
+    $("symChange").innerHTML = symbole("canang", 30);
 
 
     /* Quatre lignes, et pas six. « Union » et « Famille » y figuraient
@@ -3665,8 +3726,8 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
       "parle — plusieurs séjours en Europe, en Belgique surtout, avec des vacances " +
       "en France.</p>" +
       "<p>Je suis passionné d'Histoire, et pas seulement de la mienne : celle de " +
-      "l'Europe m'intéresse depuis longtemps, la Belgique et la France en " +
-      "particulier. Ça n'est pas de la curiosité de collectionneur. Quand je vous " +
+      "l'Europe m'intéresse depuis longtemps. Ça n'est pas de la curiosité de " +
+      "collectionneur. Quand je vous " +
       "explique pourquoi un temple est orienté vers le Gunung Agung, ou ce qu'un " +
       "village décide vraiment quand il se partage l'eau du subak, j'ai besoin de " +
       "m'appuyer sur quelque chose que vous connaissez déjà — sinon je vous donne " +
@@ -3677,23 +3738,22 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
       "approximative. Quinze jours en voiture, ça fait beaucoup d'heures de " +
       "conversation.</p>";
 
+    /* ⚠️ La version COURTE du point « Ma famille », comme dans l'app.
+       La longue développait le tri hita karana sur six lignes, sur une
+       page qu'on raccourcit ; le concept reste nommé dans la partie
+       suivante, où il porte l'argument au lieu de l'illustrer.
+       Les rangs de naissance — Wayan, Made, Nyoman, Ketut — vivent dans
+       « Us et coutumes », sur l'accueil : les répéter ici en faisait le
+       seul passage du site écrit deux fois. */
     $("portraitFamille").innerHTML =
       '<p class="fort">Marié, deux filles et un garçon.</p>' +
-      "<p>Vous m'aidez à faire vivre ma famille — comme vous faites vivre les " +
-      "familles qui vous accueillent chez elles, et non une " +
-      "commission d'intermédiaire. À Bali, une maison n'est pas une maison mais " +
-      "une cour : plusieurs générations sous le même mur, un temple pour les " +
-      "ancêtres, des offrandes déposées chaque matin. Les Balinais appellent ça " +
-      "le <em>tri hita karana</em>, les trois causes du bonheur — l'entente avec " +
-      "le divin, avec les autres et avec la terre. Aucune ne tient sans les deux " +
-      "autres.</p>" +
+      "<p>Vous m'aidez à faire vivre ma famille — pas une commission " +
+      "d'intermédiaire. Ici, on vit à plusieurs générations dans la même cour, " +
+      "autour du temple des ancêtres.</p>" +
       '<p class="encart">' + canang(50) +
       "<span>Chaque matin, avant de prendre la route, je dépose un <em>canang sari</em> " +
       "sur le tableau de bord : quelques fleurs dans un panier de feuille de palme " +
       "tressée. C'est trois minutes, et c'est le vrai début de la journée.</span></p>" +
-      "<p><b>Wayan, Made, Nyoman, Ketut.</b> Ce ne sont pas des prénoms mais des rangs " +
-      "de naissance, et au cinquième enfant on repart à Wayan. Mes enfants portent les " +
-      "leurs, comme tout le monde ici.</p>" +
       "";
 
     /* ⚠️ Le cœur de la page, et c'est nouveau. Le site argumentait par le
@@ -3735,8 +3795,20 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
         }).join("") +
       '</dl>';
 
-    $("portraitQuestions").innerHTML = QUESTIONS.map(function (q) {
-      return "<li>" + q + "</li>";
+    $("portraitChange").innerHTML =
+      "<p>Si je ne suis pas libre à vos dates, je passe le relais à un guide que " +
+      "je connais — jamais à un inconnu envoyé par une centrale.</p>" +
+      "<p>Vous écrivez à quelqu'un, pas à un formulaire. C'est moi qui réponds, " +
+      "en français, sous 24 heures.</p>" +
+      "<p class=\"humour\"><b>Un petit trait d'humour</b> — <b>AGUS</b> pour " +
+      "<b>A</b>gence <b>G</b>lobale <b>U</b>niverselle (de la) <b>S</b>ympathie.</p>";
+
+    /* Numérotées comme dans l'app : ces questions partent à Agus, et un
+       numéro donne un moyen de répondre « la 3 » sans recopier la
+       phrase. */
+    $("portraitQuestions").innerHTML = QUESTIONS.map(function (q, i) {
+      return '<li><span class="q-num">' + String(i + 1).padStart(2, "0") +
+        "</span>" + q + "</li>";
     }).join("");
   }
 
@@ -3917,8 +3989,8 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
 
     $("cart").innerHTML = choisies.length === 0
       ? '<p class="cart-empty">' + (baseCircuit
-          ? "Rien d'ajouté au circuit pour l'instant — envoyez tel quel, Agus vous proposera la suite."
-          : "Rien de coché pour l'instant — remontez choisir, ou envoyez votre demande telle quelle : Agus vous proposera un itinéraire complet.") + '</p>'
+          ? "Rien d'ajouté au circuit pour l'instant — envoyez tel quel, je vous proposerai la suite."
+          : "Rien de coché pour l'instant. Remontez choisir, ou envoyez votre demande telle quelle : je vous proposerai un itinéraire complet.") + '</p>'
       : choisies.map(function (a, i) {
           return '' +
           '<div class="cart-item">' +

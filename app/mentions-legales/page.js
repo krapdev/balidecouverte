@@ -158,7 +158,8 @@ export default function MentionsLegales() {
           l&apos;adresse {CONTACT.email}.
         </p>
         <p>
-          <b>Ce que ce site collecte.</b> Le formulaire « Sur-Mesure » ne
+          <b>Ce que ce site collecte.</b>{" "}
+                Le formulaire « Sur-Mesure » ne
           transmet rien à un serveur : il compose un message dans votre propre
           logiciel de courrier, que vous relisez et envoyez vous-même. Les
           informations que vous y saisissez — prénom, mois de départ, durée,
@@ -166,7 +167,8 @@ export default function MentionsLegales() {
           que par le courriel que vous décidez d&apos;envoyer.
         </p>
         <p>
-          <b>Ce qui est ensuite traité.</b> Le courriel reçu, et les échanges
+          <b>Ce qui est ensuite traité.</b>{" "}
+                Le courriel reçu, et les échanges
           qui le suivent : votre nom, votre adresse électronique, et les
           éléments nécessaires à l&apos;organisation du voyage.
         </p>
@@ -196,7 +198,8 @@ export default function MentionsLegales() {
           </li>
         </ul>
         <p>
-          <b>Vos droits.</b> Vous disposez d&apos;un droit d&apos;accès, de
+          <b>Vos droits.</b>{" "}
+                Vous disposez d&apos;un droit d&apos;accès, de
           rectification, d&apos;effacement, de limitation et
           d&apos;opposition, ainsi que du droit à la portabilité de vos
           données. Il s&apos;exerce par simple courriel à {CONTACT.email}. Vous
