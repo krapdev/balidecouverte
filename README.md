@@ -880,6 +880,35 @@ Sur la barre soleil : la correction de contraste avait été faite dans l'app et
 `flex-shrink` ci-dessous, qui dormait dans la maquette depuis que le nom du
 site a grossi.
 
+### Deux entrées de menu mortes, dans la maquette seule
+
+« Us et coutumes » et « Livre d'or » sont les deux seules entrées qui
+visent une **section de l'accueil** plutôt qu'une page. Dans la maquette,
+elles n'avaient pas de `data-goto` : depuis la vue tarifs, circuit ou
+portrait, elles pointaient vers un élément caché et **le clic ne faisait
+rien du tout** — pas d'erreur en console, pas de mouvement, rien.
+
+| depuis | Us et coutumes | Livre d'or |
+| --- | --- | --- |
+| `home` | ✅ | ✅ |
+| `tarifs` | ❌ mort | ❌ mort |
+| `circuit` | ❌ mort | ❌ mort |
+
+Quatre clics sur six. Corrigé dans la barre **et** dans le sommaire, où le
+rendu ignorait de surcroît le `data-de` — l'entrée serait rentrée à
+l'accueil mais en haut de page, pas sur la section demandée.
+
+**L'app n'avait pas ce défaut** : ses `href` sont préfixés par `/`
+(`/#usages`), donc le routeur ramène à l'accueil de lui-même. Vérifié
+entrée par entrée, depuis `/tarifs`, dans la barre comme dans le
+sommaire : six sur six.
+
+> **Ce que ça dit du silence.** Un lien mort qui ne lève rien est le pire
+> cas — la console est propre, l'audit passe, le balisage est valide. Il
+> ne se trouve qu'en cliquant depuis le bon endroit. C'est pour ça que
+> le contrôle porte maintenant sur *chaque entrée depuis une autre vue*,
+> et pas seulement depuis l'accueil.
+
 ### La couture à cheval, et l'ordre de l'accueil
 
 #### Le délimiteur n'appartient plus à personne

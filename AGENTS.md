@@ -208,6 +208,13 @@ Agus Yudiarta existe, et le site est son gagne-pain.
 - **Une couture créée par `innerHTML` reste vide.** Le remplissage des
   `.jepun-mark` tourne une fois au démarrage, avant `render()` ; ce qui naît
   ensuite passe par `couture()`, qui inline la fleur.
+- **Dans la maquette, `data-goto` est obligatoire même sur une ancre.** « Us
+  et coutumes » et « Livre d'or » ne l'avaient pas : depuis toute vue autre
+  que `home`, elles pointaient vers un élément caché et **le clic ne faisait
+  rien** — pas d'erreur, pas de mouvement, quatre clics sur six morts. Toute
+  entrée visant une section de l'accueil doit d'abord y ramener ; `data-de`
+  dit ensuite où atterrir. L'app n'a pas ce défaut, ses `href` étant
+  préfixés par `/`.
 - **`querySelector` est singulier.** La fleur des coutures était posée par un
   `querySelector` : avec quatre coutures, trois sont restées des `<span>` vides
   sans qu'aucune erreur ne soit levée. Vérifier le compte après coup.

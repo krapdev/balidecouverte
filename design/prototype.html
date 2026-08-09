@@ -1446,8 +1446,15 @@
       <a href="#portrait-agus" data-goto="portrait">Mon portrait</a>
       <a href="#circuit-detail" data-goto="circuit">Le circuit</a>
       <a href="#envies" data-goto="envies">Vos envies</a>
-      <a href="#usages">Us et coutumes</a>
-      <a href="#temoignages">Livre d'or</a>
+      <!-- ⚠️ **`data-goto="home"` est obligatoire, même sur une ancre.**
+           Ces deux entrées ne l'avaient pas : depuis la vue tarifs,
+           circuit ou portrait, elles pointaient vers un élément caché et
+           le clic ne faisait rien du tout — pas d'erreur, pas de
+           mouvement. Quatre clics sur six étaient morts. Toute entrée de
+           barre visant une section de l'accueil doit d'abord ramener à
+           l'accueil ; `data-de` dit ensuite où atterrir. -->
+      <a href="#usages" data-goto="home" data-de="usages">Us et coutumes</a>
+      <a href="#temoignages" data-goto="home" data-de="temoignages">Livre d'or</a>
       <a href="#tarifs" data-goto="tarifs">Tarifs</a>
     </nav>
     <button class="nav-burger" type="button" id="burger" aria-expanded="false" aria-label="Ouvrir le menu">
@@ -4383,15 +4390,22 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
     ["#portrait-agus", "Mon portrait", "Mon métier, le français, mon parcours", "rangs", "portrait"],
     ["#circuit-detail", "Le circuit", "Quinze jours, sept étapes", "penjor", "circuit"],
     ["#envies", "Vos envies", "Classiques et places secrètes", "tedung", "envies"],
-    ["#usages", "Us et coutumes", "Ce qu'on comprend en arrivant", "nyepi"],
-    ["#temoignages", "Livre d'or", "Sept voyageurs, leurs mots", "gong"],
+    /* ⚠️ Le cinquième champ est le `data-goto` : sans lui, l'entrée ne
+       ramène pas à l'accueil et le clic est mort depuis toute autre vue.
+       Le sixième est le `data-de`, qui dit où atterrir une fois rentré. */
+    ["#usages", "Us et coutumes", "Ce qu'on comprend en arrivant", "nyepi", "home", "usages"],
+    ["#temoignages", "Livre d'or", "Sept voyageurs, leurs mots", "gong", "home", "temoignages"],
     ["#tarifs", "Tarifs", "Trois façons de compter", "poleng", "tarifs"]
   ];
 
   $("navMenuList").innerHTML =
     MENU.map(function (m, i) {
       var goto = m[4] ? ' data-goto="' + m[4] + '"' : "";
-      return '<a class="plaque" href="' + m[0] + '"' + goto + '>' +
+      /* Le `data-de` dit où atterrir une fois rentré à l'accueil. Sans
+         lui, une entrée qui ramène à l'accueil y arrive en haut de page
+         au lieu de la section demandée. */
+      var de = m[5] ? ' data-de="' + m[5] + '"' : "";
+      return '<a class="plaque" href="' + m[0] + '"' + goto + de + '>' +
         '<span class="plaque-num">' + String(i + 1).padStart(2, "0") + '</span>' +
         '<span class="plaque-sym">' + symbole(m[3], 26) + '</span>' +
         '<span class="plaque-txt">' +
