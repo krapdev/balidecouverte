@@ -255,7 +255,32 @@
      La couture ouvre la section et ne se pose pas entre deux : les fonds
      alternent, et un séparateur posé dans l'intervalle tomberait sur une
      bande de page nue entre deux bandes colorées. */
-  .couture-hote { padding-top: clamp(2rem, 6vw, 3rem); }
+  /* ⚠️ **La couture est à cheval sur la frontière.** Elle était posée
+     DANS la section qu'elle ouvrait, sur le fond de celle-ci ; elle EST
+     maintenant l'intervalle — moitié haute au fond d'avant, moitié basse
+     au fond d'après, et la fleur exactement sur la ligne qui sépare les
+     deux. C'est ce que fait un délimiteur : il n'appartient à aucun des
+     deux côtés. */
+  /* La fiche verte : le même cadre que le panneau des valeurs. */
+  .fiche-verte {
+    position: relative; overflow: hidden; border-radius: 18px;
+    background: var(--immersive); color: var(--on-immersive);
+    padding: clamp(2rem, 6vw, 3rem) clamp(1.5rem, 5vw, 3rem);
+  }
+  .fiche-filigrane { position: absolute; top: -4rem; right: -3.5rem; opacity: .13;
+                     color: var(--on-immersive); pointer-events: none; }
+  /* ⚠️ L'épingle REMPLACE le filet, elle ne s'y ajoute pas : les deux
+     donnaient un tiret, un blanc, une fleur, un blanc, un mot — quatre
+     objets pour annoncer un titre. La fleur EST la puce. */
+  .epingle-fleur { display: inline-grid; flex: none; }
+  .epingle-titre { position: relative; display: block; margin-bottom: 0.75rem; }
+  .couture-hote { position: relative; }
+  .couture-hote > .moitie { height: clamp(1.75rem, 4.5vw, 2.5rem); }
+  .couture-hote > .shell {
+    position: absolute; inset: 0; display: flex; align-items: center;
+    pointer-events: none;
+  }
+  .couture-hote > .shell > .divider { width: 100%; }
   .divider { display: flex; align-items: center; gap: 1.25rem; }
   .divider > span:not(.jepun-mark) { height: 1px; flex: 1; background: color-mix(in srgb, var(--bougain) 45%, transparent); }
 
@@ -512,6 +537,10 @@
   .sec-head { display: flex; flex-direction: column; gap: 0.9rem; margin-bottom: clamp(2rem, 5vw, 3.25rem); max-width: 62ch; }
   .sec-eyebrow { color: var(--eyebrow); display: flex; align-items: center; gap: 0.7rem; }
   .sec-eyebrow::before { content: ""; width: 26px; height: 1px; background: currentColor; }
+  /* ⚠️ L'épingle REMPLACE le filet, elle ne s'y ajoute pas : les deux
+     donnaient un tiret, un blanc, une fleur, un blanc, un mot — quatre
+     objets pour annoncer un titre. La fleur EST la puce. */
+  .sec-eyebrow.epingle::before { content: none; }
   .sec-head h2 { font-size: clamp(1.9rem, 5.2vw, var(--t-3xl)); }
   .sec-head p { color: var(--text-soft); font-size: var(--t-lg); line-height: 1.6; }
 
@@ -1519,7 +1548,7 @@
            la place au nom du site. Quelqu'un qui arrive, ne coche rien et
            ne touche pas au menu n'a plus de bouton d'action avant douze
            écrans. Arbitrage assumé, réparable en une ligne. -->
-      <a class="btn btn-ivoire btn-lg" href="#chemins">Commencer mon circuit</a>
+      <a class="btn btn-ivoire btn-lg" href="#chemins">Créons ensemble le voyage de vos rêves</a>
     </div>
     <!-- ⚠️ Le bandeau « Guide diplômé francophone — professionnel depuis
          octobre 2005 » a été retiré d'ici, et ce n'est pas une perte de
@@ -1616,6 +1645,10 @@
          vers le bas — l'ancre atterrissait sur la position d'avant
          l'animation. On n'anime pas ce vers quoi on navigue. -->
     <div class="valeurs-panneau" id="valeurs">
+      <!-- La puce épingle : un jepun jaune en tête de fiche, comme sur
+           « À savoir ». C'est le seul jaune du panneau, et il dit « ici
+           commence quelque chose » — le padma en filigrane, lui, habille. -->
+      <span class="epingle-titre" id="valeursEpingle"></span>
       <h3>Voyager avec moi, c'est faire vivre les guides de Bali.</h3>
       <!-- ⚠️ « depuis vingt ans » a disparu, et c'est un gain : le chiffre
            vieillissait tout seul. La date exacte reste partout où elle
@@ -1662,7 +1695,7 @@
 
 
 <!-- ============================ JOURNÉES ============================ -->
-<div class="ground-sable couture-hote view-home"><div class="shell"><div class="divider" aria-hidden="true"><span></span><span class="jepun-mark"></span><span></span></div></div></div>
+<div class="couture-hote view-home" aria-hidden="true"><div class="moitie ground-ivoire"></div><div class="moitie ground-sable"></div><div class="shell"><div class="divider"><span></span><span class="jepun-mark"></span><span></span></div></div></div>
 <section class="band ground-sable view-home" id="chemins">
   <div class="shell">
     <div class="sec-head reveal">
@@ -1680,6 +1713,125 @@
       ensemble. Rien ici n'est réservé.</p>
     </div>
     <ul class="chemins" id="cheminList"></ul>
+  </div>
+</section>
+<!-- ============================ CONFIGURATEUR ============================ -->
+<div class="couture-hote view-home" aria-hidden="true"><div class="moitie ground-sable"></div><div class="moitie ground-sable"></div><div class="shell"><div class="divider"><span></span><span class="jepun-mark"></span><span></span></div></div></div>
+<section class="band ground-sable view-home" id="sur-mesure">
+  <div class="shell">
+    <div class="sec-head reveal">
+      <p class="label sec-eyebrow">Sur-Mesure</p>
+      <h2>Construisez votre demande.</h2>
+      <p>Quelques questions, une case libre pour tout le reste, et votre e-mail m'arrive déjà rédigé. Je réponds sous 24 h, en français — et c'est ce fil-là qui devient votre devis.</p>
+    </div>
+
+    <div class="builder">
+      <div class="panel">
+        <div id="baseCircuit"></div>
+
+        <p class="panel-title">1 — Vos envies <span id="cartCount" style="color: var(--eyebrow)">(0)</span></p>
+        <div class="cart" id="cart"></div>
+
+
+        <p class="panel-title">2 — Votre voyage</p>
+        <div class="fields">
+          <div class="field">
+            <label for="fMonth">Mois de départ</label>
+            <select id="fMonth"></select>
+          </div>
+          <div class="field">
+            <label for="fDuration">Durée estimée</label>
+            <select id="fDuration">
+              <option>5 à 7 jours</option>
+              <option selected>10 à 14 jours</option>
+              <option>15 à 21 jours</option>
+              <option>Plus de 3 semaines</option>
+              <option>Je ne sais pas encore</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Adultes</label>
+            <div class="counter" data-counter="adults">
+              <button type="button" data-step="-1" aria-label="Retirer un adulte">–</button>
+              <output id="outAdults">2</output>
+              <button type="button" data-step="1" aria-label="Ajouter un adulte">+</button>
+              <span class="counter-label">adultes</span>
+            </div>
+          </div>
+          <div class="field">
+            <label>Enfants</label>
+            <div class="counter" data-counter="children">
+              <button type="button" data-step="-1" aria-label="Retirer un enfant">–</button>
+              <output id="outChildren">0</output>
+              <button type="button" data-step="1" aria-label="Ajouter un enfant">+</button>
+              <span class="counter-label">enfants</span>
+            </div>
+          </div>
+          <div class="field field-wide">
+            <div class="period" id="periodNote"></div>
+          </div>
+          <div class="field field-wide">
+            <label>Style recherché</label>
+            <div class="tags" id="tags"></div>
+          </div>
+          <!-- Prénom ET nom : le message devient un devis, puis une
+               réservation, puis un nom sur un vol intérieur et sur une fiche
+               d'hôtel. Le demander ici évite un aller-retour de mail, et
+               autocomplete="name" le fait remplir d'un tap sur mobile. -->
+          <div class="field field-wide">
+            <label for="fName">Vos prénom et nom <span style="text-transform:none;letter-spacing:0;font-weight:400;color:var(--text-faint)">(facultatif)</span></label>
+            <input id="fName" type="text" placeholder="Ex. Camille Rousseau" autocomplete="name">
+          </div>
+          <!-- Le champ libre. Tout ce qui précède est fermé : des listes,
+               des compteurs, des cases. Sans case vide, le voyageur doit
+               faire entrer sa demande dans celles qu'on a prévues — et ce
+               qui n'y entre pas se perd, alors que c'est presque toujours
+               là que se trouve ce qui fait le voyage.
+               L'exemple est donné AU-DESSUS du champ et non en placeholder :
+               un placeholder s'efface à la frappe, c'est-à-dire au moment
+               précis où on en a besoin. -->
+          <div class="field field-wide">
+            <label for="fNote">Ce que vous voulez me dire <span style="text-transform:none;letter-spacing:0;font-weight:400;color:var(--text-faint)">(facultatif)</span></label>
+            <p class="field-aide" id="noteAide">Un anniversaire à fêter, un genou qui ne fait plus les marches, un bébé, un lieu vu quelque part dont vous ne connaissez pas le nom, une question. C'est ce qu'Agus lit en premier.</p>
+            <textarea id="fNote" rows="4" maxlength="1200" aria-describedby="noteAide"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="preview-wrap">
+        <div class="panel" style="padding: 0; border: none; background: transparent">
+          <div class="paix" style="margin-bottom: 1.25rem">
+            <h3>Je peux aussi m'occuper des hôtels.</h3>
+            <p>Par défaut vous réservez vous-même, et je vous dis où dormir et
+            pourquoi. Mais si vous préférez n'avoir à penser à rien, je les
+            choisis, je vous les propose et je réserve : la formule devient
+            globale — hôtels, activités, transport et chauffeur-guide réunis.
+            Vous n'avez plus qu'à venir.</p>
+          </div>
+
+          <p class="panel-title">3 — Votre message, prêt à envoyer</p>
+          <div class="preview">
+            <div class="preview-head">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg>
+              <span class="label">Aperçu — e-mail à <span class="adresse">agus.yudiarta@balidecouverte.fr</span></span>
+            </div>
+            <p class="preview-objet"><span class="label">Objet</span><br><b id="previewObjet"></b></p>
+            <pre class="preview-body" id="previewBody"></pre>
+          </div>
+        </div>
+        <a class="btn btn-accent btn-lg btn-send" id="sendBtn" href="#">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          Envoyer ma demande
+        </a>
+        <button class="btn btn-outline btn-copier" id="copyBtn" type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <span id="copyLabel">Copier le message</span>
+        </button>
+        <p class="send-note">Ouvre votre messagerie avec le message déjà rédigé. Vous
+        relisez avant d'envoyer — aucun engagement. Je réponds sous 24 h, et le
+        devis se discute par retour de mail.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1859,15 +2011,25 @@
      choses qu'un guide règle et qu'une agence oublie.
      Bande pleine : c'est la seule pause de la page, et le trait fin des
      symboles tient mieux sur vert profond que sur ivoire. -->
-<div class="ground-bambou couture-hote view-home"><div class="shell"><div class="divider" aria-hidden="true"><span></span><span class="jepun-mark"></span><span></span></div></div></div>
-<section class="band ground-bambou view-home" id="usages">
+<div class="couture-hote view-home" aria-hidden="true"><div class="moitie ground-sable"></div><div class="moitie ground-ivoire"></div><div class="shell"><div class="divider"><span></span><span class="jepun-mark"></span><span></span></div></div></div>
+<!-- ⚠️ La bande pleine est devenue une FICHE, le même vert dans le même
+     cadre arrondi que le panneau des valeurs : les deux jouent le même
+     rôle — une parenthèse posée sur la page — et le disaient de deux
+     façons. La section qui la porte passe donc en ground-ivoire, sans
+     quoi la fiche verte serait posée sur du vert. -->
+<section class="band ground-ivoire view-home" id="usages">
   <div class="shell">
-    <div class="sec-head reveal">
-      <p class="label sec-eyebrow" style="color: var(--soleil-pale)">Us et coutumes</p>
-      <h2 id="usagesTitre"></h2>
-      <p id="usagesChapo" style="color: var(--on-immersive-soft)"></p>
+    <div class="fiche-verte">
+      <span class="fiche-filigrane" id="usagesFiligrane"></span>
+      <div style="position: relative">
+        <div class="sec-head reveal">
+          <p class="label sec-eyebrow epingle" style="color: var(--soleil-pale)"><span class="epingle-fleur" id="usagesEpingle"></span>À savoir</p>
+          <h2 id="usagesTitre"></h2>
+          <p id="usagesChapo" style="color: var(--on-immersive-soft)"></p>
+        </div>
+        <ul class="usages" id="usagesList"></ul>
+      </div>
     </div>
-    <ul class="usages" id="usagesList"></ul>
   </div>
 </section>
 
@@ -1876,8 +2038,8 @@
      curiosité : elle vient juste avant qu'on écrive à un inconnu à
      12 000 km. Trois extraits seulement, tirés mot pour mot ; les sept
      témoignages entiers vivent sur une page à part dans l'application. -->
-<div class="ground-ivoire couture-hote view-home"><div class="shell"><div class="divider" aria-hidden="true"><span></span><span class="jepun-mark"></span><span></span></div></div></div>
-<section class="band ground-ivoire view-home" id="temoignages">
+<div class="couture-hote view-home" aria-hidden="true"><div class="moitie ground-ivoire"></div><div class="moitie ground-sable"></div><div class="shell"><div class="divider"><span></span><span class="jepun-mark"></span><span></span></div></div></div>
+<section class="band ground-sable view-home" id="temoignages">
   <div class="shell">
     <div class="sec-head reveal">
       <p class="label sec-eyebrow">Livre d'or</p>
@@ -2119,125 +2281,6 @@
   </a>
 </div>
 
-<!-- ============================ CONFIGURATEUR ============================ -->
-<div class="ground-sable couture-hote view-home"><div class="shell"><div class="divider" aria-hidden="true"><span></span><span class="jepun-mark"></span><span></span></div></div></div>
-<section class="band ground-sable view-home" id="sur-mesure">
-  <div class="shell">
-    <div class="sec-head reveal">
-      <p class="label sec-eyebrow">Sur-Mesure</p>
-      <h2>Construisez votre demande.</h2>
-      <p>Quelques questions, une case libre pour tout le reste, et votre e-mail m'arrive déjà rédigé. Je réponds sous 24 h, en français — et c'est ce fil-là qui devient votre devis.</p>
-    </div>
-
-    <div class="builder">
-      <div class="panel">
-        <div id="baseCircuit"></div>
-
-        <p class="panel-title">1 — Vos envies <span id="cartCount" style="color: var(--eyebrow)">(0)</span></p>
-        <div class="cart" id="cart"></div>
-
-
-        <p class="panel-title">2 — Votre voyage</p>
-        <div class="fields">
-          <div class="field">
-            <label for="fMonth">Mois de départ</label>
-            <select id="fMonth"></select>
-          </div>
-          <div class="field">
-            <label for="fDuration">Durée estimée</label>
-            <select id="fDuration">
-              <option>5 à 7 jours</option>
-              <option selected>10 à 14 jours</option>
-              <option>15 à 21 jours</option>
-              <option>Plus de 3 semaines</option>
-              <option>Je ne sais pas encore</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>Adultes</label>
-            <div class="counter" data-counter="adults">
-              <button type="button" data-step="-1" aria-label="Retirer un adulte">–</button>
-              <output id="outAdults">2</output>
-              <button type="button" data-step="1" aria-label="Ajouter un adulte">+</button>
-              <span class="counter-label">adultes</span>
-            </div>
-          </div>
-          <div class="field">
-            <label>Enfants</label>
-            <div class="counter" data-counter="children">
-              <button type="button" data-step="-1" aria-label="Retirer un enfant">–</button>
-              <output id="outChildren">0</output>
-              <button type="button" data-step="1" aria-label="Ajouter un enfant">+</button>
-              <span class="counter-label">enfants</span>
-            </div>
-          </div>
-          <div class="field field-wide">
-            <div class="period" id="periodNote"></div>
-          </div>
-          <div class="field field-wide">
-            <label>Style recherché</label>
-            <div class="tags" id="tags"></div>
-          </div>
-          <!-- Prénom ET nom : le message devient un devis, puis une
-               réservation, puis un nom sur un vol intérieur et sur une fiche
-               d'hôtel. Le demander ici évite un aller-retour de mail, et
-               autocomplete="name" le fait remplir d'un tap sur mobile. -->
-          <div class="field field-wide">
-            <label for="fName">Vos prénom et nom <span style="text-transform:none;letter-spacing:0;font-weight:400;color:var(--text-faint)">(facultatif)</span></label>
-            <input id="fName" type="text" placeholder="Ex. Camille Rousseau" autocomplete="name">
-          </div>
-          <!-- Le champ libre. Tout ce qui précède est fermé : des listes,
-               des compteurs, des cases. Sans case vide, le voyageur doit
-               faire entrer sa demande dans celles qu'on a prévues — et ce
-               qui n'y entre pas se perd, alors que c'est presque toujours
-               là que se trouve ce qui fait le voyage.
-               L'exemple est donné AU-DESSUS du champ et non en placeholder :
-               un placeholder s'efface à la frappe, c'est-à-dire au moment
-               précis où on en a besoin. -->
-          <div class="field field-wide">
-            <label for="fNote">Ce que vous voulez me dire <span style="text-transform:none;letter-spacing:0;font-weight:400;color:var(--text-faint)">(facultatif)</span></label>
-            <p class="field-aide" id="noteAide">Un anniversaire à fêter, un genou qui ne fait plus les marches, un bébé, un lieu vu quelque part dont vous ne connaissez pas le nom, une question. C'est ce qu'Agus lit en premier.</p>
-            <textarea id="fNote" rows="4" maxlength="1200" aria-describedby="noteAide"></textarea>
-          </div>
-        </div>
-      </div>
-
-      <div class="preview-wrap">
-        <div class="panel" style="padding: 0; border: none; background: transparent">
-          <div class="paix" style="margin-bottom: 1.25rem">
-            <h3>Je peux aussi m'occuper des hôtels.</h3>
-            <p>Par défaut vous réservez vous-même, et je vous dis où dormir et
-            pourquoi. Mais si vous préférez n'avoir à penser à rien, je les
-            choisis, je vous les propose et je réserve : la formule devient
-            globale — hôtels, activités, transport et chauffeur-guide réunis.
-            Vous n'avez plus qu'à venir.</p>
-          </div>
-
-          <p class="panel-title">3 — Votre message, prêt à envoyer</p>
-          <div class="preview">
-            <div class="preview-head">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg>
-              <span class="label">Aperçu — e-mail à <span class="adresse">agus.yudiarta@balidecouverte.fr</span></span>
-            </div>
-            <p class="preview-objet"><span class="label">Objet</span><br><b id="previewObjet"></b></p>
-            <pre class="preview-body" id="previewBody"></pre>
-          </div>
-        </div>
-        <a class="btn btn-accent btn-lg btn-send" id="sendBtn" href="#">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-          Envoyer ma demande
-        </a>
-        <button class="btn btn-outline btn-copier" id="copyBtn" type="button">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-          <span id="copyLabel">Copier le message</span>
-        </button>
-        <p class="send-note">Ouvre votre messagerie avec le message déjà rédigé. Vous
-        relisez avant d'envoyer — aucun engagement. Je réponds sous 24 h, et le
-        devis se discute par retour de mail.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ============================ FOOTER ============================ -->
 <footer class="footer ground-bambou">
@@ -2563,7 +2606,7 @@
 
   /* <<< USAGES — généré par port-tmp.mjs, ne pas retoucher */
   var USAGES = {
-  titre: "Six choses qu'on comprend en arrivant",
+  titre: "Six us et coutumes qu'on comprend en arrivant",
   chapo:
     "Bali est hindoue et le montre partout : sur les trottoirs, dans les cours, au calendrier. Voici ce que vous croiserez.",
   liste: [
@@ -3907,6 +3950,9 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
 
   /* ---------- Rendu : us et coutumes ---------- */
   function renderUsages() {
+    $("valeursEpingle").innerHTML = jepun(26, "var(--soleil)");
+    $("usagesEpingle").innerHTML = jepun(22, "var(--soleil)");
+    $("usagesFiligrane").innerHTML = symbole("nyepi", 230, 0.5);
     $("usagesTitre").textContent = USAGES.titre;
     $("usagesChapo").textContent = USAGES.chapo;
     $("usagesList").innerHTML = USAGES.liste.map(function (u) {

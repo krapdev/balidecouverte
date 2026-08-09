@@ -880,6 +880,72 @@ Sur la barre soleil : la correction de contraste avait été faite dans l'app et
 `flex-shrink` ci-dessous, qui dormait dans la maquette depuis que le nom du
 site a grossi.
 
+### La couture à cheval, et l'ordre de l'accueil
+
+#### Le délimiteur n'appartient plus à personne
+
+La couture était posée **dans** la section qu'elle ouvrait, sur le fond de
+celle-ci. La raison tenait : les fonds alternent, et un séparateur laissé
+dans l'intervalle serait tombé dans une bande nue.
+
+Elle **est** maintenant l'intervalle. Sa moitié haute porte le fond
+d'avant, sa moitié basse celui d'après, et la fleur se pose exactement sur
+la ligne qui les sépare. Mesuré sur les quatre coutures de l'accueil :
+
+| | moitié haute | moitié basse | fleur centrée |
+| --- | --- | --- | --- |
+| 1 | ivoire | sable | ✅ |
+| 2 | sable | sable | ✅ |
+| 3 | sable | ivoire | ✅ |
+| 4 | ivoire | sable | ✅ |
+
+> La deuxième a les deux moitiés identiques — la fourche et le formulaire
+> se suivent sur le même fond. La frontière y est invisible et **la fleur
+> devient la seule séparation**. C'est voulu : ces deux blocs forment une
+> séquence, pas deux sujets.
+
+#### Le formulaire remonte
+
+L'ordre était fourche → usages → témoignages → formulaire. Il est
+maintenant **fourche → formulaire** : on choisit son chemin, puis on
+écrit. Les deux gestes se suivent au lieu d'être séparés par deux écrans
+de lecture.
+
+> ⚠️ **Ce que ça coûte, et c'est un vrai coût.** Les témoignages passent
+> **après** la demande. La preuve sociale travaille au moment du doute, et
+> le doute est juste avant d'écrire à un inconnu à 12 000 km — c'est la
+> raison pour laquelle ils étaient là. L'arbitrage est assumé, pas oublié.
+
+Les fonds ont été recalculés en conséquence : les usages passent en
+ivoire (ils portent une fiche verte, qui serait invisible sur du vert) et
+les témoignages en sable, pour que l'alternance reprenne.
+
+### Les deux fiches vertes, et la puce épingle
+
+Le panneau des valeurs était une fiche verte ; les usages étaient une
+bande pleine. Les deux jouent le même rôle — une parenthèse posée sur la
+page — et le disaient de deux façons. **Les usages deviennent une fiche**,
+même vert, même cadre arrondi, même filigrane en angle.
+
+Chacune reçoit une **puce épingle** : un jepun jaune en tête de fiche.
+
+> ⚠️ **L'épingle remplace le filet de l'eyebrow, elle ne s'y ajoute pas.**
+> Les deux côte à côte donnaient un tiret, un blanc, une fleur, un blanc,
+> un mot — quatre objets pour annoncer un titre. La fleur **est** la puce.
+
+L'eyebrow des usages devient **« À savoir »**, et le titre
+**« Six us et coutumes qu'on comprend en arrivant »** — le mot reste donc
+dans la section, ce qui garde le lien avec l'entrée de menu « Us et
+coutumes ».
+
+### Le bouton du hero
+
+« Créons ensemble le voyage de vos rêves ». Une ligne à 1280 px, deux sur
+mobile, sans débordement à 320.
+
+> Deux coquilles corrigées au passage : « de **vous** rêves » → « de
+> **vos** rêves », et « six us et **coutumed** » → « **coutumes** ».
+
 ### Le sous-titre du hero, troisième version
 
 | | |

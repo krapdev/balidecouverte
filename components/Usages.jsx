@@ -26,9 +26,25 @@ import { USAGES } from "@/lib/data";
  */
 export default function Usages() {
   return (
-    <section id="usages" className="ground-bambou band">
+    /* ⚠️ **La bande pleine est devenue une fiche**, le même vert dans le
+       même cadre arrondi que le panneau des valeurs. Les deux blocs
+       disaient déjà la même chose de deux façons — l'un en pleine
+       largeur, l'autre en carte — alors qu'ils jouent le même rôle :
+       une parenthèse posée sur la page.
+       La section qui la porte passe donc de `ground-bambou` à
+       `ground-ivoire`, sans quoi la fiche verte serait posée sur du
+       vert. */
+    <section id="usages" className="ground-ivoire band">
       <div className="shell">
-        <SectionHead eyebrow="Us et coutumes" title={USAGES.titre} onImmersive>
+        <div className="relative overflow-hidden rounded-[18px] bg-immersive px-[clamp(1.5rem,5vw,3rem)] py-[clamp(2rem,6vw,3rem)] text-on-immersive">
+          <Symbole
+            nom="nyepi"
+            size={230}
+            strokeWidth={0.5}
+            className="pointer-events-none absolute -right-14 -top-16 text-on-immersive opacity-[0.13]"
+          />
+          <div className="relative">
+        <SectionHead eyebrow="À savoir" title={USAGES.titre} onImmersive epingle>
           {USAGES.chapo}
         </SectionHead>
 
@@ -58,6 +74,8 @@ export default function Usages() {
             </Reveal>
           ))}
         </ul>
+          </div>
+        </div>
       </div>
     </section>
   );

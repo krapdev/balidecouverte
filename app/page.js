@@ -36,12 +36,30 @@ import Separateur from "@/components/Separateur";
  * Bali seulement. Les autres îles sont sorties du parcours le temps de
  * le recentrer — voir lib/data.js.
  */
-/** Le séparateur, posé sur le fond de la section qu'il introduit. */
-function Couture({ fond }) {
+/**
+ * Le séparateur, **à cheval sur la frontière** entre deux sections.
+ *
+ * ⚠️ Il était posé DANS la section qu'il ouvrait, sur le fond de
+ * celle-ci. La raison tenait : les fonds alternent, et un séparateur
+ * laissé dans l'intervalle serait tombé dans une bande nue. La couture à
+ * cheval règle le même problème autrement — elle **est** l'intervalle :
+ * sa moitié haute porte le fond d'avant, sa moitié basse celui d'après,
+ * et la fleur se pose exactement sur la ligne qui les sépare.
+ *
+ * C'est ce que fait un délimiteur : il n'appartient à aucun des deux
+ * côtés. Là où les deux fonds sont identiques — la fourche et le
+ * formulaire, qui forment une même séquence — la frontière est
+ * invisible et la fleur devient la seule séparation. C'est voulu.
+ */
+function Couture({ avant, apres }) {
   return (
-    <div className={`${fond} pt-[clamp(2rem,6vw,3rem)]`}>
-      <div className="shell">
-        <Separateur />
+    <div className="relative" aria-hidden="true">
+      <div className={`${avant} h-[clamp(1.75rem,4.5vw,2.5rem)]`} />
+      <div className={`${apres} h-[clamp(1.75rem,4.5vw,2.5rem)]`} />
+      <div className="pointer-events-none absolute inset-0 flex items-center">
+        <div className="shell w-full">
+          <Separateur />
+        </div>
       </div>
     </div>
   );
@@ -69,14 +87,24 @@ export default function Home() {
             fois sur tout le site : un motif qui ne sert qu'une fois n'est
             pas un motif, c'est une exception. Il est remplacé par
             `<Separateur>`, en bougainvillier, et il est partout. */}
-        <Couture fond="ground-sable" />
+        <Couture avant="ground-ivoire" apres="ground-sable" />
         <Chemins />
-        <Couture fond="ground-bambou" />
-        <Usages />
-        <Couture fond="ground-ivoire" />
-        <Temoignages />
-        <Couture fond="ground-sable" />
+        {/* ⚠️ **Le formulaire remonte juste après la fourche.** L'ordre
+            était fourche → usages → témoignages → formulaire ; il est
+            maintenant fourche → formulaire. On choisit son chemin, puis
+            on écrit : les deux gestes se suivent au lieu d'être séparés
+            par deux écrans de lecture.
+            Ce que ça coûte : les témoignages passent APRÈS la demande.
+            La preuve sociale travaille au moment du doute, et le doute
+            est juste avant d'écrire à un inconnu à 12 000 km — elle est
+            donc moins bien placée qu'avant. Arbitrage assumé, pas
+            oubli. */}
+        <Couture avant="ground-sable" apres="ground-sable" />
         <TripBuilder />
+        <Couture avant="ground-sable" apres="ground-ivoire" />
+        <Usages />
+        <Couture avant="ground-ivoire" apres="ground-sable" />
+        <Temoignages />
       </main>
       <Footer />
       <MobileBar />

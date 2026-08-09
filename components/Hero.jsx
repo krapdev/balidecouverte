@@ -240,7 +240,7 @@ export default function Hero() {
               className="btn btn-ivoire btn-lg"
               href="#chemins"
             >
-              Commencer mon circuit
+              Créons ensemble le voyage de vos rêves
             </a>
           </div>
 

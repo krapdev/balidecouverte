@@ -26,7 +26,7 @@ import { TEMOIGNAGES_VEDETTE, LIVRE_OR } from "@/lib/temoignages";
  */
 export default function Temoignages() {
   return (
-    <section id="temoignages" className="ground-ivoire band">
+    <section id="temoignages" className="ground-sable band">
       <div className="shell">
         <SectionHead eyebrow="Livre d'or" title={LIVRE_OR.titre}>
           {LIVRE_OR.chapo}

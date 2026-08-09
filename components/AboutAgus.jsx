@@ -1,3 +1,4 @@
+import { Jepun } from "./Scene";
 import Link from "next/link";
 import { Users, HandCoins, Heart } from "lucide-react";
 import { Symbole } from "./Symboles";
@@ -152,6 +153,15 @@ export default function AboutAgus() {
               size={230}
               strokeWidth={0.5}
               className="pointer-events-none absolute -right-14 -top-16 text-on-immersive opacity-[0.13]"
+            />
+            {/* La puce épingle : un jepun jaune posé en tête de fiche,
+                comme sur « À savoir ». C'est le seul jaune du panneau,
+                et il sert à dire « ici commence quelque chose » — le
+                padma en filigrane, lui, ne dit rien, il habille. */}
+            <Jepun
+              size={26}
+              tone="var(--soleil)"
+              className="relative mb-3 block"
             />
             <h3 className="relative max-w-[22ch] text-[clamp(1.5rem,4.5vw,2rem)] leading-tight">
               {VALEURS.titre}
