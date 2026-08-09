@@ -54,6 +54,16 @@ Agus Yudiarta existe, et le site est son gagne-pain.
 - **`lib/data.js` ne se modifie pas au script sans vérifier après.** Une
   réécriture par tranche a déjà avalé un export entier. Il y en a **20** ;
   les recompter après toute édition scriptée.
+- **Une entrée de menu par destination, et une destination par entrée.**
+  `lib/navigation.js` en portait neuf pour six endroits : `#valeurs` est à
+  l'intérieur de `#esprit` (le saut sur l'un pose déjà l'autre à l'écran),
+  `/agus` promettait mot pour mot les trois points du panneau des valeurs, et
+  `#chemins` est une fourche dont les deux branches sont listées juste en
+  dessous. Vérifier au saut, pas au `href` : deux ancres dans la même section
+  ne font pas deux endroits où aller.
+- **La barre du haut ne tient que six entrées** — au septième les liens
+  passent à la ligne à 1280 px. `ANCRES` reste dérivée de `NAV` : y mettre
+  des sections hors menu éteint le repère de position à chaque passage.
 - **Tout lien interne passe par `next/link`.** Le magasin du voyageur vit dans
   `app/layout.js` ; un `<a href="/…">` provoque un chargement complet qui
   recrée le gabarit et **vide la sélection**, sans le moindre message.

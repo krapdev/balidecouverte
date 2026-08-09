@@ -1392,18 +1392,20 @@
       </span>
     </a>
     <nav class="nav-links" aria-label="Navigation principale">
-      <!-- « Par où commencer » n'est que dans le pied de page : sept
-           entrées ne tiennent pas sur une ligne à 1280 px. La fourche est
-           de toute façon la deuxième chose qu'on voit en descendant. -->
+      <!-- Six au maximum : au septième, les liens passent à la ligne à
+           1280 px et la hauteur de la barre casse.
+           « Mon engagement » a cédé sa place à « Us et coutumes ». Le
+           panneau des valeurs avait été mis là parce qu'aucun lien n'y
+           menait — mais il est À L'INTÉRIEUR de la section « Qui je
+           suis », et le saut sur celle-ci le pose déjà à l'écran. Deux
+           entrées pour un écran ; « Us et coutumes » est une vraie
+           seconde destination.
+           « Mon portrait » reste hors barre tant que la page porte ses
+           marqueurs « à compléter ». -->
       <a href="#esprit">Qui je suis</a>
-      <!-- Le panneau des valeurs avait une ancre mais aucun lien ne
-           pointait dessus : l'argument le plus fort d'Agus était
-           inaccessible dès qu'on avait dépassé la présentation. Sa place
-           est prise à « Sur-Mesure », que le bouton juste à côté dessert
-           déjà. -->
-      <a href="#valeurs">Mon engagement</a>
       <a href="#circuit-detail" data-goto="circuit">Le circuit</a>
       <a href="#envies" data-goto="envies">Vos envies</a>
+      <a href="#usages">Us et coutumes</a>
       <a href="#temoignages">Livre d'or</a>
       <a href="#tarifs" data-goto="tarifs">Tarifs</a>
     </nav>
@@ -4119,11 +4121,21 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
      retirées : dans une liste où chaque ligne est déjà un lien, un signe
      sur deux lignes sur neuf ne se lit pas « celle-ci change de page »
      mais « celle-ci est différente », sans qu'on sache en quoi. */
+  /* ⚠️ **Une entrée par destination, et une destination par entrée.** La
+     liste en comptait neuf, dont trois qui n'emmenaient nulle part de
+     nouveau — mesuré dans l'app, pas supposé :
+       · #valeurs est À L'INTÉRIEUR de #esprit : sauter sur « Qui je suis »
+         posait déjà le panneau à 745 px sur un écran de 900. Son sujet
+         est passé dans le gloss de « Qui je suis ».
+       · « Mon portrait » promettait « Ma famille, mon pays, mon union » —
+         mot pour mot les trois points du panneau « Mon engagement ». Son
+         gloss dit maintenant ce que la page AJOUTE.
+       · #chemins est la fourche, et ses deux branches sont juste en
+         dessous dans le menu. Elle reste desservie par le bouton du hero,
+         où elle a un sens : là, on n'a encore rien listé. */
   var MENU = [
-    ["#esprit", "Qui je suis", "Ce dont je vous décharge", "canang"],
-    ["#valeurs", "Mon engagement", "Ce que le direct fait vivre", "padma"],
-    ["#portrait-agus", "Mon portrait", "Ma famille, mon pays, mon union", "rangs", "portrait"],
-    ["#chemins", "Par où commencer", "Deux façons d'entrer", "candi"],
+    ["#esprit", "Qui je suis", "Ce dont je vous décharge, ce que le direct fait vivre", "canang"],
+    ["#portrait-agus", "Mon portrait", "Mon métier, le français, mon parcours", "rangs", "portrait"],
     ["#circuit-detail", "Le circuit", "Quinze jours, sept étapes", "penjor", "circuit"],
     ["#envies", "Vos envies", "Classiques et places secrètes", "tedung", "envies"],
     ["#usages", "Us et coutumes", "Ce qu'on comprend en arrivant", "nyepi"],

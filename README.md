@@ -880,6 +880,57 @@ Sur la barre soleil : la correction de contraste avait été faite dans l'app et
 `flex-shrink` ci-dessous, qui dormait dans la maquette depuis que le nom du
 site a grossi.
 
+### Le menu : neuf entrées, six destinations
+
+Trois entrées n'emmenaient nulle part de nouveau. Ce n'est pas une
+impression : chaque cas se mesure.
+
+**« Qui je suis » et « Mon engagement » sont le même écran.** `#valeurs`
+(y 2057) est **à l'intérieur** de `#esprit`, qui va de 1392 à 2721. Sauter
+sur la première pose déjà le panneau de la seconde à 745 px sur une fenêtre
+de 900 — visible, donc, avant même d'avoir touché à quoi que ce soit. Sur
+mobile il tombe à 848 px pour 844 de fenêtre : quatre pixels sous la ligne
+de flottaison, une pichenette de défilement.
+
+Le panneau des valeurs avait justement été ajouté au menu parce qu'aucun
+lien n'y menait. C'était vrai à l'époque ; ça ne l'est plus. Son sujet est
+donc passé dans le `gloss` de « Qui je suis » — « Ce dont je vous décharge,
+ce que le direct fait vivre » — plutôt que de disparaître.
+
+**« Mon engagement » et « Mon portrait » promettaient la même chose.** Le
+`gloss` de la page portrait disait « Ma famille, mon pays, mon union » :
+mot pour mot les trois points du panneau des valeurs (« Ma famille
+d'abord », « Une union de guides, pas un homme seul », « Ambassadeur de mon
+pays »). Il dit maintenant ce que la page **ajoute** — le métier, le
+français, le parcours.
+
+**« Par où commencer » est une fourche dont les deux branches sont déjà
+dans le menu**, deux lignes plus bas. Envoyer quelqu'un choisir entre deux
+choses qu'on vient de lui lister est un détour. La fourche reste desservie
+par le bouton du hero, où elle garde tout son sens : à cet endroit, on n'a
+encore rien listé.
+
+#### La règle qui en sort
+
+**Une entrée par destination, et une destination par entrée.** Un menu
+n'est pas une table des matières du balisage : deux ancres dans la même
+section ne font pas deux endroits où aller.
+
+| | avant | après |
+| --- | --- | --- |
+| Sommaire | 9 entrées | **7** |
+| Barre du haut | 6 | **6** |
+
+Dans la barre, « Us et coutumes » prend la place de « Mon engagement » —
+c'est une destination réellement distincte, et `/agus` ne peut pas y monter
+tant que la page porte ses marqueurs « à compléter ».
+
+> ⚠️ `ANCRES` reste **dérivée de `NAV`**. En traversant `#valeurs` ou
+> `#chemins`, qui n'y sont plus, le repère de position garde la dernière
+> entrée dépassée — « vous êtes quelque part après ce point ». Y ajouter
+> les sections hors menu éteindrait le repère à chaque passage, ce qui est
+> pire que pas de repère du tout.
+
 ### Le défilement d'ancre, et une mesure qui mentait
 
 Le clic sur « Par où commencer » était lent. Il l'était vraiment, mais pas

@@ -220,7 +220,7 @@ export default function Hero() {
               au premier écran sur mobile depuis que le « Devis » de la
               barre a sauté pour laisser la place au nom du site.
 
-              Ce qui reste comme porte de sortie : « Par où commencer »
+              Ce qui reste comme porte de sortie : « Commencer mon circuit »
               juste ici, qui mène à la fourche et non au formulaire ;
               l'entrée « Demander un devis » du menu ; le formulaire au
               bas de la page ; et la barre du bas, mais **seulement une

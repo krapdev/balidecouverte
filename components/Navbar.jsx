@@ -143,11 +143,15 @@ export default function Navbar() {
   /**
    * Le repère de la barre du haut, qui ne montre pas toutes les sections.
    *
-   * Sans ça, traverser « Par où commencer » ou « Us et coutumes » —
-   * absentes de la barre — éteint le repère : il clignote au fil du
-   * défilement, ce qui est pire que pas de repère du tout. On marque
-   * donc la dernière entrée **de la barre** que l'on a dépassée, ce qui
-   * se lit « vous êtes quelque part après ce point ».
+   * Sans ça, traverser une section absente de la barre éteint le repère :
+   * il clignote au fil du défilement, ce qui est pire que pas de repère
+   * du tout. On marque donc la dernière entrée **de la barre** que l'on a
+   * dépassée, ce qui se lit « vous êtes quelque part après ce point ».
+   *
+   * Depuis que le menu ne compte plus qu'une entrée par destination, les
+   * sections concernées sont `#valeurs` et `#chemins` — absentes de la
+   * liste entière, et non plus seulement de la barre. Le repli les
+   * couvre de la même façon.
    */
   const rangCourant = courante === null ? -1 : ANCRES.indexOf(courante);
   const ancreBarre = NAV.filter((l) => l.barre && l.href.startsWith("#"))
@@ -370,9 +374,8 @@ export default function Navbar() {
                qui rendait le site navigable au-delà des six entrées de
                la barre. En le retirant — « on a déjà le menu » —, on
                laissait les écrans larges sans aucun accès à
-               « Par où commencer », « Us et coutumes », « Mon
-               portrait » ou le programme jour par jour : le menu était
-               justement la seule chose qu'ils n'avaient pas.
+               « Mon portrait » ou au programme jour par jour : le menu
+               était justement la seule chose qu'ils n'avaient pas.
                Le meru est donc là partout. La barre garde ses six
                raccourcis, le menu porte le sommaire complet. */
             /* ⚠️ **Le burger et le linteau partagent une seule couleur, et
