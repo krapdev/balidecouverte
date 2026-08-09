@@ -1,7 +1,6 @@
 import { JepunBranch } from "./Scene";
 import Photo from "./Photo";
 import Diaporama from "./Diaporama";
-import { DESTINATIONS } from "@/lib/data";
 
 /**
  * Le hero — et, depuis le retrait de la bibliothèque d'animation, un
@@ -193,10 +192,25 @@ export default function Hero() {
             />
           </div>
 
+          {/* ⚠️ **Le bouton « Créer mon voyage sur-mesure » a été retiré,
+              et c'est le seul changement de cette page qui coûte
+              quelque chose.** Il était le seul appel à l'action visible
+              au premier écran sur mobile depuis que le « Devis » de la
+              barre a sauté pour laisser la place au nom du site.
+
+              Ce qui reste comme porte de sortie : « Par où commencer »
+              juste ici, qui mène à la fourche et non au formulaire ;
+              l'entrée « Demander un devis » du menu ; le formulaire au
+              bas de la page ; et la barre du bas, mais **seulement une
+              fois une envie cochée**.
+
+              Autrement dit : quelqu'un qui arrive, ne coche rien et ne
+              touche pas au menu n'a plus de bouton d'action avant douze
+              écrans de défilement. C'est un arbitrage assumé — le hero
+              n'est plus une page d'atterrissage publicitaire mais une
+              ouverture — et il se répare en une ligne si les demandes
+              baissent. */}
           <div style={cran(4)} className="monte flex flex-wrap gap-3">
-            <a className="btn btn-sun btn-lg" href="#sur-mesure">
-              Créer mon voyage sur-mesure
-            </a>
             <a
               className="btn btn-outline btn-lg text-on-immersive"
               href="#chemins"
@@ -219,19 +233,20 @@ export default function Hero() {
         </div>
       </section>
 
-      {/* Le fil des étapes — bandeau défilant */}
-      <div
-        className="overflow-hidden bg-immersive py-3 text-on-immersive-soft"
-        aria-hidden="true"
-      >
-        <div className="flex w-max gap-12 motion-safe:animate-[drift_42s_linear_infinite]">
-          {[...DESTINATIONS, ...DESTINATIONS].map((d, i) => (
-            <span key={i} className="label whitespace-nowrap">
-              {d} <span className="text-soleil">◦</span>
-            </span>
-          ))}
-        </div>
-      </div>
+      {/* ⚠️ **Le bandeau défilant des étapes a été retiré.** Il faisait
+          passer les noms de lieux en boucle sous le hero.
+
+          Deux choses partent avec lui, et il faut le savoir : les noms
+          « Sidemen · Munduk · Est de Bali » **ne sont plus nulle part sur
+          l'accueil** — la ligne d'accroche qui les portait avait été
+          retirée en se justifiant par ce bandeau. Ils vivent maintenant
+          uniquement dans `/circuit`. Et `DESTINATIONS` n'a plus aucun
+          consommateur : l'export reste dans `lib/data.js` (c'est l'un des
+          vingt, ne pas le compter en trop), il n'est simplement plus lu.
+
+          L'animation `drift` de `globals.css` perd elle aussi son seul
+          usage. Elle est gardée : c'est six lignes, et c'est la seule
+          animation de défilement du site le jour où il en faudrait une. */}
     </>
   );
 }

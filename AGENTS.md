@@ -119,6 +119,9 @@ Agus Yudiarta existe, et le site est son gagne-pain.
   ajoutés après chaque retour à la ligne ont transformé les lignes vides en
   lignes de deux espaces : `split("\n\n")` n'a plus rien trouvé et les sept
   témoignages se sont affichés d'un seul tenant, sans erreur visible.
+- **`querySelector` est singulier.** La fleur des coutures était posée par un
+  `querySelector` : avec quatre coutures, trois sont restées des `<span>` vides
+  sans qu'aucune erreur ne soit levée. Vérifier le compte après coup.
 - Le fichier n'a **pas de `<head>`** et embarque ses polices en base64.
 
 ## L'audit

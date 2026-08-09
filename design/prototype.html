@@ -237,8 +237,21 @@
   /* Couture entre deux sections : un filet mince interrompu par un
      jepun. Remplace le damier poleng, qui lisait comme un drapeau de
      course automobile. */
-  .divider { display: flex; align-items: center; gap: 1.25rem; padding-block: 0.5rem; color: var(--eyebrow); }
-  .divider span { height: 1px; flex: 1; background: color-mix(in srgb, currentColor 35%, transparent); }
+  /* ⚠️ La couture entre deux sections : un filet interrompu par un jepun
+     BOUGAINVILLIER. Le divider bambou qu'elle remplace n'apparaissait
+     qu'une fois sur tout le site — un motif qui ne sert qu'une fois est
+     une exception, pas un motif.
+     Le bougainvillier est la seule couleur du site qui n'a AUCUNE
+     fonction : elle ne signale rien, elle ne se clique pas. C'est donc la
+     seule qui puisse décorer sans mentir. Ne pas s'en servir sur un
+     bouton ou un lien, sous peine de lui retirer ce qui la rend
+     utilisable ici.
+     La couture ouvre la section et ne se pose pas entre deux : les fonds
+     alternent, et un séparateur posé dans l'intervalle tomberait sur une
+     bande de page nue entre deux bandes colorées. */
+  .couture-hote { padding-top: clamp(2rem, 6vw, 3rem); }
+  .divider { display: flex; align-items: center; gap: 1.25rem; }
+  .divider > span:not(.jepun-mark) { height: 1px; flex: 1; background: color-mix(in srgb, var(--bougain) 45%, transparent); }
 
   /* Ouverture en arc : celle des alcôves et des portes de pavillon */
   .arch { border-radius: 50% 50% var(--radius) var(--radius) / 32% 32% 1% 1%; overflow: hidden; }
@@ -457,17 +470,15 @@
   .hero-trust-text b { color: var(--on-immersive); font-weight: 700; }
 
   /* Bandeau défilant — le fil d'itinéraire */
-  .ticker {
-    background: var(--immersive); color: var(--on-immersive-soft);
-    overflow: hidden; padding-block: 0.75rem;
-  }
-  .ticker-track { display: flex; gap: 3rem; width: max-content; animation: drift 42s linear infinite; }
-  .ticker-track span { display: inline-flex; align-items: center; gap: 0.75rem; white-space: nowrap; }
-  .ticker-track span::after { content: "◦"; color: var(--soleil); }
+
+
+
+
+  /* `drift` n'a plus d'usage depuis le retrait du bandeau défilant. Gardée :
+     c'est une ligne, et c'est la seule animation de défilement du site le
+     jour où il en faudrait une. Sa garde `prefers-reduced-motion` est partie
+     avec son seul consommateur — la remettre AVEC le prochain. */
   @keyframes drift { to { transform: translateX(-50%); } }
-  @media (prefers-reduced-motion: reduce) {
-    .ticker-track { animation: none; }
-  }
 
   /* ============================================================
      SECTIONS — rythme commun
@@ -1459,7 +1470,13 @@
     </div>
 
     <div class="hero-cta">
-      <a class="btn btn-sun btn-lg" href="#sur-mesure">Créer mon voyage sur-mesure</a>
+      <!-- ⚠️ Le bouton « Créer mon voyage sur-mesure » a été retiré, et
+           c'est le seul changement de cette page qui coûte quelque chose :
+           il était le seul appel à l'action visible au premier écran sur
+           mobile depuis que le « Devis » de la barre a sauté pour laisser
+           la place au nom du site. Quelqu'un qui arrive, ne coche rien et
+           ne touche pas au menu n'a plus de bouton d'action avant douze
+           écrans. Arbitrage assumé, réparable en une ligne. -->
       <a class="btn btn-outline btn-lg" href="#chemins" style="color: var(--on-immersive)">Par où commencer</a>
     </div>
     <!-- ⚠️ Le bandeau « Guide diplômé francophone — professionnel depuis
@@ -1475,9 +1492,11 @@
   </div>
 </section>
 
-<div class="ticker view-home" aria-hidden="true">
-  <div class="ticker-track" id="ticker"></div>
-</div>
+<!-- ⚠️ Le bandeau défilant des lieux a été retiré. Deux choses partent
+     avec lui : les noms « Sidemen · Munduk · Est de Bali » ne sont plus
+     nulle part sur l'accueil — la ligne d'accroche qui les portait avait
+     été retirée en se justifiant par ce bandeau —, et DESTINATIONS n'a
+     plus aucun consommateur. -->
 
 <!-- ============================ AGUS ============================ -->
 <section class="band ground-ivoire view-home" id="esprit">
@@ -1597,13 +1616,9 @@
   </div>
 </section>
 
-<div class="horizon view-home" aria-hidden="true"></div>
-
-<div class="shell view-home"><div class="divider" aria-hidden="true">
-  <span></span><span class="jepun-mark"></span><span></span>
-</div></div>
 
 <!-- ============================ JOURNÉES ============================ -->
+<div class="ground-sable couture-hote view-home"><div class="shell"><div class="divider" aria-hidden="true"><span></span><span class="jepun-mark"></span><span></span></div></div></div>
 <section class="band ground-sable view-home" id="chemins">
   <div class="shell">
     <div class="sec-head reveal">
@@ -1763,6 +1778,7 @@
      choses qu'un guide règle et qu'une agence oublie.
      Bande pleine : c'est la seule pause de la page, et le trait fin des
      symboles tient mieux sur vert profond que sur ivoire. -->
+<div class="ground-bambou couture-hote view-home"><div class="shell"><div class="divider" aria-hidden="true"><span></span><span class="jepun-mark"></span><span></span></div></div></div>
 <section class="band ground-bambou view-home" id="usages">
   <div class="shell">
     <div class="sec-head reveal">
@@ -1779,6 +1795,7 @@
      curiosité : elle vient juste avant qu'on écrive à un inconnu à
      12 000 km. Trois extraits seulement, tirés mot pour mot ; les sept
      témoignages entiers vivent sur une page à part dans l'application. -->
+<div class="ground-ivoire couture-hote view-home"><div class="shell"><div class="divider" aria-hidden="true"><span></span><span class="jepun-mark"></span><span></span></div></div></div>
 <section class="band ground-ivoire view-home" id="temoignages">
   <div class="shell">
     <div class="sec-head reveal">
@@ -1973,6 +1990,7 @@
 </div>
 
 <!-- ============================ CONFIGURATEUR ============================ -->
+<div class="ground-sable couture-hote view-home"><div class="shell"><div class="divider" aria-hidden="true"><span></span><span class="jepun-mark"></span><span></span></div></div></div>
 <section class="band ground-sable view-home" id="sur-mesure">
   <div class="shell">
     <div class="sec-head reveal">
@@ -3109,12 +3127,10 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
 
   document.body.dataset.view = "home";
 
-  /* ---------- Rendu : bandeau ---------- */
-  var TICKER = ["Sidemen", "Munduk", "Amed", "Tirta Gangga", "Nusa Penida", "Jatiluwih", "Pemuteran", "Tenganan", "Tulamben", "Banyuwedang"];
-  (function () {
-    var html = TICKER.concat(TICKER).map(function (n) { return '<span class="label">' + n + "</span>"; }).join("");
-    $("ticker").innerHTML = html;
-  })();
+  /* ⚠️ Le rendu du bandeau défilant est parti AVEC son balisage. Une
+     fonction qui écrit dans un élément supprimé lève une exception, et
+     aucune des fonctions appelées après elle ne s'exécute — des écrans
+     vides, sans message. Les deux se retirent toujours ensemble. */
 
   /* ---------- Rendu : hero + portrait ---------- */
   $("heroScene").innerHTML = scene("terraces", 1600, 900, "hero");
@@ -3182,7 +3198,13 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
      branche sans photo, comme dans components/Photo.jsx. */
   $("heroPortrait").innerHTML = PHOTO_AGUS;
   $("canangFooter").innerHTML = canang(54);
-  document.querySelector(".jepun-mark").outerHTML = jepun(38, "currentColor");
+  /* ⚠️ `querySelectorAll` et non `querySelector` : il y a maintenant
+     QUATRE coutures sur l'accueil, et le singulier n'en aurait servi
+     qu'une — les trois autres seraient restées des <span> vides, sans
+     que rien ne le signale. La copie du tableau est nécessaire : on
+     remplace des nœuds pendant qu'on itère. */
+  Array.prototype.slice.call(document.querySelectorAll(".jepun-mark"))
+    .forEach(function (n) { n.outerHTML = jepun(34, "var(--bougain)"); });
 
   /* ---------- Rendu : les deux chemins ---------- */
   function renderChemins() {

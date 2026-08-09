@@ -10,7 +10,7 @@ import Footer from "@/components/Footer";
 import DonneesStructurees from "@/components/DonneesStructurees";
 import RevealObserver from "@/components/RevealObserver";
 import PreselectionCircuit from "@/components/PreselectionCircuit";
-import { Divider } from "@/components/Scene";
+import Separateur from "@/components/Separateur";
 
 /**
  * Le parcours : qui est Agus, la fourche, le pays qu'on va traverser,
@@ -36,6 +36,17 @@ import { Divider } from "@/components/Scene";
  * Bali seulement. Les autres îles sont sorties du parcours le temps de
  * le recentrer — voir lib/data.js.
  */
+/** Le séparateur, posé sur le fond de la section qu'il introduit. */
+function Couture({ fond }) {
+  return (
+    <div className={`${fond} pt-[clamp(2rem,6vw,3rem)]`}>
+      <div className="shell">
+        <Separateur />
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   return (
     <>
@@ -47,13 +58,24 @@ export default function Home() {
       <main className="flex-1">
         <Hero />
         <AboutAgus />
-        <div className="horizon" aria-hidden="true" />
-        <div className="shell text-accent">
-          <Divider />
-        </div>
+        {/* ⚠️ **La couture ouvre la section, elle ne se pose pas entre
+            deux.** Les fonds alternent — ivoire, sable, bambou, ivoire,
+            sable — et un séparateur posé dans l'intervalle tomberait sur
+            le fond de la page, c'est-à-dire dans une bande nue entre deux
+            bandes colorées. Chaque `<Couture>` porte donc le fond de la
+            section qu'elle introduit.
+
+            Le `Divider` en bambou qui vivait ici n'apparaissait qu'une
+            fois sur tout le site : un motif qui ne sert qu'une fois n'est
+            pas un motif, c'est une exception. Il est remplacé par
+            `<Separateur>`, en bougainvillier, et il est partout. */}
+        <Couture fond="ground-sable" />
         <Chemins />
+        <Couture fond="ground-bambou" />
         <Usages />
+        <Couture fond="ground-ivoire" />
         <Temoignages />
+        <Couture fond="ground-sable" />
         <TripBuilder />
       </main>
       <Footer />

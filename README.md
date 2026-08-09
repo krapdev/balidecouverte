@@ -851,6 +851,68 @@ un sélecteur différent. Six échecs de contraste, sur cinq vues, à 1280 seule
 — la largeur où la barre affiche ses liens. Rien ne l'aurait montré à l'œil sur
 une seule vue.
 
+### La couture bougainvillier, et deux retraits qui coûtent
+
+#### Le motif
+
+`components/Separateur.jsx` — un filet mince interrompu par un jepun
+**bougainvillier**, en tête de chaque section. Il remplace un `Divider` en
+bambou qui n'apparaissait **qu'une fois sur tout le site** : un motif qui ne
+sert qu'une fois n'est pas un motif, c'est une exception.
+
+Le bougainvillier et pas une autre couleur, pour une raison de système : la
+palette pose que **le bambou porte l'action et le soleil éclaire**. Le
+bougainvillier est la seule couleur du site qui **n'a aucune fonction** — elle
+ne signale rien, elle ne se clique pas. C'est donc la seule qui puisse décorer
+sans mentir : un séparateur en bambou ressemble à quelque chose qu'on peut
+toucher.
+
+> ⚠️ **Ne pas s'en servir ailleurs que comme couture.** Le jour où le
+> bougainvillier apparaît sur un bouton ou un lien, cette couleur perd ce qui la
+> rend utilisable ici.
+
+> ⚠️ **La couture ouvre la section, elle ne se pose pas entre deux.** Les fonds
+> de l'accueil alternent — ivoire, sable, bambou, ivoire, sable ; un séparateur
+> posé dans l'intervalle tomberait sur le fond de la page, c'est-à-dire dans une
+> bande nue entre deux bandes colorées. Chaque couture porte donc le fond de la
+> section qu'elle introduit.
+
+Le filet est à 45 % et non à 35 % comme celui qu'il remplace : le bougainvillier
+est plus sombre que le bambou, et à 35 % sur le sable il devenait un souvenir de
+trait.
+
+#### Ce qui a été retiré, et ce que ça coûte
+
+**Le bouton « Créer mon voyage sur-mesure ».** C'est le seul changement de cette
+page qui a un coût réel : il était **le seul appel à l'action visible au premier
+écran sur mobile**, depuis que le « Devis » de la barre a sauté pour laisser la
+place au nom du site.
+
+> Ce qui reste comme porte de sortie : « Par où commencer », qui mène à la
+> fourche et non au formulaire ; l'entrée « Demander un devis » du menu ; le
+> formulaire au bas de la page ; et la barre du bas, **mais seulement une fois
+> une envie cochée**.
+>
+> Autrement dit : **quelqu'un qui arrive, ne coche rien et ne touche pas au menu
+> n'a plus de bouton d'action avant douze écrans de défilement.** C'est un
+> arbitrage assumé — le hero n'est plus une page d'atterrissage publicitaire
+> mais une ouverture — et il se répare en une ligne si les demandes baissent.
+
+**Le bandeau défilant des lieux.** Deux choses partent avec lui : les noms
+« Sidemen · Munduk · Est de Bali » **ne sont plus nulle part sur l'accueil** — la
+ligne d'accroche qui les portait avait été retirée en se justifiant par ce
+bandeau —, et `DESTINATIONS` n'a plus aucun consommateur. L'export reste dans
+`lib/data.js` (c'est l'un des vingt, **ne pas le compter en trop**), il n'est
+simplement plus lu. L'animation `drift` est gardée pour la même raison : une
+ligne, et la seule animation de défilement disponible le jour où il en faudrait
+une.
+
+> ⚠️ **Deux pièges de la maquette, rencontrés tous les deux ici.** Le rendu du
+> bandeau devait partir **avec** son balisage — une fonction qui écrit dans un
+> élément supprimé lève, et rien de ce qui suit ne s'exécute. Et la fleur était
+> posée par un `querySelector` **singulier** : avec quatre coutures, trois
+> seraient restées des `<span>` vides sans que rien ne le signale.
+
 ### Le diaporama du hero — trois photos, et deux règles non négociables
 
 `components/Diaporama.jsx`. Trois photos de Bali en fondu, sept secondes
@@ -2016,7 +2078,7 @@ en écrans de mobile (390 × 844) :
 
 | Route | écrans @390 | Vue de la maquette |
 | --- | --- | --- |
-| `/` | **12,1** | 12,3 |
+| `/` | **12,2** | 12,4 |
 | `/circuit` | 13,0 | 12,6 |
 | `/envies` | 5,1 | 5,2 |
 | `/agus` | 8,3 | 8,5 |

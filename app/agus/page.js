@@ -7,7 +7,8 @@ import RetourLien from "@/components/RetourLien";
 import { Valeur } from "@/components/AComplete";
 import LienPage from "@/components/LienPage";
 import { Symbole } from "@/components/Symboles";
-import { PortraitAgus, Jepun, Canang } from "@/components/Scene";
+import { Jepun, Canang } from "@/components/Scene";
+import Separateur from "@/components/Separateur";
 import { AGUS, VALEURS, USAGES } from "@/lib/data";
 import { UNION, QUESTIONS } from "@/lib/portrait";
 
@@ -513,15 +514,11 @@ export default function PagePortrait() {
               </p>
             </Partie>
 
-            {/* La fleur ferme la lecture comme elle l'ouvre sous le
-                portrait. Purement décoratif, donc `aria-hidden` — et
-                séparé du bloc de travail qui suit, qui n'a rien de
-                décoratif. */}
-            <div className="mt-[clamp(2.5rem,7vw,3.5rem)] flex items-center gap-4" aria-hidden="true">
-              <span className="h-px flex-1 bg-rule" />
-              <Jepun size={26} tone="var(--eyebrow)" />
-              <span className="h-px flex-1 bg-rule" />
-            </div>
+            {/* La même couture que sur l'accueil : ce séparateur était
+                écrit à la main ici, en gris, avant que le motif existe.
+                Il ferme la lecture comme la fleur l'ouvre sous le
+                portrait. */}
+            <Separateur className="mt-[clamp(2.5rem,7vw,3.5rem)]" size={28} />
 
             {/* ---------- Les questions ---------- */}
             <section className="mt-[clamp(3rem,8vw,4.5rem)] rounded-[16px] border border-eyebrow bg-[color-mix(in_srgb,var(--bougain)_8%,transparent)] p-[clamp(1.25rem,4vw,2rem)]">
