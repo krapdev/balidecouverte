@@ -171,6 +171,21 @@ Agus Yudiarta existe, et le site est son gagne-pain.
 - **Après toute génération d'images, en faire une planche et la regarder.** Deux
   fichiers ont été produits inversés d'après leur date de téléversement ; aucune
   assertion sur le DOM ne l'attrape, seul l'œil le voit.
+- **Un dessin discret ne s'obtient pas en agrandissant un dessin fin.** Les
+  cartes de la fourche ont porté un penjor et un tedung de 170 px rognés par
+  l'angle : sur une carte de 294 px en mobile, le motif en occupait plus de la
+  moitié sans qu'aucune de ses lignes ne se referme. **Un trait de 0,6 px ne
+  s'allège pas en grandissant, il s'allonge.** Un ornement qui tient tout
+  entier dans le coin se lit comme un ornement ; un grand dessin coupé se lit
+  comme un accident. Corollaire : un décalage **positif**, sinon on remet
+  soi-même le rognage qu'on venait d'enlever.
+- **Un ornement n'est pas un symbole, et `Patra.jsx` n'est pas de la famille
+  de `Symboles.jsx`.** Chaque symbole désigne une chose nommée dans le texte
+  au même endroit — c'est la règle du fichier, et le penjor de la fourche la
+  violait déjà : rien, là, ne parle de bambou de Galungan. Le patra punggel,
+  la volute de fougère sculptée sur les portes de l'île, ne prétend désigner
+  rien ; il a seulement à être de l'endroit. **Un ornement se justifie par sa
+  provenance, un symbole par le texte qu'il accompagne.**
 - **Une police « traditionnelle Bali » n'existe pas en alphabet latin.** Celles
   vendues sous ce nom imitent l'aksara et donnent du bar à cocktails. Prendre
   une police dessinée **pour** une écriture brahmique — Kadwa porte le logotype,
@@ -248,12 +263,28 @@ Agus Yudiarta existe, et le site est son gagne-pain.
 
 ## L'audit
 
-Boucle établie : `npm run build` → `setsid npx next start -p NNNN` **dans une
-commande séparée** (`pkill -f "next start"` tue la chaîne du shell qui
-l'exécute) → Playwright sur les huit routes et les six vues, à 1280 / 390 / 320
-→ `npm uninstall --no-save playwright` **avant** de committer.
+Boucle établie : `npm install --no-save playwright` → `npm run build` →
+`setsid npx next start -p NNNN` **dans une commande séparée**
+(`pkill -f "next start"` tue la chaîne du shell qui l'exécute) →
+`node audit.mjs` sur les huit routes et les six vues, à 1280 / 390 / 320 →
+`npm uninstall --no-save playwright` **avant** de committer.
 
+- **`audit.mjs` est versionné, les scripts jetables ne le sont pas.** Il a
+  vécu six mois en fichier temporaire supprimé après chaque passe, et il a
+  fallu le réécrire de zéro le jour où il a servi deux fois — dont le
+  contrôle des boîtes de ligne, qu'on n'écrit pas correctement du premier
+  coup. Il n'ajoute aucune dépendance : `playwright` s'installe `--no-save`
+  le temps de la passe.
 - Chromium est à `/opt/pw-browsers/chromium-1194/chrome-linux/chrome`.
+- **Compter les lignes d'un libellé ne suffit pas à trouver le défaut.** Un
+  texte de 33 caractères sur 320 px se casse parce qu'il manque *vraiment* de
+  place, et signaler ces cas-là noie le vrai défaut sous quatre faux — c'est
+  ce qu'a fait la première version du contrôle, avec quatre alertes dont
+  aucune n'était un bug. Ce qu'on cherche, c'est le texte qui se casse
+  **alors qu'il tenait** : cloner l'élément en `white-space: nowrap`,
+  mesurer, et ne retenir que ceux dont la largeur d'une ligne rentrait dans
+  le parent. Le clone se pose **dans le parent** — ailleurs il n'hérite plus
+  de la fonte et mesure autre chose.
 - **Le décodage des couleurs passe par un canvas.** `color-mix()` se sérialise
   tantôt en `color(srgb …)`, tantôt en `oklab(…)` ; les parser à la main a
   produit **24 échecs fantômes** en une passe. Peindre la couleur sur un canvas

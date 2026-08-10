@@ -57,10 +57,14 @@ function Couture({ avant, apres }) {
       {/* ⚠️ **Le plancher du clamp gouvernait tout le mobile.** À 1,75rem
           il valait 28 px, alors que 4,5vw n'en fait que 17,6 à 390 : la
           couture mesurait 56 px de haut sur un écran de téléphone, soit
-          plus qu'à 1280 en proportion de la page. Descendu à 0,9rem, le
-          vw reprend la main sous 620 px et l'espace suit la largeur. */}
-      <div className={`${avant} h-[clamp(0.9rem,4.5vw,2.5rem)]`} />
-      <div className={`${apres} h-[clamp(0.9rem,4.5vw,2.5rem)]`} />
+          plus qu'à 1280 en proportion de la page. Descendu à 0,45rem, le
+          vw reprend la main dès 260 px et l'espace suit la largeur.
+          Le vide fait maintenant 22 px à 390 et 18 à 320 — la fleur
+          respire, elle ne s'installe plus. Elle mesure 44 px de haut à
+          elle seule : sous ~18 px de part et d'autre, ce n'est plus une
+          couture, c'est une fleur posée entre deux paragraphes. */}
+      <div className={`${avant} h-[clamp(0.45rem,2.8vw,2.25rem)]`} />
+      <div className={`${apres} h-[clamp(0.45rem,2.8vw,2.25rem)]`} />
       <div className="pointer-events-none absolute inset-0 flex items-center">
         <div className="shell w-full">
           <Separateur />

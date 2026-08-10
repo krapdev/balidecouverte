@@ -1,13 +1,9 @@
-import { Symbole } from "./Symboles";
+import Patra from "./Patra";
 import Link from "next/link";
 import { Route, Sparkles, ArrowRight } from "lucide-react";
 import SectionHead from "./SectionHead";
 import Reveal from "./Reveal";
 import { CHEMINS, ACTIVITES } from "@/lib/data";
-
-/* Le symbole balinais de chaque branche, repris de `lib/navigation.js` :
-   la carte et l'entrée de menu qui y mène portent le même dessin. */
-const SYMBOLES_CHEMIN = { circuit: "penjor", envies: "tedung" };
 
 const ICONES = { circuit: Route, envies: Sparkles };
 
@@ -70,20 +66,28 @@ export default function Chemins() {
               <Reveal as="li" key={c.id} delay={i * 0.06} className="h-full">
                 <Link
                   href={c.ancre}
-                  className="filigrane group relative flex h-full flex-col gap-2.5 overflow-hidden rounded-[16px] border border-rule bg-surface p-6 no-underline transition-colors duration-200 hover:border-accent"
+                  className="group relative flex h-full flex-col gap-2.5 overflow-hidden rounded-[16px] border border-rule bg-surface p-6 no-underline transition-colors duration-200 hover:border-accent"
                 >
-                  {/* ⚠️ **Le grand symbole, et non le petit filigrane de
-                      coin.** Les deux cartes de la fourche sont le seul
-                      endroit de la page où l'on choisit ; elles étaient
-                      les plus nues. Le symbole reprend celui de l'entrée
-                      de menu correspondante — penjor pour le circuit,
-                      tedung pour les envies — et il est posé dans
-                      l'angle, là où aucun texte ne passe. */}
-                  <Symbole
-                    nom={SYMBOLES_CHEMIN[c.id] ?? "candi"}
-                    size={170}
-                    strokeWidth={0.6}
-                    className="pointer-events-none absolute -right-8 -top-10 text-accent opacity-[0.09]"
+                  {/* ⚠️ **Un ornement d'angle, et non un symbole agrandi.**
+                      Ces cartes ont porté un penjor et un tedung de
+                      170 px rognés par le coin : en mobile, la carte fait
+                      294 px et le dessin en occupait plus de la moitié
+                      sans qu'aucune de ses lignes ne se referme. Ce qui
+                      était laid n'était pas le motif mais l'échelle — un
+                      trait fin ne s'allège pas en grandissant, il
+                      s'allonge.
+                      Le patra punggel tient tout entier dans l'angle, et
+                      il remplace aussi le filigrane de jepun qui y était :
+                      deux ornements de coin sur une carte de six lignes,
+                      c'était un de trop. Voir `Patra.jsx` pour pourquoi il
+                      n'est pas de la famille des symboles. */}
+                  {/* ⚠️ Décalage **positif**, et c'est tout le propos : un
+                      ornement complet posé à `-right-1` redevient un
+                      ornement coupé. Il est rentré de 8 px, la goutte
+                      touche le bord sans le franchir. */}
+                  <Patra
+                    size={110}
+                    className="pointer-events-none absolute bottom-2 right-2 text-accent opacity-[0.16]"
                   />
                   <Icon size={22} className="relative text-accent" strokeWidth={1.5} />
                   <h3 className="text-[1.375rem] leading-tight">{c.titre}</h3>

@@ -233,13 +233,6 @@
   .ground-bambou   { background-color: var(--immersive); background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22rgba%28251%2C247%2C238%2C0.05%29%22%20stroke-width%3D%221.4%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M-6%2034%2034%20-6M6%2046%2046%206M18%2058%2058%2018M-6%2022%2022%20-6M6%2034%2034%206M18%2046%2046%2018M30%2058%2058%2030%22%2F%3E%3Cpath%20d%3D%22M-6%2022%2022%2050M6%2010%2034%2038M18%20-2%2046%2026M30%20-6%2058%2022M-6%2034%2010%2050M42%20-6%2058%2010%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"); color: var(--on-immersive); }
 
   /* Filigrane de jepun, dans l'angle vide des grandes cartes. */
-  .filigrane { position: relative; overflow: hidden; }
-  .filigrane::after {
-    content: ""; position: absolute; right: -8px; bottom: -10px;
-    width: 78px; height: 78px; background-size: contain;
-    background-repeat: no-repeat; pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22120%22%20height%3D%22120%22%20viewBox%3D%220%200%20120%20120%22%3E%3Cg%20fill%3D%22rgba%2871%2C102%2C53%2C0.07%29%22%3E%3Cpath%20transform%3D%22rotate%280%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%2872%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28144%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28216%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28288%2030%2030%29%22%20d%3D%22M30%2030c0-7%202.4-12%207.5-15%201.6%206-.8%2011.6-7.5%2015Z%22%2F%3E%3Cpath%20transform%3D%22rotate%280%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3Cpath%20transform%3D%22rotate%2872%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28144%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28216%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3Cpath%20transform%3D%22rotate%28288%2088%2084%29%22%20d%3D%22M88%2084c0-5%201.7-8.6%205.4-10.8%201.1%204.3-.6%208.3-5.4%2010.8Z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
-  }
   .ground-bambou .sec-head p { color: var(--on-immersive-soft); }
   .ground-bambou .sec-eyebrow { color: var(--soleil-pale); }
 
@@ -301,9 +294,11 @@
   .fond-hero { background: var(--immersive-2); }
   /* ⚠️ Le plancher du clamp gouvernait tout le mobile : à 1,75rem il
      valait 28 px alors que 4,5vw n'en fait que 17,6 à 390 — la couture
-     mesurait 56 px de haut sur un téléphone. Descendu à 0,9rem, le vw
-     reprend la main sous 620 px. */
-  .couture-hote > .moitie { height: clamp(0.9rem, 4.5vw, 2.5rem); }
+     mesurait 56 px de haut sur un téléphone. Descendu à 0,45rem, le vw
+     reprend la main dès 260 px : 22 px de vide à 390, 18 à 320. La fleur
+     mesure 44 px à elle seule ; en dessous de ce vide-là ce n'est plus
+     une couture, c'est une fleur posée entre deux paragraphes. */
+  .couture-hote > .moitie { height: clamp(0.45rem, 2.8vw, 2.25rem); }
   .couture-hote > .shell {
     position: absolute; inset: 0; display: flex; align-items: center;
     pointer-events: none;
@@ -701,8 +696,18 @@
   /* Les deux chemins */
   .chemins { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.25rem; }
   @media (min-width: 640px) { .chemins { grid-template-columns: 1fr 1fr; } }
-  .chemin-sym { position: absolute; top: -2.5rem; right: -2rem; z-index: 0;
-                color: var(--accent); opacity: .09; pointer-events: none; }
+  /* ⚠️ **Un ornement d'angle, et non un symbole agrandi.** Ces cartes ont
+     porté un penjor et un tedung de 170 px rognés par le coin haut-droit :
+     en mobile la carte fait 294 px et le dessin en occupait plus de la
+     moitié sans qu'aucune de ses lignes ne se referme. Ce qui était laid
+     n'était pas le motif mais l'échelle — un trait fin ne s'allège pas en
+     grandissant, il s'allonge.
+     Le décalage est **positif** : un ornement complet posé en débord
+     redevient un ornement coupé. Il remplace aussi le filigrane de jepun
+     qui occupait déjà ce coin — deux ornements sur une carte de six
+     lignes, c'était un de trop. */
+  .chemin-sym { position: absolute; bottom: 0.5rem; right: 0.5rem; z-index: 0;
+                color: var(--accent); opacity: .16; pointer-events: none; }
   .chemin > *:not(.chemin-sym) { position: relative; }
   .chemin-icone { flex: none; color: var(--accent); }
   .chemin {
@@ -2970,6 +2975,35 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
     return s + '</g><circle r="6" fill="' + C.soleil + '"/></svg>';
   }
 
+  /* Patra punggel — l'ornement d'angle de la sculpture balinaise : la
+     volute de fougère qui se déroule, sculptée dans le bois des portes et
+     la pierre des porches de toute l'île.
+     ⚠️ Ce n'est PAS un membre de la famille des symboles, et c'est
+     délibéré : chaque symbole désigne une chose nommée dans le texte, or
+     rien sur la fourche ne parle de bambou de Galungan ni d'ombrelle de
+     sanctuaire. Un ornement, lui, ne prétend désigner rien — il a
+     seulement à être de l'endroit.
+     Le dessin est écrit dans les coordonnées où il se lit, puis agrandi
+     d'un bloc par la transformation ; l'épaisseur du trait est compensée
+     d'autant (1,15 × 1,4 ≈ 1,6), sinon il s'épaissit en grandissant. */
+  function patra(size) {
+    return '<svg width="' + size + '" height="' + size + '" viewBox="0 0 100 100" fill="none" ' +
+      'stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<g transform="translate(100 98) scale(1.4) translate(-100 -95)">' +
+      /* La tige maîtresse, qui monte du coin et se déroule en volute. */
+      '<path d="M99 92c-16 0-31-6-42-18C47 63 43 51 45 41"/>' +
+      '<path d="M45 41c1.6-8.4 8.6-13.6 16-12.4 6.8 1.1 11 7 10 13.6-.9 5.8-6 9.6-11.4 8.8-4.6-.7-7.6-4.8-7-9.2.5-3.5 3.6-5.9 6.9-5.4 2.6.4 4.3 2.7 4 5.2"/>' +
+      /* Kuping guling — « l'oreille », la volute qui repart en sens
+         inverse : sans elle l'ornement n'est qu'une spirale. */
+      '<path d="M69 76c-6.6-2.6-10-9.4-7.6-15.8 2-5.4 8-8 13.2-5.8 4.4 1.8 6.4 6.8 4.4 11-1.7 3.5-5.8 5-9.2 3.4-2.7-1.3-3.9-4.5-2.7-7.1"/>' +
+      /* Batun poh — « le noyau de mangue », la goutte qui referme. */
+      '<path d="M86 84c1.4-8 6.6-13.4 14-15-.4 8.2-5.4 14-14 15z"/>' +
+      /* Jengger siap — « la crête du coq ». Deux dents, pas trois : à
+         cette échelle, trois traits parallèles font des rayures. */
+      '<path d="M72 87l-3.6 5.2M60.5 80.5l-4.3 4.6"/>' +
+      '</g></svg>';
+  }
+
   /* Branche de frangipanier — le cadre végétal en haut du hero. */
   function jepunBranch() {
     var s = '<svg viewBox="0 0 280 210" aria-hidden="true">' +
@@ -3492,12 +3526,6 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
         ACTIVITES.filter(function (a) { return a.famille === "classique"; }).length + " classiques",
         ACTIVITES.filter(function (a) { return a.famille === "secret"; }).length + " places secrètes"
       ] : []);
-      /* ⚠️ Le grand symbole, et non le petit filigrane de coin : les deux
-         cartes de la fourche sont le seul endroit de la page où l'on
-         choisit, et c'étaient les plus nues. Le symbole reprend celui de
-         l'entrée de menu correspondante — penjor pour le circuit, tedung
-         pour les envies. */
-      var SYM_CHEMIN = { circuit: "penjor", envies: "tedung" };
       /* ⚠️ La petite icône de tête manquait ici seule : l'app en pose une
          depuis toujours, la maquette jamais. Elle n'est pas décorative —
          c'est elle qui distingue les deux cartes au coup d'œil avant
@@ -3508,9 +3536,9 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
         circuit: '<circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/>',
         envies: '<path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/>'
       };
-      return '<li class="reveal"><a class="chemin filigrane" href="' + c.ancre +
+      return '<li class="reveal"><a class="chemin" href="' + c.ancre +
         '" data-goto="' + c.vue + '" data-de="chemins">' +
-        '<span class="chemin-sym">' + symbole(SYM_CHEMIN[c.id] || "candi", 170, 0.6) + '</span>' +
+        '<span class="chemin-sym">' + patra(110) + '</span>' +
         (ICONE_CHEMIN[c.id] ? '<svg class="chemin-icone" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICONE_CHEMIN[c.id] + '</svg>' : "") +
         '<h3>' + c.titre + '</h3>' +
         (chiffres.length ? '<p class="label chemin-chiffres">' +
