@@ -1,4 +1,5 @@
 import { Symbole } from "./Symboles";
+import Broche from "./Broche";
 import SectionHead from "./SectionHead";
 import Reveal from "./Reveal";
 import { USAGES } from "@/lib/data";
@@ -36,15 +37,19 @@ export default function Usages() {
        vert. */
     <section id="usages" className="ground-ivoire band">
       <div className="shell">
-        <div className="relative overflow-hidden rounded-[18px] bg-immersive px-[clamp(1.5rem,5vw,3rem)] py-[clamp(2rem,6vw,3rem)] text-on-immersive">
+        {/* Conteneur relatif : la broche doit pouvoir déborder de la
+            fiche, qui rogne ce qu'elle contient. */}
+        <div className="relative">
+          <Broche />
+          <div className="relative overflow-hidden rounded-[18px] bg-immersive px-[clamp(1.5rem,5vw,3rem)] py-[clamp(2rem,6vw,3rem)] text-on-immersive">
           <Symbole
             nom="nyepi"
             size={230}
             strokeWidth={0.5}
-            className="pointer-events-none absolute -right-14 -top-16 text-on-immersive opacity-[0.13]"
+            className="pointer-events-none absolute -right-12 -top-14 text-on-immersive opacity-[0.16]"
           />
           <div className="relative">
-        <SectionHead eyebrow="À savoir" title={USAGES.titre} onImmersive epingle>
+        <SectionHead eyebrow="À savoir" title={USAGES.titre} onImmersive>
           {USAGES.chapo}
         </SectionHead>
 
@@ -74,6 +79,7 @@ export default function Usages() {
             </Reveal>
           ))}
         </ul>
+            </div>
           </div>
         </div>
       </div>

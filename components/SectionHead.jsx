@@ -1,4 +1,3 @@
-import { Jepun } from "./Scene";
 import Reveal from "./Reveal";
 
 /**
@@ -9,32 +8,28 @@ import Reveal from "./Reveal";
  * hero, mais la page tarifs n'a pas de hero. Le niveau se choisit par la
  * place dans le document, jamais par la taille voulue — celle-ci vient
  * de la classe.
+ *
+ * ⚠️ Il a porté un temps un `epingle` qui remplaçait le filet par un
+ * jepun jaune. `Broche` fait mieux — elle épingle la fleur à l'angle de
+ * la fiche, pas devant le mot — et plus personne ne passait la propriété.
+ * Elle a été retirée plutôt que laissée à dormir : **une option que
+ * personne n'utilise ne se maintient pas, elle diverge.**
  */
 export default function SectionHead({
   eyebrow,
   title,
   children,
   onImmersive,
-  epingle = false,
   niveau = 2,
 }) {
   const Titre = `h${niveau}`;
   return (
     <Reveal className="mb-[clamp(2rem,5vw,3.25rem)] flex max-w-[62ch] flex-col gap-3.5">
-      {/* ⚠️ **`epingle` remplace le filet par un jepun jaune**, et ne
-          s'ajoute pas à lui : les deux côte à côte donnaient un tiret,
-          un blanc, une fleur, un blanc, un mot — quatre objets pour
-          annoncer un titre. La fleur EST la puce. */}
       <p
-        className={`label flex items-center gap-3 ${
-          epingle
-            ? ""
-            : "before:h-px before:w-6 before:bg-current before:content-['']"
-        } ${onImmersive ? "text-soleil-pale" : "text-eyebrow"}`}
+        className={`label flex items-center gap-3 before:h-px before:w-6 before:bg-current before:content-[''] ${
+          onImmersive ? "text-soleil-pale" : "text-eyebrow"
+        }`}
       >
-        {epingle && (
-          <Jepun size={22} tone="var(--soleil)" className="shrink-0" />
-        )}
         {eyebrow}
       </p>
       <Titre className="text-[clamp(1.9rem,5.2vw,2.375rem)]">{title}</Titre>

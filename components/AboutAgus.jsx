@@ -1,4 +1,4 @@
-import { Jepun } from "./Scene";
+import Broche from "./Broche";
 import Link from "next/link";
 import { Users, HandCoins, Heart } from "lucide-react";
 import { Symbole } from "./Symboles";
@@ -143,25 +143,20 @@ export default function AboutAgus() {
             l'animation, puis le panneau remontait de 14 px et passait
             sous la barre collante. On n'anime pas ce vers quoi on
             navigue. */}
-        <div>
+        {/* Le conteneur relatif n'est pas décoratif : il existe pour que
+            la broche puisse déborder de la fiche, qui rogne ce qu'elle
+            contient. Voir components/Broche.jsx. */}
+        <div className="relative mt-[clamp(3rem,8vw,4.5rem)]">
+          <Broche />
           <div
             id="valeurs"
-            className="relative mt-[clamp(3rem,8vw,4.5rem)] overflow-hidden rounded-[18px] bg-immersive px-[clamp(1.5rem,5vw,3rem)] py-[clamp(2rem,6vw,3rem)] text-on-immersive"
+            className="relative overflow-hidden rounded-[18px] bg-immersive px-[clamp(1.5rem,5vw,3rem)] py-[clamp(2rem,6vw,3rem)] text-on-immersive"
           >
             <Symbole
               nom="padma"
               size={230}
               strokeWidth={0.5}
-              className="pointer-events-none absolute -right-14 -top-16 text-on-immersive opacity-[0.13]"
-            />
-            {/* La puce épingle : un jepun jaune posé en tête de fiche,
-                comme sur « À savoir ». C'est le seul jaune du panneau,
-                et il sert à dire « ici commence quelque chose » — le
-                padma en filigrane, lui, ne dit rien, il habille. */}
-            <Jepun
-              size={26}
-              tone="var(--soleil)"
-              className="relative mb-3 block"
+              className="pointer-events-none absolute -right-12 -top-14 text-on-immersive opacity-[0.16]"
             />
             <h3 className="relative max-w-[22ch] text-[clamp(1.5rem,4.5vw,2rem)] leading-tight">
               {VALEURS.titre}

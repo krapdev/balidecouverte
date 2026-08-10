@@ -1,8 +1,13 @@
+import { Symbole } from "./Symboles";
 import Link from "next/link";
 import { Route, Sparkles, ArrowRight } from "lucide-react";
 import SectionHead from "./SectionHead";
 import Reveal from "./Reveal";
 import { CHEMINS, ACTIVITES } from "@/lib/data";
+
+/* Le symbole balinais de chaque branche, repris de `lib/navigation.js` :
+   la carte et l'entrée de menu qui y mène portent le même dessin. */
+const SYMBOLES_CHEMIN = { circuit: "penjor", envies: "tedung" };
 
 const ICONES = { circuit: Route, envies: Sparkles };
 
@@ -67,7 +72,20 @@ export default function Chemins() {
                   href={c.ancre}
                   className="filigrane group relative flex h-full flex-col gap-2.5 overflow-hidden rounded-[16px] border border-rule bg-surface p-6 no-underline transition-colors duration-200 hover:border-accent"
                 >
-                  <Icon size={22} className="text-accent" strokeWidth={1.5} />
+                  {/* ⚠️ **Le grand symbole, et non le petit filigrane de
+                      coin.** Les deux cartes de la fourche sont le seul
+                      endroit de la page où l'on choisit ; elles étaient
+                      les plus nues. Le symbole reprend celui de l'entrée
+                      de menu correspondante — penjor pour le circuit,
+                      tedung pour les envies — et il est posé dans
+                      l'angle, là où aucun texte ne passe. */}
+                  <Symbole
+                    nom={SYMBOLES_CHEMIN[c.id] ?? "candi"}
+                    size={170}
+                    strokeWidth={0.6}
+                    className="pointer-events-none absolute -right-8 -top-10 text-accent opacity-[0.09]"
+                  />
+                  <Icon size={22} className="relative text-accent" strokeWidth={1.5} />
                   <h3 className="text-[1.375rem] leading-tight">{c.titre}</h3>
 
                   {/* Les chiffres avant le texte : ce sont eux qu'on lit

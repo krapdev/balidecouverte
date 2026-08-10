@@ -283,15 +283,27 @@
     background: var(--immersive); color: var(--on-immersive);
     padding: clamp(2rem, 6vw, 3rem) clamp(1.5rem, 5vw, 3rem);
   }
-  .fiche-filigrane { position: absolute; top: -4rem; right: -3.5rem; opacity: .13;
+  .fiche-filigrane { position: absolute; top: -3.5rem; right: -3rem; opacity: .16;
                      color: var(--on-immersive); pointer-events: none; }
-  /* ⚠️ L'épingle REMPLACE le filet, elle ne s'y ajoute pas : les deux
-     donnaient un tiret, un blanc, une fleur, un blanc, un mot — quatre
-     objets pour annoncer un titre. La fleur EST la puce. */
-  .epingle-fleur { display: inline-grid; flex: none; }
-  .epingle-titre { position: relative; display: block; margin-bottom: 0.75rem; }
+  /* ⚠️ La broche est SŒUR de la fiche : celle-ci porte `overflow: hidden`
+     pour que son filigrane reste dans les angles arrondis, et une broche
+     posée dedans serait rognée là où elle doit dépasser.
+     Le décalage est asymétrique — deux tiers dedans, un tiers dehors :
+     centrée sur l'angle elle ressemble à un badge collé, décalée elle
+     ressemble à quelque chose qu'on a épinglé. */
+  .fiche-porte-broche { position: relative; }
+  .broche { position: absolute; left: -0.75rem; top: -1rem; z-index: 10;
+            display: grid; pointer-events: none;
+            filter: drop-shadow(0 3px 6px rgba(20, 30, 18, 0.35)); }
   .couture-hote { position: relative; }
-  .couture-hote > .moitie { height: clamp(1.75rem, 4.5vw, 2.5rem); }
+  /* Le jeton de la maquette s'appelle `--immersive-2`, pas
+     `--immersive-deep` comme dans l'app. */
+  .fond-hero { background: var(--immersive-2); }
+  /* ⚠️ Le plancher du clamp gouvernait tout le mobile : à 1,75rem il
+     valait 28 px alors que 4,5vw n'en fait que 17,6 à 390 — la couture
+     mesurait 56 px de haut sur un téléphone. Descendu à 0,9rem, le vw
+     reprend la main sous 620 px. */
+  .couture-hote > .moitie { height: clamp(0.9rem, 4.5vw, 2.5rem); }
   .couture-hote > .shell {
     position: absolute; inset: 0; display: flex; align-items: center;
     pointer-events: none;
@@ -490,7 +502,7 @@
   @media (min-width: 640px) { .hero-sub { font-size: var(--t-lg); } }
   .hero-bloc { display: flex; align-items: center; gap: 1rem; }
   @media (min-width: 640px) { .hero-bloc { gap: 1.25rem; } }
-  .hero-portrait { display: block; flex: none; width: 124px; background: var(--immersive-deep); box-shadow: 0 18px 40px -20px rgba(0,0,0,.8); }
+  .hero-portrait { display: block; flex: none; width: 124px; background: var(--immersive-2); box-shadow: 0 18px 40px -20px rgba(0,0,0,.8); }
   @media (min-width: 640px) { .hero-portrait { width: 140px; } }
   .hero-portrait img { display: block; width: 100%; aspect-ratio: 46/50; object-fit: cover; }
   .diapo { position: relative; width: 100%; overflow: hidden; border-radius: 16px; box-shadow: 0 24px 60px -30px rgba(0,0,0,.8); }
@@ -553,9 +565,6 @@
   .sec-head { display: flex; flex-direction: column; gap: 0.9rem; margin-bottom: clamp(2rem, 5vw, 3.25rem); max-width: 62ch; }
   .sec-eyebrow { color: var(--eyebrow); display: flex; align-items: center; gap: 0.7rem; }
   .sec-eyebrow::before { content: ""; width: 26px; height: 1px; background: currentColor; }
-  /* ⚠️ L'épingle REMPLACE le filet, elle ne s'y ajoute pas : les deux
-     donnaient un tiret, un blanc, une fleur, un blanc, un mot — quatre
-     objets pour annoncer un titre. La fleur EST la puce. */
   .sec-eyebrow.epingle::before { content: none; }
   .sec-head h2 { font-size: clamp(1.9rem, 5.2vw, var(--t-3xl)); }
   .sec-head p { color: var(--text-soft); font-size: var(--t-lg); line-height: 1.6; }
@@ -692,11 +701,16 @@
   /* Les deux chemins */
   .chemins { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.25rem; }
   @media (min-width: 640px) { .chemins { grid-template-columns: 1fr 1fr; } }
+  .chemin-sym { position: absolute; top: -2.5rem; right: -2rem; z-index: 0;
+                color: var(--accent); opacity: .09; pointer-events: none; }
+  .chemin > *:not(.chemin-sym) { position: relative; }
+  .chemin-icone { flex: none; color: var(--accent); }
   .chemin {
     display: flex; flex-direction: column; gap: 0.6rem; height: 100%;
     border: 1px solid var(--rule); border-radius: 16px; background: var(--surface);
     padding: 1.5rem; text-decoration: none; color: inherit;
     transition: border-color .2s;
+    position: relative; overflow: hidden;
   }
   .chemin:hover { border-color: var(--accent); }
   .chemin h3 { font-size: 1.375rem; line-height: 1.2; }
@@ -946,7 +960,20 @@
      coûter une section de plus, et surtout il rattache les valeurs à la
      personne — « pourquoi lui » n'appartient pas à une bande posée
      avant un formulaire. */
+  /* ⚠️ `position: relative` **et** `overflow: hidden`, dans cet ordre de
+     nécessité : le filigrane est posé à `right: -3rem`, soit 48 px hors du
+     panneau pour 20 px de marge de `.shell`, et la page débordait de 28 px.
+     De **28 px à 390 comme à 320** : un écart qui ne bouge pas avec la
+     largeur de l'écran désigne un absolu de taille fixe, jamais un élément
+     fluide — c'est ce chiffre identique qui a fini par le trouver.
+     ⚠️ `overflow: hidden` seul ne rognait rien. **Un `overflow` ne rogne un
+     descendant absolu que s'il est aussi son bloc conteneur.** Sans
+     `position`, le filigrane se référait à `.fiche-porte-broche`, deux
+     crans plus haut, et débordait à travers le panneau sans le voir.
+     L'app portait déjà les deux (`relative overflow-hidden`) : la maquette
+     avait dérivé sur les deux à la fois. */
   .valeurs-panneau {
+    position: relative; overflow: hidden;
     margin-top: clamp(3rem, 8vw, 4.5rem); border-radius: 18px;
     background: var(--immersive); color: var(--on-immersive);
     padding: clamp(2rem, 6vw, 3rem) clamp(1.5rem, 5vw, 3rem);
@@ -1343,7 +1370,7 @@
   @media (min-width: 780px) { .portrait-tete { grid-template-columns: 0.62fr 1.38fr; align-items: start; } }
   .portrait-fig { margin: 0 auto; width: 100%; max-width: 280px; }
   @media (min-width: 780px) { .portrait-fig { max-width: none; } }
-  .portrait-photo { background: var(--immersive-deep); box-shadow: 0 30px 70px -30px rgba(0,0,0,.7); position: relative; aspect-ratio: 46 / 50; }
+  .portrait-photo { background: var(--immersive-2); box-shadow: 0 30px 70px -30px rgba(0,0,0,.7); position: relative; aspect-ratio: 46 / 50; }
   .portrait-photo svg { width: 100%; height: 100%; display: block; }
   .portrait-cite { margin-top: 1.5rem; border-left: 3px solid var(--accent); padding-left: 1.25rem; font-style: italic; font-size: clamp(1.15rem, 3.4vw, 1.45rem); line-height: 1.3; }
   .avert { margin-top: 1.75rem; display: flex; gap: 0.9rem; border: 1px solid var(--eyebrow); background: color-mix(in srgb, var(--bougain) 10%, transparent); border-radius: 14px; padding: 1.25rem; font-size: var(--t-sm); line-height: 1.6; }
@@ -1593,6 +1620,10 @@
      plus aucun consommateur. -->
 
 <!-- ============================ AGUS ============================ -->
+<!-- ⚠️ La seule frontière du site qui n'avait pas sa couture : le hero
+     touchait la présentation directement, et le passage du vert profond à
+     l'ivoire se faisait à cru. La moitié haute porte le fond du hero. -->
+<div class="couture-hote view-home" aria-hidden="true"><div class="moitie fond-hero"></div><div class="moitie ground-ivoire"></div><div class="shell"><div class="divider"><span></span><span class="jepun-mark"></span><span></span></div></div></div>
 <section class="band ground-ivoire view-home" id="esprit">
   <div class="shell">
     <div class="sec-head reveal">
@@ -1667,11 +1698,13 @@
          navigation, et un `.reveal` non encore apparu est décalé de 14 px
          vers le bas — l'ancre atterrissait sur la position d'avant
          l'animation. On n'anime pas ce vers quoi on navigue. -->
+    <!-- ⚠️ Le conteneur relatif existe pour que la broche déborde de la
+         fiche, qui rogne ce qu'elle contient. La broche est SŒUR de la
+         fiche, pas fille. -->
+    <div class="fiche-porte-broche">
+    <span class="broche" id="valeursBroche"></span>
     <div class="valeurs-panneau" id="valeurs">
-      <!-- La puce épingle : un jepun jaune en tête de fiche, comme sur
-           « À savoir ». C'est le seul jaune du panneau, et il dit « ici
-           commence quelque chose » — le padma en filigrane, lui, habille. -->
-      <span class="epingle-titre" id="valeursEpingle"></span>
+      <span class="fiche-filigrane" id="valeursFiligrane"></span>
       <h3>Voyager avec moi, c'est faire vivre les guides de Bali.</h3>
       <!-- ⚠️ « depuis vingt ans » a disparu, et c'est un gain : le chiffre
            vieillissait tout seul. La date exacte reste partout où elle
@@ -1712,6 +1745,7 @@
            il promettait mot pour mot les trois points qu'on venait de
            lire. Le portrait reste desservi par « Mon parcours, mes
            diplômes, mes véhicules » plus haut, et par le menu. -->
+    </div>
     </div>
   </div>
 </section>
@@ -2042,16 +2076,19 @@
      quoi la fiche verte serait posée sur du vert. -->
 <section class="band ground-ivoire view-home" id="usages">
   <div class="shell">
+    <div class="fiche-porte-broche">
+    <span class="broche" id="usagesBroche"></span>
     <div class="fiche-verte">
       <span class="fiche-filigrane" id="usagesFiligrane"></span>
       <div style="position: relative">
         <div class="sec-head reveal">
-          <p class="label sec-eyebrow epingle" style="color: var(--soleil-pale)"><span class="epingle-fleur" id="usagesEpingle"></span>À savoir</p>
+          <p class="label sec-eyebrow" style="color: var(--soleil-pale)">À savoir</p>
           <h2 id="usagesTitre"></h2>
           <p id="usagesChapo" style="color: var(--on-immersive-soft)"></p>
         </div>
         <ul class="usages" id="usagesList"></ul>
       </div>
+    </div>
     </div>
   </div>
 </section>
@@ -3434,7 +3471,7 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
      que rien ne le signale. La copie du tableau est nécessaire : on
      remplace des nœuds pendant qu'on itère. */
   Array.prototype.slice.call(document.querySelectorAll(".jepun-mark"))
-    .forEach(function (n) { n.outerHTML = jepun(34, "var(--bougain)"); });
+    .forEach(function (n) { n.outerHTML = jepun(44, "var(--bougain)"); });
 
   /* ⚠️ Ce remplissage tourne AVANT `render()`. Une couture créée plus
      tard par un `innerHTML` resterait donc un <span> vide : pour
@@ -3442,7 +3479,7 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
   function couture(marge) {
     return '<div class="divider" aria-hidden="true"' +
       (marge ? ' style="' + marge + '"' : "") + '><span></span>' +
-      jepun(34, "var(--bougain)") + "<span></span></div>";
+      jepun(44, "var(--bougain)") + "<span></span></div>";
   }
 
   /* ---------- Rendu : les deux chemins ---------- */
@@ -3455,8 +3492,26 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
         ACTIVITES.filter(function (a) { return a.famille === "classique"; }).length + " classiques",
         ACTIVITES.filter(function (a) { return a.famille === "secret"; }).length + " places secrètes"
       ] : []);
+      /* ⚠️ Le grand symbole, et non le petit filigrane de coin : les deux
+         cartes de la fourche sont le seul endroit de la page où l'on
+         choisit, et c'étaient les plus nues. Le symbole reprend celui de
+         l'entrée de menu correspondante — penjor pour le circuit, tedung
+         pour les envies. */
+      var SYM_CHEMIN = { circuit: "penjor", envies: "tedung" };
+      /* ⚠️ La petite icône de tête manquait ici seule : l'app en pose une
+         depuis toujours, la maquette jamais. Elle n'est pas décorative —
+         c'est elle qui distingue les deux cartes au coup d'œil avant
+         qu'on ait lu leur titre, et c'est aussi ce qui les rattache aux
+         deux entrées de menu. Les tracés sont copiés du rendu de l'app,
+         pas réécrits de mémoire. */
+      var ICONE_CHEMIN = {
+        circuit: '<circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/>',
+        envies: '<path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/>'
+      };
       return '<li class="reveal"><a class="chemin filigrane" href="' + c.ancre +
         '" data-goto="' + c.vue + '" data-de="chemins">' +
+        '<span class="chemin-sym">' + symbole(SYM_CHEMIN[c.id] || "candi", 170, 0.6) + '</span>' +
+        (ICONE_CHEMIN[c.id] ? '<svg class="chemin-icone" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICONE_CHEMIN[c.id] + '</svg>' : "") +
         '<h3>' + c.titre + '</h3>' +
         (chiffres.length ? '<p class="label chemin-chiffres">' +
           chiffres.map(function (n) { return "<span>" + n + "</span>"; }).join("") + '</p>' : "") +
@@ -3970,8 +4025,9 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
 
   /* ---------- Rendu : us et coutumes ---------- */
   function renderUsages() {
-    $("valeursEpingle").innerHTML = jepun(26, "var(--soleil)");
-    $("usagesEpingle").innerHTML = jepun(22, "var(--soleil)");
+    $("valeursBroche").innerHTML = jepun(54, "var(--soleil)");
+    $("usagesBroche").innerHTML = jepun(54, "var(--soleil)");
+    $("valeursFiligrane").innerHTML = symbole("padma", 230, 0.5);
     $("usagesFiligrane").innerHTML = symbole("nyepi", 230, 0.5);
     $("usagesTitre").textContent = USAGES.titre;
     $("usagesChapo").textContent = USAGES.chapo;

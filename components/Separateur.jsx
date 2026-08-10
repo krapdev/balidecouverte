@@ -35,7 +35,10 @@ import { Jepun } from "./Scene";
  * fois n'ajouterait qu'un « image » de plus à traverser au lecteur
  * d'écran.
  */
-export default function Separateur({ className = "", size = 34 }) {
+/* 44 et non 34 : à 34 la fleur se lisait comme un nœud sur le fil plutôt
+   que comme une fleur. Elle est le seul objet coloré de la page qui ne
+   serve à rien d'autre qu'à faire respirer — autant qu'elle se voie. */
+export default function Separateur({ className = "", size = 44 }) {
   return (
     <div
       className={`flex items-center gap-5 ${className}`}

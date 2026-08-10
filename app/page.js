@@ -54,8 +54,13 @@ import Separateur from "@/components/Separateur";
 function Couture({ avant, apres }) {
   return (
     <div className="relative" aria-hidden="true">
-      <div className={`${avant} h-[clamp(1.75rem,4.5vw,2.5rem)]`} />
-      <div className={`${apres} h-[clamp(1.75rem,4.5vw,2.5rem)]`} />
+      {/* ⚠️ **Le plancher du clamp gouvernait tout le mobile.** À 1,75rem
+          il valait 28 px, alors que 4,5vw n'en fait que 17,6 à 390 : la
+          couture mesurait 56 px de haut sur un écran de téléphone, soit
+          plus qu'à 1280 en proportion de la page. Descendu à 0,9rem, le
+          vw reprend la main sous 620 px et l'espace suit la largeur. */}
+      <div className={`${avant} h-[clamp(0.9rem,4.5vw,2.5rem)]`} />
+      <div className={`${apres} h-[clamp(0.9rem,4.5vw,2.5rem)]`} />
       <div className="pointer-events-none absolute inset-0 flex items-center">
         <div className="shell w-full">
           <Separateur />
@@ -75,6 +80,12 @@ export default function Home() {
       <Navbar />
       <main className="flex-1">
         <Hero />
+        {/* ⚠️ **La seule frontière du site qui n'avait pas sa couture.**
+            Le hero touchait la présentation directement, et le passage du
+            vert profond à l'ivoire se faisait à cru — c'était le seul
+            endroit où l'on changeait de monde sans que rien ne le dise.
+            La moitié haute porte donc le fond du hero. */}
+        <Couture avant="bg-immersive-deep" apres="ground-ivoire" />
         <AboutAgus />
         {/* ⚠️ **La couture ouvre la section, elle ne se pose pas entre
             deux.** Les fonds alternent — ivoire, sable, bambou, ivoire,

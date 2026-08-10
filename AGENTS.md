@@ -150,6 +150,18 @@ Agus Yudiarta existe, et le site est son gagne-pain.
 - **Un `<clipPath id>` est global au document.** Deux instances d'un même
   composant SVG avec le même `id` et la première définition s'applique aux
   deux — voir la convention `uid` de `Scene` et `Photo`.
+- **`overflow: hidden` ne rogne un descendant absolu que s'il est aussi son
+  bloc conteneur.** Sans `position`, l'élément est transparent au découpage :
+  le filigrane du panneau des valeurs se référait à l'enveloppe de la broche,
+  deux crans plus haut, et traversait le panneau sans le voir. Toute fiche qui
+  porte un filigrane en débord veut donc `relative` **et** `overflow-hidden`,
+  les deux ensemble — l'app les avait, la maquette avait perdu les deux.
+  ⚠️ **Un débord identique à deux largeurs d'écran désigne un absolu de taille
+  fixe.** 28 px à 390 comme à 320 : un élément fluide donnerait deux chiffres
+  différents. C'est ce qu'il fallait lire, et trois relevés d'éléments l'ont
+  manqué en cherchant qui dépassait — la bonne question était **qui aurait dû
+  rogner**. Méthode qui a fini par trouver : cacher chaque enfant à tour de
+  rôle et regarder si `scrollWidth` tombe, en descendant l'arbre.
 - **Un défilement automatique impose deux choses.** WCAG 2.2.2 (niveau A) : un
   moyen de l'arrêter au-delà de cinq secondes. Et `prefers-reduced-motion` doit
   **l'empêcher de démarrer**, pas le ralentir.
@@ -225,6 +237,13 @@ Agus Yudiarta existe, et le site est son gagne-pain.
 - **`querySelector` est singulier.** La fleur des coutures était posée par un
   `querySelector` : avec quatre coutures, trois sont restées des `<span>` vides
   sans qu'aucune erreur ne soit levée. Vérifier le compte après coup.
+- **La maquette n'a pas de bibliothèque d'icônes.** Elle inline les tracés
+  lucide à la main, et une icône que l'app pose est donc une icône que la
+  maquette ne pose pas tant qu'on ne l'a pas recopiée. Les deux cartes de la
+  fourche ont vécu ainsi, sans leur icône de tête, du côté qu'on ouvre pour
+  valider le design. **Copier le tracé depuis le rendu de l'app**
+  (`curl … | grep lucide-<nom>`), jamais de mémoire : les tracés lucide
+  changent d'une version à l'autre.
 - Le fichier n'a **pas de `<head>`** et embarque ses polices en base64.
 
 ## L'audit
