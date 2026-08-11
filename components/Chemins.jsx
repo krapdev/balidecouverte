@@ -90,7 +90,15 @@ export default function Chemins() {
                     className="pointer-events-none absolute bottom-2 right-2 text-accent opacity-[0.16]"
                   />
                   <Icon size={22} className="relative text-accent" strokeWidth={1.5} />
-                  <h3 className="text-[1.375rem] leading-tight">{c.titre}</h3>
+                  {/* ⚠️ Le rouge des titres du parcours vaut aussi ici : ces deux
+                      titres SONT le choix, pas l'annonce d'un choix. Le
+                      seuil est celui du texte courant et non des grands
+                      titres — 22 px en graisse normale — et
+                      `--bougain-ink` le tient largement sur le blanc de
+                      la carte. */}
+                  <h3 className="text-[1.375rem] leading-tight text-bougain-ink">
+                    {c.titre}
+                  </h3>
 
                   {/* Les chiffres avant le texte : ce sont eux qu'on lit
                       en balayant, et ce sont eux qui font choisir. */}

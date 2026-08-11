@@ -387,7 +387,7 @@ export default function PagePortrait() {
                 de plus, aux deux pivots : là où le portrait passe du
                 métier à l'homme, puis de l'homme à ce que ça change pour
                 le voyageur. */}
-            <Separateur className="mt-[clamp(2.5rem,7vw,3.5rem)]" size={28} />
+            <Separateur className="mt-[clamp(2.5rem,7vw,3.5rem)]" />
 
             <Partie n={3} symbole="rangs" titre="Ma famille">
               <p className="text-[1.0625rem] text-ink">{AGUS.famille}.</p>
@@ -484,7 +484,7 @@ export default function PagePortrait() {
             </Partie>
 
             {/* ---------- 5. Ce que ça change pour vous ---------- */}
-            <Separateur className="mt-[clamp(2.5rem,7vw,3.5rem)]" size={28} />
+            <Separateur className="mt-[clamp(2.5rem,7vw,3.5rem)]" />
 
             <Partie n={5} symbole="canang" titre="Ce que ça change pour vous">
               {/* Trois points ramenés à deux : le premier — « vous payez le
@@ -537,7 +537,7 @@ export default function PagePortrait() {
                 écrit à la main ici, en gris, avant que le motif existe.
                 Il ferme la lecture comme la fleur l'ouvre sous le
                 portrait. */}
-            <Separateur className="mt-[clamp(2.5rem,7vw,3.5rem)]" size={28} />
+            <Separateur className="mt-[clamp(2.5rem,7vw,3.5rem)]" />
 
             {/* ---------- La suite ----------
                 ⚠️ Elle est **avant** le bloc des questions, qui est un

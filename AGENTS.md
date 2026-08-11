@@ -219,10 +219,16 @@ Agus Yudiarta existe, et le site est son gagne-pain.
   ne laisse aucune marge le jour où le fond change. L'encré donne 5,12 sur le
   sable et 5,77 sur l'ivoire. Il ne se pose **jamais sur le vert profond**
   (on tombe sous 2), et il reste **rare, par fonction** : le rouge va aux
-  **cinq titres du parcours** — la fourche, le formulaire, le livre d'or,
-  et l'ouverture des deux pages où mène la fourche. L'encre reste à ce qui
-  se consulte sans engager la suite : les tarifs et les pages légales.
+  **titres du parcours** — l'ouverture de l'accueil, la fourche et ses deux
+  cartes, le formulaire, le livre d'or, et l'ouverture des deux pages où
+  mène la fourche. L'encre reste à ce qui se consulte sans engager la suite :
+  les tarifs, le portrait et les pages légales.
   Teindre tous les titres ne rend pas la page plus gaie, ça la rend rouge.
+  ⚠️ **La fleur des coutures mesure 40, partout.** Trois tailles avaient
+  coexisté — 44 dans les coutures, 28 dans celles du portrait, 54 pour la
+  broche : une taille par endroit plutôt qu'une par fonction, alors que
+  c'est le même objet dans les trois cas. Le plancher reste 34, en dessous
+  duquel elle se lit comme un nœud sur le fil.
   ⚠️ **Une exception ne tient que si on la compte.** Le rouge était arrivé
   partout par petites touches — eyebrows, chiffres des cartes, numéros de
   jour, « Non compris », numéros d'articles : **dix-neuf occurrences sur

@@ -657,7 +657,11 @@
   .sec-eyebrow { color: var(--eyebrow); display: flex; align-items: center; gap: 0.7rem; }
   .sec-eyebrow::before { content: ""; width: 26px; height: 1px; background: currentColor; }
   .sec-eyebrow.epingle::before { content: none; }
-  .sec-head h2 { font-size: clamp(1.9rem, 5.2vw, var(--t-3xl)); }
+  /* ⚠️ `2.375rem` en dur et non `--t-3xl` (2,5rem) : l'app plafonne les
+     titres de section à 38 px, la maquette les montait à 40. Deux pixels
+     qu'aucune copie d'écran ne trahit — ils ne se voient qu'en mesurant
+     la taille calculée, et ils ne se sont vus qu'en relevant les rouges. */
+  .sec-head h2 { font-size: clamp(1.9rem, 5.2vw, 2.375rem); }
   /* ⚠️ **`:not(.sec-eyebrow)` n'est pas un raffinement, c'est le
      correctif d'un défaut qui a vécu longtemps.** `.sec-head p` pèse
      0,1,1 et `.sec-eyebrow` 0,1,0 : la règle du chapô gagnait, et
@@ -824,7 +828,11 @@
     position: relative; overflow: hidden;
   }
   .chemin:hover { border-color: var(--accent); }
-  .chemin h3 { font-size: 1.375rem; line-height: 1.2; }
+  /* ⚠️ Le rouge des titres du parcours vaut aussi ici : ces deux titres
+     SONT le choix, pas l'annonce d'un choix. Seuil du texte courant et
+     non des grands titres — 22 px en graisse normale — que
+     --bougain-ink tient largement sur le blanc de la carte. */
+  .chemin h3 { font-size: 1.375rem; line-height: 1.2; color: var(--bougain-ink); }
   .chemin p { font-size: var(--t-sm); color: var(--text-soft); line-height: 1.6; }
   .chemin-detail { color: var(--text-faint); }
   /* Les chiffres avant le texte : ce sont eux qu'on lit en balayant, et
@@ -1739,7 +1747,7 @@
   <div class="shell">
     <div class="sec-head reveal">
       <p class="label sec-eyebrow">Votre guide</p>
-      <h2>Laissez-vous guider.</h2>
+      <h2 class="titre-rouge">Laissez-vous guider.</h2>
       <!-- Le chapô s'ouvrait sur « Guide diplômé, professionnel depuis
            2005 » — que le bandeau du hero venait de dire deux écrans plus
            haut, et que la ligne de faits redit trois centimètres plus bas.
@@ -2405,7 +2413,7 @@
     <div class="part-tete"><span class="part-sym" id="symFrancais"></span><h2>Le français, et l'Histoire</h2></div>
     <div class="portrait-corps" id="portraitFrancais"></div>
 
-    <div class="divider" aria-hidden="true" style="margin: 2.5rem 0"><span></span><span class="jepun-mark" data-fleur="28"></span><span></span></div>
+    <div class="divider" aria-hidden="true" style="margin: 2.5rem 0"><span></span><span class="jepun-mark"></span><span></span></div>
     <div class="part-tete"><span class="part-sym" id="symFamille"></span><h2>Ma famille</h2></div>
     <div class="portrait-corps" id="portraitFamille"></div>
 
@@ -2419,11 +2427,11 @@
     <!-- Cette partie manquait à la maquette alors qu'elle porte, dans
          l'app, la seule promesse opérationnelle de la page : ce qui se
          passe concrètement quand on écrit. -->
-    <div class="divider" aria-hidden="true" style="margin: 2.5rem 0"><span></span><span class="jepun-mark" data-fleur="28"></span><span></span></div>
+    <div class="divider" aria-hidden="true" style="margin: 2.5rem 0"><span></span><span class="jepun-mark"></span><span></span></div>
     <div class="part-tete"><span class="part-sym" id="symChange"></span><h2>Ce que ça change pour vous</h2></div>
     <div class="portrait-corps" id="portraitChange"></div>
 
-    <div class="divider" aria-hidden="true" style="margin: 2.5rem 0"><span></span><span class="jepun-mark" data-fleur="28"></span><span></span></div>
+    <div class="divider" aria-hidden="true" style="margin: 2.5rem 0"><span></span><span class="jepun-mark"></span><span></span></div>
     <div class="sortie">
       <h2>Vous savez qui je suis. Voyons le voyage.</h2>
       <p>Quinze jours que j'ai déjà conduits des dizaines de fois, ou une liste
@@ -3621,14 +3629,12 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
      qu'une — les trois autres seraient restées des <span> vides, sans
      que rien ne le signale. La copie du tableau est nécessaire : on
      remplace des nœuds pendant qu'on itère. */
-  /* ⚠️ `data-fleur` n'est pas un réglage libre : il aligne le portrait
-     sur l'app, qui y pose ses trois coutures en `size={28}`. Elles sont
-     dans une colonne de texte étroite, pas entre deux sections — une
-     fleur de 44 y ferait un point d'exclamation. Partout ailleurs, 44. */
+  /* ⚠️ **40, et la même valeur partout.** Trois tailles ont coexisté —
+     44 ici, 28 dans le portrait, 54 pour la broche — soit une taille par
+     endroit plutôt qu'une par fonction. La fleur est le même objet dans
+     les trois cas ; elle n'a pas à changer de grandeur selon la page. */
   Array.prototype.slice.call(document.querySelectorAll(".jepun-mark"))
-    .forEach(function (n) {
-      n.outerHTML = jepun(+n.dataset.fleur || 44, "var(--bougain)");
-    });
+    .forEach(function (n) { n.outerHTML = jepun(40, "var(--bougain)"); });
 
   /* ⚠️ Ce remplissage tourne AVANT `render()`. Une couture créée plus
      tard par un `innerHTML` resterait donc un <span> vide : pour
@@ -3636,7 +3642,7 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
   function couture(marge) {
     return '<div class="divider" aria-hidden="true"' +
       (marge ? ' style="' + marge + '"' : "") + '><span></span>' +
-      jepun(44, "var(--bougain)") + "<span></span></div>";
+      jepun(40, "var(--bougain)") + "<span></span></div>";
   }
 
   /* ---------- Rendu : les deux chemins ---------- */
@@ -4176,8 +4182,8 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
 
   /* ---------- Rendu : us et coutumes ---------- */
   function renderUsages() {
-    $("valeursBroche").innerHTML = jepun(54, "var(--soleil)", "var(--bougain)");
-    $("usagesBroche").innerHTML = jepun(54, "var(--soleil)", "var(--bougain)");
+    $("valeursBroche").innerHTML = jepun(40, "var(--soleil)", "var(--bougain)");
+    $("usagesBroche").innerHTML = jepun(40, "var(--soleil)", "var(--bougain)");
     $("valeursFiligrane").innerHTML = symbole("padma", 230, 0.5);
     $("usagesFiligrane").innerHTML = symbole("nyepi", 230, 0.5);
     $("usagesTitre").textContent = USAGES.titre;

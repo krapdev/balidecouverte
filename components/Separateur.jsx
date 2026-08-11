@@ -35,10 +35,16 @@ import { Jepun } from "./Scene";
  * fois n'ajouterait qu'un « image » de plus à traverser au lecteur
  * d'écran.
  */
-/* 44 et non 34 : à 34 la fleur se lisait comme un nœud sur le fil plutôt
-   que comme une fleur. Elle est le seul objet coloré de la page qui ne
-   serve à rien d'autre qu'à faire respirer — autant qu'elle se voie. */
-export default function Separateur({ className = "", size = 44 }) {
+/* ⚠️ **40, et la même valeur partout.** Trois tailles ont coexisté — 44
+   dans les coutures, 28 dans celles du portrait, 54 pour la broche — et
+   c'était une taille par endroit plutôt qu'une par fonction : la fleur
+   est le même objet dans les trois cas, elle n'a pas à changer de
+   grandeur selon la page où on la pose.
+   Le plancher reste ce qu'il était : à 34 elle se lisait comme un nœud
+   sur le fil plutôt que comme une fleur. Elle est le seul objet coloré
+   de la page qui ne serve à rien d'autre qu'à faire respirer — autant
+   qu'elle se voie. */
+export default function Separateur({ className = "", size = 40 }) {
   return (
     /* `couture` ne porte aucun style : c'est la prise de l'audit. Le
        motif des flancs s'est perdu une fois en silence — trois vues sur

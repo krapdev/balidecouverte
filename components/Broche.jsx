@@ -19,7 +19,7 @@ import { Jepun } from "./Scene";
  * `aria-hidden` par `Jepun`, et rien à annoncer : la fiche a déjà son
  * titre et son eyebrow.
  */
-export default function Broche({ size = 54, className = "" }) {
+export default function Broche({ size = 40, className = "" }) {
   return (
     <span
       className={`pointer-events-none absolute -left-5 -top-6 z-10 drop-shadow-[0_3px_6px_rgba(20,30,18,0.35)] ${className}`}

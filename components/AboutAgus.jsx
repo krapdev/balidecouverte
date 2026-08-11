@@ -49,7 +49,7 @@ export default function AboutAgus() {
         {/* Le chapô s'ouvrait sur « Guide diplômé, professionnel depuis
             2005 ». Le diplôme se dit maintenant sur /agus et nulle part
             ailleurs ; ici on est passé à ce qu'il fait. */}
-        <SectionHead eyebrow="Votre guide" title="Laissez-vous guider.">
+        <SectionHead eyebrow="Votre guide" title="Laissez-vous guider." rouge>
           Je conduis moi-même et je traduis moi-même. Vous n&apos;avez ni
           véhicule à louer, ni billets à prendre, ni horaires à caler :
           je m&apos;occupe de tout.
