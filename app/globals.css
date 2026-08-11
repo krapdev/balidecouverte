@@ -338,24 +338,34 @@
     mask-position: top left;
   }
 
-  /* ⚠️ **La bande : la dent du linteau, tenue entre deux filets.** C'est
-     le même tracé, au même pas — seul le second filet est ajouté, sous
-     les pointes. Les deux motifs restent donc parents plutôt que
-     voisins.
-     La raison n'est pas décorative. Le linteau **pend sous une poutre** :
-     son déséquilibre est sa fonction, il dit de quel côté est le poids.
-     Une couture ne pend de rien — elle sépare deux choses de même rang,
-     et un motif lourd d'un côté y penche pour rien. Fermée en haut comme
-     en bas, la bande tient d'elle-même sur l'axe de la fleur : les deux
-     filets sont à 1 et à 6 dans une boîte de 7, centre 3,5. Le calage de
-     2 px que l'asymétrie imposait disparaît avec elle.
-     ⚠️ Une chaîne de losanges a occupé cette place entre-temps — la dent
-     mirroitée au lieu d'être bornée. Elle était symétrique aussi, mais
-     elle ne se lisait plus comme la frise de la barre : en doublant la
-     dent on change le motif, en la bornant on l'encadre. */
-  .frise-bande {
-    --motif: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2222%22%20height%3D%227%22%20viewBox%3D%220%200%2022%207%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%201h22%22%2F%3E%3Cpath%20d%3D%22M0%206h22%22%2F%3E%3Cpath%20d%3D%22M0%201l5.5%205%205.5-5%205.5%205%205.5-5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
-    --hauteur: 7px;
+  /* ⚠️ **Le patra courant : la tige et ses feuilles alternées.** C'est
+     le patra punggel de `components/Patra.jsx` **déroulé** — le même
+     ornement, l'un lové dans un angle, l'autre couché sur une ligne.
+     C'est ce qui le rend de Bali plutôt que décoratif en général : la
+     volute de fougère court sur les linteaux de bois de toute l'île.
+     ## Ce que la dent du linteau ne pouvait pas faire ici
+     Elle **pend sous une poutre** : son déséquilibre est sa fonction,
+     elle dit de quel côté est le poids. Une couture ne pend de rien, et
+     trois tentatives pour la redresser ont chacune coûté quelque chose —
+     la dent bornée entre deux filets enfermait la fleur dans une
+     réglure, la dent mirroitée en losanges ne se lisait plus comme une
+     frise, la dent nue redevenait un zigzag de n'importe où.
+     ## Pourquoi ce tracé-là et pas un autre
+     Choisi sur planche, à sa taille réelle et pas sur son dessin. À
+     12 px de haut : les spirales se referment en bulles, les boutons
+     d'une vigne disparaissent et il ne reste que l'onde, et une volute
+     ajoutée au pied de chaque feuille fait du bruit. **Ce qui survit à
+     la réduction, c'est une forme pleine et un pas large** — d'où la
+     feuille fermée et les 28 px de tuile. À 20 px elle se serrait.
+     ## La tige
+     Elle porte les feuilles, elle n'encadre pas la couture : c'est une
+     ligne dans le motif, pas une barre autour. Sans elle, essayé, les
+     feuilles flottent et la bande se lit comme des grains semés.
+     Symétrique — feuilles de 0,8 à 11,2 dans une boîte de 12, centre 6 —
+     donc elle tient d'elle-même sur l'axe de la fleur. */
+  .frise-patra {
+    --motif: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2228%22%20height%3D%2212%22%20viewBox%3D%220%200%2028%2012%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M0%206h28%22%2F%3E%3Cpath%20d%3D%22M3%206c0-2.8%202-4.8%205-5.2.6%203.2-1.3%205.2-5%205.2z%22%2F%3E%3Cpath%20d%3D%22M17%206c0%202.8%202%204.8%205%205.2.6-3.2-1.3-5.2-5-5.2z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+    --hauteur: 12px;
   }
 
   .horizon {

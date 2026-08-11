@@ -331,20 +331,24 @@
      bande de 9 px — trois segments de chaîne au lieu d'une fleur entre
      deux. Les deux fleurs s'excluent par ce qu'elles ont en commun :
      aucune n'est un `span` sans classe.
-     ⚠️ C'est la dent du linteau **tenue entre deux filets**, et non la
-     dent nue : celle-ci pend sous une poutre, son déséquilibre est sa
-     fonction. Une couture ne pend de rien, elle sépare deux choses de
-     même rang. Bornée en haut comme en bas, la bande tient d'elle-même
-     sur l'axe de la fleur — filets à 1 et à 6 dans une boîte de 7.
-     ⚠️ Une chaîne de losanges a occupé cette place entre-temps : la dent
-     mirroitée au lieu d'être bornée. Symétrique aussi, mais elle ne se
-     lisait plus comme la frise de la barre — en doublant la dent on
-     change le motif, en la bornant on l'encadre. */
+     ⚠️ **Ce n'est plus la dent du linteau**, et ce n'est pas un caprice.
+     La dent pend sous une poutre : son déséquilibre est sa fonction, il
+     dit de quel côté est le poids. Une couture ne pend de rien, et trois
+     façons de la redresser ont chacune coûté quelque chose — bornée
+     entre deux filets, la réglure enfermait la fleur ; mirroitée en
+     losanges, elle ne se lisait plus comme une frise ; nue, elle
+     redevenait un zigzag de n'importe où.
+     Ici, c'est le patra punggel **déroulé** : le même ornement que celui
+     lové dans l'angle des cartes de la fourche, couché sur sa ligne. La
+     tige porte les feuilles, elle n'encadre pas la couture.
+     Tracé choisi sur planche à sa taille réelle : à 12 px les spirales
+     se referment en bulles et les petits détails font du bruit. Ce qui
+     survit à la réduction, c'est une forme pleine et un pas large. */
   .divider > span:not(.jepun-mark) {
     flex: 1;
     color: color-mix(in srgb, var(--bougain) 55%, transparent);
-    --motif: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2222%22%20height%3D%227%22%20viewBox%3D%220%200%2022%207%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%201h22%22%2F%3E%3Cpath%20d%3D%22M0%206h22%22%2F%3E%3Cpath%20d%3D%22M0%201l5.5%205%205.5-5%205.5%205%205.5-5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
-    height: 7px;
+    --motif: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2228%22%20height%3D%2212%22%20viewBox%3D%220%200%2028%2012%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M0%206h28%22%2F%3E%3Cpath%20d%3D%22M3%206c0-2.8%202-4.8%205-5.2.6%203.2-1.3%205.2-5%205.2z%22%2F%3E%3Cpath%20d%3D%22M17%206c0%202.8%202%204.8%205%205.2.6-3.2-1.3-5.2-5-5.2z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+    height: 12px;
     background-color: currentColor;
     -webkit-mask-image: var(--motif);
     mask-image: var(--motif);
@@ -397,7 +401,7 @@
      propre : seule son opacité compte. */
   .frise {
     --motif: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2222%22%20height%3D%227%22%20viewBox%3D%220%200%2022%207%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%201h22%22%2F%3E%3Cpath%20d%3D%22M0%201l5.5%205%205.5-5%205.5%205%205.5-5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
-    height: 7px;
+    height: 12px;
     background-color: currentColor;
     -webkit-mask-image: var(--motif);
     mask-image: var(--motif);

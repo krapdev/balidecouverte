@@ -49,23 +49,26 @@ export default function Separateur({ className = "", size = 44 }) {
       className={`couture flex items-center gap-5 ${className}`}
       aria-hidden="true"
     >
-      {/* ⚠️ **La frise du linteau, tenue entre deux filets** — la même
-          dent, au même pas, avec un second trait sous les pointes.
-          Trois états ont précédé celui-ci, et chacun corrigeait le
-          précédent : deux filets droits (la page portait deux dessins
-          pour une seule idée, dont un seul était de Bali) ; la frise du
-          linteau telle quelle (elle penchait — un motif qui pend sous
-          une poutre dit de quel côté est le poids, or une couture sépare
-          deux choses de même rang) ; une chaîne de losanges, symétrique
-          mais qui ne se lisait plus comme la frise de la barre.
-          Bornée, elle est symétrique **et** reconnaissable, et elle tient
-          d'elle-même sur l'axe de la fleur — le calage de 2 px
-          qu'imposait l'asymétrie a disparu avec elle.
-          Le tracé vit dans `.frise-bande` et sa couleur vient de
-          `currentColor` : voir globals.css. */}
-      <span className="frise frise-bande flex-1 text-[color-mix(in_srgb,var(--bougain)_55%,transparent)]" />
+      {/* ⚠️ **Le patra courant** — la tige et ses feuilles alternées,
+          c'est-à-dire l'ornement de `Patra.jsx` déroulé : le même, lové
+          dans l'angle des cartes, couché sur la ligne ici.
+          Quatre états ont précédé celui-ci, et chacun a appris une
+          chose. Deux filets droits : la page portait deux dessins pour
+          une seule idée, « ici, ça se sépare », dont un seul était de
+          Bali. La dent du linteau telle quelle : elle penchait — un
+          motif qui pend sous une poutre dit de quel côté est le poids,
+          or une couture sépare deux choses de même rang. Une chaîne de
+          losanges : symétrique, mais elle ne se lisait plus comme une
+          frise. La dent tenue entre deux filets : symétrique et
+          reconnaissable, mais la réglure enfermait la fleur.
+          Ce qui restait à trouver n'était donc pas une correction de
+          plus, c'était un motif qui n'ait jamais eu à pendre.
+          Le tracé vit dans `.frise-patra` et sa couleur vient de
+          `currentColor` : voir globals.css, où est écrit **pourquoi ce
+          tracé-là** — il a été choisi sur planche, à sa taille réelle. */}
+      <span className="frise frise-patra flex-1 text-[color-mix(in_srgb,var(--bougain)_55%,transparent)]" />
       <Jepun size={size} tone="var(--bougain)" />
-      <span className="frise frise-bande flex-1 text-[color-mix(in_srgb,var(--bougain)_55%,transparent)]" />
+      <span className="frise frise-patra flex-1 text-[color-mix(in_srgb,var(--bougain)_55%,transparent)]" />
     </div>
   );
 }

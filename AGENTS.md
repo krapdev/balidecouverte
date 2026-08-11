@@ -180,15 +180,26 @@ Agus Yudiarta existe, et le site est son gagne-pain.
   du masque n'a plus de couleur propre, seule son opacité compte.
 - **Le linteau pend, la couture ne pend de rien.** Le motif du linteau est
   une dent suspendue à une ligne : son déséquilibre est sa fonction, il dit
-  de quel côté est le poids. Une couture sépare deux choses de **même rang**
-  et un motif lourd d'un côté y penche pour rien — d'où `.frise-bande`, la
-  même dent **tenue entre deux filets** (à 1 et à 6 dans une boîte de 7).
-  Elle tient d'elle-même sur l'axe de la fleur, et le calage de 2 px
-  qu'imposait l'asymétrie disparaît avec elle.
-  ⚠️ Une chaîne de losanges a occupé cette place — la dent mirroitée au lieu
-  d'être bornée. Symétrique aussi, mais elle ne se lisait plus comme la frise
-  de la barre : **en doublant la dent on change le motif, en la bornant on
-  l'encadre.** Le second filet suffit, il ne faut rien redessiner.
+  de quel côté est le poids. Une couture sépare deux choses de **même rang**,
+  et **trois façons de redresser la dent ont chacune échoué autrement** :
+  bornée entre deux filets elle enfermait la fleur dans une réglure ;
+  mirroitée en losanges elle ne se lisait plus comme une frise ; nue elle
+  redevenait un zigzag de n'importe où. Le motif juste n'était pas une
+  correction de plus, c'était **un motif qui n'ait jamais eu à pendre** :
+  `.frise-patra`, le patra punggel de `Patra.jsx` déroulé — le même ornement,
+  l'un lové dans un angle, l'autre couché sur une ligne.
+- **Un motif de bande se choisit sur planche, à sa taille réelle.** Cinq
+  candidats montés côte à côte en tuile, à 12 px de haut et agrandis ×5 : les
+  spirales se referment en bulles, les boutons d'une vigne disparaissent et
+  il ne reste que l'onde, une volute ajoutée au pied de chaque feuille fait
+  du bruit. **Ce qui survit à la réduction, c'est une forme pleine et un pas
+  large.** Aucun de ces cinq verdicts ne se devine sur le tracé agrandi, qui
+  est pourtant ce qu'on regarde en dessinant. `motifs.mjs` a servi à ça et
+  n'a pas à être conservé — c'est la méthode qui compte.
+  ⚠️ **Le bougainvillier ne tient pas sur le vert profond, même à 100 %** :
+  2,19. La moitié haute de la couture du hero est donc sourde, et aucune
+  opacité ne la sauvera — c'est la couleur qui est en cause, pas le réglage.
+  Ornement `aria-hidden`, donc admis ; à ne pas essayer de rattraper.
 - **Un motif peut disparaître sans rien casser, et c'est arrivé.** Les flancs
   des coutures ont porté `class="frise"` le temps d'un commit : trois vues de
   la maquette sur six ont perdu leur frise aussitôt — pas d'erreur, pas de
