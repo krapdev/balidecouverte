@@ -49,20 +49,23 @@ export default function Separateur({ className = "", size = 44 }) {
       className={`couture flex items-center gap-5 ${className}`}
       aria-hidden="true"
     >
-      {/* ⚠️ **La frise du linteau, mais mirroitée** — la dent qui pend
-          sous la barre, redoublée au-dessus de la ligne : un losange.
-          C'étaient deux filets droits ; la page portait donc deux dessins
-          pour une seule idée — « ici, ça se sépare » — dont un seul était
-          de Bali. Puis la frise du linteau telle quelle, et elle penchait :
-          un motif qui pend sous une poutre dit de quel côté est le poids,
-          or une couture sépare deux choses de même rang et ne pend de
-          rien. Symétrique, elle tient d'elle-même sur l'axe de la fleur —
-          le calage de 2 px qu'imposait l'asymétrie a disparu avec elle.
-          Le tracé vit dans `.frise-chaine` et sa couleur vient de
+      {/* ⚠️ **La frise du linteau, tenue entre deux filets** — la même
+          dent, au même pas, avec un second trait sous les pointes.
+          Trois états ont précédé celui-ci, et chacun corrigeait le
+          précédent : deux filets droits (la page portait deux dessins
+          pour une seule idée, dont un seul était de Bali) ; la frise du
+          linteau telle quelle (elle penchait — un motif qui pend sous
+          une poutre dit de quel côté est le poids, or une couture sépare
+          deux choses de même rang) ; une chaîne de losanges, symétrique
+          mais qui ne se lisait plus comme la frise de la barre.
+          Bornée, elle est symétrique **et** reconnaissable, et elle tient
+          d'elle-même sur l'axe de la fleur — le calage de 2 px
+          qu'imposait l'asymétrie a disparu avec elle.
+          Le tracé vit dans `.frise-bande` et sa couleur vient de
           `currentColor` : voir globals.css. */}
-      <span className="frise frise-chaine flex-1 text-[color-mix(in_srgb,var(--bougain)_55%,transparent)]" />
+      <span className="frise frise-bande flex-1 text-[color-mix(in_srgb,var(--bougain)_55%,transparent)]" />
       <Jepun size={size} tone="var(--bougain)" />
-      <span className="frise frise-chaine flex-1 text-[color-mix(in_srgb,var(--bougain)_55%,transparent)]" />
+      <span className="frise frise-bande flex-1 text-[color-mix(in_srgb,var(--bougain)_55%,transparent)]" />
     </div>
   );
 }

@@ -181,10 +181,14 @@ Agus Yudiarta existe, et le site est son gagne-pain.
 - **Le linteau pend, la couture ne pend de rien.** Le motif du linteau est
   une dent suspendue à une ligne : son déséquilibre est sa fonction, il dit
   de quel côté est le poids. Une couture sépare deux choses de **même rang**
-  et un motif lourd d'un côté y penche pour rien — d'où `.frise-chaine`, la
-  même dent mirroitée au-dessus de la ligne, qui donne un losange. Elle tient
-  d'elle-même sur l'axe de la fleur, et le calage de 2 px qu'imposait
-  l'asymétrie disparaît avec elle.
+  et un motif lourd d'un côté y penche pour rien — d'où `.frise-bande`, la
+  même dent **tenue entre deux filets** (à 1 et à 6 dans une boîte de 7).
+  Elle tient d'elle-même sur l'axe de la fleur, et le calage de 2 px
+  qu'imposait l'asymétrie disparaît avec elle.
+  ⚠️ Une chaîne de losanges a occupé cette place — la dent mirroitée au lieu
+  d'être bornée. Symétrique aussi, mais elle ne se lisait plus comme la frise
+  de la barre : **en doublant la dent on change le motif, en la bornant on
+  l'encadre.** Le second filet suffit, il ne faut rien redessiner.
 - **Un motif peut disparaître sans rien casser, et c'est arrivé.** Les flancs
   des coutures ont porté `class="frise"` le temps d'un commit : trois vues de
   la maquette sur six ont perdu leur frise aussitôt — pas d'erreur, pas de

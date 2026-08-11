@@ -338,19 +338,24 @@
     mask-position: top left;
   }
 
-  /* ⚠️ **La chaîne : la dent du linteau, mirroitée.** Les deux motifs
-     sont le même trait, et c'est ce qui les rend parents plutôt que
-     voisins — la dent qui pend sous le linteau, redoublée au-dessus de
-     la ligne, donne un losange.
+  /* ⚠️ **La bande : la dent du linteau, tenue entre deux filets.** C'est
+     le même tracé, au même pas — seul le second filet est ajouté, sous
+     les pointes. Les deux motifs restent donc parents plutôt que
+     voisins.
      La raison n'est pas décorative. Le linteau **pend sous une poutre** :
      son déséquilibre est sa fonction, il dit de quel côté est le poids.
      Une couture ne pend de rien — elle sépare deux choses de même rang,
-     et un motif lourd d'un côté y penche pour rien. Symétrique, elle
-     tient d'elle-même sur l'axe de la fleur, et le calage de 2 px que
-     l'asymétrie imposait disparaît. */
-  .frise-chaine {
-    --motif: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%229%22%20viewBox%3D%220%200%2016%209%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%204.5h16%22%2F%3E%3Cpath%20d%3D%22M0%204.5l4%203.5%204-3.5%204%203.5%204-3.5%22%2F%3E%3Cpath%20d%3D%22M0%204.5l4-3.5%204%203.5%204-3.5%204%203.5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
-    --hauteur: 9px;
+     et un motif lourd d'un côté y penche pour rien. Fermée en haut comme
+     en bas, la bande tient d'elle-même sur l'axe de la fleur : les deux
+     filets sont à 1 et à 6 dans une boîte de 7, centre 3,5. Le calage de
+     2 px que l'asymétrie imposait disparaît avec elle.
+     ⚠️ Une chaîne de losanges a occupé cette place entre-temps — la dent
+     mirroitée au lieu d'être bornée. Elle était symétrique aussi, mais
+     elle ne se lisait plus comme la frise de la barre : en doublant la
+     dent on change le motif, en la bornant on l'encadre. */
+  .frise-bande {
+    --motif: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2222%22%20height%3D%227%22%20viewBox%3D%220%200%2022%207%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%201h22%22%2F%3E%3Cpath%20d%3D%22M0%206h22%22%2F%3E%3Cpath%20d%3D%22M0%201l5.5%205%205.5-5%205.5%205%205.5-5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+    --hauteur: 7px;
   }
 
   .horizon {
