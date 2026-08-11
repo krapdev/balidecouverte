@@ -99,7 +99,18 @@
     --accent:      #476635;   /* le bambou porte l'action */
     --accent-hi:   #567c3f;
     --accent-ink:  #fbf7ee;
-    --eyebrow:     #ad3550;   /* le bougainvillier, lisible en petit corps */
+    /* ⚠️ **L'eyebrow n'est plus rouge, et ce n'est pas un renoncement.**
+       Le rouge marque les titres qui invitent, et une fonction ne tient
+       que si elle est rare. Il était arrivé partout par petites touches
+       — eyebrows, chiffres des cartes, numéros de jour, « Non compris »,
+       numéros d'articles : dix-neuf occurrences sur trois pages contre
+       quatre titres. À dix-neuf contre quatre, ce n'est plus l'exception
+       qui se remarque, et le titre rouge ne dit plus rien.
+       Ce qui reste rouge se compte : les grands titres, et deux usages
+       qui ne sont pas du texte — le survol d'un bouton qui retire
+       quelque chose, et la marque « à compléter ». Les deux sont
+       épinglés en clair à --bougain-ink, là où ils servent. */
+    --eyebrow:     var(--text);
     --tint:        #fdeecf;
     --tint-ink:    #8a5a09;
     --whatsapp:    #0f7a40;
@@ -290,7 +301,7 @@
      centrée sur l'angle elle ressemble à un badge collé, décalée elle
      ressemble à quelque chose qu'on a épinglé. */
   .fiche-porte-broche { position: relative; }
-  .broche { position: absolute; left: -0.75rem; top: -1rem; z-index: 10;
+  .broche { position: absolute; left: -1.25rem; top: -1.5rem; z-index: 10;
             display: grid; pointer-events: none;
             filter: drop-shadow(0 3px 6px rgba(20, 30, 18, 0.35)); }
   .couture-hote { position: relative; }
@@ -484,7 +495,6 @@
      Teindre tous les titres ne rendrait pas la page plus gaie, ça la
      rendrait rouge. */
   .titre-rouge { color: var(--bougain-ink); }
-  .plaque-num { flex: none; width: 1.25rem; font-family: var(--util); font-size: 0.6875rem; font-variant-numeric: tabular-nums; color: var(--text-faint); }
   /* ⚠️ **Le disque n'est pas un cadre, c'est ce qui rend le vert
      visible.** Les symboles étaient déjà en bambou, mais un trait de
      1,6 px sur un fond sable ne donne pas une couleur — il donne un
@@ -493,12 +503,7 @@
      liste, et le menu cesse d'être une colonne de texte. Le trait passe
      à --bambou-deep : 7,48 sur la pastille, très au-dessus du seuil de
      3,0 des objets graphiques. */
-  .plaque-sym {
-    flex: none; display: grid; place-items: center;
-    width: 2.25rem; height: 2.25rem; border-radius: 999px;
-    background: color-mix(in srgb, var(--bambou) 14%, transparent);
-    color: var(--bambou-deep);
-  }
+  .plaque-sym { flex: none; display: grid; color: var(--bougain-ink); }
   .plaque-txt { min-width: 0; flex: 1; }
   .plaque-titre { display: block; font-family: var(--display); font-size: 1.3rem; line-height: 1.15; }
   .nav-menu a.plaque[aria-current] .plaque-titre { color: var(--accent); font-weight: 600; }
@@ -1242,7 +1247,7 @@
   .cart-name { font-size: var(--t-sm); font-weight: 600; line-height: 1.35; }
   .cart-loc { font-family: var(--util); font-size: var(--t-xs); color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.1em; }
   .cart-remove { background: none; border: none; cursor: pointer; color: var(--text-faint); padding: 4px; display: grid; place-items: center; border-radius: 2px; }
-  .cart-remove:hover { color: var(--eyebrow); }
+  .cart-remove:hover { color: var(--bougain-ink); }
 
   .fields { display: grid; gap: 1.15rem; }
   @media (min-width: 560px) { .fields { grid-template-columns: 1fr 1fr; } }
@@ -1275,7 +1280,7 @@
     width: 44px; height: 44px; flex: none; border: 1px solid var(--rule); background: var(--surface);
     border-radius: var(--radius); cursor: pointer; display: grid; place-items: center; color: var(--text-soft);
   }
-  .counter button:hover { border-color: var(--eyebrow); color: var(--eyebrow); }
+  .counter button:hover { border-color: var(--bougain-ink); color: var(--bougain-ink); }
   .counter output { font-family: var(--util); font-size: var(--t-sm); min-width: 2.4ch; text-align: center; font-variant-numeric: tabular-nums; }
   .counter .counter-label { font-size: var(--t-sm); color: var(--text-soft); margin-left: 0.1rem; }
 
@@ -1502,7 +1507,7 @@
   /* Le marqueur de champ manquant. Volontairement laid : ce n'est pas un
      état par défaut élégant à laisser traîner, c'est une alarme. Une case
      vide se voit, une case inventée ne se voit pas. */
-  .acompleter { background: color-mix(in srgb, var(--bougain) 18%, transparent); color: var(--eyebrow); font-family: var(--util); font-size: 0.9em; font-weight: 700; padding: 0.1rem 0.35rem; border-radius: 3px; }
+  .acompleter { background: color-mix(in srgb, var(--bougain) 18%, transparent); color: var(--bougain-ink); font-family: var(--util); font-size: 0.9em; font-weight: 700; padding: 0.1rem 0.35rem; border-radius: 3px; }
   .questions { margin-top: clamp(3rem, 8vw, 4.5rem); border: 1px solid var(--eyebrow); background: color-mix(in srgb, var(--bougain) 8%, transparent); border-radius: 16px; padding: clamp(1.25rem, 4vw, 2rem); }
   .questions h2 { font-size: 1.25rem; line-height: 1.3; }
   .questions > p { margin-top: 0.5rem; max-width: 62ch; font-size: var(--t-sm); color: var(--text-soft); }
@@ -3068,12 +3073,23 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
   }
 
   /* Jepun — le frangipanier : cinq pétales en hélice, cœur miel. */
-  function jepun(size, tone) {
+  /* `coeur` est là pour la broche des fiches vertes, qui veut un cœur
+     rouge sur ses pétales jaunes : le doré était de la même famille de
+     teinte et la fleur se lisait comme une tache unie. Sur les pétales
+     bougainvillier des coutures, à l'inverse, un cœur rouge
+     disparaîtrait — un cœur ne se voit que s'il tranche. D'où le doré
+     par défaut. */
+  function jepun(size, tone, coeur) {
     var s = '<svg viewBox="-50 -50 100 100" width="' + size + '" height="' + size + '" aria-hidden="true"><g fill="' + tone + '">';
     [0, 72, 144, 216, 288].forEach(function (a) {
       s += '<path transform="rotate(' + a + ')" d="' + PETAL + '"/>';
     });
-    return s + '</g><circle r="6" fill="' + C.soleil + '"/></svg>';
+    /* ⚠️ `#dfa441` et non `C.soleil` : le cœur de la fleur est un doré
+       plus sombre que le soleil de la palette. La maquette a longtemps
+       posé `C.soleil` ici — un cran trop clair, invisible à la
+       comparaison parce qu'on ne regarde pas le cœur d'une fleur de
+       44 px. Aligné sur `components/Scene.jsx`. */
+    return s + '</g><circle r="6" fill="' + (coeur || "#dfa441") + '"/></svg>';
   }
 
   /* Patra punggel — l'ornement d'angle de la sculpture balinaise : la
@@ -4160,8 +4176,8 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
 
   /* ---------- Rendu : us et coutumes ---------- */
   function renderUsages() {
-    $("valeursBroche").innerHTML = jepun(54, "var(--soleil)");
-    $("usagesBroche").innerHTML = jepun(54, "var(--soleil)");
+    $("valeursBroche").innerHTML = jepun(54, "var(--soleil)", "var(--bougain)");
+    $("usagesBroche").innerHTML = jepun(54, "var(--soleil)", "var(--bougain)");
     $("valeursFiligrane").innerHTML = symbole("padma", 230, 0.5);
     $("usagesFiligrane").innerHTML = symbole("nyepi", 230, 0.5);
     $("usagesTitre").textContent = USAGES.titre;
@@ -4603,15 +4619,14 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
   ];
 
   $("navMenuList").innerHTML =
-    MENU.map(function (m, i) {
+    MENU.map(function (m) {
       var goto = m[4] ? ' data-goto="' + m[4] + '"' : "";
       /* Le `data-de` dit où atterrir une fois rentré à l'accueil. Sans
          lui, une entrée qui ramène à l'accueil y arrive en haut de page
          au lieu de la section demandée. */
       var de = m[5] ? ' data-de="' + m[5] + '"' : "";
       return '<a class="plaque" href="' + m[0] + '"' + goto + de + '>' +
-        '<span class="plaque-num">' + String(i + 1).padStart(2, "0") + '</span>' +
-        '<span class="plaque-sym">' + symbole(m[3], 22) + '</span>' +
+        '<span class="plaque-sym">' + symbole(m[3], 26) + '</span>' +
         '<span class="plaque-txt">' +
           '<span class="plaque-titre">' + m[1] + '</span>' +
           '<span class="plaque-gloss">' + m[2] + '</span>' +

@@ -33,7 +33,7 @@ function Counter({ label, field, value, onStep }) {
         <button
           type="button"
           onClick={() => onStep(field, -1)}
-          className="grid h-11 w-11 shrink-0 place-items-center rounded border border-rule bg-surface text-soft transition-colors hover:border-eyebrow hover:text-eyebrow"
+          className="grid h-11 w-11 shrink-0 place-items-center rounded border border-rule bg-surface text-soft transition-colors hover:border-bougain-ink hover:text-bougain-ink"
           aria-label={`Retirer un ${label.toLowerCase().replace(/s$/, "")}`}
         >
           <Minus size={15} />
@@ -44,7 +44,7 @@ function Counter({ label, field, value, onStep }) {
         <button
           type="button"
           onClick={() => onStep(field, 1)}
-          className="grid h-11 w-11 shrink-0 place-items-center rounded border border-rule bg-surface text-soft transition-colors hover:border-eyebrow hover:text-eyebrow"
+          className="grid h-11 w-11 shrink-0 place-items-center rounded border border-rule bg-surface text-soft transition-colors hover:border-bougain-ink hover:text-bougain-ink"
           aria-label={`Ajouter un ${label.toLowerCase().replace(/s$/, "")}`}
         >
           <Plus size={15} />
@@ -115,7 +115,7 @@ export default function TripBuilder() {
                 <button
                   type="button"
                   onClick={() => trip.setBaseCircuit(null)}
-                  className="grid h-11 w-11 shrink-0 place-items-center rounded-sm text-faint transition-colors hover:text-eyebrow"
+                  className="grid h-11 w-11 shrink-0 place-items-center rounded-sm text-faint transition-colors hover:text-bougain-ink"
                   aria-label="Repartir de zéro"
                 >
                   <X size={16} />
@@ -175,7 +175,7 @@ export default function TripBuilder() {
                         <button
                           type="button"
                           onClick={() => trip.removeActivite(a.id)}
-                          className="grid h-11 w-11 shrink-0 place-items-center rounded-sm text-faint transition-colors hover:text-eyebrow"
+                          className="grid h-11 w-11 shrink-0 place-items-center rounded-sm text-faint transition-colors hover:text-bougain-ink"
                           aria-label={`Retirer ${a.titre}`}
                         >
                           <X size={16} />

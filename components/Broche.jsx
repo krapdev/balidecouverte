@@ -22,9 +22,13 @@ import { Jepun } from "./Scene";
 export default function Broche({ size = 54, className = "" }) {
   return (
     <span
-      className={`pointer-events-none absolute -left-3 -top-4 z-10 drop-shadow-[0_3px_6px_rgba(20,30,18,0.35)] ${className}`}
+      className={`pointer-events-none absolute -left-5 -top-6 z-10 drop-shadow-[0_3px_6px_rgba(20,30,18,0.35)] ${className}`}
     >
-      <Jepun size={size} tone="var(--soleil)" />
+      {/* Le cœur rouge : sur des pétales jaunes, le cœur doré d'origine
+          était de la même famille de teinte et la fleur se lisait comme
+          une tache unie. Le bougainvillier tranche, et il rappelle celui
+          des coutures — la même fleur, l'autre couleur. */}
+      <Jepun size={size} tone="var(--soleil)" coeur="var(--bougain)" />
     </span>
   );
 }

@@ -86,7 +86,16 @@ export function JepunPuce({ size = 20, plein = false, className = "" }) {
   );
 }
 
-export function Jepun({ size = 26, className = "", tone = "currentColor" }) {
+/* `coeur` est là pour la broche des fiches vertes, qui veut un cœur
+   rouge sur ses pétales jaunes. Le doré reste la valeur par défaut : sur
+   les pétales bougainvillier des coutures, un cœur rouge disparaîtrait
+   dans les pétales — un cœur ne se voit que s'il tranche. */
+export function Jepun({
+  size = 26,
+  className = "",
+  tone = "currentColor",
+  coeur = "#dfa441",
+}) {
   return (
     <svg
       viewBox="-50 -50 100 100"
@@ -104,7 +113,7 @@ export function Jepun({ size = 26, className = "", tone = "currentColor" }) {
           />
         ))}
       </g>
-      <circle r="6" fill="#dfa441" />
+      <circle r="6" fill={coeur} />
     </svg>
   );
 }

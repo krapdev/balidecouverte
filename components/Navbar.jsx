@@ -412,7 +412,7 @@ export default function Navbar() {
             aria-label="Sommaire du site"
           >
             <ul className="m-0 flex list-none flex-col p-0">
-              {NAV.map((l, i) => {
+              {NAV.map((l) => {
                 const actif = ici(l.href);
                 return (
                   <li key={l.href}>
@@ -433,23 +433,22 @@ export default function Navbar() {
                           : "border-l-transparent"
                       }`}
                     >
-                      <span className="w-5 shrink-0 font-sans text-xs tabular-nums text-faint">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      {/* ⚠️ **Le disque n'est pas un cadre, c'est ce qui
-                          rend le vert visible.** Les symboles étaient
-                          déjà en bambou, mais un trait de 1,6 px sur un
-                          fond sable ne donne pas une couleur — il donne
-                          un dessin gris-vert qu'on ne remarque pas. Posé
-                          sur une pastille du même vert à 10 %, le même
-                          trait devient une tache verte dans la liste,
-                          et le menu cesse d'être une colonne de texte.
-                          Le trait passe à `--bambou-deep` : 9,61 sur
-                          l'ivoire, et il tient largement le seuil de 3,0
-                          des objets graphiques par-dessus la pastille. */}
-                      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[color-mix(in_srgb,var(--bambou)_14%,transparent)] text-bambou-deep">
-                        <Symbole nom={l.symbole} size={22} />
-                      </span>
+                      {/* ⚠️ **Les numéros ont été retirés.** Ils
+                          numérotaient un sommaire qui n'a pas d'ordre :
+                          on ne lit pas ce menu de 01 à 06, on y choisit
+                          une entrée. Un compteur devant chaque ligne
+                          promet une progression qui n'existe pas, et il
+                          coûtait une colonne de 20 px sur un écran de
+                          390 — celle qui manquait au gloss.
+                          ⚠️ **La pastille aussi.** Elle avait été posée
+                          pour rendre le vert visible ; le rouge se voit
+                          seul. Un fond qui oblige à en ajouter un autre
+                          n'était pas le bon fond. */}
+                      <Symbole
+                        nom={l.symbole}
+                        size={26}
+                        className="shrink-0 text-bougain-ink"
+                      />
                       <span className="min-w-0 flex-1">
                         <span
                           className={`block font-display text-[1.3rem] leading-tight ${

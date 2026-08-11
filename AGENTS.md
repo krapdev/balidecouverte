@@ -223,6 +223,16 @@ Agus Yudiarta existe, et le site est son gagne-pain.
   pages où mène la fourche —, l'encre à ceux qui *outillent* : formulaire,
   tarifs, pages légales. Teindre tous les titres ne rend pas la page plus
   gaie, ça la rend rouge.
+  ⚠️ **Une exception ne tient que si on la compte.** Le rouge était arrivé
+  partout par petites touches — eyebrows, chiffres des cartes, numéros de
+  jour, « Non compris », numéros d'articles : **dix-neuf occurrences sur
+  trois pages contre quatre titres**, et le titre rouge ne disait plus rien.
+  `--eyebrow` vaut donc `var(--text)` : une ligne, parce que tout passait
+  par ce jeton. Le relevé se refait en trois lignes (`getComputedStyle` sur
+  tout le corps, filtré sur la teinte) — **si la liste dépasse les titres et
+  les deux rouges épinglés, c'est que le rouge a recommencé à fuir.** Les
+  deux épinglés ne sont pas du texte : le survol d'un bouton qui retire
+  quelque chose, et la marque `<AComplete>`.
 - **Un dessin discret ne s'obtient pas en agrandissant un dessin fin.** Les
   cartes de la fourche ont porté un penjor et un tedung de 170 px rognés par
   l'angle : sur une carte de 294 px en mobile, le motif en occupait plus de la

@@ -77,7 +77,20 @@
   --accent: #476635; /* le bambou porte l'action */
   --accent-hi: #567c3f;
   --accent-ink: #fbf7ee;
-  --eyebrow: #ad3550; /* le bougainvillier, lisible en petit corps */
+  /* ⚠️ **L'eyebrow n'est plus rouge, et ce n'est pas un renoncement.**
+     Le rouge a une fonction — il marque les titres qui invitent — et
+     une fonction ne tient que si elle est rare. Il était arrivé partout
+     par petites touches : eyebrows, chiffres des cartes, numéros de
+     jour, « Non compris », numéros d'articles des pages légales. Le
+     relevé en comptait dix-neuf sur trois pages, contre quatre titres.
+     À dix-neuf contre quatre, ce n'est plus l'exception qui se
+     remarque, c'est la règle — et le titre rouge ne disait plus rien.
+     Une seule ligne à changer, parce que tout passait par ce jeton.
+     Ce qui reste rouge se compte : les quatre grands titres, et deux
+     usages qui ne sont pas du texte — le survol d'un bouton qui retire
+     quelque chose, et la marque `<AComplete>`. Les deux sont épinglés
+     à `--bougain-ink` en clair, là où ils servent. */
+  --eyebrow: var(--text);
   --tint: #fdeecf;
   --tint-ink: #8a5a09;
   --whatsapp: #0f7a40; /* assombri : le blanc dessus tombait à 4,31 */

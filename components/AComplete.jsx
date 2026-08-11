@@ -11,7 +11,7 @@
  */
 export function AComplete({ children }) {
   return (
-    <mark className="rounded-sm bg-[color-mix(in_srgb,var(--bougain)_18%,transparent)] px-1.5 py-0.5 font-sans text-[0.9em] font-bold text-eyebrow">
+    <mark className="rounded-sm bg-[color-mix(in_srgb,var(--bougain)_18%,transparent)] px-1.5 py-0.5 font-sans text-[0.9em] font-bold text-bougain-ink">
       [à compléter{children ? ` — ${children}` : ""}]
     </mark>
   );

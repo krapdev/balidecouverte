@@ -63,7 +63,7 @@ export default function LivreDOr() {
 
         <section className="ground-ivoire band pt-[clamp(1.5rem,4vw,2.5rem)]">
           <div className="shell">
-            <SectionHead eyebrow="Livre d'or" title={LIVRE_OR.titre} niveau={1}>
+            <SectionHead eyebrow="Livre d'or" title={LIVRE_OR.titre} niveau={1} rouge>
               {LIVRE_OR.chapo}
             </SectionHead>
 
