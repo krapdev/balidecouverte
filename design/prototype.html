@@ -214,16 +214,34 @@
   .btn-wa { background: var(--whatsapp); color: #fff; }
   .btn-wa:hover { background: var(--whatsapp-hi); box-shadow: 0 0 34px -6px color-mix(in srgb, var(--whatsapp) 70%, transparent); }
   .btn-lg { padding: 1.15em 2em; font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.13em; }
+  /* ⚠️ **38 caractères sur une ligne : c'est la largeur de l'écran qui
+     décide de la taille, pas le goût.** Mesuré — le texte occupe
+     18,46 px de large par pixel de fonte, la flèche et sa gouttière en
+     prennent 32 —, le plafond d'une seule ligne vaut 13,4 px à 320,
+     17,2 à 390 et 19,2 à 430. Aucun palier fixe ne sert deux téléphones
+     à la fois : la borne basse d'un `clamp` imposerait à 390 une police
+     calculée pour 320. `4,91vw − 2,82px` suit la largeur utile en
+     restant sous ce plafond avec 0,9 px de marge partout ; le toit de
+     1,625rem est atteint vers 590 px, là où une ligne en autorise 26,9.
+     ⚠️ `nowrap` est une **assertion**, pas une ceinture : si la fonte
+     change ou si le libellé s'allonge, la page déborde et l'audit le
+     voit. Un retour à la ligne passerait inaperçu — c'est exactement ce
+     qui se produisait à 320. */
   .hero-lien {
     display: inline-flex; align-items: center; gap: 0.75rem;
     min-height: 44px; color: var(--on-immersive); text-decoration: none;
-    font-size: clamp(1rem, 3.6vw, 1.1875rem);
+    white-space: nowrap;
+    font-size: clamp(0.75rem, calc(4.91vw - 2.82px), 1.625rem);
   }
   .hero-lien > span {
     text-decoration: underline; text-underline-offset: 6px;
     text-decoration-color: color-mix(in srgb, var(--on-immersive) 55%, transparent);
   }
-  .hero-lien > svg { flex: none; transition: transform .2s; }
+  /* ⚠️ La flèche est en `em` : à 26 px de texte, un dessin figé à 20
+     restait celui d'un lien de 16. Elle entre donc dans le budget de
+     largeur du calcul ci-dessus — refait avec elle, la marge reste de
+     0,3 px au point le plus serré (587 px de large). */
+  .hero-lien > svg { flex: none; width: 1.15em; height: 1.15em; transition: transform .2s; }
   .hero-lien:hover > svg { transform: translateX(4px); }
 
   /* Deux surfaces de lecture qui alternent, et une bande pleine bambou */

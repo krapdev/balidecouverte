@@ -244,20 +244,46 @@ export default function Hero() {
               le dit là où un bouton promettait un engagement.
               La cible garde ses 44 px de haut (WCAG 2.5.5) : c'est
               `min-h-11` qui les tient, pas le fond, et le soulignement
-              porte l'affordance à la place de la couleur (1.4.1). */}
+              porte l'affordance à la place de la couleur (1.4.1).
+
+              ## La taille, tenue par la largeur et non choisie
+
+              ⚠️ **Ce libellé ne peut pas grandir librement : 38
+              caractères sur une ligne, c'est la largeur de l'écran qui
+              décide.** Mesuré — le texte occupe 18,46 px de large par
+              pixel de fonte, la flèche et sa gouttière en prennent 32 —,
+              le plafond d'une seule ligne vaut **13,4 px à 320, 17,2 à
+              390 et 19,2 à 430**. Il n'y a donc pas de palier fixe qui
+              serve deux téléphones à la fois : la borne basse d'un
+              `clamp` imposerait à 390 une police calculée pour 320.
+              `4,91vw − 2,82px` suit la largeur utile en restant sous ce
+              plafond avec 0,9 px de marge partout, et le toit de
+              1,625rem (26 px) est atteint vers 590 px de large, là où
+              une seule ligne en autorise 26,9.
+
+              ⚠️ `whitespace-nowrap` n'est pas une ceinture de sécurité,
+              c'est une **assertion**. Si la fonte change, ou si le
+              libellé s'allonge, le calcul devient faux : avec `nowrap`
+              la page déborde et l'audit le voit tout de suite. Un retour
+              à la ligne, lui, passerait inaperçu — c'est exactement ce
+              qui se produisait avant, à 320. */}
           <div style={cran(4)} className="monte flex flex-wrap gap-3">
             <a
-              className="group inline-flex min-h-11 items-center gap-3 text-[clamp(1rem,3.6vw,1.1875rem)] text-on-immersive no-underline"
+              className="group inline-flex min-h-11 items-center gap-3 whitespace-nowrap text-[clamp(0.75rem,calc(4.91vw-2.82px),1.625rem)] text-on-immersive no-underline"
               href="#chemins"
             >
               <span className="underline decoration-[color-mix(in_srgb,var(--on-immersive)_55%,transparent)] underline-offset-[6px]">
                 Créons ensemble le voyage de vos rêves
               </span>
+              {/* ⚠️ La flèche est en `em` et non en pixels : à 26 px de
+                  texte, un dessin figé à 20 restait celui d'un lien de
+                  16. Elle entre donc dans le budget de largeur du
+                  calcul ci-dessus — refait avec elle, la marge reste de
+                  0,3 px au point le plus serré (587 px de large). */}
               <ArrowRight
-                size={20}
                 strokeWidth={2.2}
                 aria-hidden="true"
-                className="shrink-0 transition-transform group-hover:translate-x-1"
+                className="h-[1.15em] w-[1.15em] shrink-0 transition-transform group-hover:translate-x-1"
               />
             </a>
           </div>
