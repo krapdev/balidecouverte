@@ -224,11 +224,14 @@ Agus Yudiarta existe, et le site est son gagne-pain.
   mène la fourche. L'encre reste à ce qui se consulte sans engager la suite :
   les tarifs, le portrait et les pages légales.
   Teindre tous les titres ne rend pas la page plus gaie, ça la rend rouge.
-  ⚠️ **La fleur des coutures mesure 40, partout.** Trois tailles avaient
-  coexisté — 44 dans les coutures, 28 dans celles du portrait, 54 pour la
-  broche : une taille par endroit plutôt qu'une par fonction, alors que
-  c'est le même objet dans les trois cas. Le plancher reste 34, en dessous
-  duquel elle se lit comme un nœud sur le fil.
+  ⚠️ **Une taille par fonction, pas une par endroit.** La fleur des coutures
+  mesure 40 **partout** — elle en a valu 44, puis 28 dans le portrait, ce qui
+  faisait une taille par page alors que c'est le même objet. La broche des
+  fiches vertes en vaut 48, et ce n'est pas une exception oubliée : la fleur
+  d'une couture s'interrompt sur un fil, entre deux traits de la même teinte
+  qui lui donnent l'échelle ; la broche est seule sur un aplat vert, sans
+  rien à côté, et à 40 elle s'y lisait comme une pastille. Le plancher reste
+  34, en dessous duquel elle se lit comme un nœud sur le fil.
   ⚠️ **Une exception ne tient que si on la compte.** Le rouge était arrivé
   partout par petites touches — eyebrows, chiffres des cartes, numéros de
   jour, « Non compris », numéros d'articles : **dix-neuf occurrences sur

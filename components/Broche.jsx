@@ -16,10 +16,18 @@ import { Jepun } from "./Scene";
  * épinglé. Un objet posé sur un tissu ne l'est jamais tout à fait au
  * bord.
  *
+ * ⚠️ **48 et non 40, la taille des coutures.** Ce n'est pas une
+ * exception qui a échappé à l'harmonisation : c'est une taille par
+ * fonction, et la broche n'a pas la même que la fleur d'une couture.
+ * Celle-ci s'interrompt sur un fil, entre deux traits de la même
+ * teinte, et se lit par contraste avec eux ; la broche est posée
+ * seule sur un aplat vert, sans rien à côté pour donner l'échelle.
+ * À 40 elle s'y lisait comme une pastille.
+ *
  * `aria-hidden` par `Jepun`, et rien à annoncer : la fiche a déjà son
  * titre et son eyebrow.
  */
-export default function Broche({ size = 40, className = "" }) {
+export default function Broche({ size = 48, className = "" }) {
   return (
     <span
       className={`pointer-events-none absolute -left-5 -top-6 z-10 drop-shadow-[0_3px_6px_rgba(20,30,18,0.35)] ${className}`}
