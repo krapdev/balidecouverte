@@ -219,10 +219,10 @@ Agus Yudiarta existe, et le site est son gagne-pain.
   ne laisse aucune marge le jour où le fond change. L'encré donne 5,12 sur le
   sable et 5,77 sur l'ivoire. Il ne se pose **jamais sur le vert profond**
   (on tombe sous 2), et il reste **rare, par fonction** : le rouge va aux
-  titres qui *invitent* — la fourche, le livre d'or, l'ouverture des deux
-  pages où mène la fourche —, l'encre à ceux qui *outillent* : formulaire,
-  tarifs, pages légales. Teindre tous les titres ne rend pas la page plus
-  gaie, ça la rend rouge.
+  **cinq titres du parcours** — la fourche, le formulaire, le livre d'or,
+  et l'ouverture des deux pages où mène la fourche. L'encre reste à ce qui
+  se consulte sans engager la suite : les tarifs et les pages légales.
+  Teindre tous les titres ne rend pas la page plus gaie, ça la rend rouge.
   ⚠️ **Une exception ne tient que si on la compte.** Le rouge était arrivé
   partout par petites touches — eyebrows, chiffres des cartes, numéros de
   jour, « Non compris », numéros d'articles : **dix-neuf occurrences sur

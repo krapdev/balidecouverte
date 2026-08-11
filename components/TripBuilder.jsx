@@ -86,7 +86,7 @@ export default function TripBuilder() {
       className="ground-sable band"
     >
       <div className="shell">
-        <SectionHead eyebrow="Sur-Mesure" title="Construisez votre demande.">
+        <SectionHead eyebrow="Sur-Mesure" title="Construisez votre demande." rouge>
           Quelques questions, une case libre pour tout le reste, et votre
           e-mail m&apos;arrive déjà rédigé. Je
           réponds sous 24 h, en français — et c&apos;est ce fil-là qui devient
