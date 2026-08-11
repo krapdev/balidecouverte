@@ -135,7 +135,17 @@ export default function AboutAgus() {
             est l'assise du dieu suprême, le sanctuaire vers lequel tout
             temple est orienté. En filigrane et non en icône — un
             symbole affiché en clair demande à être expliqué, une
-            texture non. Il est posé là où aucun texte ne passe. */}
+            texture non. Il est posé là où aucun texte ne passe.
+
+            ⚠️ **Son décalage se règle sur le texte, pas sur l'angle.**
+            À -48/-56 il descendait sur les deux premières lignes du
+            titre, et un filigrane qui passe sous du texte le grise même
+            à 16 % — c'est justement la règle de la maison : le motif va
+            sur un fond de section, jamais sous du texte. Poussé à
+            -64/-80, il ne reste de lui que la moitié basse-gauche de la
+            fleur, dans l'angle vide au-dessus du titre. Le rognage vient
+            de l'`overflow-hidden` de la fiche : c'est lui qui fait
+            l'ornement, pas le dessin. */}
         {/* Pas d'apparition au défilement sur ce panneau, contrairement
             au reste : c'est devenu une **destination de navigation**, et
             un `.reveal` non encore apparu est décalé de 14 px vers le
@@ -156,7 +166,7 @@ export default function AboutAgus() {
               nom="padma"
               size={230}
               strokeWidth={0.5}
-              className="pointer-events-none absolute -right-12 -top-14 text-on-immersive opacity-[0.16]"
+              className="pointer-events-none absolute -right-16 -top-20 text-on-immersive opacity-[0.16]"
             />
             <h3 className="relative max-w-[22ch] text-[clamp(1.5rem,4.5vw,2rem)] leading-tight">
               {VALEURS.titre}

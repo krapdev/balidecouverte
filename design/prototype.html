@@ -292,7 +292,12 @@
     background: var(--immersive); color: var(--on-immersive);
     padding: clamp(2rem, 6vw, 3rem) clamp(1.5rem, 5vw, 3rem);
   }
-  .fiche-filigrane { position: absolute; top: -3.5rem; right: -3rem; opacity: .16;
+  /* ⚠️ Le décalage se règle sur le texte, pas sur l'angle. À -3/-3,5rem
+     le filigrane descendait sur les deux premières lignes du titre, et
+     un motif qui passe sous du texte le grise même à 16 %. Poussé à
+     -4/-5rem, il n'en reste que la moitié basse-gauche, dans l'angle
+     vide au-dessus du titre. */
+  .fiche-filigrane { position: absolute; top: -5rem; right: -4rem; opacity: .16;
                      color: var(--on-immersive); pointer-events: none; }
   /* ⚠️ La broche est SŒUR de la fiche : celle-ci porte `overflow: hidden`
      pour que son filigrane reste dans les angles arrondis, et une broche
