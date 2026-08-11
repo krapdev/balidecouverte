@@ -59,6 +59,7 @@ export default function Activites({ niveau = 2 }) {
           eyebrow="Vos envies"
           title="Cochez, j&apos;en fais un itinéraire."
           niveau={niveau}
+          rouge
         >
           Rien ici n&apos;est une commande. Ce que vous cochez part dans votre
           message, et je construis le circuit autour — c&apos;est mon métier de

@@ -391,7 +391,7 @@ export default function Navbar() {
         {/* Le linteau. Il remplace le `border-b` : une frise de dents,
             celle qui court sur la pierre au-dessus des portes de temple.
             Sept pixels, une image SVG en ligne, aucune requête. */}
-        <div className="linteau" aria-hidden="true" />
+        <div className="frise text-bambou-deep" aria-hidden="true" />
       </header>
 
       {/* ⚠️ Le panneau est **hors du `<header>`**, et ce n'est pas un
@@ -436,11 +436,20 @@ export default function Navbar() {
                       <span className="w-5 shrink-0 font-sans text-xs tabular-nums text-faint">
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      <Symbole
-                        nom={l.symbole}
-                        size={26}
-                        className="shrink-0 text-accent"
-                      />
+                      {/* ⚠️ **Le disque n'est pas un cadre, c'est ce qui
+                          rend le vert visible.** Les symboles étaient
+                          déjà en bambou, mais un trait de 1,6 px sur un
+                          fond sable ne donne pas une couleur — il donne
+                          un dessin gris-vert qu'on ne remarque pas. Posé
+                          sur une pastille du même vert à 10 %, le même
+                          trait devient une tache verte dans la liste,
+                          et le menu cesse d'être une colonne de texte.
+                          Le trait passe à `--bambou-deep` : 9,61 sur
+                          l'ivoire, et il tient largement le seuil de 3,0
+                          des objets graphiques par-dessus la pastille. */}
+                      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[color-mix(in_srgb,var(--bambou)_14%,transparent)] text-bambou-deep">
+                        <Symbole nom={l.symbole} size={22} />
+                      </span>
                       <span className="min-w-0 flex-1">
                         <span
                           className={`block font-display text-[1.3rem] leading-tight ${

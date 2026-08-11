@@ -51,7 +51,7 @@ export default function Chemins() {
             dernière proposition n'était même pas grammaticale.
             L'ordre est maintenant celui de la décision : **entre quoi on
             choisit, où ça mène, et seulement ensuite que rien n'engage.** */}
-        <SectionHead eyebrow="Par où commencer" title="Deux façons de partir.">
+        <SectionHead eyebrow="Par où commencer" title="Deux façons de partir." rouge>
           Partez de mon circuit — quinze jours que j&apos;ai déjà conduits des
           dizaines de fois — ou de vos envies, en cochant ce qui vous attire.
           Les deux mènent au même endroit : un message que vous m&apos;écrivez,

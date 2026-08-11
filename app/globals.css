@@ -97,6 +97,11 @@
   --color-soleil: var(--soleil);
   --color-soleil-pale: var(--soleil-pale);
   --color-bougain: var(--bougain);
+  /* Le bougainvillier encré : la seule teinte de rouge qui tienne le
+     seuil du texte courant sur les deux fonds clairs (5,77 sur l'ivoire,
+     5,12 sur le sable). Le bougainvillier courant reste réservé à ce qui
+     ne porte pas de mot — la fleur des coutures. */
+  --color-bougain-ink: var(--bougain-ink);
   --color-ivoire: var(--ivoire);
   --color-sable: var(--sable);
 
@@ -310,11 +315,26 @@
      Vert et non noir : le site n'a aucun noir. `--encre` est déjà un
      vert-noir, mais c'est la couleur du TEXTE ; une frise dans cette
      teinte concurrencerait la typographie au lieu de la border. */
-  .linteau {
+  /* ⚠️ **Le motif est un masque, pas une image, et c'est ce qui permet de
+     le réemployer.** Il était dessiné en `background-image` avec sa
+     couleur cuite dans le SVG : le jour où la couture du séparateur a
+     voulu la même frise en bougainvillier, il aurait fallu une deuxième
+     copie du tracé, et deux copies d'un tracé divergent — c'est exactement
+     ce qui est arrivé aux entrées de navigation, qui ont vécu en trois
+     exemplaires avant de ne plus dire la même chose.
+     En masque, la forme vient du SVG et la couleur de `currentColor` : un
+     seul tracé, autant de teintes qu'on veut. Le SVG n'a donc plus de
+     couleur propre — seule son opacité compte. */
+  .frise {
+    --motif: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2222%22%20height%3D%227%22%20viewBox%3D%220%200%2022%207%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%201h22%22%2F%3E%3Cpath%20d%3D%22M0%201l5.5%205%205.5-5%205.5%205%205.5-5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
     height: 7px;
-    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2222%22%20height%3D%227%22%20viewBox%3D%220%200%2022%207%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22rgba%2847%2C71%2C32%2C1%29%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%201h22%22%2F%3E%3Cpath%20d%3D%22M0%201l5.5%205%205.5-5%205.5%205%205.5-5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
-    background-repeat: repeat-x;
-    background-position: top left;
+    background-color: currentColor;
+    -webkit-mask-image: var(--motif);
+    mask-image: var(--motif);
+    -webkit-mask-repeat: repeat-x;
+    mask-repeat: repeat-x;
+    -webkit-mask-position: top left;
+    mask-position: top left;
   }
 
   .horizon {

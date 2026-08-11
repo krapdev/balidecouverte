@@ -69,6 +69,11 @@
     --soleil:      #f2b134;
     --soleil-pale: #fbe0a5;
     --bougain:     #c8455f;
+    /* Le bougainvillier encré : la seule teinte de rouge qui tienne le
+       seuil du texte courant sur les deux fonds clairs (5,77 sur
+       l'ivoire, 5,12 sur le sable). Le bougainvillier courant reste à ce
+       qui ne porte pas de mot — la fleur des coutures. */
+    --bougain-ink: #ad3550;
     --ivoire:      #fbf7ee;
     --sable:       #f2e9d8;
     --encre:       #22302b;
@@ -233,7 +238,7 @@
   .ground-bambou   { background-color: var(--immersive); background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2256%22%20height%3D%2256%22%20viewBox%3D%220%200%2056%2056%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22rgba%28251%2C247%2C238%2C0.05%29%22%20stroke-width%3D%221.4%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20d%3D%22M-6%2034%2034%20-6M6%2046%2046%206M18%2058%2058%2018M-6%2022%2022%20-6M6%2034%2034%206M18%2046%2046%2018M30%2058%2058%2030%22%2F%3E%3Cpath%20d%3D%22M-6%2022%2022%2050M6%2010%2034%2038M18%20-2%2046%2026M30%20-6%2058%2022M-6%2034%2010%2050M42%20-6%2058%2010%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"); color: var(--on-immersive); }
 
   /* Filigrane de jepun, dans l'angle vide des grandes cartes. */
-  .ground-bambou .sec-head p { color: var(--on-immersive-soft); }
+  .ground-bambou .sec-head p:not(.sec-eyebrow) { color: var(--on-immersive-soft); }
   .ground-bambou .sec-eyebrow { color: var(--soleil-pale); }
 
   /* La lumière reste une matière, mais elle est solaire. */
@@ -305,7 +310,17 @@
   }
   .couture-hote > .shell > .divider { width: 100%; }
   .divider { display: flex; align-items: center; gap: 1.25rem; }
-  .divider > span:not(.jepun-mark) { height: 1px; flex: 1; background: color-mix(in srgb, var(--bougain) 45%, transparent); }
+  /* ⚠️ **La même frise que le linteau de la barre**, en bougainvillier au
+     lieu du bambou profond. C'étaient deux filets droits : la page portait
+     deux dessins pour une seule idée — « ici, ça se sépare » — dont un
+     seul était de Bali. Le motif ne vit qu'à un endroit, dans `.frise`.
+     Les 2 px remettent le filet sur l'axe de la fleur : la ligne est à
+     1,5 px du haut d'une boîte de 7, pas au milieu — sans eux, la fleur
+     pend sous son fil. */
+  .divider > .frise {
+    flex: 1; transform: translateY(2px);
+    color: color-mix(in srgb, var(--bougain) 55%, transparent);
+  }
 
   /* Ouverture en arc : celle des alcôves et des portes de pavillon */
   .arch { border-radius: 50% 50% var(--radius) var(--radius) / 32% 32% 1% 1%; overflow: hidden; }
@@ -341,11 +356,25 @@
      la barre, à 1 px chacun, et ils se répondent. Vert et non noir : le
      site n'a aucun noir, et --encre — qui en est un — est la couleur du
      texte. */
-  .linteau {
+  /* ⚠️ **Le motif est un masque, pas une image, et c'est ce qui permet de
+     le réemployer.** Il était dessiné en `background-image` avec sa
+     couleur cuite dans le SVG ; la couture du séparateur voulant la même
+     frise en bougainvillier, il aurait fallu une deuxième copie du tracé
+     — et deux copies d'un tracé divergent. En masque, la forme vient du
+     SVG et la couleur de `currentColor`. Le SVG n'a donc plus de couleur
+     propre : seule son opacité compte. */
+  .frise {
+    --motif: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2222%22%20height%3D%227%22%20viewBox%3D%220%200%2022%207%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%201h22%22%2F%3E%3Cpath%20d%3D%22M0%201l5.5%205%205.5-5%205.5%205%205.5-5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
     height: 7px;
-    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2222%22%20height%3D%227%22%20viewBox%3D%220%200%2022%207%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22rgba%2847%2C71%2C32%2C1%29%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%201h22%22%2F%3E%3Cpath%20d%3D%22M0%201l5.5%205%205.5-5%205.5%205%205.5-5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
-    background-repeat: repeat-x;
+    background-color: currentColor;
+    -webkit-mask-image: var(--motif);
+    mask-image: var(--motif);
+    -webkit-mask-repeat: repeat-x;
+    mask-repeat: repeat-x;
+    -webkit-mask-position: top left;
+    mask-position: top left;
   }
+  .linteau { color: var(--bambou-deep); }
   .nav-in { display: flex; align-items: center; gap: 1.5rem; height: 68px; }
   /* ⚠️ `flex-shrink: 0` au-delà de 640 px : mesuré à 1280, la barre avait
      68 px de marge disponible et la marque était pourtant rognée de 32,
@@ -406,8 +435,34 @@
     border-left-color: var(--accent);
     background: color-mix(in srgb, var(--tint) 60%, transparent);
   }
+  /* ⚠️ **--bougain-ink et non --bougain.** Le bougainvillier courant
+     mesure 3,90 sur le sable : au-dessus du seuil des grands titres,
+     en dessous de celui du texte courant, donc juste au bord — et un
+     titre au bord ne laisse aucune marge le jour où le fond change.
+     L'encré donne 5,12 sur le sable et 5,77 sur l'ivoire.
+     ⚠️ Jamais sur le vert profond : on tomberait sous 2.
+     ⚠️ Et il reste RARE, par fonction et non par goût : le rouge va aux
+     titres qui INVITENT — la fourche, le livre d'or, l'ouverture des
+     deux pages où mène la fourche. Les titres qui OUTILLENT — le
+     formulaire, les tarifs, les pages légales — restent à l'encre.
+     Teindre tous les titres ne rendrait pas la page plus gaie, ça la
+     rendrait rouge. */
+  .titre-rouge { color: var(--bougain-ink); }
   .plaque-num { flex: none; width: 1.25rem; font-family: var(--util); font-size: 0.6875rem; font-variant-numeric: tabular-nums; color: var(--text-faint); }
-  .plaque-sym { flex: none; display: grid; color: var(--accent); }
+  /* ⚠️ **Le disque n'est pas un cadre, c'est ce qui rend le vert
+     visible.** Les symboles étaient déjà en bambou, mais un trait de
+     1,6 px sur un fond sable ne donne pas une couleur — il donne un
+     dessin gris-vert qu'on ne remarque pas. Posé sur une pastille du
+     même vert à 14 %, le même trait devient une tache verte dans la
+     liste, et le menu cesse d'être une colonne de texte. Le trait passe
+     à --bambou-deep : 7,48 sur la pastille, très au-dessus du seuil de
+     3,0 des objets graphiques. */
+  .plaque-sym {
+    flex: none; display: grid; place-items: center;
+    width: 2.25rem; height: 2.25rem; border-radius: 999px;
+    background: color-mix(in srgb, var(--bambou) 14%, transparent);
+    color: var(--bambou-deep);
+  }
   .plaque-txt { min-width: 0; flex: 1; }
   .plaque-titre { display: block; font-family: var(--display); font-size: 1.3rem; line-height: 1.15; }
   .nav-menu a.plaque[aria-current] .plaque-titre { color: var(--accent); font-weight: 600; }
@@ -562,7 +617,17 @@
   .sec-eyebrow::before { content: ""; width: 26px; height: 1px; background: currentColor; }
   .sec-eyebrow.epingle::before { content: none; }
   .sec-head h2 { font-size: clamp(1.9rem, 5.2vw, var(--t-3xl)); }
-  .sec-head p { color: var(--text-soft); font-size: var(--t-lg); line-height: 1.6; }
+  /* ⚠️ **`:not(.sec-eyebrow)` n'est pas un raffinement, c'est le
+     correctif d'un défaut qui a vécu longtemps.** `.sec-head p` pèse
+     0,1,1 et `.sec-eyebrow` 0,1,0 : la règle du chapô gagnait, et
+     **toutes les eyebrows de la maquette étaient gris-vert** là où
+     l'app les a en bougainvillier. Le cas du fond vert ne s'en était
+     tiré que par un `style=` en dur posé à la main sur une seule
+     section — un correctif local qui a masqué le défaut général.
+     Le défaut a survécu à plusieurs comparaisons app/maquette faites
+     copie d'écran contre copie d'écran : une couleur d'eyebrow ne se
+     regarde pas, on lit le titre. Il ne s'attrape qu'en mesurant. */
+  .sec-head p:not(.sec-eyebrow) { color: var(--text-soft); font-size: var(--t-lg); line-height: 1.6; }
 
   /* ============================================================
      AGUS — portrait + piliers
@@ -1521,7 +1586,7 @@
   
   </div>
 
-  <div class="linteau" aria-hidden="true"></div>
+  <div class="linteau frise" aria-hidden="true"></div>
 </header>
 
 <!-- ⚠️ Le panneau est **hors du <header>**, et ce n'est pas un détail de
@@ -1628,7 +1693,7 @@
 <!-- ⚠️ La seule frontière du site qui n'avait pas sa couture : le hero
      touchait la présentation directement, et le passage du vert profond à
      l'ivoire se faisait à cru. La moitié haute porte le fond du hero. -->
-<div class="couture-hote view-home" aria-hidden="true"><div class="moitie fond-hero"></div><div class="moitie ground-ivoire"></div><div class="shell"><div class="divider"><span></span><span class="jepun-mark"></span><span></span></div></div></div>
+<div class="couture-hote view-home" aria-hidden="true"><div class="moitie fond-hero"></div><div class="moitie ground-ivoire"></div><div class="shell"><div class="divider"><span class="frise"></span><span class="jepun-mark"></span><span class="frise"></span></div></div></div>
 <section class="band ground-ivoire view-home" id="esprit">
   <div class="shell">
     <div class="sec-head reveal">
@@ -1757,12 +1822,12 @@
 
 
 <!-- ============================ JOURNÉES ============================ -->
-<div class="couture-hote view-home" aria-hidden="true"><div class="moitie ground-ivoire"></div><div class="moitie ground-sable"></div><div class="shell"><div class="divider"><span></span><span class="jepun-mark"></span><span></span></div></div></div>
+<div class="couture-hote view-home" aria-hidden="true"><div class="moitie ground-ivoire"></div><div class="moitie ground-sable"></div><div class="shell"><div class="divider"><span class="frise"></span><span class="jepun-mark"></span><span class="frise"></span></div></div></div>
 <section class="band ground-sable view-home" id="chemins">
   <div class="shell">
     <div class="sec-head reveal">
       <p class="label sec-eyebrow">Par où commencer</p>
-      <h2>Deux façons de partir.</h2>
+      <h2 class="titre-rouge">Deux façons de partir.</h2>
       <!-- Le chapô répondait à une question qu'on ne se pose pas encore
            (« est-ce que je m'engage ? ») sans jamais répondre à celle qu'on
            se pose (« entre quoi et quoi est-ce que je choisis ? »), et sa
@@ -1778,7 +1843,7 @@
   </div>
 </section>
 <!-- ============================ CONFIGURATEUR ============================ -->
-<div class="couture-hote view-home" aria-hidden="true"><div class="moitie ground-sable"></div><div class="moitie ground-sable"></div><div class="shell"><div class="divider"><span></span><span class="jepun-mark"></span><span></span></div></div></div>
+<div class="couture-hote view-home" aria-hidden="true"><div class="moitie ground-sable"></div><div class="moitie ground-sable"></div><div class="shell"><div class="divider"><span class="frise"></span><span class="jepun-mark"></span><span class="frise"></span></div></div></div>
 <section class="band ground-sable view-home" id="sur-mesure">
   <div class="shell">
     <div class="sec-head reveal">
@@ -1919,7 +1984,7 @@
   <div class="shell">
     <div class="sec-head reveal">
       <p class="label sec-eyebrow">Vos envies</p>
-      <h1 style="font-size: clamp(1.9rem, 5.2vw, 2.375rem)">Cochez, j'en fais un itinéraire.</h1>
+      <h1 class="titre-rouge" style="font-size: clamp(1.9rem, 5.2vw, 2.375rem)">Cochez, j'en fais un itinéraire.</h1>
       <p>Rien ici n'est une commande. Ce que vous cochez part dans votre message,
       et je construis le circuit autour — c'est mon métier de savoir ce qui s'enchaîne
       bien et ce qui se dilue.</p>
@@ -2073,7 +2138,7 @@
      choses qu'un guide règle et qu'une agence oublie.
      Bande pleine : c'est la seule pause de la page, et le trait fin des
      symboles tient mieux sur vert profond que sur ivoire. -->
-<div class="couture-hote view-home" aria-hidden="true"><div class="moitie ground-sable"></div><div class="moitie ground-ivoire"></div><div class="shell"><div class="divider"><span></span><span class="jepun-mark"></span><span></span></div></div></div>
+<div class="couture-hote view-home" aria-hidden="true"><div class="moitie ground-sable"></div><div class="moitie ground-ivoire"></div><div class="shell"><div class="divider"><span class="frise"></span><span class="jepun-mark"></span><span class="frise"></span></div></div></div>
 <!-- ⚠️ La bande pleine est devenue une FICHE, le même vert dans le même
      cadre arrondi que le panneau des valeurs : les deux jouent le même
      rôle — une parenthèse posée sur la page — et le disaient de deux
@@ -2103,12 +2168,12 @@
      curiosité : elle vient juste avant qu'on écrive à un inconnu à
      12 000 km. Trois extraits seulement, tirés mot pour mot ; les sept
      témoignages entiers vivent sur une page à part dans l'application. -->
-<div class="couture-hote view-home" aria-hidden="true"><div class="moitie ground-ivoire"></div><div class="moitie ground-sable"></div><div class="shell"><div class="divider"><span></span><span class="jepun-mark"></span><span></span></div></div></div>
+<div class="couture-hote view-home" aria-hidden="true"><div class="moitie ground-ivoire"></div><div class="moitie ground-sable"></div><div class="shell"><div class="divider"><span class="frise"></span><span class="jepun-mark"></span><span class="frise"></span></div></div></div>
 <section class="band ground-sable view-home" id="temoignages">
   <div class="shell">
     <div class="sec-head reveal">
       <p class="label sec-eyebrow">Livre d'or</p>
-      <h2 id="temoinsTitre"></h2>
+      <h2 id="temoinsTitre" class="titre-rouge"></h2>
       <p id="temoinsChapo"></p>
     </div>
     <ul class="temoins" id="temoinsList"></ul>
@@ -2134,7 +2199,7 @@
   <div class="shell">
     <div class="sec-head reveal">
       <p class="label sec-eyebrow">Livre d'or</p>
-      <h1 id="livreTitre" style="font-size: clamp(1.9rem, 5.2vw, 2.375rem)"></h1>
+      <h1 id="livreTitre" class="titre-rouge" style="font-size: clamp(1.9rem, 5.2vw, 2.375rem)"></h1>
       <p id="livreChapo"></p>
     </div>
     <ul class="livre" id="livreList"></ul>
@@ -2176,7 +2241,7 @@
 <section class="band ground-ivoire view-circuit" id="circuit-detail" style="padding-top: clamp(1.5rem, 4vw, 2.5rem)">
   <div class="shell">
     <p class="label sec-eyebrow">Le circuit, en entier</p>
-    <h1 style="margin-top: 0.5rem; max-width: 18ch; font-size: clamp(2rem, 6vw, 3rem); line-height: 1.05">Quinze jours, jour par jour.</h1>
+    <h1 class="titre-rouge" style="margin-top: 0.5rem; max-width: 18ch; font-size: clamp(2rem, 6vw, 3rem); line-height: 1.05">Quinze jours, jour par jour.</h1>
     <p style="margin-top: 1.25rem; max-width: 64ch; font-size: var(--t-lg); color: var(--text-soft)" id="circuitIntro"></p>
     <div class="circuit-detail-scene" id="circuitDetailScene"></div>
     <div class="cadre-grille" id="circuitCadre"></div>
@@ -3512,8 +3577,8 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
      celles-là, `couture()` inline la fleur directement. */
   function couture(marge) {
     return '<div class="divider" aria-hidden="true"' +
-      (marge ? ' style="' + marge + '"' : "") + '><span></span>' +
-      jepun(44, "var(--bougain)") + "<span></span></div>";
+      (marge ? ' style="' + marge + '"' : "") + '><span class="frise"></span>' +
+      jepun(44, "var(--bougain)") + '<span class="frise"></span></div>';
   }
 
   /* ---------- Rendu : les deux chemins ---------- */
@@ -4504,7 +4569,7 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
       var de = m[5] ? ' data-de="' + m[5] + '"' : "";
       return '<a class="plaque" href="' + m[0] + '"' + goto + de + '>' +
         '<span class="plaque-num">' + String(i + 1).padStart(2, "0") + '</span>' +
-        '<span class="plaque-sym">' + symbole(m[3], 26) + '</span>' +
+        '<span class="plaque-sym">' + symbole(m[3], 22) + '</span>' +
         '<span class="plaque-txt">' +
           '<span class="plaque-titre">' + m[1] + '</span>' +
           '<span class="plaque-gloss">' + m[2] + '</span>' +

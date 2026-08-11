@@ -171,6 +171,23 @@ Agus Yudiarta existe, et le site est son gagne-pain.
 - **Après toute génération d'images, en faire une planche et la regarder.** Deux
   fichiers ont été produits inversés d'après leur date de téléversement ; aucune
   assertion sur le DOM ne l'attrape, seul l'œil le voit.
+- **Un motif réemployé se pose en masque, jamais en image.** La frise du
+  linteau avait sa couleur cuite dans le SVG ; le jour où la couture a voulu
+  la même frise en bougainvillier, il aurait fallu une deuxième copie du
+  tracé — et deux copies d'un tracé divergent, comme les entrées de
+  navigation avant elles. En `mask-image`, la forme vient du SVG et la
+  couleur de `currentColor` : un tracé, autant de teintes qu'on veut. Le SVG
+  du masque n'a plus de couleur propre, seule son opacité compte.
+- **Le rouge des titres est `--bougain-ink` (#ad3550), jamais `--bougain`.**
+  Le bougainvillier courant mesure **3,90 sur le sable** : au-dessus du seuil
+  des grands titres, en dessous de celui du texte courant — un titre au bord
+  ne laisse aucune marge le jour où le fond change. L'encré donne 5,12 sur le
+  sable et 5,77 sur l'ivoire. Il ne se pose **jamais sur le vert profond**
+  (on tombe sous 2), et il reste **rare, par fonction** : le rouge va aux
+  titres qui *invitent* — la fourche, le livre d'or, l'ouverture des deux
+  pages où mène la fourche —, l'encre à ceux qui *outillent* : formulaire,
+  tarifs, pages légales. Teindre tous les titres ne rend pas la page plus
+  gaie, ça la rend rouge.
 - **Un dessin discret ne s'obtient pas en agrandissant un dessin fin.** Les
   cartes de la fourche ont porté un penjor et un tedung de 170 px rognés par
   l'angle : sur une carte de 294 px en mobile, le motif en occupait plus de la
@@ -249,6 +266,16 @@ Agus Yudiarta existe, et le site est son gagne-pain.
   entrée visant une section de l'accueil doit d'abord y ramener ; `data-de`
   dit ensuite où atterrir. L'app n'a pas ce défaut, ses `href` étant
   préfixés par `/`.
+- **Une classe utilitaire perd contre un sélecteur d'élément, et ça ne se
+  voit pas.** `.sec-head p` pèse 0,1,1 et `.sec-eyebrow` 0,1,0 : le chapô
+  gagnait, et **toutes les eyebrows de la maquette étaient gris-vert** là où
+  l'app les a en bougainvillier. Le fond vert ne s'en tirait que par un
+  `style=` en dur posé sur une seule section — un correctif local qui a
+  masqué le défaut général pendant des mois. Il a survécu à plusieurs
+  comparaisons app/maquette faites copie d'écran contre copie d'écran : une
+  couleur d'eyebrow ne se regarde pas, on lit le titre. **Comparer les
+  couleurs calculées, pas les impressions** — `getComputedStyle` sur tous
+  les `.sec-eyebrow` des six vues tient en trois lignes.
 - **`querySelector` est singulier.** La fleur des coutures était posée par un
   `querySelector` : avec quatre coutures, trois sont restées des `<span>` vides
   sans qu'aucune erreur ne soit levée. Vérifier le compte après coup.

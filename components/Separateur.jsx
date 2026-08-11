@@ -44,12 +44,19 @@ export default function Separateur({ className = "", size = 44 }) {
       className={`flex items-center gap-5 ${className}`}
       aria-hidden="true"
     >
-      {/* Le filet est à 45 % et non à 35 % comme celui qu'il remplace :
-          le bougainvillier est plus sombre que le bambou, et à 35 % sur
-          le sable il devenait un souvenir de trait. */}
-      <span className="h-px flex-1 bg-[color-mix(in_srgb,var(--bougain)_45%,transparent)]" />
+      {/* ⚠️ **La même frise que le linteau de la barre**, en
+          bougainvillier au lieu du bambou profond. C'étaient deux filets
+          droits ; la page portait donc deux dessins pour une seule idée —
+          « ici, ça se sépare » — dont un seul était de Bali.
+          Le motif ne vit qu'à un endroit, dans `.frise`, et sa couleur
+          vient de `currentColor` : voir globals.css pour pourquoi il est
+          posé en masque et non en image.
+          Le décalage de 2 px remet le filet de la frise sur l'axe de la
+          fleur : la ligne est à 1,5 px du haut d'une boîte de 7, pas au
+          milieu — sans lui, la fleur pend sous son fil. */}
+      <span className="frise translate-y-[2px] flex-1 text-[color-mix(in_srgb,var(--bougain)_55%,transparent)]" />
       <Jepun size={size} tone="var(--bougain)" />
-      <span className="h-px flex-1 bg-[color-mix(in_srgb,var(--bougain)_45%,transparent)]" />
+      <span className="frise translate-y-[2px] flex-1 text-[color-mix(in_srgb,var(--bougain)_55%,transparent)]" />
     </div>
   );
 }

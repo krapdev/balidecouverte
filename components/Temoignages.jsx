@@ -28,7 +28,7 @@ export default function Temoignages() {
   return (
     <section id="temoignages" className="ground-sable band">
       <div className="shell">
-        <SectionHead eyebrow="Livre d'or" title={LIVRE_OR.titre}>
+        <SectionHead eyebrow="Livre d'or" title={LIVRE_OR.titre} rouge>
           {LIVRE_OR.chapo}
         </SectionHead>
 

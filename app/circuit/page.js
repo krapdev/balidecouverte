@@ -77,7 +77,7 @@ export default function PageCircuit() {
         <div className="ground-ivoire band pt-[clamp(1.5rem,4vw,2.5rem)]">
           <div className="shell">
             <p className="label text-eyebrow">Le circuit, en entier</p>
-            <h1 className="mt-2 max-w-[18ch] text-[clamp(2rem,6vw,3rem)] leading-[1.05]">
+            <h1 className="mt-2 max-w-[18ch] text-[clamp(2rem,6vw,3rem)] leading-[1.05] text-bougain-ink">
               Quinze jours, jour par jour.
             </h1>
             <p className="mt-5 max-w-[64ch] text-lg leading-relaxed text-soft">
