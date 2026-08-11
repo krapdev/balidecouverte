@@ -272,6 +272,20 @@
     padding-block: clamp(4.5rem, 12vw, 8rem);
   }
 
+  /* ⚠️ **Sous une couture, la section commence plus haut.** Le vide au
+     bas d'une section et celui en haut de la suivante s'additionnent :
+     ils faisaient 144 px à 390 px, et la couture flottait au milieu
+     d'un blanc qu'elle ne séparait plus de rien. On ne touche pas au
+     `padding-block` général, qui règle aussi ce qui n'a pas de couture ;
+     on rapproche seulement la section de son délimiteur.
+     Le haut seul, et pas le bas : la couture porte déjà, au-dessus
+     d'elle, la fin de la section précédente — un texte qui se termine.
+     En dessous, ce qui vient est un titre, et un titre n'a pas besoin
+     du même recul qu'un paragraphe pour se détacher. */
+  .couture-hote + .band {
+    padding-block-start: clamp(2.25rem, 6vw, 4rem);
+  }
+
   /* Deux surfaces de lecture qui alternent, et une bande pleine bambou.
      Chacune porte une sérigraphie très pâle — le tressage de la feuille
      de palme, celui du panier du canang sari. Elle se lit comme un grain
@@ -432,34 +446,6 @@
     text-transform: uppercase;
     letter-spacing: 0.13em;
   }
-  /**
-   * Le libellé le plus long du site — « Créons ensemble le voyage de vos
-   * rêves », 38 caractères en capitales — tenu sur **une seule ligne à
-   * toute largeur**.
-   *
-   * ⚠️ **Réduire la police seule ne suffisait pas.** Mesuré : à 390 px il
-   * aurait fallu descendre à 11 px, à 320 px à 8,8 — illisible, et loin
-   * d'une réduction « légère ». Le `letter-spacing` de 0,13 em est le vrai
-   * coupable : sur 38 caractères il ajoute près de 5 em, soit un cinquième
-   * de la largeur. Ramené à 0,05 em, avec un peu moins de marge
-   * intérieure, la taille tenable remonte à 12,6 px à 390.
-   *
-   * La taille est **fluide et non paliée** : un seul palier ne peut pas
-   * servir 320 et 390 à la fois — la borne basse imposerait à 390 une
-   * police calculée pour 320. `3,49vw − 1,4px` suit exactement la largeur
-   * utile, et les bornes du `clamp` la tiennent entre 9,8 px à 320 et la
-   * taille pleine dès 420.
-   *
-   * `nowrap` n'est pas une ceinture de sécurité mais une **assertion** :
-   * si le calcul se trompe, la page déborde et l'audit le voit. Un
-   * retour à la ligne, lui, serait passé inaperçu.
-   */
-  .btn-une-ligne {
-    white-space: nowrap;
-    letter-spacing: 0.05em;
-    font-size: clamp(0.61rem, calc(3.49vw - 1.4px), 0.8125rem);
-    padding-inline: 1.5em;
-  }
   .btn-accent {
     background: var(--accent);
     color: var(--accent-ink);
@@ -475,19 +461,6 @@
   .btn-sun:hover {
     background: #ffc551;
     box-shadow: 0 10px 26px -12px color-mix(in srgb, var(--soleil) 80%, transparent);
-  }
-  /* Le plein ivoire. Il n'existe que pour « Par où commencer », devenu
-     le seul bouton du hero depuis le retrait de « Créer mon voyage
-     sur-mesure » — un contour seul ne portait plus tout seul cette
-     charge-là. Encre sur ivoire : 12,87. Le bouton sur la photo du
-     hero : 9,61. */
-  .btn-ivoire {
-    background: var(--page);
-    color: var(--encre);
-  }
-  .btn-ivoire:hover {
-    background: #fffdf7;
-    box-shadow: 0 10px 26px -12px rgba(20, 30, 18, 0.55);
   }
   .btn-outline {
     border-color: color-mix(in srgb, currentColor 38%, transparent);

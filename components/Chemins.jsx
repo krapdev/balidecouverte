@@ -89,14 +89,24 @@ export default function Chemins() {
                     size={110}
                     className="pointer-events-none absolute bottom-2 right-2 text-accent opacity-[0.16]"
                   />
-                  <Icon size={22} className="relative text-accent" strokeWidth={1.5} />
                   {/* ⚠️ Le rouge des titres du parcours vaut aussi ici : ces deux
                       titres SONT le choix, pas l'annonce d'un choix. Le
                       seuil est celui du texte courant et non des grands
                       titres — 22 px en graisse normale — et
                       `--bougain-ink` le tient largement sur le blanc de
-                      la carte. */}
-                  <h3 className="text-[1.375rem] leading-tight text-bougain-ink">
+                      la carte.
+                      ⚠️ **L'icône est sur la ligne du titre**, pas
+                      au-dessus : empilée, elle coûtait une ligne entière
+                      pour une information qui n'en vaut pas une, et elle
+                      flottait sans rien désigner. Le `shrink-0` n'est pas
+                      décoratif — sans lui, l'icône se comprime avant que
+                      le titre ne passe à la ligne. */}
+                  <h3 className="flex items-center gap-2.5 text-[1.375rem] leading-tight text-bougain-ink">
+                    <Icon
+                      size={22}
+                      className="shrink-0 text-accent"
+                      strokeWidth={1.5}
+                    />
                     {c.titre}
                   </h3>
 

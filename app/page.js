@@ -53,7 +53,7 @@ import Separateur from "@/components/Separateur";
  */
 function Couture({ avant, apres }) {
   return (
-    <div className="relative" aria-hidden="true">
+    <div className="couture-hote relative" aria-hidden="true">
       {/* ⚠️ **Le plancher du clamp gouvernait tout le mobile.** À 1,75rem
           il valait 28 px, alors que 4,5vw n'en fait que 17,6 à 390 : la
           couture mesurait 56 px de haut sur un écran de téléphone, soit

@@ -1,3 +1,4 @@
+import { ArrowRight } from "lucide-react";
 import { JepunBranch } from "./Scene";
 import Photo from "./Photo";
 import Diaporama from "./Diaporama";
@@ -235,12 +236,29 @@ export default function Hero() {
               n'est plus une page d'atterrissage publicitaire mais une
               ouverture — et il se répare en une ligne si les demandes
               baissent. */}
+          {/* ⚠️ **Un lien fléché et non un bouton plein.** Le pavé
+              ivoire était le seul aplat clair du hero, et il y pesait
+              comme une publicité posée sur une photo. Ce qu'il annonce
+              n'est d'ailleurs pas une action mais un déplacement — on
+              descend vers la fourche, on ne valide rien —, et la flèche
+              le dit là où un bouton promettait un engagement.
+              La cible garde ses 44 px de haut (WCAG 2.5.5) : c'est
+              `min-h-11` qui les tient, pas le fond, et le soulignement
+              porte l'affordance à la place de la couleur (1.4.1). */}
           <div style={cran(4)} className="monte flex flex-wrap gap-3">
             <a
-              className="btn btn-ivoire btn-lg btn-une-ligne"
+              className="group inline-flex min-h-11 items-center gap-3 text-[clamp(1rem,3.6vw,1.1875rem)] text-on-immersive no-underline"
               href="#chemins"
             >
-              Créons ensemble le voyage de vos rêves
+              <span className="underline decoration-[color-mix(in_srgb,var(--on-immersive)_55%,transparent)] underline-offset-[6px]">
+                Créons ensemble le voyage de vos rêves
+              </span>
+              <ArrowRight
+                size={20}
+                strokeWidth={2.2}
+                aria-hidden="true"
+                className="shrink-0 transition-transform group-hover:translate-x-1"
+              />
             </a>
           </div>
 
