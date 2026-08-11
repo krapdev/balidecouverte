@@ -40,23 +40,29 @@ import { Jepun } from "./Scene";
    serve à rien d'autre qu'à faire respirer — autant qu'elle se voie. */
 export default function Separateur({ className = "", size = 44 }) {
   return (
+    /* `couture` ne porte aucun style : c'est la prise de l'audit. Le
+       motif des flancs s'est perdu une fois en silence — trois vues sur
+       six, aucune erreur, rien qui déborde — et rien dans la passe ne
+       pouvait le voir. Nommer la couture rend l'invariant vérifiable :
+       tout flanc de couture porte un masque. */
     <div
-      className={`flex items-center gap-5 ${className}`}
+      className={`couture flex items-center gap-5 ${className}`}
       aria-hidden="true"
     >
-      {/* ⚠️ **La même frise que le linteau de la barre**, en
-          bougainvillier au lieu du bambou profond. C'étaient deux filets
-          droits ; la page portait donc deux dessins pour une seule idée —
-          « ici, ça se sépare » — dont un seul était de Bali.
-          Le motif ne vit qu'à un endroit, dans `.frise`, et sa couleur
-          vient de `currentColor` : voir globals.css pour pourquoi il est
-          posé en masque et non en image.
-          Le décalage de 2 px remet le filet de la frise sur l'axe de la
-          fleur : la ligne est à 1,5 px du haut d'une boîte de 7, pas au
-          milieu — sans lui, la fleur pend sous son fil. */}
-      <span className="frise translate-y-[2px] flex-1 text-[color-mix(in_srgb,var(--bougain)_55%,transparent)]" />
+      {/* ⚠️ **La frise du linteau, mais mirroitée** — la dent qui pend
+          sous la barre, redoublée au-dessus de la ligne : un losange.
+          C'étaient deux filets droits ; la page portait donc deux dessins
+          pour une seule idée — « ici, ça se sépare » — dont un seul était
+          de Bali. Puis la frise du linteau telle quelle, et elle penchait :
+          un motif qui pend sous une poutre dit de quel côté est le poids,
+          or une couture sépare deux choses de même rang et ne pend de
+          rien. Symétrique, elle tient d'elle-même sur l'axe de la fleur —
+          le calage de 2 px qu'imposait l'asymétrie a disparu avec elle.
+          Le tracé vit dans `.frise-chaine` et sa couleur vient de
+          `currentColor` : voir globals.css. */}
+      <span className="frise frise-chaine flex-1 text-[color-mix(in_srgb,var(--bougain)_55%,transparent)]" />
       <Jepun size={size} tone="var(--bougain)" />
-      <span className="frise translate-y-[2px] flex-1 text-[color-mix(in_srgb,var(--bougain)_55%,transparent)]" />
+      <span className="frise frise-chaine flex-1 text-[color-mix(in_srgb,var(--bougain)_55%,transparent)]" />
     </div>
   );
 }

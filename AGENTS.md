@@ -178,6 +178,26 @@ Agus Yudiarta existe, et le site est son gagne-pain.
   navigation avant elles. En `mask-image`, la forme vient du SVG et la
   couleur de `currentColor` : un tracé, autant de teintes qu'on veut. Le SVG
   du masque n'a plus de couleur propre, seule son opacité compte.
+- **Le linteau pend, la couture ne pend de rien.** Le motif du linteau est
+  une dent suspendue à une ligne : son déséquilibre est sa fonction, il dit
+  de quel côté est le poids. Une couture sépare deux choses de **même rang**
+  et un motif lourd d'un côté y penche pour rien — d'où `.frise-chaine`, la
+  même dent mirroitée au-dessus de la ligne, qui donne un losange. Elle tient
+  d'elle-même sur l'axe de la fleur, et le calage de 2 px qu'imposait
+  l'asymétrie disparaît avec elle.
+- **Un motif peut disparaître sans rien casser, et c'est arrivé.** Les flancs
+  des coutures ont porté `class="frise"` le temps d'un commit : trois vues de
+  la maquette sur six ont perdu leur frise aussitôt — pas d'erreur, pas de
+  débord, rien que l'audit pût voir. **Une classe qu'il faut penser à ajouter
+  est une classe qu'on oubliera** : la maquette fabrique ses coutures à plus
+  d'endroits qu'on ne croit (statique dans l'accueil, `couture()` ailleurs, à
+  la main dans le portrait, le circuit et les tarifs). Sélecteur structurel,
+  donc — et `span:not(.jepun-mark)` et non `*:not(...)` : la fleur de
+  `couture()` est un `<svg>` nu, qu'un `*` attrape aussi et aplatit en bande.
+  L'app n'a jamais eu ce défaut : son séparateur est un composant unique.
+  L'invariant est désormais dans `audit.mjs` — **tout flanc de couture porte
+  un masque** —, et la classe `couture` du composant n'existe que pour lui
+  donner prise.
 - **Le rouge des titres est `--bougain-ink` (#ad3550), jamais `--bougain`.**
   Le bougainvillier courant mesure **3,90 sur le sable** : au-dessus du seuil
   des grands titres, en dessous de celui du texte courant — un titre au bord

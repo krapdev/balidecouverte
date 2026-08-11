@@ -317,9 +317,36 @@
      Les 2 px remettent le filet sur l'axe de la fleur : la ligne est à
      1,5 px du haut d'une boîte de 7, pas au milieu — sans eux, la fleur
      pend sous son fil. */
-  .divider > .frise {
-    flex: 1; transform: translateY(2px);
+  /* ⚠️ **Sélecteur structurel, et surtout pas une classe à poser.** Les
+     flancs ont porté `class="frise"` le temps d'un commit, et trois vues
+     sur six ont perdu leur motif dans l'heure : la maquette fabrique ses
+     coutures à plus d'endroits qu'on ne croit — statique dans l'accueil,
+     par `couture()` ailleurs, et à la main dans le portrait, le circuit
+     et les tarifs. Une classe qu'il faut penser à ajouter est une classe
+     qu'on oubliera. L'app n'a pas eu le défaut : son séparateur est un
+     composant unique.
+     ⚠️ `span` et pas `*` : la fleur de `couture()` est un `<svg>` nu,
+     sans la classe `jepun-mark` que porte celle du balisage statique.
+     Un `*:not(.jepun-mark)` l'attrape donc aussi et l'aplatit en une
+     bande de 9 px — trois segments de chaîne au lieu d'une fleur entre
+     deux. Les deux fleurs s'excluent par ce qu'elles ont en commun :
+     aucune n'est un `span` sans classe.
+     ⚠️ C'est la **chaîne** et non la dent du linteau : celle-ci pend sous
+     une poutre, son déséquilibre est sa fonction. Une couture ne pend de
+     rien, elle sépare deux choses de même rang. Symétrique, elle tient
+     d'elle-même sur l'axe de la fleur. */
+  .divider > span:not(.jepun-mark) {
+    flex: 1;
     color: color-mix(in srgb, var(--bougain) 55%, transparent);
+    --motif: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%229%22%20viewBox%3D%220%200%2016%209%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221%22%3E%3Cpath%20d%3D%22M0%204.5h16%22%2F%3E%3Cpath%20d%3D%22M0%204.5l4%203.5%204-3.5%204%203.5%204-3.5%22%2F%3E%3Cpath%20d%3D%22M0%204.5l4-3.5%204%203.5%204-3.5%204%203.5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+    height: 9px;
+    background-color: currentColor;
+    -webkit-mask-image: var(--motif);
+    mask-image: var(--motif);
+    -webkit-mask-repeat: repeat-x;
+    mask-repeat: repeat-x;
+    -webkit-mask-position: center left;
+    mask-position: center left;
   }
 
   /* Ouverture en arc : celle des alcôves et des portes de pavillon */
@@ -1693,7 +1720,7 @@
 <!-- ⚠️ La seule frontière du site qui n'avait pas sa couture : le hero
      touchait la présentation directement, et le passage du vert profond à
      l'ivoire se faisait à cru. La moitié haute porte le fond du hero. -->
-<div class="couture-hote view-home" aria-hidden="true"><div class="moitie fond-hero"></div><div class="moitie ground-ivoire"></div><div class="shell"><div class="divider"><span class="frise"></span><span class="jepun-mark"></span><span class="frise"></span></div></div></div>
+<div class="couture-hote view-home" aria-hidden="true"><div class="moitie fond-hero"></div><div class="moitie ground-ivoire"></div><div class="shell"><div class="divider"><span></span><span class="jepun-mark"></span><span></span></div></div></div>
 <section class="band ground-ivoire view-home" id="esprit">
   <div class="shell">
     <div class="sec-head reveal">
@@ -1822,7 +1849,7 @@
 
 
 <!-- ============================ JOURNÉES ============================ -->
-<div class="couture-hote view-home" aria-hidden="true"><div class="moitie ground-ivoire"></div><div class="moitie ground-sable"></div><div class="shell"><div class="divider"><span class="frise"></span><span class="jepun-mark"></span><span class="frise"></span></div></div></div>
+<div class="couture-hote view-home" aria-hidden="true"><div class="moitie ground-ivoire"></div><div class="moitie ground-sable"></div><div class="shell"><div class="divider"><span></span><span class="jepun-mark"></span><span></span></div></div></div>
 <section class="band ground-sable view-home" id="chemins">
   <div class="shell">
     <div class="sec-head reveal">
@@ -1843,7 +1870,7 @@
   </div>
 </section>
 <!-- ============================ CONFIGURATEUR ============================ -->
-<div class="couture-hote view-home" aria-hidden="true"><div class="moitie ground-sable"></div><div class="moitie ground-sable"></div><div class="shell"><div class="divider"><span class="frise"></span><span class="jepun-mark"></span><span class="frise"></span></div></div></div>
+<div class="couture-hote view-home" aria-hidden="true"><div class="moitie ground-sable"></div><div class="moitie ground-sable"></div><div class="shell"><div class="divider"><span></span><span class="jepun-mark"></span><span></span></div></div></div>
 <section class="band ground-sable view-home" id="sur-mesure">
   <div class="shell">
     <div class="sec-head reveal">
@@ -2138,7 +2165,7 @@
      choses qu'un guide règle et qu'une agence oublie.
      Bande pleine : c'est la seule pause de la page, et le trait fin des
      symboles tient mieux sur vert profond que sur ivoire. -->
-<div class="couture-hote view-home" aria-hidden="true"><div class="moitie ground-sable"></div><div class="moitie ground-ivoire"></div><div class="shell"><div class="divider"><span class="frise"></span><span class="jepun-mark"></span><span class="frise"></span></div></div></div>
+<div class="couture-hote view-home" aria-hidden="true"><div class="moitie ground-sable"></div><div class="moitie ground-ivoire"></div><div class="shell"><div class="divider"><span></span><span class="jepun-mark"></span><span></span></div></div></div>
 <!-- ⚠️ La bande pleine est devenue une FICHE, le même vert dans le même
      cadre arrondi que le panneau des valeurs : les deux jouent le même
      rôle — une parenthèse posée sur la page — et le disaient de deux
@@ -2168,7 +2195,7 @@
      curiosité : elle vient juste avant qu'on écrive à un inconnu à
      12 000 km. Trois extraits seulement, tirés mot pour mot ; les sept
      témoignages entiers vivent sur une page à part dans l'application. -->
-<div class="couture-hote view-home" aria-hidden="true"><div class="moitie ground-ivoire"></div><div class="moitie ground-sable"></div><div class="shell"><div class="divider"><span class="frise"></span><span class="jepun-mark"></span><span class="frise"></span></div></div></div>
+<div class="couture-hote view-home" aria-hidden="true"><div class="moitie ground-ivoire"></div><div class="moitie ground-sable"></div><div class="shell"><div class="divider"><span></span><span class="jepun-mark"></span><span></span></div></div></div>
 <section class="band ground-sable view-home" id="temoignages">
   <div class="shell">
     <div class="sec-head reveal">
@@ -2364,7 +2391,7 @@
     <div class="part-tete"><span class="part-sym" id="symFrancais"></span><h2>Le français, et l'Histoire</h2></div>
     <div class="portrait-corps" id="portraitFrancais"></div>
 
-    <div class="divider" aria-hidden="true" style="margin: 2.5rem 0"><span></span><span class="jepun-mark"></span><span></span></div>
+    <div class="divider" aria-hidden="true" style="margin: 2.5rem 0"><span></span><span class="jepun-mark" data-fleur="28"></span><span></span></div>
     <div class="part-tete"><span class="part-sym" id="symFamille"></span><h2>Ma famille</h2></div>
     <div class="portrait-corps" id="portraitFamille"></div>
 
@@ -2378,11 +2405,11 @@
     <!-- Cette partie manquait à la maquette alors qu'elle porte, dans
          l'app, la seule promesse opérationnelle de la page : ce qui se
          passe concrètement quand on écrit. -->
-    <div class="divider" aria-hidden="true" style="margin: 2.5rem 0"><span></span><span class="jepun-mark"></span><span></span></div>
+    <div class="divider" aria-hidden="true" style="margin: 2.5rem 0"><span></span><span class="jepun-mark" data-fleur="28"></span><span></span></div>
     <div class="part-tete"><span class="part-sym" id="symChange"></span><h2>Ce que ça change pour vous</h2></div>
     <div class="portrait-corps" id="portraitChange"></div>
 
-    <div class="divider" aria-hidden="true" style="margin: 2.5rem 0"><span></span><span class="jepun-mark"></span><span></span></div>
+    <div class="divider" aria-hidden="true" style="margin: 2.5rem 0"><span></span><span class="jepun-mark" data-fleur="28"></span><span></span></div>
     <div class="sortie">
       <h2>Vous savez qui je suis. Voyons le voyage.</h2>
       <p>Quinze jours que j'ai déjà conduits des dizaines de fois, ou une liste
@@ -3569,16 +3596,22 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
      qu'une — les trois autres seraient restées des <span> vides, sans
      que rien ne le signale. La copie du tableau est nécessaire : on
      remplace des nœuds pendant qu'on itère. */
+  /* ⚠️ `data-fleur` n'est pas un réglage libre : il aligne le portrait
+     sur l'app, qui y pose ses trois coutures en `size={28}`. Elles sont
+     dans une colonne de texte étroite, pas entre deux sections — une
+     fleur de 44 y ferait un point d'exclamation. Partout ailleurs, 44. */
   Array.prototype.slice.call(document.querySelectorAll(".jepun-mark"))
-    .forEach(function (n) { n.outerHTML = jepun(44, "var(--bougain)"); });
+    .forEach(function (n) {
+      n.outerHTML = jepun(+n.dataset.fleur || 44, "var(--bougain)");
+    });
 
   /* ⚠️ Ce remplissage tourne AVANT `render()`. Une couture créée plus
      tard par un `innerHTML` resterait donc un <span> vide : pour
      celles-là, `couture()` inline la fleur directement. */
   function couture(marge) {
     return '<div class="divider" aria-hidden="true"' +
-      (marge ? ' style="' + marge + '"' : "") + '><span class="frise"></span>' +
-      jepun(44, "var(--bougain)") + '<span class="frise"></span></div>';
+      (marge ? ' style="' + marge + '"' : "") + '><span></span>' +
+      jepun(44, "var(--bougain)") + "<span></span></div>";
   }
 
   /* ---------- Rendu : les deux chemins ---------- */

@@ -118,6 +118,26 @@ async function passe(page, nom, w) {
         casses.push((el.textContent || "").trim().slice(0, 40) + ` (tenait : ${Math.round(surUneLigne)} ≤ ${Math.round(dispo)})`);
     }
 
+    /* ⚠️ **Un motif peut disparaître sans rien casser.** Les flancs des
+       coutures ont perdu leur frise dans trois vues sur six — pas
+       d'erreur console, pas de débord, pas de contraste en cause : rien
+       dans cette passe ne pouvait le voir, et c'est l'œil qui l'a
+       trouvé, un commit plus tard. L'invariant se vérifie pourtant en
+       trois lignes : **tout flanc de couture porte un masque.**
+       La fleur est exclue par ce que les deux variantes ont en commun —
+       ni l'une ni l'autre n'est un `span` sans classe. */
+    const coutures = [];
+    for (const c of document.querySelectorAll(".couture, .divider")) {
+      if (!c.offsetParent) continue;
+      for (const f of c.children) {
+        if (f.tagName !== "SPAN" || f.classList.contains("jepun-mark")) continue;
+        const st = getComputedStyle(f);
+        const masque = st.maskImage || st.webkitMaskImage;
+        if (!masque || masque === "none")
+          coutures.push("flanc sans masque : " + (c.className || "?").slice(0, 30));
+      }
+    }
+
     /* 1.4.11 : 3:1 pour les objets graphiques, contour des champs
        compris. */
     const contours = [];
@@ -130,15 +150,17 @@ async function passe(page, nom, w) {
       if (ratio < 3) contours.push(el.name || el.id || el.tagName, +ratio.toFixed(2));
     }
 
-    return { debord, petits, casses, contours, ecrans: +(document.body.scrollHeight / innerHeight).toFixed(1) };
+    return { debord, petits, casses, contours, coutures, ecrans: +(document.body.scrollHeight / innerHeight).toFixed(1) };
   });
 
   dire(
-    r.debord === 0 && !r.petits.length && !r.casses.length && !r.contours.length && !erreurs.length,
+    r.debord === 0 && !r.petits.length && !r.casses.length && !r.contours.length &&
+      !r.coutures.length && !erreurs.length,
     `${nom} @${w}  débord ${r.debord}  écrans ${r.ecrans}` +
       (r.petits.length ? `\n    cibles: ${JSON.stringify(r.petits)}` : "") +
       (r.casses.length ? `\n    deux lignes: ${JSON.stringify(r.casses)}` : "") +
       (r.contours.length ? `\n    contours: ${JSON.stringify(r.contours)}` : "") +
+      (r.coutures.length ? `\n    coutures: ${JSON.stringify(r.coutures)}` : "") +
       (erreurs.length ? `\n    console: ${JSON.stringify(erreurs.slice(0, 3))}` : ""),
   );
   page.off("console", onErr);
