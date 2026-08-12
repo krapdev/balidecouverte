@@ -83,7 +83,9 @@ import { QUESTIONS } from "@/lib/portrait";
 export const metadata = {
   title: "Agus Yudiarta, guide francophone à Bali",
   description:
-    "Guide balinais licencié, francophone depuis l'Alliance Française, je travaille en direct depuis 2005. Mon métier, ma famille, et l'union de guides dont je fais partie.",
+    /* 149 caractères ; il en faisait 167, et la coupe de Google tombait
+       en plein milieu de l'union de guides. */
+    "Guide balinais licencié, francophone depuis l'Alliance Française, je travaille en direct depuis 2005. Mon métier, ma famille, mon union de guides.",
   alternates: { canonical: "/agus" },
   /* `noindex` tant que la page porte des marqueurs « à compléter ».
      Trois choses vont ensemble le jour où Agus a répondu : ce bloc, le
@@ -100,6 +102,10 @@ export const metadata = {
     title: "Agus Yudiarta, guide francophone à Bali",
     description:
       "Guide balinais diplômé, francophone, professionnel depuis 2005.",
+    /* ⚠️ **`images` doit être redonnée** : déclarer `openGraph` remplace
+       celui du gabarit. Sans cette ligne, la page qui présente Agus se
+       partageait sans vignette. */
+    images: ["/opengraph-image.png"],
   },
 };
 

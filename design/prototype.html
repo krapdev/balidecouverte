@@ -1012,7 +1012,7 @@
   /* Les familles d'envies */
   .famille-suivante { margin-top: 3.5rem; }
   .famille-tete { border-top: 1px solid var(--rule); padding-top: 1.25rem; margin-bottom: 1.5rem; }
-  .famille-tete h3 { font-family: var(--display); font-size: 1.5rem; line-height: 1.2; }
+  .famille-tete h2 { font-family: var(--display); font-size: 1.5rem; line-height: 1.2; }
   .famille-tete p { margin-top: 0.25rem; max-width: 52ch; font-size: var(--t-sm); color: var(--text-soft); line-height: 1.6; }
 
   .formules { list-style: none; margin: 0 0 3.5rem; padding: 0; display: grid; gap: 1.25rem; }
@@ -1367,7 +1367,7 @@
   .footer { padding-block: clamp(2.5rem, 7vw, 4rem) 6.5rem; }
   .footer-in { display: grid; gap: 2rem; }
   @media (min-width: 760px) { .footer-in { grid-template-columns: 1.1fr 1fr; } }
-  .footer h3 { font-size: var(--t-xl); margin-bottom: 0.5rem; }
+  .footer-marque { font-family: var(--display); font-weight: 500; font-size: var(--t-xl); line-height: 1.2; margin-bottom: 0.5rem; }
   .footer p, .footer a { color: var(--on-immersive-soft); font-size: var(--t-sm); text-decoration: none; }
   .footer a:hover { color: var(--on-immersive); }
   .footer-col { display: flex; flex-direction: column; gap: 0.5rem; }
@@ -2112,7 +2112,11 @@
   <div class="shell">
     <div class="sec-head reveal">
       <p class="label sec-eyebrow">Tarifs</p>
-      <h2>Au jour, et par véhicule.</h2>
+      <!-- ⚠️ `h1` et non `h2` : cette vue EST une page, comme /tarifs
+           dans l'app qui y met un `h1` et six `h2`. En `h2`, la vue
+           n'avait aucun titre de premier niveau — un document sans h1
+           n'a pas de sommet. -->
+      <h1 style="font-size: clamp(1.9rem, 5.2vw, 2.375rem)">Au jour, et par véhicule.</h1>
       <p>Vous ne payez pas par personne : vous payez ma journée et ma voiture.
       La même journée revient à 40 € par personne quand vous êtes deux, et à
       20 € quand vous êtes cinq — c'est ce qui rend le guide privé abordable en
@@ -2131,7 +2135,7 @@
          être annoncées : on voyait « 80 € » et « 1 210 € » sur le même
          écran sans pouvoir les rapprocher. -->
     <div class="reveal">
-      <h3 id="formules" style="font-size: var(--t-xl)">Trois façons de compter</h3>
+      <h2 id="formules" style="font-size: var(--t-xl)">Trois façons de compter</h2>
       <p style="margin-top: 0.5rem; max-width: 62ch; font-size: var(--t-sm); color: var(--text-soft); line-height: 1.6">
         Elles ne se mélangent pas, et c'est la première chose à savoir avant de
         lire un chiffre.</p>
@@ -2143,7 +2147,7 @@
     <div class="reveal tarifs-tete">
       <span class="tarifs-symbole" id="symTedung"></span>
       <div>
-        <h3 id="grille">La journée, par saison</h3>
+        <h2 id="grille">La journée, par saison</h2>
         <p id="grilleNote"></p>
       </div>
     </div>
@@ -2162,11 +2166,11 @@
     <!-- 5. Compris / à régler sur place -->
     <div class="tarifs-cols">
       <div class="reveal">
-        <h3 id="compris" style="font-size: var(--t-xl); margin-bottom: 1rem">Compris dans la journée</h3>
+        <h2 id="compris" style="font-size: var(--t-xl); margin-bottom: 1rem">Compris dans la journée</h2>
         <ul class="tarifs-list" id="inclusList"></ul>
       </div>
       <div class="reveal">
-        <h3 style="font-size: var(--t-xl); margin-bottom: 1rem">À régler sur place</h3>
+        <h2 style="font-size: var(--t-xl); margin-bottom: 1rem">À régler sur place</h2>
         <ul class="tarifs-list tarifs-out" id="exclusList"></ul>
       </div>
     </div>
@@ -2175,7 +2179,7 @@
     <!-- 6. Les deux autres formules, et le véhicule -->
     <div class="reveal tarifs-tete">
       <span class="tarifs-symbole" id="symGong"></span>
-      <h3 id="savoir">Les deux autres formules</h3>
+      <h2 id="savoir">Les deux autres formules</h2>
     </div>
     <div class="autres-formules" id="autresFormules"></div>
 
@@ -2496,7 +2500,13 @@
   <div class="shell footer-in">
     <div class="footer-col">
       <p class="label" style="color: var(--soleil-pale); margin-bottom: 0.6rem">Om Swastiastu</p>
-      <h3>Bali Découverte</h3>
+      <!-- ⚠️ Un `<p>` et non un `<h3>`, comme dans l'app. Le nom du site
+           dans le pied n'est le titre de rien : il apparaît sur les six
+           vues, donc il s'insérait dans le plan de chacune — et sur la
+           vue du livre d'or, où il n'y a aucun h2, il faisait sauter le
+           plan de h1 à h3. Un lecteur d'écran qui navigue de titre en
+           titre y entendait une section fantôme. -->
+      <p class="footer-marque">Bali Découverte</p>
       <p>Voyages privés sur-mesure conçus et guidés en français par Agus Yudiarta,
       guide diplômé francophone à Denpasar. Bali, Lombok, Java Centre et Est,
       Sumbawa, Flores, Komodo et Rinca.</p>
@@ -4186,7 +4196,12 @@ Nous recommandons Agus sans hésitation à ceux qui souhaitent découvrir Bali a
            elle : les deux ensemble donnaient un accident, pas un motif. */
         (fi ? couture("margin-bottom: 2.5rem") : "") +
         '<div class="famille-tete reveal"' + (fi ? ' style="border-top: 0; padding-top: 0"' : "") + '>' +
-          '<h3>' + f.titre + '</h3>' +
+          /* ⚠️ `h2` et non `h3` : le titre de la vue est un `h1`, et un
+             plan qui saute de h1 à h3 n'est pas une faute de style — c'est
+             le sommaire que lit un lecteur d'écran qui navigue de titre en
+             titre. Relevé par Lighthouse et par le contrôle maison, des
+             deux côtés. */
+          '<h2>' + f.titre + '</h2>' +
           '<p>' + f.texte + '</p>' +
         '</div>' +
         '<ul class="journees">' + liste.map(function (a) {

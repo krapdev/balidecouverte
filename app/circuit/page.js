@@ -33,7 +33,10 @@ import { CADRE, JOURS, COMPRIS, NON_COMPRIS, TEMPS_FORTS } from "@/lib/circuit";
  */
 
 export const metadata = {
-  title: "Le circuit de 15 jours à Bali, jour par jour",
+  /* 59 caractères une fois le suffixe du gabarit ajouté. Il en faisait
+     62, et au-delà de ~60 Google tronque : c'est « jour par jour » — la
+     promesse même de la page — qui disparaissait du résultat. */
+  title: "Circuit de 15 jours à Bali, jour par jour",
   description:
     "Le programme complet du circuit de quinze jours d'Agus Yudiarta : sept étapes, quatorze jours guidés, ce que le prix comprend et ce qu'il ne comprend pas.",
   alternates: { canonical: "/circuit" },
@@ -45,9 +48,15 @@ export const metadata = {
     locale: "fr_FR",
     url: "/circuit",
     siteName: "Bali Découverte",
-    title: "Le circuit de 15 jours à Bali, jour par jour",
+    title: "Circuit de 15 jours à Bali, jour par jour",
     description:
       "Sept étapes, quatorze jours guidés, et le détail de ce que le prix comprend.",
+    /* ⚠️ **`images` doit être redonnée**, et le commentaire ci-dessus le
+       disait déjà sans que la ligne existe : cette page se partageait
+       sans vignette. Relevé — og:image était absente sur /circuit,
+       /envies et /agus, c'est-à-dire sur les deux pages où mène la
+       fourche et sur celle qui présente l'homme. */
+    images: ["/opengraph-image.png"],
   },
 };
 

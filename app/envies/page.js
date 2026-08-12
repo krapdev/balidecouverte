@@ -23,7 +23,10 @@ import Activites from "@/components/Activites";
  */
 
 export const metadata = {
-  title: "Les envies : les classiques de Bali et les places secrètes",
+  /* 55 caractères avec le suffixe du gabarit ; il en faisait 76, donc
+     vingt de tronqués dans les résultats. « Les envies » est le mot du
+     site, pas celui qu'on cherche — ce qu'on cherche venait après. */
+  title: "Classiques de Bali et places secrètes",
   description:
     "Les sites qu'on vient chercher à Bali, et les endroits qu'Agus Yudiarta est à peu près seul à montrer. Cochez, il en fait un itinéraire.",
   alternates: { canonical: "/envies" },
@@ -35,9 +38,12 @@ export const metadata = {
     locale: "fr_FR",
     url: "/envies",
     siteName: "Bali Découverte",
-    title: "Les envies : les classiques de Bali et les places secrètes",
+    title: "Classiques de Bali et places secrètes",
     description:
       "Les classiques, et les endroits qu'Agus est à peu près seul à montrer.",
+    /* ⚠️ **`images` doit être redonnée** : déclarer `openGraph` remplace
+       celui du gabarit, il ne le complète pas. */
+    images: ["/opengraph-image.png"],
   },
 };
 

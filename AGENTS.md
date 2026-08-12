@@ -342,6 +342,53 @@ Agus Yudiarta existe, et le site est son gagne-pain.
   changent d'une version à l'autre.
 - Le fichier n'a **pas de `<head>`** et embarque ses polices en base64.
 
+## Le référencement
+
+`seo.mjs` fait ce que Lighthouse ne fait pas : il compare les huit routes
+entre elles. Il a trouvé quatorze défauts en une passe, dont trois qu'aucun
+outil de page unique ne voit.
+
+- **Déclarer `openGraph` dans une page REMPLACE celui du gabarit.** Le piège
+  était documenté dans `/circuit`… au-dessus d'un bloc qui ne redonnait pas
+  `images`. Résultat : **/circuit, /envies et /agus se partageaient sans
+  vignette** — les deux pages où mène la fourche, et celle qui présente
+  l'homme. Toute page qui déclare `openGraph` doit redonner `images` **et**
+  `type`. Un commentaire qui décrit le piège n'est pas un correctif.
+- **Un titre au-delà de ~60 caractères est tronqué**, et c'est la fin qui
+  saute — donc le mot le plus spécifique. `/envies` en avait 76 : « Les
+  envies » est le vocabulaire du site, pas ce qu'on tape dans un moteur.
+  La description vise 70–160.
+- **Un saut de niveau de titre est un défaut de plan, pas de style.** Le
+  titre de famille d'`Activites` était figé en `h3` alors que l'en-tête
+  passe en `h1` sur `/envies` : h1 → h3. Il se déduit désormais du niveau
+  reçu. Même défaut trouvé dans la maquette, à deux endroits de plus — le
+  nom du site dans le pied était un `h3`, donc une section fantôme sur les
+  six vues, et la vue tarifs n'avait aucun `h1`.
+- **`/agus` est en `noindex` volontairement** : SEO 69 sur cette page est
+  donc le résultat attendu, pas un défaut. Trois choses vont ensemble le
+  jour où Agus répond : le `robots`, le bandeau, l'entrée au sitemap.
+
+## La performance
+
+Mesurée avec Lighthouse (mobile bridé) et au CDP pour les chronologies.
+
+- **Le LCP de l'accueil est la première photo du diaporama.** Les quatre
+  images partaient à 2 ms d'intervalle et se disputaient la bande passante :
+  celle qu'on voit finissait à 2,83 s pendant que trois qu'on ne verra pas
+  avant plusieurs secondes continuaient jusqu'à 4,2. `fetchPriority` était
+  déjà posé et **ne suffit pas** : en HTTP/1.1 le navigateur ouvre six
+  connexions et les lance toutes de front.
+- **`preload()` de react-dom, jamais un `<link>` en JSX.** Le `<link>` a été
+  essayé : il est resté dans le corps, à l'octet 25 217 alors que `</head>`
+  est à 3 748 — découvert en même temps que les images qu'il devait
+  devancer, gain nul. L'API de React le remonte vraiment. Gain mesuré :
+  LCP 2,85 s → 2,39 s au CDP.
+- ⚠️ **Les photos ne sont PAS sur-compressées, vérifié.** L'hypothèse venait
+  du poids par pixel (0,37 à 0,45 octet/px, deux à trois fois la normale) et
+  elle était fausse : réencoder à q82 ne rend que **15 %** pour un écart
+  visible de 2,2 à 3,3 sur 255. Ce sont des feuillages et de l'eau — le
+  poids est dans le sujet. Ne pas y revenir sans remesurer.
+
 ## L'audit
 
 Boucle établie : `npm install --no-save playwright` → `npm run build` →

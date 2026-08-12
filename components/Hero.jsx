@@ -1,3 +1,4 @@
+import { preload } from "react-dom";
 import { ArrowRight } from "lucide-react";
 import { JepunBranch } from "./Scene";
 import Photo from "./Photo";
@@ -84,6 +85,29 @@ const PHOTOS = [
 ];
 
 export default function Hero() {
+  /* ⚠️ **Le LCP de l'accueil, c'est la première photo du diaporama** —
+     mesuré à 2,85 s sur 4G bridée, et c'est elle seule qui fixe la note.
+     Les quatre images partaient à 2 ms d'intervalle et se disputaient la
+     bande : celle qu'on voit finissait à 2,8 s pendant que trois qu'on
+     ne verra pas avant plusieurs secondes continuaient jusqu'à 4,2.
+     `fetchPriority="high"` était déjà posé sur la première et ne suffit
+     pas : en HTTP/1.1 le navigateur ouvre six connexions et les lance
+     toutes de front.
+     ⚠️ **`preload()` de react-dom, et non un `<link>` en JSX.** Le
+     `<link>` a été essayé : il est resté dans le corps, à l'octet 25 217
+     alors que `</head>` est à 3 748 — donc découvert en même temps que
+     les images qu'il devait devancer, pour un gain nul. L'API de React
+     le remonte réellement dans l'en-tête.
+     ⚠️ `imageSrcSet` et `imageSizes` doivent répéter EXACTEMENT ceux de
+     l'image : sans eux le navigateur précharge une taille et en choisit
+     une autre, et on télécharge deux fois au lieu d'une. */
+  preload(PHOTOS[0].src, {
+    as: "image",
+    imageSrcSet: PHOTOS[0].webp,
+    imageSizes: PHOTOS[0].sizes,
+    fetchPriority: "high",
+  });
+
   return (
     <>
       <section

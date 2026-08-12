@@ -14,7 +14,9 @@ import { TARIFS } from "@/lib/data";
 export const metadata = {
   title: "Conditions générales de vente",
   description:
-    "Les conditions de vente des prestations de guidage, de transport et d'organisation de voyage d'Agus Yudiarta à Bali : devis, prix, paiement, annulation, responsabilité.",
+    /* 152 caractères ; il en faisait 168 et la coupe tombait dans
+       « responsabilité ». */
+    "Les conditions de vente des prestations de guidage, de transport et de voyage d'Agus Yudiarta à Bali : devis, prix, paiement, annulation, responsabilité.",
   alternates: { canonical: "/cgv" },
   robots: { index: false, follow: true },
 };

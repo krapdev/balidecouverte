@@ -46,6 +46,14 @@ import { useTrip } from "@/lib/trip-store";
  * section parmi d'autres.
  */
 export default function Activites({ niveau = 2 }) {
+  /* ⚠️ **Le titre de famille se déduit du niveau de l'en-tête, il ne
+     s'écrit pas en dur.** Il était figé en `h3` : sur /envies, où
+     l'en-tête passe en `h1` parce que la page est devenue la page
+     entière, le plan sautait donc de h1 à h3. Un saut de niveau n'est
+     pas une faute de style — c'est le plan du document, et c'est ce que
+     lit un lecteur d'écran qui navigue de titre en titre. Relevé par
+     Lighthouse ET par le contrôle maison, tous deux sur /envies. */
+  const TitreFamille = `h${niveau + 1}`;
   const { isActiviteSelected, toggleActivite, count } = useTrip();
   /* La visionneuse s'ouvre sur UNE place : `ouverte` porte la place,
      `photo` le rang de la vue à l'intérieur. Le swipe reste dedans. */
@@ -88,9 +96,9 @@ export default function Activites({ niveau = 2 }) {
                 <div
                   className={`mb-6 pt-5 ${fi ? "" : "border-t border-rule"}`}
                 >
-                  <h3 className="font-display text-[1.5rem] leading-tight">
+                  <TitreFamille className="font-display text-[1.5rem] leading-tight">
                     {f.titre}
-                  </h3>
+                  </TitreFamille>
                   <p className="mt-1 max-w-[52ch] text-sm leading-relaxed text-soft">
                     {f.texte}
                   </p>
