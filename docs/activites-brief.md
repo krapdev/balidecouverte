@@ -114,6 +114,37 @@ fait tout le propos se dilue.
 sans ordre, sans dates, sans regroupement géographique. Agus refait à la main
 le tri que le site avait sous la main.
 
+## Ce que le relevé des axes a montré
+
+Quatre axes ont été envisagés — région, activité, prix, nature. La planche
+`design/envies-axes.html` les met à l'épreuve sur les 22 activités réelles
+(elle est **générée depuis `lib/data.js`**, rien n'y est recopié). Trois
+constats en sont sortis, qu'aucune discussion n'aurait donnés :
+
+**« Par prix » ne peut pas exister.** Le tarif se compte par journée et par
+véhicule — 80 à 120 € selon la saison, le même à un ou à trois. Aucune
+activité n'a de prix, et lui en attribuer un reviendrait à en inventer
+vingt-deux. Ce qui varie réellement avec le choix, c'est **où l'on dort** :
+15 € de supplément par nuit dès qu'on loge loin de Denpasar, et le forfait
+séparé de Nusa Penida. **L'axe « région » est donc déjà l'axe « prix »** — un
+seul geste répond aux deux questions, et il répond vrai.
+
+**L'axe « région » est déséquilibré** : 9 activités dans le sud et le centre,
+6 dans le nord-centre, 4 à l'est, 2 au nord-ouest, 1 aux îles. Utilisable
+comme *question posée* au voyageur — « où logez-vous ? » —, pas comme sommaire :
+un sommaire dont une entrée contient un seul élément se lit comme une erreur.
+
+**`STYLES` ne trie pas.** Le vocabulaire du formulaire (Nature, Culture,
+Aventure, Détente, Famille, Gastronomie) appliqué aux activités donne
+« Culture » sur 14 des 22 et « Nature » sur 12 : un filtre qui ne retire rien.
+La planche propose à la place un vocabulaire de **gestes** — ce qu'on *fait*,
+pas de quoi ça a l'air : Regarder 11, Marcher 7, Rencontrer 6, Goûter 3, Se
+poser 3. Celui-là sépare. C'est une proposition éditoriale, à valider par Agus.
+
+Les régions et les gestes affectés activité par activité figurent au bas de la
+planche, avec le passage de `lib/data.js` qui fonde chacun et un marqueur sur
+les quatre cas que le texte ne tranche pas.
+
 ## Les questions à trancher
 
 Elles sont l'ordre du jour du projet ; aucune n'a de réponse évidente.
@@ -127,6 +158,8 @@ Elles sont l'ordre du jour du projet ; aucune n'a de réponse évidente.
    site est inverse : c'est Agus qui propose. Une troisième voie serait de
    n'utiliser les nouveaux champs qu'en sortie (regrouper le message par
    région, signaler une incompatibilité de saison) sans jamais rien montrer.
+   Les quatre réponses possibles sont montées côte à côte dans
+   `design/envies-axes.html`.
 3. **La région remplace-t-elle la famille, ou s'y ajoute-t-elle ?** Grouper par
    région est ce que réclame le voyageur ; grouper par famille est ce qui vend.
    Les deux à la fois font deux axes sur une page qui n'en supporte qu'un.
